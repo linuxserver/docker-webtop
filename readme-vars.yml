@@ -1,0 +1,66 @@
+---
+
+# project information
+project_name: rdesktop
+project_url: "http://xrdp.org/"
+project_logo: "https://raw.githubusercontent.com/linuxserver/docker-templates/master/linuxserver.io/img/rdesktop.png"
+project_blurb: |
+  [{{ project_name|capitalize }}]({{ project_url }}) - Ubuntu based containers containing full desktop environments in officially supported flavors accessible via RDP.
+project_lsio_github_repo_url: "https://github.com/linuxserver/docker-{{ project_name }}"
+
+# supported architectures
+available_architectures:
+  - { arch: "{{ arch_x86_64 }}", tag: "amd64-latest"}
+  - { arch: "{{ arch_arm64 }}", tag: "arm64v8-latest"}
+  - { arch: "{{ arch_armhf }}", tag: "arm32v7-latest"}
+
+# development version
+development_versions: true
+development_versions_items:
+  - { tag: "latest", desc: "XFCE Focal" }
+  - { tag: "xfce-bionic", desc: "XFCE Bionic" }
+  - { tag: "kde-focal", desc: "KDE Focal" }
+  - { tag: "kde-bionic", desc: "KDE Bionic" }
+  - { tag: "lxde-focal", desc: "LXDE Focal" }
+  - { tag: "lxde-bionic", desc: "LXDE Bionic" }
+  - { tag: "budgie-focal", desc: "Budgie Focal" }
+  - { tag: "budgie-bionic", desc: "Budgie Bionic" }
+  - { tag: "mate-focal", desc: "MATE Focal" }
+  - { tag: "mate-bionic", desc: "MATE Bionic" }
+  - { tag: "kylin-focal", desc: "Kylin Focal" }
+  - { tag: "kylin-bionic", desc: "Kylin Bionic" }
+
+# container parameters
+param_container_name: "{{ project_name }}"
+param_usage_include_vols: false
+param_usage_include_ports: true
+param_ports:
+  - { external_port: "3389", internal_port: "3389", port_desc: "RDP access port" }
+param_usage_include_env: true
+param_env_vars:
+  - { env_var: "TZ", env_value: "Europe/London", desc: "Specify a timezone to use EG Europe/London"}
+# optional variables
+opt_param_usage_include_vols: true
+opt_param_volumes:
+  - { vol_path: "/var/run/docker.sock", vol_host_path: "/var/run/docker.sock", desc: "Docker Socket on the system, if you want to use Docker in the container" }
+  - { vol_path: "/config", vol_host_path: "/path/to/data", desc: "abc users home directory" }
+
+# application setup block
+app_setup_block_enabled: true
+app_setup_block: |
+  **The Default USERNAME and PASSWORD is: abc/abc**
+  
+  **Unlike our other containers these Desktops are not designed to be upgraded by Docker, you will keep your home directoy but anything you installed system level will be lost if you upgrade an existing container. To keep packages up to date instead use Ubuntu's own apt program**
+  
+  You will need a Remote Desktop client to access this container [Wikipedia List](https://en.wikipedia.org/wiki/Comparison_of_remote_desktop_software), by default it listens on 3389, but you can change that port to whatever you wish on the host side IE `3390:3389`.
+  The first thing you should do when you login to the container is to change the abc users password by issuing the `passwd` command. 
+  If you ever lose your password you can always reset it by execing into the container as root:
+  ```
+  docker exec -it rdesktop passwd abc
+  ```
+  By default we perform all logic for the abc user and we reccomend using that user only in the container, but new users can be added as long as there is a `startwm.sh` executable script in their home directory.
+  All of these containers are configured with passwordless sudo, we make no efforts to secure or harden these containers and we do not reccomend ever publishing their ports to the public Internet. 
+
+# changelog
+changelogs:
+  - { date: "28.02.20:", desc: "Initial Releases" }
