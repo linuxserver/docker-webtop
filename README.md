@@ -88,7 +88,7 @@ By default the user/pass is abc/abc, if you change your password or want to logi
 
 You can access advanced features of the Guacamole remote desktop using ctrl+alt+shift enabling you to use remote copy/paste or an onscreen keyboard.
 
-**Unlike our other containers these Desktops are not designed to be upgraded by Docker, you will keep your home directoy but anything you installed system level will be lost if you upgrade an existing container. To keep packages up to date instead use Ubuntu's own apt program**
+**Unlike our other containers these Desktops are not designed to be upgraded by Docker, you will keep your home directoy but anything you installed system level will be lost if you upgrade an existing container. To keep packages up to date instead use Ubuntu's own apt program or Alpine's apk program**
 
 **The KDE and i3 flavors for Ubuntu need to be run in privileged mode to function properly**
 
