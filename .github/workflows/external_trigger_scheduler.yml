@@ -1,0 +1,43 @@
+name: External Trigger Scheduler
+
+on:
+  schedule:
+    - cron:  '04 * * * *'
+  workflow_dispatch:
+
+jobs:
+  external-trigger-scheduler:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2.3.3
+        with:
+          fetch-depth: '0'
+
+      - name: External Trigger Scheduler
+        run: |
+          echo "**** Branches found: ****"
+          git for-each-ref --format='%(refname:short)' refs/remotes
+          echo "**** Pulling the yq docker image ****"
+          docker pull ghcr.io/linuxserver/yq
+          for br in $(git for-each-ref --format='%(refname:short)' refs/remotes)
+          do
+            br=$(echo "$br" | sed 's|origin/||g')
+            echo "**** Evaluating branch ${br} ****"
+            ls_branch=$(curl -sX GET https://raw.githubusercontent.com/linuxserver/docker-rdesktop/${br}/jenkins-vars.yml \
+              | docker run --rm -i --entrypoint yq ghcr.io/linuxserver/yq -r .ls_branch)
+            if [ "$br" == "$ls_branch" ]; then
+              echo "**** Branch ${br} appears to be live; checking workflow. ****"
+              if curl -sfX GET https://raw.githubusercontent.com/linuxserver/docker-rdesktop/${br}/.github/workflows/external_trigger.yml > /dev/null 2>&1; then
+                echo "**** Workflow exists. Triggering external trigger workflow for branch ${br} ****."
+                curl -iX POST \
+                  -H "Authorization: token ${{ secrets.CR_PAT }}" \
+                  -H "Accept: application/vnd.github.v3+json" \
+                  -d "{\"ref\":\"refs/heads/${br}\"}" \
+                  https://api.github.com/repos/linuxserver/docker-rdesktop/actions/workflows/external_trigger.yml/dispatches
+              else
+                echo "**** Workflow doesn't exist; skipping trigger. ****"
+              fi
+            else
+              echo "**** ${br} appears to be a dev branch; skipping trigger. ****"
+            fi
+          done
