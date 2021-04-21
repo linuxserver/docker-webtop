@@ -1,0 +1,50 @@
+name: Package Trigger Scheduler
+
+on:
+  schedule:
+    - cron:  '04 9 * * 0'
+  workflow_dispatch:
+
+jobs:
+  package-trigger-scheduler:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2.3.3
+        with:
+          fetch-depth: '0'
+
+      - name: Package Trigger Scheduler
+        run: |
+          echo "**** Branches found: ****"
+          git for-each-ref --format='%(refname:short)' refs/remotes
+          echo "**** Pulling the yq docker image ****"
+          docker pull ghcr.io/linuxserver/yq
+          for br in $(git for-each-ref --format='%(refname:short)' refs/remotes)
+          do
+            br=$(echo "$br" | sed 's|origin/||g')
+            echo "**** Evaluating branch ${br} ****"
+            ls_branch=$(curl -sX GET https://raw.githubusercontent.com/linuxserver/docker-webtop/${br}/jenkins-vars.yml \
+              | docker run --rm -i --entrypoint yq ghcr.io/linuxserver/yq -r .ls_branch)
+            if [ "${br}" == "${ls_branch}" ]; then
+              echo "**** Branch ${br} appears to be live; checking workflow. ****"
+              if curl -sfX GET https://raw.githubusercontent.com/linuxserver/docker-webtop/${br}/.github/workflows/package_trigger.yml > /dev/null 2>&1; then
+                echo "**** Workflow exists. Triggering package trigger workflow for branch ${br}. ****"
+                triggered_branches="${triggered_branches}${br} "
+                curl -iX POST \
+                  -H "Authorization: token ${{ secrets.CR_PAT }}" \
+                  -H "Accept: application/vnd.github.v3+json" \
+                  -d "{\"ref\":\"refs/heads/${br}\"}" \
+                  https://api.github.com/repos/linuxserver/docker-webtop/actions/workflows/package_trigger.yml/dispatches
+                sleep 30
+              else
+                echo "**** Workflow doesn't exist; skipping trigger. ****"
+              fi
+            else
+              echo "**** ${br} appears to be a dev branch; skipping trigger. ****"
+            fi
+          done
+          echo "**** Package check build(s) triggered for branch(es): ${triggered_branches} ****"
+          echo "**** Notifying Discord ****"
+          curl -X POST -H "Content-Type: application/json" --data '{"avatar_url": "https://cdn.discordapp.com/avatars/354986384542662657/df91181b3f1cf0ef1592fbe18e0962d7.png","embeds": [{"color": 9802903,
+            "description": "**Package Check Build(s) Triggered for webtop** \n**Branch(es):** '"${triggered_branches}"' \n**Build URL:** '"https://ci.linuxserver.io/blue/organizations/jenkins/Docker-Pipeline-Builders%2Fdocker-webtop/activity/"' \n"}],
+            "username": "Github Actions"}' ${{ secrets.DISCORD_WEBHOOK }}
