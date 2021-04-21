@@ -1,0 +1,7 @@
+#!/usr/bin/with-contenv bash
+
+# default file copies first run
+[[ ! -f /config/.config/openbox/menu.xml ]] && \
+    mkdir -p /config/.config/openbox && \
+    cp /defaults/menu.xml /config/.config/openbox/menu.xml && \
+    chown -R abc:abc /config/.config
