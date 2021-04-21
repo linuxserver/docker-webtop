@@ -1,0 +1,13 @@
+name: Greetings
+
+on: [pull_request_target, issues]
+
+jobs:
+  greeting:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/first-interaction@v1
+      with:
+        issue-message: 'Thanks for opening your first issue here! Be sure to follow the [bug](https://github.com/linuxserver/docker-webtop/blob/alpine-i3/.github/ISSUE_TEMPLATE/issue.bug.md) or [feature](https://github.com/linuxserver/docker-webtop/blob/alpine-i3/.github/ISSUE_TEMPLATE/issue.feature.md) issue templates!'
+        pr-message: 'Thanks for opening this pull request! Be sure to follow the [pull request template](https://github.com/linuxserver/docker-webtop/blob/alpine-i3/.github/PULL_REQUEST_TEMPLATE.md)!'
+        repo-token: ${{ secrets.GITHUB_TOKEN }}
