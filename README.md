@@ -39,9 +39,9 @@ Find us at:
 [![Jenkins Build](https://img.shields.io/jenkins/build?labelColor=555555&logoColor=ffffff&style=for-the-badge&jobUrl=https%3A%2F%2Fci.linuxserver.io%2Fjob%2FDocker-Pipeline-Builders%2Fjob%2Fdocker-webtop%2Fjob%2Fubuntu-i3%2F&logo=jenkins)](https://ci.linuxserver.io/job/Docker-Pipeline-Builders/job/docker-webtop/job/ubuntu-i3/)
 [![LSIO CI](https://img.shields.io/badge/dynamic/yaml?color=94398d&labelColor=555555&logoColor=ffffff&style=for-the-badge&label=CI&query=CI&url=https%3A%2F%2Fci-tests.linuxserver.io%2Flinuxserver%2Fwebtop%2Flatest%2Fci-status.yml)](https://ci-tests.linuxserver.io/linuxserver/webtop/latest/index.html)
 
-[Webtop](http://xrdp.org/) - Ubuntu based containers containing full desktop environments in officially supported flavors accessible via RDP.
+[Webtop](https://github.com/linuxserver/docker-webtop) - Alpine and Ubuntu based containers containing full desktop environments in officially supported flavors accessible via any modern web browser.
 
-[![webtop](https://raw.githubusercontent.com/linuxserver/docker-templates/master/linuxserver.io/img/rdesktop.png)](http://xrdp.org/)
+[![webtop](https://raw.githubusercontent.com/linuxserver/docker-templates/master/linuxserver.io/img/webtop-logo.png)](https://github.com/linuxserver/docker-webtop)
 
 ## Supported Architectures
 
@@ -63,30 +63,38 @@ This image provides various versions that are available via tags. `latest` tag u
 
 | Tag | Description |
 | :----: | --- |
-| latest | XFCE Focal |
-| xfce-bionic | XFCE Bionic |
-| kde-focal | KDE Focal |
-| kde-bionic | KDE Bionic |
-| lxde-focal | LXDE Focal |
-| lxde-bionic | LXDE Bionic |
-| budgie-focal | Budgie Focal |
-| budgie-bionic | Budgie Bionic |
-| mate-focal | MATE Focal |
-| mate-bionic | MATE Bionic |
-| kylin-focal | Kylin Focal |
-| kylin-bionic | Kylin Bionic |
+| latest | XFCE Alpine |
+| ubuntu-xfce | XFCE Ubuntu |
+| alpine-kde | KDE Alpine |
+| ubuntu-kde | KDE Ubuntu |
+| alpine-mate | MATE Alpine |
+| ubuntu-mate | MATE Ubuntu |
+| alpine-i3 | i3 Alpine |
+| ubuntu-i3 | i3 Ubuntu |
+| alpine-openbox | Openbox Alpine |
+| ubuntu-openbox | Openbox Ubuntu |
+| alpine-icewm | IceWM Alpine |
+| ubuntu-icewm | IceWM Ubuntu |
 
 ## Application Setup
 
-**The Default USERNAME and PASSWORD is: abc/abc**
+The Webtop can be accessed at:
 
-**Unlike our other containers these Desktops are not designed to be upgraded by Docker, you will keep your home directoy but anything you installed system level will be lost if you upgrade an existing container. To keep packages up to date instead use Ubuntu's own apt program**
+* http://yourhost:3000/
 
-You will need a Remote Desktop client to access this container [Wikipedia List](https://en.wikipedia.org/wiki/Comparison_of_remote_desktop_software), by default it listens on 3389, but you can change that port to whatever you wish on the host side IE `3390:3389`.
-The first thing you should do when you login to the container is to change the abc users password by issuing the `passwd` command. 
+By default the user/pass is abc/abc, if you change your password or want to login manually to the GUI session for any reason use the following link:
+
+* http://yourhost:3000/?login=true
+
+You can access advanced features of the Guacamole remote desktop using ctrl+alt+shift enabling you to use remote copy/paste or an onscreen keyboard.
+
+**Unlike our other containers these Desktops are not designed to be upgraded by Docker, you will keep your home directoy but anything you installed system level will be lost if you upgrade an existing container. To keep packages up to date instead use Ubuntu's own apt program or Alpine's apk program**
+
+**The KDE and i3 flavors for Ubuntu need to be run in privileged mode to function properly**
+
 If you ever lose your password you can always reset it by execing into the container as root:
 ```
-docker exec -it rdesktop passwd abc
+docker exec -it webtop passwd abc
 ```
 By default we perform all logic for the abc user and we reccomend using that user only in the container, but new users can be added as long as there is a `startwm.sh` executable script in their home directory.
 All of these containers are configured with passwordless sudo, we make no efforts to secure or harden these containers and we do not reccomend ever publishing their ports to the public Internet.
@@ -106,15 +114,17 @@ services:
   webtop:
     image: ghcr.io/linuxserver/webtop
     container_name: webtop
+    privileged: true #optional
     environment:
       - PUID=1000
       - PGID=1000
       - TZ=Europe/London
     volumes:
+      - /path/to/data:/config
       - /var/run/docker.sock:/var/run/docker.sock #optional
-      - /path/to/data:/config #optional
     ports:
-      - 3389:3389
+      - 3000:3000
+    shm_size: "1gb" #optional
     restart: unless-stopped
 ```
 
@@ -123,12 +133,14 @@ services:
 ```bash
 docker run -d \
   --name=webtop \
+  --privileged `#optional` \
   -e PUID=1000 \
   -e PGID=1000 \
   -e TZ=Europe/London \
-  -p 3389:3389 \
+  -p 3000:3000 \
+  -v /path/to/data:/config \
   -v /var/run/docker.sock:/var/run/docker.sock `#optional` \
-  -v /path/to/data:/config `#optional` \
+  --shm-size="1gb" `#optional` \
   --restart unless-stopped \
   ghcr.io/linuxserver/webtop
 ```
@@ -139,12 +151,13 @@ Container images are configured using parameters passed at runtime (such as thos
 
 | Parameter | Function |
 | :----: | --- |
-| `-p 3389` | RDP access port |
+| `-p 3000` | Web Desktop GUI |
 | `-e PUID=1000` | for UserID - see below for explanation |
 | `-e PGID=1000` | for GroupID - see below for explanation |
 | `-e TZ=Europe/London` | Specify a timezone to use EG Europe/London |
-| `-v /var/run/docker.sock` | Docker Socket on the system, if you want to use Docker in the container |
 | `-v /config` | abc users home directory |
+| `-v /var/run/docker.sock` | Docker Socket on the system, if you want to use Docker in the container |
+| `--shm-size=` | We set this to 1 gig to prevent modern web browsers from crashing |
 
 ## Environment variables from files (Docker secrets)
 
@@ -255,4 +268,4 @@ Once registered you can define the dockerfile to use with `-f Dockerfile.aarch64
 
 ## Versions
 
-* **28.02.20:** - Initial Releases
+* **20.04.21:** - Initial release.
