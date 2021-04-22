@@ -37,4 +37,4 @@ about: Create a report to help us improve
 <!--- Provide your docker create/run command or compose yaml snippet, or a screenshot of settings if using a gui to create the container -->
 
 ## Docker logs
-<!--- Provide a full docker log, output of "docker logs rdesktop" -->
+<!--- Provide a full docker log, output of "docker logs webtop" -->
