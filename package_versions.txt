@@ -52,7 +52,7 @@ desktop-file-utils0.24-1ubuntu3
 dictionaries-common1.28.1
 diffutils1:3.7-3
 dirmngr2.2.19-3ubuntu2.1
-distro-info-data0.43ubuntu1.4
+distro-info-data0.43ubuntu1.5
 dmidecode3.2-3
 dmsetup2:1.02.167-1ubuntu1
 docker-ce-cli5:20.10.6~3-0~ubuntu-bionic
@@ -61,7 +61,7 @@ e2fsprogs1.45.5-2ubuntu1
 emacsen-common3.0.4
 fdisk2.34-0.1ubuntu9.1
 findutils4.7.0-1ubuntu1
-firefox87.0+build3-0ubuntu0.20.04.2
+firefox88.0+build2-0ubuntu0.20.04.1
 fontconfig2.13.1-2ubuntu3
 fontconfig-config2.13.1-2ubuntu3
 fonts-dejavu-core2.37-1
@@ -116,8 +116,8 @@ groff-base1.22.4-4build1
 gsettings-desktop-schemas3.36.0-1ubuntu1
 gstreamer1.0-alsa1.16.2-4
 gstreamer1.0-plugins-base1.16.2-4
-gstreamer1.0-plugins-good1.16.2-1ubuntu2
-gstreamer1.0-pulseaudio1.16.2-1ubuntu2
+gstreamer1.0-plugins-good1.16.2-1ubuntu2.1
+gstreamer1.0-pulseaudio1.16.2-1ubuntu2.1
 gtk2-engines1:2.20.2-5
 gtk2-engines-murrine0.98.2-3
 gtk2-engines-pixbuf2.24.32-4ubuntu4
@@ -200,6 +200,7 @@ libcap21:2.32-1
 libcap2-bin1:2.32-1
 libcap-ng00.7.9-2.1build1
 libc-bin2.31-0ubuntu9.2
+libcbor0.60.6.0-0ubuntu1
 libcdio182.0.0-2
 libcdio-cdda210.2+2.0.0-1
 libcdio-paranoia210.2+2.0.0-1
@@ -245,6 +246,7 @@ libextutils-pkgconfig-perl1.16-1
 libfdisk12.34-0.1ubuntu9.1
 libffi73.3-4
 libfftw3-single33.3.8-2ubuntu1
+libfido2-11.3.1-1ubuntu2
 libflac81.3.3-1build1
 libfontconfig12.13.1-2ubuntu3
 libfontembed11.27.4-1
@@ -299,7 +301,7 @@ libgssapi-krb5-21.17-6ubuntu4.1
 libgstreamer1.0-01.16.2-2
 libgstreamer-gl1.0-01.16.2-4
 libgstreamer-plugins-base1.0-01.16.2-4
-libgstreamer-plugins-good1.0-01.16.2-1ubuntu2
+libgstreamer-plugins-good1.0-01.16.2-1ubuntu2.1
 libgtk2.0-02.24.32-4ubuntu4
 libgtk2.0-common2.24.32-4ubuntu4
 libgtk-3-03.24.20-0ubuntu1
@@ -319,7 +321,7 @@ libharfbuzz-icu02.6.4-1ubuntu4
 libhcrypto4-heimdal7.7.0+dfsg-1ubuntu1
 libheimbase1-heimdal7.7.0+dfsg-1ubuntu1
 libheimntlm0-heimdal7.7.0+dfsg-1ubuntu1
-libhogweed53.5.1+really3.5.1-2
+libhogweed53.5.1+really3.5.1-2ubuntu0.1
 libhpmud03.20.3+dfsg0-2
 libhunspell-1.7-01.7.0-2build2
 libhx509-5-heimdal7.7.0+dfsg-1ubuntu1
@@ -392,7 +394,7 @@ libmtp-runtime1.1.17-3
 libmysqlclient218.0.23-0ubuntu0.20.04.1
 libncurses66.2-0ubuntu2
 libncursesw66.2-0ubuntu2
-libnettle73.5.1+really3.5.1-2
+libnettle73.5.1+really3.5.1-2ubuntu0.1
 libnfs134.0.0-1
 libnghttp2-141.40.0-1build1
 libnl-3-2003.4.0-1
@@ -440,7 +442,7 @@ libpolkit-gobject-1-00.105-26ubuntu1
 libpoppler970.86.1-0ubuntu1
 libpoppler-cpp0v50.86.1-0ubuntu1
 libpopt01.16-14
-libprocps82:3.3.16-1ubuntu2
+libprocps82:3.3.16-1ubuntu2.1
 libproxy1v50.4.15-10ubuntu1.2
 libpsl50.21.0-1ubuntu1
 libpthread-stubs0-dev0.4-1
@@ -469,7 +471,7 @@ libsamplerate00.1.9-2
 libsasl2-22.1.27+dfsg-2
 libsasl2-modules2.1.27+dfsg-2
 libsasl2-modules-db2.1.27+dfsg-2
-libseccomp22.4.3-1ubuntu3.20.04.3
+libseccomp22.5.1-1ubuntu1~20.04.1
 libsecret-1-00.20.3-0ubuntu1
 libsecret-common0.20.3-0ubuntu1
 libselinux13.0-1build2
@@ -483,7 +485,7 @@ libsigsegv22.12-2
 libslang22.3.2-4
 libsm62:1.2.3-1
 libsmartcols12.34-0.1ubuntu9.1
-libsmbclient2:4.11.6+dfsg-0ubuntu1.6
+libsmbclient2:4.11.6+dfsg-0ubuntu1.8
 libsnapd-glib11.58-0ubuntu0.20.04.0
 libsndfile11.0.28-7
 libsnmp355.8+dfsg-2ubuntu2.3
@@ -540,7 +542,7 @@ libwayland-client01.18.0-1
 libwayland-cursor01.18.0-1
 libwayland-egl11.18.0-1
 libwayland-server01.18.0-1
-libwbclient02:4.11.6+dfsg-0ubuntu1.6
+libwbclient02:4.11.6+dfsg-0ubuntu1.8
 libwebkit2gtk-4.0-372.30.6-0ubuntu0.20.04.1
 libwebp60.6.1-2
 libwebpdemux20.6.1-2
@@ -652,10 +654,11 @@ mount2.34-0.1ubuntu9.1
 mysql-common5.8+1.0.5ubuntu2
 ncurses-base6.2-0ubuntu2
 ncurses-bin6.2-0ubuntu2
-nodejs12.22.1-deb-1nodesource1
+nodejs14.16.1-deb-1nodesource1
 obconf1:2.0.4+git20150213-2
 openbox3.6.1-9ubuntu0.20.04.1
 openprinting-ppds20200401-1
+openssh-client1:8.2p1-4ubuntu0.2
 openssl1.1.1f-1ubuntu2.3
 packagekit1.1.13-2ubuntu1.1
 parted3.3-4ubuntu0.20.04.1
@@ -677,7 +680,7 @@ printer-driver-gutenprint5.3.3-4
 printer-driver-hpcups3.20.3+dfsg0-2
 printer-driver-pnm2ppa1.13+nondbs-0ubuntu6
 printer-driver-postscript-hp3.20.3+dfsg0-2
-procps2:3.3.16-1ubuntu2
+procps2:3.3.16-1ubuntu2.1
 psmisc23.3-1
 publicsuffix20200303.0012-1
 pulseaudio1:13.99.1-1ubuntu3.10
@@ -737,7 +740,7 @@ python-apt-common2.0.0ubuntu0.20.04.4
 python-is-python22.7.17-4
 readline-common8.0-4
 rfkill2.34-0.1ubuntu9.1
-samba-libs2:4.11.6+dfsg-0ubuntu1.6
+samba-libs2:4.11.6+dfsg-0ubuntu1.8
 sed4.7-1
 sensible-utils0.0.12+nmu1
 shared-mime-info1.15-1
@@ -774,8 +777,8 @@ udisks22.8.4-1ubuntu1
 unzip6.0-25ubuntu1
 update-manager1:20.04.10.6
 update-manager-core1:20.04.10.6
-update-notifier3.192.30.6
-update-notifier-common3.192.30.6
+update-notifier3.192.30.7
+update-notifier-common3.192.30.7
 upower0.99.11-1build2
 usb.ids2020.03.19-1
 usbutils1:012-2
