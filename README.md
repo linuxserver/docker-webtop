@@ -92,6 +92,8 @@ You can access advanced features of the Guacamole remote desktop using ctrl+alt+
 
 **The KDE and i3 flavors for Ubuntu need to be run in privileged mode to function properly**
 
+**If using a reverse proxy with a subfolder please use the `SUBFOLDER` environment variable to define it's name, IE `-e SUBFOLDER="/subfolder/"`**
+
 If you ever lose your password you can always reset it by execing into the container as root:
 ```
 docker exec -it webtop passwd abc
