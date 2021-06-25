@@ -92,8 +92,6 @@ You can access advanced features of the Guacamole remote desktop using ctrl+alt+
 
 **The KDE and i3 flavors for Ubuntu need to be run in privileged mode to function properly**
 
-**If using a reverse proxy with a subfolder please use the `SUBFOLDER` environment variable to define it's name, IE `-e SUBFOLDER="/subfolder/"`**
-
 If you ever lose your password you can always reset it by execing into the container as root:
 ```
 docker exec -it webtop passwd abc
@@ -121,6 +119,7 @@ services:
       - PUID=1000
       - PGID=1000
       - TZ=Europe/London
+      - SUBFOLDER=/ #optional
     volumes:
       - /path/to/data:/config
       - /var/run/docker.sock:/var/run/docker.sock #optional
@@ -139,6 +138,7 @@ docker run -d \
   -e PUID=1000 \
   -e PGID=1000 \
   -e TZ=Europe/London \
+  -e SUBFOLDER=/ `#optional` \
   -p 3000:3000 \
   -v /path/to/data:/config \
   -v /var/run/docker.sock:/var/run/docker.sock `#optional` \
@@ -157,6 +157,7 @@ Container images are configured using parameters passed at runtime (such as thos
 | `-e PUID=1000` | for UserID - see below for explanation |
 | `-e PGID=1000` | for GroupID - see below for explanation |
 | `-e TZ=Europe/London` | Specify a timezone to use EG Europe/London |
+| `-e SUBFOLDER=/` | Specify a subfolder to use with reverse proxies, IE `/subfolder/` |
 | `-v /config` | abc users home directory |
 | `-v /var/run/docker.sock` | Docker Socket on the system, if you want to use Docker in the container |
 | `--shm-size=` | We set this to 1 gig to prevent modern web browsers from crashing |
