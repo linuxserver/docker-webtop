@@ -58,7 +58,7 @@ pipeline {
           env.CODE_URL = 'https://github.com/' + env.LS_USER + '/' + env.LS_REPO + '/commit/' + env.GIT_COMMIT
           env.DOCKERHUB_LINK = 'https://hub.docker.com/r/' + env.DOCKERHUB_IMAGE + '/tags/'
           env.PULL_REQUEST = env.CHANGE_ID
-          env.TEMPLATED_FILES = 'Jenkinsfile README.md LICENSE ./.github/CONTRIBUTING.md ./.github/FUNDING.yml ./.github/ISSUE_TEMPLATE/config.yml ./.github/ISSUE_TEMPLATE/issue.bug.md ./.github/ISSUE_TEMPLATE/issue.feature.md ./.github/PULL_REQUEST_TEMPLATE.md ./.github/workflows/external_trigger_scheduler.yml ./.github/workflows/greetings.yml ./.github/workflows/package_trigger_scheduler.yml ./.github/workflows/stale.yml ./.github/workflows/external_trigger.yml ./.github/workflows/package_trigger.yml'
+          env.TEMPLATED_FILES = 'Jenkinsfile README.md LICENSE .editorconfig ./.github/CONTRIBUTING.md ./.github/FUNDING.yml ./.github/ISSUE_TEMPLATE/config.yml ./.github/ISSUE_TEMPLATE/issue.bug.md ./.github/ISSUE_TEMPLATE/issue.feature.md ./.github/PULL_REQUEST_TEMPLATE.md ./.github/workflows/external_trigger_scheduler.yml ./.github/workflows/greetings.yml ./.github/workflows/package_trigger_scheduler.yml ./.github/workflows/stale.yml ./.github/workflows/external_trigger.yml ./.github/workflows/package_trigger.yml'
         }
         script{
           env.LS_RELEASE_NUMBER = sh(
@@ -264,7 +264,6 @@ pipeline {
                 git clone https://github.com/${LS_USER}/${LS_REPO}.git ${TEMPDIR}/repo/${LS_REPO}
                 cd ${TEMPDIR}/repo/${LS_REPO}
                 git checkout -f alpine-kde
-                cd ${TEMPDIR}/docker-${CONTAINER_NAME}
                 for i in ${TEMPLATES_TO_DELETE}; do
                   git rm "${i}"
                 done
@@ -524,6 +523,15 @@ pipeline {
                 docker run --rm --entrypoint '/bin/sh' -v ${TEMPDIR}:/tmp ${LOCAL_CONTAINER} -c '\
                   apt list -qq --installed | sed "s#/.*now ##g" | cut -d" " -f1 > /tmp/package_versions.txt && \
                   sort -o /tmp/package_versions.txt  /tmp/package_versions.txt && \
+                  chmod 777 /tmp/package_versions.txt'
+              elif [ "${DIST_IMAGE}" == "fedora" ]; then
+                docker run --rm --entrypoint '/bin/sh' -v ${TEMPDIR}:/tmp ${LOCAL_CONTAINER} -c '\
+                  rpm -qa > /tmp/package_versions.txt && \
+                  sort -o /tmp/package_versions.txt  /tmp/package_versions.txt && \
+                  chmod 777 /tmp/package_versions.txt'
+              elif [ "${DIST_IMAGE}" == "arch" ]; then
+                docker run --rm --entrypoint '/bin/sh' -v ${TEMPDIR}:/tmp ${LOCAL_CONTAINER} -c '\
+                  pacman -Q > /tmp/package_versions.txt && \
                   chmod 777 /tmp/package_versions.txt'
               fi
               NEW_PACKAGE_TAG=$(md5sum ${TEMPDIR}/package_versions.txt | cut -c1-8 )
