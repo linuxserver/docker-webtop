@@ -9,7 +9,6 @@ LABEL maintainer="thelamer"
 RUN \
   echo "**** install packages ****" && \
   dnf install -y --forcearch armv7hl --setopt=install_weak_deps=False --best \
-    firefox \
     dmenu \
     feh \
     i3 \
