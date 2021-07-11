@@ -1,3 +1,3 @@
 #!/bin/bash
 /startpulse.sh &
-/usr/bin/startxfce4 > /dev/null 2>&1
+/usr/bin/startplasma-x11 > /dev/null 2>&1

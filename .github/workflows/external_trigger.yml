@@ -4,13 +4,13 @@ on:
   workflow_dispatch:
 
 jobs:
-  external-trigger-fedora-xfce:
+  external-trigger-fedora-kde:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2.3.3
 
       - name: External Trigger
-        if: github.ref == 'refs/heads/fedora-xfce'
+        if: github.ref == 'refs/heads/fedora-kde'
         run: |
           echo "**** No external release, exiting ****"
           exit 0

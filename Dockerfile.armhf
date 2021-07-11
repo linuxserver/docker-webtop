@@ -9,24 +9,19 @@ LABEL maintainer="thelamer"
 RUN \
   echo "**** install packages ****" && \
   dnf install -y --forcearch armv7hl --setopt=install_weak_deps=False --best \
-    desktop-backgrounds-compat \
-    greybird-dark-theme \
-    greybird-xfwm4-theme \
-    gtk-xfce-engine \
-    mousepad \
-    Thunar \
-    xfce4-appfinder \
-    xfce4-datetime-plugin \
-    xfce4-panel \
-    xfce4-places-plugin \
-    xfce4-pulseaudio-plugin \
-    xfce4-session \
-    xfce4-settings \
-    xfce4-terminal \
-    xfconf \
-    xfdesktop \
-    xfwm4 \
-    xfwm4-themes && \
+    breeze-icon-theme \
+    dolphin \
+    firefox \
+    kate \
+    kde-gtk-config \
+    kde-settings-pulseaudio \
+    khotkeys \
+    kmenuedit \
+    konsole5 \
+    plasma-breeze \
+    plasma-desktop \
+    plasma-discover \
+    plasma-workspace-xorg && \
   echo "**** cleanup ****" && \
   dnf autoremove -y && \
   dnf clean all && \
