@@ -9,19 +9,11 @@ LABEL maintainer="thelamer"
 RUN \
   echo "**** install packages ****" && \
   dnf install -y --setopt=install_weak_deps=False --best \
-    breeze-icon-theme \
-    dolphin \
     firefox \
-    kate \
-    kde-gtk-config \
-    kde-settings-pulseaudio \
-    khotkeys \
-    kmenuedit \
-    konsole5 \
-    plasma-breeze \
-    plasma-desktop \
-    plasma-discover \
-    plasma-workspace-xorg && \
+    dmenu \
+    feh \
+    i3 \
+    i3status && \
   echo "**** cleanup ****" && \
   dnf autoremove -y && \
   dnf clean all && \
