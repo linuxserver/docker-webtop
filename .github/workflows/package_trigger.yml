@@ -4,25 +4,25 @@ on:
   workflow_dispatch:
 
 jobs:
-  package-trigger-fedora-xfce:
+  package-trigger-fedora-mate:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2.3.3
 
       - name: Package Trigger
-        if: github.ref == 'refs/heads/fedora-xfce'
+        if: github.ref == 'refs/heads/fedora-mate'
         run: |
-          if [ -n "${{ secrets.PAUSE_PACKAGE_TRIGGER_WEBTOP_FEDORA_XFCE }}" ]; then
-            echo "**** Github secret PAUSE_PACKAGE_TRIGGER_WEBTOP_FEDORA_XFCE is set; skipping trigger. ****"
+          if [ -n "${{ secrets.PAUSE_PACKAGE_TRIGGER_WEBTOP_FEDORA_MATE }}" ]; then
+            echo "**** Github secret PAUSE_PACKAGE_TRIGGER_WEBTOP_FEDORA_MATE is set; skipping trigger. ****"
             exit 0
           fi
-          if [ $(curl -s https://ci.linuxserver.io/job/Docker-Pipeline-Builders/job/docker-webtop/job/fedora-xfce/lastBuild/api/json | jq -r '.building') == "true" ]; then
+          if [ $(curl -s https://ci.linuxserver.io/job/Docker-Pipeline-Builders/job/docker-webtop/job/fedora-mate/lastBuild/api/json | jq -r '.building') == "true" ]; then
             echo "**** There already seems to be an active build on Jenkins; skipping package trigger ****"
             exit 0
           fi
-          echo "**** Package trigger running off of fedora-xfce branch. To disable, set a Github secret named \"PAUSE_PACKAGE_TRIGGER_WEBTOP_FEDORA_XFCE\". ****"
+          echo "**** Package trigger running off of fedora-mate branch. To disable, set a Github secret named \"PAUSE_PACKAGE_TRIGGER_WEBTOP_FEDORA_MATE\". ****"
           response=$(curl -iX POST \
-            https://ci.linuxserver.io/job/Docker-Pipeline-Builders/job/docker-webtop/job/fedora-xfce/buildWithParameters?PACKAGE_CHECK=true \
+            https://ci.linuxserver.io/job/Docker-Pipeline-Builders/job/docker-webtop/job/fedora-mate/buildWithParameters?PACKAGE_CHECK=true \
             --user ${{ secrets.JENKINS_USER }}:${{ secrets.JENKINS_TOKEN }} | grep -i location | sed "s|^[L|l]ocation: \(.*\)|\1|")
           echo "**** Jenkins job queue url: ${response%$'\r'} ****"
           echo "**** Sleeping 10 seconds until job starts ****"
