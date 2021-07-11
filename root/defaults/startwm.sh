@@ -1,3 +1,3 @@
 #!/bin/bash
 /startpulse.sh &
-/usr/bin/i3 
+/usr/bin/icewm-session > /dev/null 2>&1

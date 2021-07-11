@@ -10,10 +10,7 @@ RUN \
   echo "**** install packages ****" && \
   dnf install -y --setopt=install_weak_deps=False --best \
     firefox \
-    dmenu \
-    feh \
-    i3 \
-    i3status && \
+    icewm && \
   echo "**** cleanup ****" && \
   dnf autoremove -y && \
   dnf clean all && \
