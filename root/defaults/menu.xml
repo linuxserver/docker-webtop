@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openbox_menu xmlns="http://openbox.org/3.4/menu">
+<menu id="root-menu" label="MENU">
+<item label="xterm" icon="/usr/share/pixmaps/xterm-color_48x48.xpm"><action name="Execute"><command>/usr/bin/xterm</command></action></item>
+<item label="Leafpad" icon="/usr/share/icons/hicolor/32x32/apps/leafpad.png"><action name="Execute"><command>/usr/bin/leafpad</command></action></item>
+<item label="Firefox" icon="/usr/share/icons/hicolor/48x48/apps/firefox.png"><action name="Execute"><command>/usr/bin/firefox</command></action></item>
+<item label="OBConf" icon="/usr/share/icons/hicolor/48x48/apps/obconf-qt.png"><action name="Execute"><command>/usr/bin/obconf-qt</command></action></item>
+<item label="Reload OB"><action name="Reconfigure"/></item>
+</menu>
+</openbox_menu>

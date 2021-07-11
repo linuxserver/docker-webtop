@@ -4,13 +4,13 @@ on:
   workflow_dispatch:
 
 jobs:
-  external-trigger-fedora-icewm:
+  external-trigger-fedora-openbox:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2.3.3
 
       - name: External Trigger
-        if: github.ref == 'refs/heads/fedora-icewm'
+        if: github.ref == 'refs/heads/fedora-openbox'
         run: |
           echo "**** No external release, exiting ****"
           exit 0

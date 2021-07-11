@@ -1,3 +1,3 @@
 #!/bin/bash
 /startpulse.sh &
-/usr/bin/icewm-session > /dev/null 2>&1
+/usr/bin/openbox-session > /dev/null 2>&1

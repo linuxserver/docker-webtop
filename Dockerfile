@@ -10,7 +10,10 @@ RUN \
   echo "**** install packages ****" && \
   dnf install -y --setopt=install_weak_deps=False --best \
     firefox \
-    icewm && \
+    leafpad \
+    obconf-qt && \
+  echo "**** openbox tweaks ****" && \
+  ln -s /usr/bin/obconf-qt /usr/bin/obconf && \
   echo "**** cleanup ****" && \
   dnf autoremove -y && \
   dnf clean all && \
