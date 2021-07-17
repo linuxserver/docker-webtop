@@ -95,8 +95,8 @@ If you ever lose your password you can always reset it by execing into the conta
 ```
 docker exec -it webtop passwd abc
 ```
-By default we perform all logic for the abc user and we reccomend using that user only in the container, but new users can be added as long as there is a `startwm.sh` executable script in their home directory.
-All of these containers are configured with passwordless sudo, we make no efforts to secure or harden these containers and we do not reccomend ever publishing their ports to the public Internet.
+By default we perform all logic for the abc user and we recommend using that user only in the container, but new users can be added as long as there is a `startwm.sh` executable script in their home directory.
+All of these containers are configured with passwordless sudo, we make no efforts to secure or harden these containers and we do not recommend ever publishing their ports to the public Internet.
 
 ## Usage
 
