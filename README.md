@@ -109,7 +109,7 @@ Here are some example snippets to help you get started creating a container.
 version: "2.1"
 services:
   webtop:
-    image: ghcr.io/linuxserver/webtop
+    image: linuxserver/webtop
     container_name: webtop
     privileged: true #optional
     environment:
@@ -139,7 +139,7 @@ docker run -d \
   -v /var/run/docker.sock:/var/run/docker.sock `#optional` \
   --shm-size="1gb" `#optional` \
   --restart unless-stopped \
-  ghcr.io/linuxserver/webtop
+  linuxserver/webtop
 ```
 
 ## Parameters
