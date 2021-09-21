@@ -64,16 +64,22 @@ This image provides various versions that are available via tags. `latest` tag u
 | :----: | --- |
 | latest | XFCE Alpine |
 | ubuntu-xfce | XFCE Ubuntu |
+| fedora-xfce | XFCE Fedora |
 | alpine-kde | KDE Alpine |
 | ubuntu-kde | KDE Ubuntu |
+| fedora-kde | KDE Fedora |
 | alpine-mate | MATE Alpine |
 | ubuntu-mate | MATE Ubuntu |
+| fedora-mate | MATE Fedora |
 | alpine-i3 | i3 Alpine |
 | ubuntu-i3 | i3 Ubuntu |
+| fedora-i3 | i3 Fedora |
 | alpine-openbox | Openbox Alpine |
 | ubuntu-openbox | Openbox Ubuntu |
+| fedora-openbox | Openbox Fedora |
 | alpine-icewm | IceWM Alpine |
 | ubuntu-icewm | IceWM Ubuntu |
+| fedora-icewm | IceWM Fedora |
 
 ## Application Setup
 
@@ -112,6 +118,8 @@ services:
     image: ghcr.io/linuxserver/webtop
     container_name: webtop
     privileged: true #optional
+    security_opt:
+      - seccomp:unconfined #optional
     environment:
       - PUID=1000
       - PGID=1000
@@ -132,6 +140,7 @@ services:
 docker run -d \
   --name=webtop \
   --privileged `#optional` \
+  --security-opt seccomp=unconfined `#optional` \
   -e PUID=1000 \
   -e PGID=1000 \
   -e TZ=Europe/London \
@@ -158,6 +167,7 @@ Container images are configured using parameters passed at runtime (such as thos
 | `-v /config` | abc users home directory |
 | `-v /var/run/docker.sock` | Docker Socket on the system, if you want to use Docker in the container |
 | `--shm-size=` | We set this to 1 gig to prevent modern web browsers from crashing |
+| `--security-opt seccomp=unconfined` | For Docker Engine only, many modern gui apps need this to function as syscalls are unkown to Docker (try this before privileged) |
 
 ## Environment variables from files (Docker secrets)
 
@@ -268,4 +278,5 @@ Once registered you can define the dockerfile to use with `-f Dockerfile.aarch64
 
 ## Versions
 
+* **21.09.21:** - Add Fedora images, show seccomp settings in readme.
 * **20.04.21:** - Initial release.

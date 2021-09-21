@@ -19,16 +19,22 @@ development_versions: true
 development_versions_items:
   - { tag: "latest", desc: "XFCE Alpine" }
   - { tag: "ubuntu-xfce", desc: "XFCE Ubuntu" }
+  - { tag: "fedora-xfce", desc: "XFCE Fedora" }
   - { tag: "alpine-kde", desc: "KDE Alpine" }
   - { tag: "ubuntu-kde", desc: "KDE Ubuntu" }
+  - { tag: "fedora-kde", desc: "KDE Fedora" }
   - { tag: "alpine-mate", desc: "MATE Alpine" }
   - { tag: "ubuntu-mate", desc: "MATE Ubuntu" }
+  - { tag: "fedora-mate", desc: "MATE Fedora" }
   - { tag: "alpine-i3", desc: "i3 Alpine" }
   - { tag: "ubuntu-i3", desc: "i3 Ubuntu" }
+  - { tag: "fedora-i3", desc: "i3 Fedora" }
   - { tag: "alpine-openbox", desc: "Openbox Alpine" }
   - { tag: "ubuntu-openbox", desc: "Openbox Ubuntu" }
+  - { tag: "fedora-openbox", desc: "Openbox Fedora" }
   - { tag: "alpine-icewm", desc: "IceWM Alpine" }
   - { tag: "ubuntu-icewm", desc: "IceWM Ubuntu" }
+  - { tag: "fedora-icewm", desc: "IceWM Fedora" }
 
 # container parameters
 privileged: "optional"
@@ -51,6 +57,9 @@ opt_param_volumes:
   - { vol_path: "/var/run/docker.sock", vol_host_path: "/var/run/docker.sock", desc: "Docker Socket on the system, if you want to use Docker in the container" }
 opt_custom_params:
   - { name: "shm-size", name_compose: "shm_size", value: "1gb",desc: "We set this to 1 gig to prevent modern web browsers from crashing" }
+opt_security_opt_param: true
+opt_security_opt_param_vars:
+  - { run_var: "seccomp=unconfined", compose_var: "seccomp:unconfined", desc: "For Docker Engine only, many modern gui apps need this to function as syscalls are unkown to Docker (try this before privileged)" }
 
 # application setup block
 app_setup_block_enabled: true
@@ -78,4 +87,5 @@ app_setup_block: |
 
 # changelog
 changelogs:
+  - { date: "21.09.21:", desc: "Add Fedora images, show seccomp settings in readme." }
   - { date: "20.04.21:", desc: "Initial release." }
