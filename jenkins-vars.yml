@@ -2,10 +2,10 @@
 
 # jenkins variables
 project_name: docker-webtop
-external_type: alpine_repo
-release_type: stable
-release_tag: latest
-ls_branch: master
+external_type: os
+release_type: prerelease
+release_tag: arch-xfce
+ls_branch: arch-xfce
 repo_vars:
   - BUILD_VERSION_ARG = 'XFCE_VERSION'
   - LS_USER = 'linuxserver'
@@ -14,10 +14,7 @@ repo_vars:
   - DOCKERHUB_IMAGE = 'linuxserver/webtop'
   - DEV_DOCKERHUB_IMAGE = 'lsiodev/webtop'
   - PR_DOCKERHUB_IMAGE = 'lspipepr/webtop'
-  - DIST_IMAGE = 'alpine'
-  - DIST_TAG = '3.13'
-  - DIST_REPO = 'http://dl-cdn.alpinelinux.org/alpine/v3.13/community/'
-  - DIST_REPO_PACKAGES = 'xfce4'
+  - DIST_IMAGE = 'arch'
   - MULTIARCH = 'true'
   - CI = 'true'
   - CI_WEB = 'true'
