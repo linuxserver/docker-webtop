@@ -26,6 +26,7 @@ RUN \
   done && \
   echo "**** install packages ****" && \
   pacman -Sy --noconfirm --needed \
+    firefox \
     mousepad \
     pavucontrol \
     xfce4 \
