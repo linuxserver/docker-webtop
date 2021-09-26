@@ -1,260 +1,377 @@
-alpine-baselayout-3.2.0-r8
-alpine-keys-2.2-r0
-alsa-lib-1.2.4-r2
-alsa-plugins-pulse-1.2.2-r1
-apk-tools-2.12.7-r0
-at-spi2-atk-2.38.0-r0
-at-spi2-core-2.38.0-r0
-atk-2.36.0-r0
-atkmm-2.28.0-r1
-avahi-libs-0.8-r4
-bash-5.1.0-r0
-brotli-libs-1.0.9-r3
-busybox-1.32.1-r6
-c-ares-1.17.2-r0
-ca-certificates-20191127-r5
-ca-certificates-bundle-20191127-r5
-cairo-1.16.0-r2
-cairo-gobject-1.16.0-r2
-cairomm-1.14.0-r0
-containerd-1.4.8-r0
-coreutils-8.32-r2
-cups-libs-2.3.3-r1
-dbus-1.12.20-r1
-dbus-glib-0.110-r0
-dbus-libs-1.12.20-r1
-dbus-x11-1.12.20-r1
-desktop-file-utils-0.26-r0
-device-mapper-libs-2.02.187-r1
-docker-20.10.3-r1
-docker-cli-20.10.3-r1
-docker-engine-20.10.3-r1
-encodings-1.0.5-r0
-eudev-libs-3.2.9-r3
-exo-4.16.0-r0
-exo-libs-4.16.0-r0
-expat-2.2.10-r1
-faenza-icon-theme-1.3.1-r6
-faenza-icon-theme-bash-1.3.1-r6
-faenza-icon-theme-thunar-1.3.1-r6
-faenza-icon-theme-xfce4-appfinder-1.3.1-r6
-faenza-icon-theme-xfce4-panel-1.3.1-r6
-faenza-icon-theme-xterm-1.3.1-r6
-firefox-esr-78.14.0-r0
-flac-1.3.3-r0
-font-alias-1.0.3-r1
-font-cursor-misc-1.0.3-r1
-font-misc-misc-1.1.2-r1
-font-noto-0_git20190623-r2
-fontconfig-2.13.1-r3
-freerdp-libs-2.2.0-r0
-freetype-2.10.4-r1
-fribidi-1.0.10-r0
-fuse-2.9.9-r1
-fuse-common-3.10.2-r0
-garcon-0.8.0-r0
-gdk-pixbuf-2.42.4-r0
-giflib-5.2.1-r0
-glib-2.66.8-r0
-glibmm-2.64.5-r0
-gmp-6.2.1-r0
-gnutls-3.7.1-r0
-graphite2-1.3.14-r0
-gsm-1.0.19-r0
-gtk+3.0-3.24.23-r2
-gtk-update-icon-cache-2.24.33-r0
-gtkmm3-3.24.3-r0
-gtksourceview-3.24.11-r1
-harfbuzz-2.7.4-r1
-hicolor-icon-theme-0.17-r1
-iceauth-1.0.8-r0
-icu-libs-67.1-r2
-imlib2-1.7.1-r0
-ip6tables-1.8.6-r0
-iptables-1.8.6-r0
-iso-codes-4.5.0-r0
-keybinder3-0.3.2-r2
-lcms2-2.11-r0
-libacl-2.2.53-r0
-libasyncns-0.8-r1
-libattr-2.4.48-r0
-libblkid-2.36.1-r1
-libbsd-0.10.0-r0
-libbz2-1.0.8-r1
-libc-utils-0.7.2-r3
-libcanberra-0.30-r5
-libcanberra-gtk3-0.30-r5
-libcanberra-pulse-0.30-r5
-libcap-2.46-r0
-libcrypto1.1-1.1.1l-r0
-libcurl-7.79.0-r0
-libdrm-2.4.104-r0
-libedit-20191231.3.1-r1
-libepoxy-1.5.5-r0
-libevent-2.1.12-r1
-libexif-0.6.22-r0
-libffi-3.3-r2
-libfontenc-1.1.4-r0
-libgcc-10.2.1_pre1-r3
-libgomp-10.2.1_pre1-r3
-libgtop-2.40.0-r0
-libgudev-234-r0
-libice-1.0.10-r0
-libid3tag-0.15.1b-r8
-libintl-0.20.2-r2
-libjpeg-turbo-2.1.0-r0
-libltdl-2.4.6-r7
-libmnl-1.0.4-r1
-libmount-2.36.1-r1
-libnftnl-libs-1.1.8-r0
-libnotify-0.7.9-r1
-libogg-1.3.4-r0
-libpciaccess-0.16-r0
-libpng-1.6.37-r1
-libproc-3.3.16-r0
-libpulse-14.1-r0
-libpulse-mainloop-glib-14.1-r0
-librsvg-2.50.4-r0
-libseccomp-2.5.1-r1
-libsigc++-2.10.6-r0
-libsm-1.2.3-r0
-libsndfile-1.0.29-r1
-libssl1.1-1.1.1l-r0
-libstdc++-10.2.1_pre1-r3
-libtasn1-4.16.0-r1
-libtls-standalone-2.9.1-r1
-libunistring-0.9.10-r0
-libusb-1.0.24-r1
-libuuid-2.36.1-r1
-libvorbis-1.3.7-r0
-libvpx-1.9.0-r0
-libwebp-1.1.0-r0
-libwnck3-3.36.0-r0
-libx11-1.7.1-r0
-libxau-1.0.9-r0
-libxaw-1.0.13-r3
-libxcb-1.14-r1
-libxcomposite-0.4.5-r0
-libxcursor-1.2.0-r0
-libxdamage-1.1.5-r1
-libxdmcp-1.1.3-r0
-libxext-1.3.4-r0
-libxfce4ui-4.16.0-r1
-libxfce4util-4.16.0-r0
-libxfixes-5.0.3-r2
-libxfont2-2.0.5-r0
-libxft-2.3.3-r0
-libxi-1.7.10-r0
-libxinerama-1.1.4-r1
-libxkbcommon-1.0.3-r0
-libxkbfile-1.1.0-r0
-libxklavier-5.4-r5
-libxml2-2.9.12-r0
-libxmu-1.1.3-r0
-libxpm-3.5.13-r0
-libxpresent-1.0.0-r0
-libxrandr-1.5.2-r1
-libxrender-0.9.10-r3
-libxres-1.2.0-r2
-libxshmfence-1.3-r1
-libxt-1.2.1-r0
-libxtst-1.2.3-r3
-libxxf86vm-1.1.4-r2
-linux-pam-1.5.1-r0
-mcookie-2.36.1-r1
-mesa-20.3.3-r0
-mesa-gbm-20.3.3-r0
-mesa-gl-20.3.3-r0
-mesa-glapi-20.3.3-r0
-mkfontscale-1.2.1-r1
-mousepad-0.5.2-r0
-mozjs78-78.14.0-r0
-musl-1.2.2-r1
-musl-utils-1.2.2-r1
-ncurses-libs-6.2_p20210109-r0
-ncurses-terminfo-base-6.2_p20210109-r0
-nettle-3.7.2-r0
-nghttp2-libs-1.42.0-r1
-nodejs-14.17.6-r0
-nspr-4.31-r0
-nss-3.66-r0
-openbox-3.6.1-r2
-openbox-libs-3.6.1-r2
-openjpeg-2.4.0-r1
-openssh-client-8.4_p1-r3
-openssh-keygen-8.4_p1-r3
-openssl-1.1.1l-r0
-opus-1.3.1-r1
-orc-0.4.32-r0
-ossp-uuid-1.6.2-r1
-p11-kit-0.23.22-r0
-pango-1.48.2-r0
-pangomm-2.42.2-r0
-pavucontrol-4.0-r0
-pcre-8.44-r0
-pcre2-10.36-r0
-pixman-0.40.0-r2
-pkgconf-1.7.3-r0
-polkit-0.118-r0
-poppler-20.12.1-r0
-poppler-glib-20.12.1-r0
-procps-3.3.16-r0
-pulseaudio-14.1-r0
-pulseaudio-alsa-14.1-r0
-readline-8.1.0-r0
-runc-1.0.0_rc95-r0
-s6-ipcserver-2.10.0.0-r0
-scanelf-1.2.8-r0
-shadow-4.8.1-r0
-shared-mime-info-2.0-r0
-skalibs-2.10.0.0-r0
-sound-theme-freedesktop-0.8-r0
-soxr-0.1.3-r2
-speexdsp-1.2.0-r0
-sqlite-libs-3.34.1-r0
-ssl_client-1.32.1-r6
-startup-notification-0.12-r4
-sudo-1.9.5p2-r0
-tdb-libs-1.4.3-r0
-thunar-4.16.2-r0
-thunar-volman-4.16.0-r0
-tiff-4.2.0-r0
-tini-static-0.19.0-r0
-ttf-dejavu-2.37-r1
-tumbler-4.16.0-r0
-tzdata-2021a-r0
-upower-0.99.11-r0
-util-macros-1.19.2-r1
-utmps-0.1.0.0-r0
-vte3-0.62.2-r0
-wayland-libs-client-1.18.0-r5
-wayland-libs-cursor-1.18.0-r5
-wayland-libs-egl-1.18.0-r5
-wayland-libs-server-1.18.0-r5
-websocat-1.8.1-r0
-xauth-1.1-r0
-xcb-util-0.4.0-r3
-xfce4-4.16-r0
-xfce4-appfinder-4.16.0-r0
-xfce4-panel-4.16.0-r0
-xfce4-power-manager-4.16.0-r0
-xfce4-pulseaudio-plugin-0.4.3-r2
-xfce4-session-4.16.0-r0
-xfce4-settings-4.16.0-r0
-xfce4-terminal-0.8.9.2-r0
-xfconf-4.16.0-r0
-xfdesktop-4.16.0-r0
-xfwm4-4.16.1-r0
-xinit-1.4.1-r0
-xkbcomp-1.4.4-r0
-xkeyboard-config-2.31-r0
-xmodmap-1.0.10-r0
-xorg-server-1.20.13-r0
-xorg-server-common-1.20.13-r0
-xorgxrdp-0.2.16-r0
-xrdb-1.2.1-r0
-xrdp-0.9.16-r1
-xterm-367-r0
-xz-5.2.5-r0
-xz-libs-5.2.5-r0
-zlib-1.2.11-r3
+acl 2.3.1-1
+adobe-source-code-pro-fonts 2.038ro+1.058it+1.018var-1
+adwaita-icon-theme 40.1.1-1
+alsa-lib 1.2.5.1-3
+alsa-topology-conf 1.2.5.1-1
+alsa-ucm-conf 1.2.5.1-1
+aom 3.1.2-2
+archlinux-keyring 20210902-1
+argon2 20190702-3
+at-spi2-atk 2.38.0-1
+at-spi2-core 2.40.3-1
+atk 2.36.0-1
+atkmm 2.28.2-2
+attr 2.5.1-1
+audit 3.0.5-1
+autoconf 2.71-1
+automake 1.16.4-1
+avahi 0.8+22+gfd482a7-1
+bash 5.1.008-1
+binutils 2.36.1-3
+bison 3.7.6-1
+bridge-utils 1.7.1-1
+brotli 1.0.9-4
+bzip2 1.0.8-4
+c-ares 1.17.2-1
+ca-certificates 20210603-1
+ca-certificates-mozilla 3.70-1
+ca-certificates-utils 20210603-1
+cairo 1.17.4-5
+cairomm 1.14.3-2
+cantarell-fonts 1:0.303-1
+celt 0.11.3-4
+colord 1.4.5-4
+containerd 1.5.5-1
+coreutils 8.32-1
+cryptsetup 2.4.1-1
+curl 7.79.1-1
+dav1d 0.9.2-1
+db 5.3.28-5
+dbus-glib 0.112-2
+dbus-x11 1.12.20-1
+dbus-x11-docs 1.12.20-1
+dconf 0.40.0-1
+desktop-file-utils 0.26-1
+device-mapper 2.03.13-1
+diffutils 3.8-1
+dnssec-anchors 20190629-3
+docker 1:20.10.8-1
+e2fsprogs 1.46.4-1
+elfutils 0.185-1
+exo 4.16.2-1
+expat 2.4.1-1
+fakeroot 1.26-1
+ffmpeg 2:4.4-4
+file 5.40-6
+filesystem 2021.05.31-1
+findutils 4.8.0-1
+firefox 92.0.1-1
+flac 1.3.3-3
+flex 2.6.4-3
+fontconfig 2:2.13.94-1
+freerdp 2:2.4.0-1
+freetype2 2.11.0-4
+fribidi 1.0.10-1
+fuse-common 3.10.5-1
+fuse2 2.9.9-4
+garcon 4.16.1-1
+gawk 5.1.0-1
+gc 8.0.4-4
+gcc-libs 11.1.0-1
+gdbm 1.21-1
+gdk-pixbuf2 2.42.6-2
+gettext 0.21-1
+giflib 5.2.1-2
+glib-networking 1:2.70.0-1
+glib2 2.70.0-1
+glibc 2.33-5
+glibmm 2.66.1-2
+gmp 6.2.1-1
+gnome-themes-extra 3.28-2
+gnupg 2.2.29-1
+gnutls 3.7.2-2
+gpgme 1.16.0-1
+graphite 1:1.3.14-1
+grep 3.7-1
+groff 1.22.4-6
+gsettings-desktop-schemas 41.0-1
+gsm 1.0.19-1
+gst-plugins-base-libs 1.18.5-1
+gstreamer 1.18.5-1
+gtk-update-icon-cache 1:4.4.0-1
+gtk3 1:3.24.30+62+g8d04980f38-2
+gtkmm3 3.24.5-2
+gtksourceview4 4.8.2-1
+guile 2.2.7-1
+gzip 1.11-1
+harfbuzz 3.0.0-1
+hicolor-icon-theme 0.17-2
+hidapi 0.10.1-1
+hwids 20210613-1
+iana-etc 20210728-1
+icu 69.1-1
+imlib2 1.7.3-1
+iproute2 5.14.0-1
+iptables 1:1.8.7-1
+iso-codes 4.7.0-1
+jack2 1.9.19-2
+js78 78.14.0-1
+json-c 0.15-1
+json-glib 1.6.6-1
+kbd 2.4.0-2
+keyutils 1.6.3-1
+kmod 29-1
+krb5 1.19.2-1
+l-smash 2.14.5-2
+lame 3.100-3
+lcms2 2.12-1
+ldns 1.7.1-2
+less 1:590-1
+libarchive 3.5.2-1
+libass 0.15.2-1
+libassuan 2.5.5-1
+libasyncns 0.8+3+g68cd5af-3
+libavc1394 0.5.4-4
+libbluray 1.3.0-1
+libcanberra 0.30+2+gc0620e4-5
+libcap 2.58-1
+libcap-ng 0.8.2-3
+libcloudproviders 0.3.1-2
+libcolord 1.4.5-4
+libcroco 0.6.13-2
+libcups 1:2.3.3op2-3
+libdaemon 0.14-5
+libdatrie 0.2.13-1
+libdbusmenu-glib 16.04.0-4
+libdbusmenu-gtk3 16.04.0-4
+libdrm 2.4.107-1
+libedit 20210910_3.1-1
+libelf 0.185-1
+libepoxy 1.5.9-1
+libevdev 1.11.0-1
+libexif 0.6.23-1
+libfdk-aac 2.0.2-1
+libffi 3.3-4
+libfontenc 1.1.4-3
+libgcrypt 1.9.4-1
+libglvnd 1.3.4-1
+libgpg-error 1.42-1
+libgssglue 0.4-4
+libgtop 2.40.0+2+g31db82ef-2
+libgudev 237-1
+libgusb 0.3.7-1
+libibus 1.5.25-3
+libice 1.0.10-3
+libid3tag 0.15.1b-11
+libidn2 2.3.2-1
+libiec61883 1.2.0-6
+libimobiledevice 1.3.0-3
+libinput 1.19.0-1
+libjpeg-turbo 2.1.1-1
+libkeybinder3 0.3.2-3
+libksba 1.6.0-1
+libldap 2.4.59-2
+libmfx 21.3.2-1
+libmnl 1.0.4-3
+libmodplug 0.8.9.0-3
+libnetfilter_conntrack 1.0.8-1
+libnfnetlink 1.0.1-4
+libnftnl 1.2.0-1
+libnghttp2 1.45.0-1
+libnl 3.5.0-3
+libnotify 0.7.9-2
+libnsl 2.0.0-1
+libogg 1.3.5-1
+libomxil-bellagio 0.9.3-3
+libp11-kit 0.24.0-1
+libpcap 1.10.1-1
+libpciaccess 0.16-2
+libplist 2.2.0-3
+libpng 1.6.37-3
+libproxy 0.4.17-2
+libpsl 0.21.1-1
+libpulse 15.0-1
+libraw1394 2.1.2-3
+librsvg 2:2.52.0-1
+libsamplerate 0.2.2-1
+libsasl 2.1.27-3
+libseccomp 2.5.2-1
+libsecret 0.20.4-1
+libsigc++ 2.10.7-2
+libsm 1.2.3-2
+libsndfile 1.0.31-1
+libsoup 2.74.0-2
+libsoxr 0.1.3-2
+libssh 0.9.6-1
+libssh2 1.9.0-3
+libstemmer 2.1.0-1
+libtasn1 4.17.0-1
+libthai 0.1.28-2
+libtheora 1.1.1-5
+libtiff 4.3.0-1
+libtirpc 1.3.2-1
+libtool 2.4.6+42+gb88cebd5-16
+libunistring 0.9.10-3
+libunwind 1.5.0-1
+libusb 1.0.24-2
+libusbmuxd 2.0.2-1
+libutempter 1.2.1-1
+libuv 1.42.0-1
+libva 2.12.0-1
+libvdpau 1.4-1
+libvorbis 1.3.7-2
+libvpx 1.10.0-1
+libwacom 1.12-1
+libwebp 1.2.1-2
+libwnck3 40.0-1
+libx11 1.7.2-1
+libxau 1.0.9-3
+libxaw 1.0.14-1
+libxcb 1.14-1
+libxcomposite 0.4.5-3
+libxcrypt 4.4.26-1
+libxcursor 1.2.0-2
+libxdamage 1.1.5-3
+libxdmcp 1.1.3-3
+libxext 1.3.4-3
+libxfce4ui 4.16.1-1
+libxfce4util 4.16.0-1
+libxfixes 6.0.0-1
+libxfont2 2.0.5-1
+libxft 2.3.4-1
+libxi 1.8-1
+libxinerama 1.1.4-3
+libxkbcommon 1.3.1-1
+libxkbfile 1.1.0-2
+libxklavier 5.4-3
+libxml2 2.9.12-2
+libxmu 1.1.3-2
+libxpm 3.5.13-2
+libxpresent 1.0.0-2
+libxrandr 1.5.2-3
+libxrender 0.9.10-4
+libxres 1.2.1-1
+libxshmfence 1.3-2
+libxt 1.2.1-1
+libxtst 1.2.3-4
+libxv 1.0.11-4
+libxxf86vm 1.1.4-4
+linux-api-headers 5.12.3-1
+llvm-libs 12.0.1-4
+lm_sensors 1:3.6.0.r41.g31d1f125-1
+luit 20201003-1
+lz4 1:1.9.3-2
+lzo 2.10-3
+m4 1.4.19-1
+mailcap 2.1.53-1
+make 4.3-3
+mesa 21.2.2-1
+mousepad 0.5.7-1
+mpfr 4.1.0.p13-1
+mtdev 1.1.6-1
+ncurses 6.2-2
+nettle 3.7.3-1
+nodejs 16.10.0-1
+noto-fonts 20201226-2
+npth 1.6-3
+nspr 4.32-1
+nss 3.70-1
+openbox 3.6.1-8
+opencore-amr 0.1.5-5
+openjpeg2 2.4.0-1
+openssh 8.7p1-2
+openssl 1.1.1.l-1
+opus 1.3.1-2
+orc 0.4.32-1
+p11-kit 0.24.0-1
+pacman 6.0.1-2
+pacman-mirrorlist 20210822-1
+pam 1.5.2-1
+pambase 20210605-2
+pango 1:1.48.10-1
+pangomm 2.46.1-2
+patch 2.7.6-8
+pavucontrol 1:5.0-1
+pcre 8.45-1
+pcre2 10.37-1
+pcsclite 1.9.3-1
+perl 5.34.0-2
+pinentry 1.1.1-1
+pixman 0.40.0-1
+pkgconf 1.8.0-1
+polkit 0.119-1
+polkit-gnome 0.105-8
+popt 1.18-1
+procps-ng 3.3.17-1
+pulseaudio 15.0-1
+python 3.9.7-1
+rav1e 0.4.1-1
+readline 8.1.001-1
+rest 0.8.1-3
+rtkit 0.13-1
+runc 1.0.2-2
+sdl2 2.0.16-2
+sed 4.8-1
+shadow 4.8.1-4
+shared-mime-info 2.0+57+gc1d1c70-1
+sound-theme-freedesktop 0.8-4
+speex 1.2.0-3
+speexdsp 1.2.0-2
+sqlite 3.36.0-1
+srt 1.4.3-1
+startup-notification 0.12-7
+sudo 1.9.8.p2-1
+svt-av1 0.8.7-1
+sysfsutils 2.1.1-1
+systemd 249.4-1
+systemd-libs 249.4-1
+tar 1.34-1
+tdb 1.4.5-1
+texinfo 6.8-2
+thunar 4.16.10-1
+thunar-volman 4.16.0-1
+tracker3 3.2.0-1
+tumbler 4.16.0-3
+tzdata 2021a-2
+upower 0.99.13-1
+usbmuxd 1.1.1-1
+util-linux 2.37.2-1
+util-linux-libs 2.37.2-1
+v4l-utils 1.20.0-1
+vid.stab 1.1-3
+vmaf 1.5.3-1
+vte-common 0.64.2-2
+vte3 0.64.2-2
+vulkan-icd-loader 1.2.191-1
+wayland 1.19.0-1
+webrtc-audio-processing 0.3.1-3
+websocat 1.8.1-1
+which 2.21-5
+x264 3:0.161.r3039.544c61f-1
+x265 3.5-1
+xbitmaps 1.1.2-2
+xcb-proto 1.14.1-3
+xcb-util 0.4.0-3
+xf86-input-libinput 1.2.0-1
+xfce4-appfinder 4.16.1-2
+xfce4-notifyd 0.6.2-2
+xfce4-panel 4.16.3-2
+xfce4-power-manager 4.16.0-3
+xfce4-pulseaudio-plugin 0.4.3-1
+xfce4-session 4.16.0-2
+xfce4-settings 4.16.2-1
+xfce4-terminal 0.8.10-2
+xfconf 4.16.0-2
+xfdesktop 4.16.0-2
+xfwm4 4.16.1-2
+xfwm4-themes 4.10.0-4
+xkeyboard-config 2.33-2
+xorg-fonts-encodings 1.0.5-2
+xorg-iceauth 1.0.8-2
+xorg-server 1.20.13-2
+xorg-server-common 1.20.13-2
+xorg-setxkbmap 1.3.2-2
+xorg-xauth 1.1-2
+xorg-xinit 1.4.1-3
+xorg-xkbcomp 1.4.5-1
+xorg-xmodmap 1.0.10-2
+xorg-xrdb 1.2.1-1
+xorgproto 2021.5-1
+xterm 369-1
+xvidcore 1.3.7-2
+xz 5.2.5-2
+zimg 3.0.3-1
+zita-alsa-pcmi 0.3.2-3
+zita-resampler 1.8.0-1
+zlib 1:1.2.11-4
+zstd 1.5.0-1
