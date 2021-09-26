@@ -4,10 +4,10 @@
 project_name: docker-webtop
 external_type: os
 release_type: prerelease
-release_tag: arch-xfce
-ls_branch: arch-xfce
+release_tag: arch-kde
+ls_branch: arch-kde
 repo_vars:
-  - BUILD_VERSION_ARG = 'XFCE_VERSION'
+  - BUILD_VERSION_ARG = 'KDE_VERSION'
   - LS_USER = 'linuxserver'
   - LS_REPO = 'docker-webtop'
   - CONTAINER_NAME = 'webtop'

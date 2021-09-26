@@ -26,11 +26,13 @@ RUN \
   done && \
   echo "**** install packages ****" && \
   pacman -Sy --noconfirm --needed \
+    discover \
+    dolphin \
     firefox \
-    mousepad \
+    kate \
+    konsole \
     pavucontrol \
-    xfce4 \
-    xfce4-pulseaudio-plugin && \
+    plasma-desktop && \
   echo "**** cleanup ****" && \
   pacman -Rsn --noconfirm \
     gcc \
