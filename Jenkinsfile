@@ -24,7 +24,7 @@ pipeline {
     DEV_DOCKERHUB_IMAGE = 'lsiodev/webtop'
     PR_DOCKERHUB_IMAGE = 'lspipepr/webtop'
     DIST_IMAGE = 'alpine'
-    DIST_TAG = '3.13'
+    DIST_TAG = '3.14'
     DIST_REPO = 'http://dl-cdn.alpinelinux.org/alpine/edge/testing/'
     DIST_REPO_PACKAGES = 'icewm'
     MULTIARCH = 'true'
