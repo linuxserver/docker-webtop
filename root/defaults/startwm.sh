@@ -1,3 +1,3 @@
 #!/bin/bash
-/usr/bin/pulseaudio --start
+/startpulse.sh &
 /usr/bin/openbox-session > /dev/null 2>&1
