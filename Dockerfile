@@ -3,7 +3,6 @@ FROM ghcr.io/linuxserver/baseimage-rdesktop-web:arch
 # set version label
 ARG BUILD_DATE
 ARG VERSION
-ARG XFCE_VERSION
 LABEL build_version="Linuxserver.io version:- ${VERSION} Build-date:- ${BUILD_DATE}"
 LABEL maintainer="thelamer"
 
@@ -11,9 +10,10 @@ RUN \
   echo "**** install packages ****" && \
   pacman -Sy --noconfirm --needed \
     firefox \
-    mousepad \
-    xfce4 \
-    xfce4-pulseaudio-plugin && \
+    mate \
+    mate-media \
+    mate-terminal \
+    pluma && \
   echo "**** cleanup ****" && \
   rm -rf \
     /tmp/* \
