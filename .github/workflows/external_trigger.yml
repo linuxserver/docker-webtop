@@ -4,13 +4,13 @@ on:
   workflow_dispatch:
 
 jobs:
-  external-trigger-arch-xfce:
+  external-trigger-arch-i3:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2.3.3
 
       - name: External Trigger
-        if: github.ref == 'refs/heads/arch-xfce'
+        if: github.ref == 'refs/heads/arch-i3'
         run: |
           echo "**** No external release, exiting ****"
           exit 0

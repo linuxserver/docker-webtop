@@ -4,25 +4,25 @@ on:
   workflow_dispatch:
 
 jobs:
-  package-trigger-arch-xfce:
+  package-trigger-arch-i3:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2.3.3
 
       - name: Package Trigger
-        if: github.ref == 'refs/heads/arch-xfce'
+        if: github.ref == 'refs/heads/arch-i3'
         run: |
-          if [ -n "${{ secrets.PAUSE_PACKAGE_TRIGGER_WEBTOP_ARCH_XFCE }}" ]; then
-            echo "**** Github secret PAUSE_PACKAGE_TRIGGER_WEBTOP_ARCH_XFCE is set; skipping trigger. ****"
+          if [ -n "${{ secrets.PAUSE_PACKAGE_TRIGGER_WEBTOP_ARCH_I3 }}" ]; then
+            echo "**** Github secret PAUSE_PACKAGE_TRIGGER_WEBTOP_ARCH_I3 is set; skipping trigger. ****"
             exit 0
           fi
-          if [ $(curl -s https://ci.linuxserver.io/job/Docker-Pipeline-Builders/job/docker-webtop/job/arch-xfce/lastBuild/api/json | jq -r '.building') == "true" ]; then
+          if [ $(curl -s https://ci.linuxserver.io/job/Docker-Pipeline-Builders/job/docker-webtop/job/arch-i3/lastBuild/api/json | jq -r '.building') == "true" ]; then
             echo "**** There already seems to be an active build on Jenkins; skipping package trigger ****"
             exit 0
           fi
-          echo "**** Package trigger running off of arch-xfce branch. To disable, set a Github secret named \"PAUSE_PACKAGE_TRIGGER_WEBTOP_ARCH_XFCE\". ****"
+          echo "**** Package trigger running off of arch-i3 branch. To disable, set a Github secret named \"PAUSE_PACKAGE_TRIGGER_WEBTOP_ARCH_I3\". ****"
           response=$(curl -iX POST \
-            https://ci.linuxserver.io/job/Docker-Pipeline-Builders/job/docker-webtop/job/arch-xfce/buildWithParameters?PACKAGE_CHECK=true \
+            https://ci.linuxserver.io/job/Docker-Pipeline-Builders/job/docker-webtop/job/arch-i3/buildWithParameters?PACKAGE_CHECK=true \
             --user ${{ secrets.JENKINS_USER }}:${{ secrets.JENKINS_TOKEN }} | grep -i location | sed "s|^[L|l]ocation: \(.*\)|\1|")
           echo "**** Jenkins job queue url: ${response%$'\r'} ****"
           echo "**** Sleeping 10 seconds until job starts ****"
