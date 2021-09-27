@@ -1,25 +1,23 @@
-FROM lsiobase/rdesktop-web:arm32v7-alpine
+FROM lsiobase/rdesktop-web:arm32v7-arch
 
 # set version label
 ARG BUILD_DATE
 ARG VERSION
-ARG OPENBOX_VERSION
 LABEL build_version="Linuxserver.io version:- ${VERSION} Build-date:- ${BUILD_DATE}"
 LABEL maintainer="thelamer"
 
 
 RUN \
   echo "**** install packages ****" && \
-  apk add --no-cache \
-    firefox-esr \
-    leafpad && \
-  apk add --no-cache --repository=http://dl-cdn.alpinelinux.org/alpine/edge/testing \
+  pacman -Sy --noconfirm --needed \
+    firefox \
+    leafpad \
     obconf-qt && \
-  echo "**** openbox tweaks ****" && \
-  ln -s /usr/bin/obconf-qt /usr/bin/obconf && \
   echo "**** cleanup ****" && \
   rm -rf \
-    /tmp/*
+    /tmp/* \
+    /var/cache/pacman/pkg/* \
+    /var/lib/pacman/sync/*
 
 # add local files
 COPY /root /

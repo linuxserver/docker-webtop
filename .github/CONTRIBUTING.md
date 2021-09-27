@@ -24,7 +24,7 @@
 ## Readme
 
 If you would like to change our readme, please __**do not**__ directly edit the readme, as it is auto-generated on each commit.
-Instead edit the [readme-vars.yml](https://github.com/linuxserver/docker-webtop/edit/alpine-openbox/readme-vars.yml).
+Instead edit the [readme-vars.yml](https://github.com/linuxserver/docker-webtop/edit/arch-openbox/readme-vars.yml).
 
 These variables are used in a template for our [Jenkins Builder](https://github.com/linuxserver/docker-jenkins-builder) as part of an ansible play.
 Most of these variables are also carried over to [docs.linuxserver.io](https://docs.linuxserver.io/images/docker-webtop)
@@ -115,7 +115,7 @@ Once registered you can define the dockerfile to use with `-f Dockerfile.aarch64
 
 ## Update the changelog
 
-If you are modifying the Dockerfiles or any of the startup scripts in [root](https://github.com/linuxserver/docker-webtop/tree/alpine-openbox/root), add an entry to the changelog
+If you are modifying the Dockerfiles or any of the startup scripts in [root](https://github.com/linuxserver/docker-webtop/tree/arch-openbox/root), add an entry to the changelog
 
 ```yml
 changelogs:
