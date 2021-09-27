@@ -4,13 +4,13 @@ on:
   workflow_dispatch:
 
 jobs:
-  external-trigger-arch-i3:
+  external-trigger-arch-icewm:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2.3.3
 
       - name: External Trigger
-        if: github.ref == 'refs/heads/arch-i3'
+        if: github.ref == 'refs/heads/arch-icewm'
         run: |
           echo "**** No external release, exiting ****"
           exit 0

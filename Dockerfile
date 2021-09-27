@@ -10,8 +10,7 @@ RUN \
   echo "**** install packages ****" && \
   pacman -Sy --noconfirm --needed \
     firefox \
-    i3-wm \
-    i3status \
+    icewm \
     leafpad && \
   echo "**** cleanup ****" && \
   rm -rf \
