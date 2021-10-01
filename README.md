@@ -287,4 +287,5 @@ Once registered you can define the dockerfile to use with `-f Dockerfile.aarch64
 ## Versions
 
 * **21.09.21:** - Add Fedora and Arch images, show seccomp settings in readme.
+* **26.09.21:** - Rebase to Alpine versions to 3.14.
 * **20.04.21:** - Initial release.
