@@ -16,6 +16,7 @@ pipeline {
     GITHUB_TOKEN=credentials('498b4638-2d02-4ce5-832d-8a57d01d97ab')
     GITLAB_TOKEN=credentials('b6f0f1dd-6952-4cf6-95d1-9c06380283f0')
     GITLAB_NAMESPACE=credentials('gitlab-namespace-id')
+    SCARF_TOKEN=credentials('scarf_api_key')
     BUILD_VERSION_ARG = 'XFCE_VERSION'
     LS_USER = 'linuxserver'
     LS_REPO = 'docker-webtop'
@@ -120,6 +121,23 @@ pipeline {
           env.EXT_RELEASE_CLEAN = sh(
             script: '''echo ${EXT_RELEASE} | sed 's/[~,%@+;:/]//g' ''',
             returnStdout: true).trim()
+
+          env.SEMVER = (new Date()).format('YYYY.MM.dd')
+          def semver = env.EXT_RELEASE_CLEAN =~ /(\d+)\.(\d+)\.(\d+)$/
+          if (semver.find()) {
+            env.SEMVER = "${semver[0][1]}.${semver[0][2]}.${semver[0][3]}"
+          } else {
+            semver = env.EXT_RELEASE_CLEAN =~ /(\d+)\.(\d+)(?:\.(\d+))?(.*)$/
+            if (semver.find()) {
+              if (semver[0][3]) {
+                env.SEMVER = "${semver[0][1]}.${semver[0][2]}.${semver[0][3]}"
+              } else if (!semver[0][3] && !semver[0][4]) {
+                env.SEMVER = "${semver[0][1]}.${semver[0][2]}.${(new Date()).format('YYYYMMdd')}"
+              }
+            }
+          }
+
+          println("SEMVER: ${env.SEMVER}")
         }
       }
     }
@@ -373,6 +391,48 @@ pipeline {
              "visibility":"public"}' '''
       } 
     }
+    /* #######################
+           Scarf.sh package registry
+       ####################### */
+    // Add package to Scarf.sh and set permissions
+    stage("Scarf.sh package registry"){
+      when {
+        branch "master"
+        environment name: 'EXIT_STATUS', value: ''
+      }
+      steps{
+        sh '''#! /bin/bash
+              set -e
+              PACKAGE_UUID=$(curl -X GET -H "Authorization: Bearer ${SCARF_TOKEN}" https://scarf.sh/api/v1/packages | jq -r '.[] | select(.name=="linuxserver/webtop") | .uuid')
+              if [ -z "${PACKAGE_UUID}" ]; then
+                echo "Adding package to Scarf.sh"
+                PACKAGE_UUID=$(curl -sX POST https://scarf.sh/api/v1/packages \
+                  -H "Authorization: Bearer ${SCARF_TOKEN}" \
+                  -H "Content-Type: application/json" \
+                  -d '{"name":"linuxserver/webtop",\
+                       "shortDescription":"example description",\
+                       "libraryType":"docker",\
+                       "website":"https://github.com/linuxserver/docker-webtop",\
+                       "backendUrl":"https://ghcr.io/linuxserver/webtop",\
+                       "publicUrl":"https://lscr.io/linuxserver/webtop"}' \
+                  | jq -r .uuid)
+              else
+                echo "Package already exists on Scarf.sh"
+              fi
+              echo "Setting permissions on Scarf.sh for package ${PACKAGE_UUID}"
+              curl -X POST https://scarf.sh/api/v1/packages/${PACKAGE_UUID}/permissions \
+                -H "Authorization: Bearer ${SCARF_TOKEN}" \
+                -H "Content-Type: application/json" \
+                -d '[{"userQuery":"Spad","permissionLevel":"admin"},\
+                     {"userQuery":"roxedus","permissionLevel":"admin"},\
+                     {"userQuery":"nemchik","permissionLevel":"admin"},\
+                     {"userQuery":"driz","permissionLevel":"admin"},\
+                     {"userQuery":"aptalca","permissionLevel":"admin"},\
+                     {"userQuery":"saarg","permissionLevel":"admin"},\
+                     {"userQuery":"Stark","permissionLevel":"admin"}]'
+           '''
+      } 
+    }
     /* ###############
        Build Container
        ############### */
@@ -380,7 +440,7 @@ pipeline {
     stage('Build-Single') {
       when {
         expression {
-          env.MULTIARCH == 'false' || params.PACKAGE_CHECK == 'true' 
+          env.MULTIARCH == 'false' || params.PACKAGE_CHECK == 'true'
         }
         environment name: 'EXIT_STATUS', value: ''
       }
@@ -398,7 +458,7 @@ pipeline {
           --label \"org.opencontainers.image.licenses=GPL-3.0-only\" \
           --label \"org.opencontainers.image.ref.name=${COMMIT_SHA}\" \
           --label \"org.opencontainers.image.title=Webtop\" \
-          --label \"org.opencontainers.image.description=[Webtop](https://github.com/linuxserver/docker-webtop) - Alpine and Ubuntu based containers containing full desktop environments in officially supported flavors accessible via any modern web browser.  \" \
+          --label \"org.opencontainers.image.description=[Webtop](https://github.com/linuxserver/docker-webtop) - Alpine, Ubuntu, Fedora, and Arch based containers containing full desktop environments in officially supported flavors accessible via any modern web browser.  \" \
           --no-cache --pull -t ${IMAGE}:${META_TAG} \
           --build-arg ${BUILD_VERSION_ARG}=${EXT_RELEASE} --build-arg VERSION=\"${VERSION_TAG}\" --build-arg BUILD_DATE=${GITHUB_DATE} ."
       }
@@ -428,7 +488,7 @@ pipeline {
               --label \"org.opencontainers.image.licenses=GPL-3.0-only\" \
               --label \"org.opencontainers.image.ref.name=${COMMIT_SHA}\" \
               --label \"org.opencontainers.image.title=Webtop\" \
-              --label \"org.opencontainers.image.description=[Webtop](https://github.com/linuxserver/docker-webtop) - Alpine and Ubuntu based containers containing full desktop environments in officially supported flavors accessible via any modern web browser.  \" \
+              --label \"org.opencontainers.image.description=[Webtop](https://github.com/linuxserver/docker-webtop) - Alpine, Ubuntu, Fedora, and Arch based containers containing full desktop environments in officially supported flavors accessible via any modern web browser.  \" \
               --no-cache --pull -t ${IMAGE}:amd64-${META_TAG} \
               --build-arg ${BUILD_VERSION_ARG}=${EXT_RELEASE} --build-arg VERSION=\"${VERSION_TAG}\" --build-arg BUILD_DATE=${GITHUB_DATE} ."
           }
@@ -455,7 +515,7 @@ pipeline {
               --label \"org.opencontainers.image.licenses=GPL-3.0-only\" \
               --label \"org.opencontainers.image.ref.name=${COMMIT_SHA}\" \
               --label \"org.opencontainers.image.title=Webtop\" \
-              --label \"org.opencontainers.image.description=[Webtop](https://github.com/linuxserver/docker-webtop) - Alpine and Ubuntu based containers containing full desktop environments in officially supported flavors accessible via any modern web browser.  \" \
+              --label \"org.opencontainers.image.description=[Webtop](https://github.com/linuxserver/docker-webtop) - Alpine, Ubuntu, Fedora, and Arch based containers containing full desktop environments in officially supported flavors accessible via any modern web browser.  \" \
               --no-cache --pull -f Dockerfile.armhf -t ${IMAGE}:arm32v7-${META_TAG} \
               --build-arg ${BUILD_VERSION_ARG}=${EXT_RELEASE} --build-arg VERSION=\"${VERSION_TAG}\" --build-arg BUILD_DATE=${GITHUB_DATE} ."
             sh "docker tag ${IMAGE}:arm32v7-${META_TAG} ghcr.io/linuxserver/lsiodev-buildcache:arm32v7-${COMMIT_SHA}-${BUILD_NUMBER}"
@@ -489,7 +549,7 @@ pipeline {
               --label \"org.opencontainers.image.licenses=GPL-3.0-only\" \
               --label \"org.opencontainers.image.ref.name=${COMMIT_SHA}\" \
               --label \"org.opencontainers.image.title=Webtop\" \
-              --label \"org.opencontainers.image.description=[Webtop](https://github.com/linuxserver/docker-webtop) - Alpine and Ubuntu based containers containing full desktop environments in officially supported flavors accessible via any modern web browser.  \" \
+              --label \"org.opencontainers.image.description=[Webtop](https://github.com/linuxserver/docker-webtop) - Alpine, Ubuntu, Fedora, and Arch based containers containing full desktop environments in officially supported flavors accessible via any modern web browser.  \" \
               --no-cache --pull -f Dockerfile.aarch64 -t ${IMAGE}:arm64v8-${META_TAG} \
               --build-arg ${BUILD_VERSION_ARG}=${EXT_RELEASE} --build-arg VERSION=\"${VERSION_TAG}\" --build-arg BUILD_DATE=${GITHUB_DATE} ."
             sh "docker tag ${IMAGE}:arm64v8-${META_TAG} ghcr.io/linuxserver/lsiodev-buildcache:arm64v8-${COMMIT_SHA}-${BUILD_NUMBER}"
@@ -686,9 +746,11 @@ pipeline {
                     docker tag ${IMAGE}:${META_TAG} ${PUSHIMAGE}:${META_TAG}
                     docker tag ${PUSHIMAGE}:${META_TAG} ${PUSHIMAGE}:latest
                     docker tag ${PUSHIMAGE}:${META_TAG} ${PUSHIMAGE}:${EXT_RELEASE_TAG}
+                    docker tag ${PUSHIMAGE}:${META_TAG} ${PUSHIMAGE}:${SEMVER}
                     docker push ${PUSHIMAGE}:latest
                     docker push ${PUSHIMAGE}:${META_TAG}
                     docker push ${PUSHIMAGE}:${EXT_RELEASE_TAG}
+                    docker push ${PUSHIMAGE}:${SEMVER}
                   done
                '''
           }
@@ -697,7 +759,8 @@ pipeline {
                   docker rmi \
                   ${DELETEIMAGE}:${META_TAG} \
                   ${DELETEIMAGE}:${EXT_RELEASE_TAG} \
-                  ${DELETEIMAGE}:latest || :
+                  ${DELETEIMAGE}:latest \
+                  ${DELETEIMAGE}:${SEMVER} || :
                 done
              '''
         }
@@ -740,6 +803,9 @@ pipeline {
                     docker tag ${MANIFESTIMAGE}:amd64-${META_TAG} ${MANIFESTIMAGE}:amd64-${EXT_RELEASE_TAG}
                     docker tag ${MANIFESTIMAGE}:arm32v7-${META_TAG} ${MANIFESTIMAGE}:arm32v7-${EXT_RELEASE_TAG}
                     docker tag ${MANIFESTIMAGE}:arm64v8-${META_TAG} ${MANIFESTIMAGE}:arm64v8-${EXT_RELEASE_TAG}
+                    docker tag ${MANIFESTIMAGE}:amd64-${META_TAG} ${MANIFESTIMAGE}:amd64-${SEMVER}
+                    docker tag ${MANIFESTIMAGE}:arm32v7-${META_TAG} ${MANIFESTIMAGE}:arm32v7-${SEMVER}
+                    docker tag ${MANIFESTIMAGE}:arm64v8-${META_TAG} ${MANIFESTIMAGE}:arm64v8-${SEMVER}
                     docker push ${MANIFESTIMAGE}:amd64-${META_TAG}
                     docker push ${MANIFESTIMAGE}:arm32v7-${META_TAG}
                     docker push ${MANIFESTIMAGE}:arm64v8-${META_TAG}
@@ -749,6 +815,9 @@ pipeline {
                     docker push ${MANIFESTIMAGE}:amd64-${EXT_RELEASE_TAG}
                     docker push ${MANIFESTIMAGE}:arm32v7-${EXT_RELEASE_TAG}
                     docker push ${MANIFESTIMAGE}:arm64v8-${EXT_RELEASE_TAG}
+                    docker push ${MANIFESTIMAGE}:amd64-${SEMVER}
+                    docker push ${MANIFESTIMAGE}:arm32v7-${SEMVER}
+                    docker push ${MANIFESTIMAGE}:arm64v8-${SEMVER}
                     docker manifest push --purge ${MANIFESTIMAGE}:latest || :
                     docker manifest create ${MANIFESTIMAGE}:latest ${MANIFESTIMAGE}:amd64-latest ${MANIFESTIMAGE}:arm32v7-latest ${MANIFESTIMAGE}:arm64v8-latest
                     docker manifest annotate ${MANIFESTIMAGE}:latest ${MANIFESTIMAGE}:arm32v7-latest --os linux --arch arm
@@ -761,9 +830,14 @@ pipeline {
                     docker manifest create ${MANIFESTIMAGE}:${EXT_RELEASE_TAG} ${MANIFESTIMAGE}:amd64-${EXT_RELEASE_TAG} ${MANIFESTIMAGE}:arm32v7-${EXT_RELEASE_TAG} ${MANIFESTIMAGE}:arm64v8-${EXT_RELEASE_TAG}
                     docker manifest annotate ${MANIFESTIMAGE}:${EXT_RELEASE_TAG} ${MANIFESTIMAGE}:arm32v7-${EXT_RELEASE_TAG} --os linux --arch arm
                     docker manifest annotate ${MANIFESTIMAGE}:${EXT_RELEASE_TAG} ${MANIFESTIMAGE}:arm64v8-${EXT_RELEASE_TAG} --os linux --arch arm64 --variant v8
+                    docker manifest push --purge ${MANIFESTIMAGE}:${SEMVER} || :
+                    docker manifest create ${MANIFESTIMAGE}:${SEMVER} ${MANIFESTIMAGE}:amd64-${SEMVER} ${MANIFESTIMAGE}:arm32v7-${SEMVER} ${MANIFESTIMAGE}:arm64v8-${SEMVER}
+                    docker manifest annotate ${MANIFESTIMAGE}:${SEMVER} ${MANIFESTIMAGE}:arm32v7-${SEMVER} --os linux --arch arm
+                    docker manifest annotate ${MANIFESTIMAGE}:${SEMVER} ${MANIFESTIMAGE}:arm64v8-${SEMVER} --os linux --arch arm64 --variant v8
                     docker manifest push --purge ${MANIFESTIMAGE}:latest
                     docker manifest push --purge ${MANIFESTIMAGE}:${META_TAG} 
                     docker manifest push --purge ${MANIFESTIMAGE}:${EXT_RELEASE_TAG} 
+                    docker manifest push --purge ${MANIFESTIMAGE}:${SEMVER} 
                   done
                '''
           }
@@ -773,12 +847,15 @@ pipeline {
                   ${DELETEIMAGE}:amd64-${META_TAG} \
                   ${DELETEIMAGE}:amd64-latest \
                   ${DELETEIMAGE}:amd64-${EXT_RELEASE_TAG} \
+                  ${DELETEIMAGE}:amd64-${SEMVER} \
                   ${DELETEIMAGE}:arm32v7-${META_TAG} \
                   ${DELETEIMAGE}:arm32v7-latest \
                   ${DELETEIMAGE}:arm32v7-${EXT_RELEASE_TAG} \
+                  ${DELETEIMAGE}:arm32v7-${SEMVER} \
                   ${DELETEIMAGE}:arm64v8-${META_TAG} \
                   ${DELETEIMAGE}:arm64v8-latest \
-                  ${DELETEIMAGE}:arm64v8-${EXT_RELEASE_TAG} || :
+                  ${DELETEIMAGE}:arm64v8-${EXT_RELEASE_TAG} \
+                  ${DELETEIMAGE}:arm64v8-${SEMVER} || :
                 done
                 docker rmi \
                 ghcr.io/linuxserver/lsiodev-buildcache:arm32v7-${COMMIT_SHA}-${BUILD_NUMBER} \

@@ -38,7 +38,7 @@ Find us at:
 [![Jenkins Build](https://img.shields.io/jenkins/build?labelColor=555555&logoColor=ffffff&style=for-the-badge&jobUrl=https%3A%2F%2Fci.linuxserver.io%2Fjob%2FDocker-Pipeline-Builders%2Fjob%2Fdocker-webtop%2Fjob%2Fmaster%2F&logo=jenkins)](https://ci.linuxserver.io/job/Docker-Pipeline-Builders/job/docker-webtop/job/master/)
 [![LSIO CI](https://img.shields.io/badge/dynamic/yaml?color=94398d&labelColor=555555&logoColor=ffffff&style=for-the-badge&label=CI&query=CI&url=https%3A%2F%2Fci-tests.linuxserver.io%2Flinuxserver%2Fwebtop%2Flatest%2Fci-status.yml)](https://ci-tests.linuxserver.io/linuxserver/webtop/latest/index.html)
 
-[Webtop](https://github.com/linuxserver/docker-webtop) - Alpine and Ubuntu based containers containing full desktop environments in officially supported flavors accessible via any modern web browser.
+[Webtop](https://github.com/linuxserver/docker-webtop) - Alpine, Ubuntu, Fedora, and Arch based containers containing full desktop environments in officially supported flavors accessible via any modern web browser.
 
 [![webtop](https://raw.githubusercontent.com/linuxserver/docker-templates/master/linuxserver.io/img/webtop-logo.png)](https://github.com/linuxserver/docker-webtop)
 
@@ -46,7 +46,7 @@ Find us at:
 
 Our images support multiple architectures such as `x86-64`, `arm64` and `armhf`. We utilise the docker manifest for multi-platform awareness. More information is available from docker [here](https://github.com/docker/distribution/blob/master/docs/spec/manifest-v2-2.md#manifest-list) and our announcement [here](https://blog.linuxserver.io/2019/02/21/the-lsio-pipeline-project/).
 
-Simply pulling `ghcr.io/linuxserver/webtop` should retrieve the correct image for your arch, but you can also pull specific arch images via tags.
+Simply pulling `lscr.io/linuxserver/webtop` should retrieve the correct image for your arch, but you can also pull specific arch images via tags.
 
 The architectures supported by this image are:
 
@@ -64,16 +64,28 @@ This image provides various versions that are available via tags. `latest` tag u
 | :----: | --- |
 | latest | XFCE Alpine |
 | ubuntu-xfce | XFCE Ubuntu |
+| fedora-xfce | XFCE Fedora |
+| arch-xfce | Arch Fedora |
 | alpine-kde | KDE Alpine |
 | ubuntu-kde | KDE Ubuntu |
+| fedora-kde | KDE Fedora |
+| arch-kde | KDE Arch |
 | alpine-mate | MATE Alpine |
 | ubuntu-mate | MATE Ubuntu |
+| fedora-mate | MATE Fedora |
+| arch-mate | MATE Arch |
 | alpine-i3 | i3 Alpine |
 | ubuntu-i3 | i3 Ubuntu |
+| fedora-i3 | i3 Fedora |
+| arch-i3 | i3 Arch |
 | alpine-openbox | Openbox Alpine |
 | ubuntu-openbox | Openbox Ubuntu |
+| fedora-openbox | Openbox Fedora |
+| arch-openbox | Openbox Arch |
 | alpine-icewm | IceWM Alpine |
 | ubuntu-icewm | IceWM Ubuntu |
+| fedora-icewm | IceWM Fedora |
+| arch-icewm | IceWM Arch |
 
 ## Application Setup
 
@@ -87,9 +99,11 @@ By default the user/pass is abc/abc, if you change your password or want to logi
 
 You can access advanced features of the Guacamole remote desktop using ctrl+alt+shift enabling you to use remote copy/paste or an onscreen keyboard.
 
-**Unlike our other containers these Desktops are not designed to be upgraded by Docker, you will keep your home directoy but anything you installed system level will be lost if you upgrade an existing container. To keep packages up to date instead use Ubuntu's own apt program or Alpine's apk program**
+**Modern GUI desktop apps (including some flavors terminals) have issues with the latest Docker and syscall compatibility, you can use Docker with the seccomp unconfined setting to allow these syscalls or try [podman](https://podman.io/) as they have updated their codebase to support them**
 
-**The KDE and i3 flavors for Ubuntu need to be run in privileged mode to function properly**
+**Unlike our other containers these Desktops are not designed to be upgraded by Docker, you will keep your home directoy but anything you installed system level will be lost if you upgrade an existing container. To keep packages up to date instead use Ubuntu's own apt, Alpine's apk, Fedora's dnf, or Arch's pacman program**
+
+**The KDE Ubuntu container needs to be run in privileged mode to function properly, in general the Ubuntu KDE container while functional is not reccomended, please try a different KDE distro if possible**
 
 If you ever lose your password you can always reset it by execing into the container as root:
 ```
@@ -109,9 +123,11 @@ Here are some example snippets to help you get started creating a container.
 version: "2.1"
 services:
   webtop:
-    image: ghcr.io/linuxserver/webtop
+    image: lscr.io/linuxserver/webtop
     container_name: webtop
     privileged: true #optional
+    security_opt:
+      - seccomp:unconfined #optional
     environment:
       - PUID=1000
       - PGID=1000
@@ -132,6 +148,7 @@ services:
 docker run -d \
   --name=webtop \
   --privileged `#optional` \
+  --security-opt seccomp=unconfined `#optional` \
   -e PUID=1000 \
   -e PGID=1000 \
   -e TZ=Europe/London \
@@ -141,7 +158,7 @@ docker run -d \
   -v /var/run/docker.sock:/var/run/docker.sock `#optional` \
   --shm-size="1gb" `#optional` \
   --restart unless-stopped \
-  ghcr.io/linuxserver/webtop
+  lscr.io/linuxserver/webtop
 ```
 
 ## Parameters
@@ -158,6 +175,7 @@ Container images are configured using parameters passed at runtime (such as thos
 | `-v /config` | abc users home directory |
 | `-v /var/run/docker.sock` | Docker Socket on the system, if you want to use Docker in the container |
 | `--shm-size=` | We set this to 1 gig to prevent modern web browsers from crashing |
+| `--security-opt seccomp=unconfined` | For Docker Engine only, many modern gui apps need this to function as syscalls are unkown to Docker (try this before privileged) |
 
 ## Environment variables from files (Docker secrets)
 
@@ -202,7 +220,7 @@ We publish various [Docker Mods](https://github.com/linuxserver/docker-mods) to 
 * container version number
   * `docker inspect -f '{{ index .Config.Labels "build_version" }}' webtop`
 * image version number
-  * `docker inspect -f '{{ index .Config.Labels "build_version" }}' ghcr.io/linuxserver/webtop`
+  * `docker inspect -f '{{ index .Config.Labels "build_version" }}' lscr.io/linuxserver/webtop`
 
 ## Updating Info
 
@@ -220,7 +238,7 @@ Below are the instructions for updating containers:
 
 ### Via Docker Run
 
-* Update the image: `docker pull ghcr.io/linuxserver/webtop`
+* Update the image: `docker pull lscr.io/linuxserver/webtop`
 * Stop the running container: `docker stop webtop`
 * Delete the container: `docker rm webtop`
 * Recreate a new container with the same docker run parameters as instructed above (if mapped correctly to a host folder, your `/config` folder and settings will be preserved)
@@ -255,7 +273,7 @@ cd docker-webtop
 docker build \
   --no-cache \
   --pull \
-  -t ghcr.io/linuxserver/webtop:latest .
+  -t lscr.io/linuxserver/webtop:latest .
 ```
 
 The ARM variants can be built on x86_64 hardware using `multiarch/qemu-user-static`
@@ -268,5 +286,6 @@ Once registered you can define the dockerfile to use with `-f Dockerfile.aarch64
 
 ## Versions
 
+* **21.09.21:** - Add Fedora and Arch images, show seccomp settings in readme.
 * **26.09.21:** - Rebase to Alpine versions to 3.14.
 * **20.04.21:** - Initial release.
