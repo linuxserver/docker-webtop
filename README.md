@@ -66,7 +66,7 @@ This image provides various versions that are available via tags. `latest` tag u
 | latest | XFCE Alpine |
 | ubuntu-xfce | XFCE Ubuntu |
 | fedora-xfce | XFCE Fedora |
-| arch-xfce | Arch Fedora |
+| arch-xfce | XFCE Arch |
 | alpine-kde | KDE Alpine |
 | ubuntu-kde | KDE Ubuntu |
 | fedora-kde | KDE Fedora |
