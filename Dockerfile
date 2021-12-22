@@ -13,8 +13,7 @@ RUN \
   apk add --no-cache --repository=http://dl-cdn.alpinelinux.org/alpine/edge/testing \
     icewm && \
   apk add --no-cache \
-    firefox-esr \
-    leafpad && \
+    firefox-esr && \
   echo "**** cleanup ****" && \
   rm -rf \
     /tmp/*
