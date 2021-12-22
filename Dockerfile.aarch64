@@ -11,8 +11,7 @@ LABEL maintainer="thelamer"
 RUN \
   echo "**** install packages ****" && \
   apk add --no-cache \
-    firefox-esr \
-    leafpad && \
+    firefox-esr && \
   apk add --no-cache --repository=http://dl-cdn.alpinelinux.org/alpine/edge/testing \
     obconf-qt && \
   echo "**** openbox tweaks ****" && \
