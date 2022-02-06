@@ -2,7 +2,7 @@
 
 # project information
 project_name: webtop
-project_url: "https://github.com/linuxserver/docker-webtop"
+project_url: "https://github.com/linuxserver/gclient"
 project_logo: "https://raw.githubusercontent.com/linuxserver/docker-templates/master/linuxserver.io/img/webtop-logo.png"
 project_blurb: |
   [{{ project_name|capitalize }}]({{ project_url }}) - Alpine, Ubuntu, Fedora, and Arch based containers containing full desktop environments in officially supported flavors accessible via any modern web browser.
@@ -43,7 +43,6 @@ development_versions_items:
   - { tag: "arch-icewm", desc: "IceWM Arch" }
 
 # container parameters
-privileged: "optional"
 param_container_name: "{{ project_name }}"
 param_usage_include_vols: true
 param_volumes:
@@ -58,6 +57,7 @@ param_env_vars:
 opt_param_usage_include_env: true
 opt_param_env_vars:
   - { env_var: "SUBFOLDER", env_value: "/", desc: "Specify a subfolder to use with reverse proxies, IE `/subfolder/`"}
+  - { env_var: "KEYBOARD", env_value: "en-us-qwerty", desc: "See the keyboard layouts section for more information and options."}
 opt_param_usage_include_vols: true
 opt_param_volumes:
   - { vol_path: "/var/run/docker.sock", vol_host_path: "/var/run/docker.sock", desc: "Docker Socket on the system, if you want to use Docker in the container" }
@@ -65,7 +65,7 @@ opt_custom_params:
   - { name: "shm-size", name_compose: "shm_size", value: "1gb",desc: "We set this to 1 gig to prevent modern web browsers from crashing" }
 opt_security_opt_param: true
 opt_security_opt_param_vars:
-  - { run_var: "seccomp=unconfined", compose_var: "seccomp:unconfined", desc: "For Docker Engine only, many modern gui apps need this to function as syscalls are unkown to Docker (try this before privileged)" }
+  - { run_var: "seccomp=unconfined", compose_var: "seccomp:unconfined", desc: "For Docker Engine only, many modern gui apps need this to function as syscalls are unkown to Docker." }
 
 # application setup block
 app_setup_block_enabled: true
@@ -78,13 +78,32 @@ app_setup_block: |
 
   * http://yourhost:3000/?login=true
 
-  You can access advanced features of the Guacamole remote desktop using ctrl+alt+shift enabling you to use remote copy/paste or an onscreen keyboard.
+  You can also force login on the '/' path without this parameter by passing the environment variable `-e AUTO_LOGIN=false`.
 
-  **Modern GUI desktop apps (including some flavors terminals) have issues with the latest Docker and syscall compatibility, you can use Docker with the seccomp unconfined setting to allow these syscalls or try [podman](https://podman.io/) as they have updated their codebase to support them**
+  You can access advanced features of the Guacamole remote desktop using ctrl+alt+shift enabling you to use remote copy/paste, an onscreen keyboard, or a baked in file manager. This can also be accessed by clicking the small circle on the left side of the screen.
+
+  **Modern GUI desktop apps (including some flavors terminals) have issues with the latest Docker and syscall compatibility, you can use Docker with the `--security-opt seccomp=unconfined` setting to allow these syscalls or try [podman](https://podman.io/) as they have updated their codebase to support them**
 
   **Unlike our other containers these Desktops are not designed to be upgraded by Docker, you will keep your home directoy but anything you installed system level will be lost if you upgrade an existing container. To keep packages up to date instead use Ubuntu's own apt, Alpine's apk, Fedora's dnf, or Arch's pacman program**
 
-  **The KDE Ubuntu container needs to be run in privileged mode to function properly, in general the Ubuntu KDE container while functional is not reccomended, please try a different KDE distro if possible**
+  #### Keyboard Layouts
+  
+  This should match the layout on the computer you are accessing the container from.
+
+  The keyboard layouts available for use are:
+  * da-dk-qwerty- Danish keyboard
+  * de-ch-qwertz- Swiss German keyboard (qwertz)
+  * de-de-qwertz- German keyboard (qwertz) - **OSK available**
+  * en-gb-qwerty- English (UK) keyboard
+  * en-us-qwerty- English (US) keyboard - **OSK available** **DEFAULT**
+  * es-es-qwerty- Spanish keyboard - **OSK available**
+  * fr-ch-qwertz- Swiss French keyboard (qwertz)
+  * fr-fr-azerty- French keyboard (azerty) - **OSK available**
+  * it-it-qwerty- Italian keyboard - **OSK available**
+  * ja-jp-qwerty- Japanese keyboard
+  * pt-br-qwerty- Portuguese Brazilian keyboard
+  * sv-se-qwerty- Swedish keyboard
+  * tr-tr-qwerty- Turkish-Q keyboard
 
   If you ever lose your password you can always reset it by execing into the container as root:
   ```
@@ -95,6 +114,7 @@ app_setup_block: |
 
 # changelog
 changelogs:
+  - { date: "05.02.22:", desc: "Rebase KDE Ubuntu to Jammy, add new documentation for updated gclient, stop recommending priv mode." }
   - { date: "21.09.21:", desc: "Add Fedora and Arch images, show seccomp settings in readme." }
   - { date: "26.09.21:", desc: "Rebase to Alpine versions to 3.14." }
   - { date: "20.04.21:", desc: "Initial release." }
