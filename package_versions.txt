@@ -36,7 +36,7 @@ cairomm-1.14.2-15.fc34.x86_64
 cdparanoia-libs-10.2-37.fc34.x86_64
 cmake-filesystem-3.20.5-1.fc34.x86_64
 colord-libs-1.4.5-2.fc34.x86_64
-container-selinux-2.170.0-2.fc34.noarch
+container-selinux-2.173.1-1.fc34.noarch
 containerd-1.5.8-1.fc34.x86_64
 coreutils-8.32-30.fc34.x86_64
 coreutils-common-8.32-30.fc34.x86_64
@@ -44,7 +44,7 @@ cracklib-2.9.6-27.fc34.x86_64
 criu-3.16.1-2.fc34.x86_64
 crypto-policies-20210213-1.git5c710c0.fc34.noarch
 crypto-policies-scripts-20210213-1.git5c710c0.fc34.noarch
-cryptsetup-libs-2.3.6-1.fc34.x86_64
+cryptsetup-libs-2.3.7-1.fc34.x86_64
 cups-libs-2.3.3op2-11.fc34.x86_64
 curl-7.76.1-12.fc34.x86_64
 cyrus-sasl-lib-2.1.27-8.fc34.x86_64
@@ -89,7 +89,7 @@ fedora-repos-modular-34-2.noarch
 file-libs-5.39-7.fc34.x86_64
 filesystem-3.14-5.fc34.x86_64
 findutils-4.8.0-2.fc34.x86_64
-firefox-95.0.2-2.fc34.x86_64
+firefox-96.0.3-1.fc34.x86_64
 flac-libs-1.3.3-7.fc34.x86_64
 fontconfig-2.13.94-2.fc34.x86_64
 fonts-filesystem-2.0.5-5.fc34.noarch
@@ -97,7 +97,7 @@ freerdp-libs-2.4.1-1.fc34.x86_64
 freetype-2.10.4-3.fc34.x86_64
 fribidi-1.0.10-4.fc34.x86_64
 fuse-libs-2.9.9-11.fc34.x86_64
-fwupd-1.7.3-1.fc34.x86_64
+fwupd-1.7.4-1.fc34.x86_64
 gawk-5.1.0-3.fc34.x86_64
 gdbm-libs-1.19-2.fc34.x86_64
 gdk-pixbuf2-2.42.6-1.fc34.x86_64
@@ -351,7 +351,7 @@ libgomp-11.2.1-1.fc34.x86_64
 libgpg-error-1.42-1.fc34.x86_64
 libgudev-237-1.fc34.x86_64
 libgusb-0.3.8-1.fc34.x86_64
-libibverbs-37.0-1.fc34.x86_64
+libibverbs-37.2-2.fc34.x86_64
 libicu-67.1-7.fc34.x86_64
 libidn2-2.3.2-1.fc34.x86_64
 libimobiledevice-1.3.0-3.fc34.x86_64
@@ -402,7 +402,7 @@ libsepol-3.2-1.fc34.x86_64
 libsigc++20-2.10.7-1.fc34.x86_64
 libsigsegv-2.13-2.fc34.x86_64
 libsmartcols-2.36.2-1.fc34.x86_64
-libsmbclient-4.14.11-0.fc34.x86_64
+libsmbclient-4.14.12-0.fc34.x86_64
 libsmbios-2.4.3-2.fc34.x86_64
 libsndfile-1.0.31-6.fc34.x86_64
 libsolv-0.7.17-3.fc34.x86_64
@@ -441,7 +441,7 @@ libwayland-client-1.19.0-1.fc34.x86_64
 libwayland-cursor-1.19.0-1.fc34.x86_64
 libwayland-egl-1.19.0-1.fc34.x86_64
 libwayland-server-1.19.0-1.fc34.x86_64
-libwbclient-4.14.11-0.fc34.x86_64
+libwbclient-4.14.12-0.fc34.x86_64
 libwebp-1.2.1-1.fc34.x86_64
 libwinpr-2.4.1-1.fc34.x86_64
 libxcb-1.13.1-7.fc34.x86_64
@@ -473,7 +473,7 @@ mesa-libGL-21.1.8-3.fc34.x86_64
 mesa-libgbm-21.1.8-3.fc34.x86_64
 mesa-libglapi-21.1.8-3.fc34.x86_64
 mesa-vulkan-drivers-21.1.8-3.fc34.x86_64
-moby-engine-20.10.11-1.fc34.x86_64
+moby-engine-20.10.12-1.fc34.x86_64
 mozilla-filesystem-1.9-25.fc34.x86_64
 mozjs78-78.15.0-1.fc34.x86_64
 mpfr-4.1.0-7.fc34.x86_64
@@ -509,7 +509,7 @@ oxygen-sound-theme-5.22.5-1.fc34.noarch
 p11-kit-0.23.22-3.fc34.x86_64
 p11-kit-trust-0.23.22-3.fc34.x86_64
 pam-1.5.1-7.fc34.x86_64
-pango-1.48.10-2.fc34.x86_64
+pango-1.48.11-1.fc34.x86_64
 pangomm-2.46.2-1.fc34.x86_64
 pavucontrol-4.0-6.fc34.x86_64
 pciutils-libs-3.7.0-3.fc34.x86_64
@@ -582,9 +582,9 @@ plasma-workspace-libs-5.22.5-2.fc34.x86_64
 plasma-workspace-wayland-5.22.5-2.fc34.x86_64
 plasma-workspace-x11-5.22.5-2.fc34.x86_64
 policycoreutils-3.2-1.fc34.x86_64
-polkit-0.117-3.fc34.1.x86_64
+polkit-0.117-3.fc34.2.x86_64
 polkit-kde-5.22.5-1.fc34.x86_64
-polkit-libs-0.117-3.fc34.1.x86_64
+polkit-libs-0.117-3.fc34.2.x86_64
 polkit-pkla-compat-0.1-19.fc34.x86_64
 polkit-qt5-1-0.113.0-6.fc34.x86_64
 poppler-21.01.0-7.fc34.x86_64
@@ -630,9 +630,9 @@ qt5-qtsvg-5.15.2-4.fc34.x86_64
 qt5-qttools-5.15.2-5.fc34.x86_64
 qt5-qttools-common-5.15.2-5.fc34.noarch
 qt5-qttools-libs-designer-5.15.2-5.fc34.x86_64
-qt5-qtwayland-5.15.2-15.fc34.x86_64
+qt5-qtwayland-5.15.2-19.fc34.x86_64
 qt5-qtwebchannel-5.15.2-3.fc34.x86_64
-qt5-qtwebengine-5.15.5-1.fc34.x86_64
+qt5-qtwebengine-5.15.8-2.fc34.x86_64
 qt5-qtx11extras-5.15.2-3.fc34.x86_64
 re2-20190801-8.fc34.x86_64
 readline-8.1-2.fc34.x86_64
@@ -645,9 +645,9 @@ rpm-plugin-selinux-4.16.1.3-1.fc34.x86_64
 rpm-sign-libs-4.16.1.3-1.fc34.x86_64
 rtkit-0.11-26.fc34.x86_64
 runc-1.0.2-2.fc34.x86_64
-samba-client-libs-4.14.11-0.fc34.x86_64
-samba-common-4.14.11-0.fc34.noarch
-samba-common-libs-4.14.11-0.fc34.x86_64
+samba-client-libs-4.14.12-0.fc34.x86_64
+samba-common-4.14.12-0.fc34.noarch
+samba-common-libs-4.14.12-0.fc34.x86_64
 sed-4.8-7.fc34.x86_64
 selinux-policy-34.23-1.fc34.noarch
 selinux-policy-targeted-34.23-1.fc34.noarch
@@ -707,10 +707,10 @@ xorg-x11-server-Xwayland-21.1.4-1.fc34.x86_64
 xorg-x11-server-common-1.20.14-1.fc34.x86_64
 xorg-x11-xauth-1.1-8.fc34.x86_64
 xorg-x11-xinit-1.4.0-10.fc34.x86_64
-xorgxrdp-0.2.17-2.fc34.x86_64
+xorgxrdp-0.2.18-1.fc34.x86_64
 xprop-1.2.3-2.fc34.x86_64
 xrdb-1.2.0-1.fc34.x86_64
-xrdp-0.9.17-5.fc34.x86_64
+xrdp-0.9.18-3.fc34.x86_64
 xsetroot-1.1.2-2.fc34.x86_64
 xterm-366-1.fc34.x86_64
 xterm-resize-366-1.fc34.x86_64
