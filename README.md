@@ -40,9 +40,9 @@ Find us at:
 [![Jenkins Build](https://img.shields.io/jenkins/build?labelColor=555555&logoColor=ffffff&style=for-the-badge&jobUrl=https%3A%2F%2Fci.linuxserver.io%2Fjob%2FDocker-Pipeline-Builders%2Fjob%2Fdocker-webtop%2Fjob%2Fmaster%2F&logo=jenkins)](https://ci.linuxserver.io/job/Docker-Pipeline-Builders/job/docker-webtop/job/master/)
 [![LSIO CI](https://img.shields.io/badge/dynamic/yaml?color=94398d&labelColor=555555&logoColor=ffffff&style=for-the-badge&label=CI&query=CI&url=https%3A%2F%2Fci-tests.linuxserver.io%2Flinuxserver%2Fwebtop%2Flatest%2Fci-status.yml)](https://ci-tests.linuxserver.io/linuxserver/webtop/latest/index.html)
 
-[Webtop](https://github.com/linuxserver/docker-webtop) - Alpine, Ubuntu, Fedora, and Arch based containers containing full desktop environments in officially supported flavors accessible via any modern web browser.
+[Webtop](https://github.com/linuxserver/gclient) - Alpine, Ubuntu, Fedora, and Arch based containers containing full desktop environments in officially supported flavors accessible via any modern web browser.
 
-[![webtop](https://raw.githubusercontent.com/linuxserver/docker-templates/master/linuxserver.io/img/webtop-logo.png)](https://github.com/linuxserver/docker-webtop)
+[![webtop](https://raw.githubusercontent.com/linuxserver/docker-templates/master/linuxserver.io/img/webtop-logo.png)](https://github.com/linuxserver/gclient)
 
 ## Supported Architectures
 
@@ -99,13 +99,32 @@ By default the user/pass is abc/abc, if you change your password or want to logi
 
 * http://yourhost:3000/?login=true
 
-You can access advanced features of the Guacamole remote desktop using ctrl+alt+shift enabling you to use remote copy/paste or an onscreen keyboard.
+You can also force login on the '/' path without this parameter by passing the environment variable `-e AUTO_LOGIN=false`.
 
-**Modern GUI desktop apps (including some flavors terminals) have issues with the latest Docker and syscall compatibility, you can use Docker with the seccomp unconfined setting to allow these syscalls or try [podman](https://podman.io/) as they have updated their codebase to support them**
+You can access advanced features of the Guacamole remote desktop using ctrl+alt+shift enabling you to use remote copy/paste, an onscreen keyboard, or a baked in file manager. This can also be accessed by clicking the small circle on the left side of the screen.
+
+**Modern GUI desktop apps (including some flavors terminals) have issues with the latest Docker and syscall compatibility, you can use Docker with the `--security-opt seccomp=unconfined` setting to allow these syscalls or try [podman](https://podman.io/) as they have updated their codebase to support them**
 
 **Unlike our other containers these Desktops are not designed to be upgraded by Docker, you will keep your home directoy but anything you installed system level will be lost if you upgrade an existing container. To keep packages up to date instead use Ubuntu's own apt, Alpine's apk, Fedora's dnf, or Arch's pacman program**
 
-**The KDE Ubuntu container needs to be run in privileged mode to function properly, in general the Ubuntu KDE container while functional is not reccomended, please try a different KDE distro if possible**
+#### Keyboard Layouts
+
+This should match the layout on the computer you are accessing the container from.
+
+The keyboard layouts available for use are:
+* da-dk-qwerty- Danish keyboard
+* de-ch-qwertz- Swiss German keyboard (qwertz)
+* de-de-qwertz- German keyboard (qwertz) - **OSK available**
+* en-gb-qwerty- English (UK) keyboard
+* en-us-qwerty- English (US) keyboard - **OSK available** **DEFAULT**
+* es-es-qwerty- Spanish keyboard - **OSK available**
+* fr-ch-qwertz- Swiss French keyboard (qwertz)
+* fr-fr-azerty- French keyboard (azerty) - **OSK available**
+* it-it-qwerty- Italian keyboard - **OSK available**
+* ja-jp-qwerty- Japanese keyboard
+* pt-br-qwerty- Portuguese Brazilian keyboard
+* sv-se-qwerty- Swedish keyboard
+* tr-tr-qwerty- Turkish-Q keyboard
 
 If you ever lose your password you can always reset it by execing into the container as root:
 ```
@@ -127,7 +146,6 @@ services:
   webtop:
     image: lscr.io/linuxserver/webtop
     container_name: webtop
-    privileged: true #optional
     security_opt:
       - seccomp:unconfined #optional
     environment:
@@ -135,6 +153,7 @@ services:
       - PGID=1000
       - TZ=Europe/London
       - SUBFOLDER=/ #optional
+      - KEYBOARD=en-us-qwerty #optional
     volumes:
       - /path/to/data:/config
       - /var/run/docker.sock:/var/run/docker.sock #optional
@@ -149,12 +168,12 @@ services:
 ```bash
 docker run -d \
   --name=webtop \
-  --privileged `#optional` \
   --security-opt seccomp=unconfined `#optional` \
   -e PUID=1000 \
   -e PGID=1000 \
   -e TZ=Europe/London \
   -e SUBFOLDER=/ `#optional` \
+  -e KEYBOARD=en-us-qwerty `#optional` \
   -p 3000:3000 \
   -v /path/to/data:/config \
   -v /var/run/docker.sock:/var/run/docker.sock `#optional` \
@@ -174,10 +193,11 @@ Container images are configured using parameters passed at runtime (such as thos
 | `-e PGID=1000` | for GroupID - see below for explanation |
 | `-e TZ=Europe/London` | Specify a timezone to use EG Europe/London |
 | `-e SUBFOLDER=/` | Specify a subfolder to use with reverse proxies, IE `/subfolder/` |
+| `-e KEYBOARD=en-us-qwerty` | See the keyboard layouts section for more information and options. |
 | `-v /config` | abc users home directory |
 | `-v /var/run/docker.sock` | Docker Socket on the system, if you want to use Docker in the container |
 | `--shm-size=` | We set this to 1 gig to prevent modern web browsers from crashing |
-| `--security-opt seccomp=unconfined` | For Docker Engine only, many modern gui apps need this to function as syscalls are unkown to Docker (try this before privileged) |
+| `--security-opt seccomp=unconfined` | For Docker Engine only, many modern gui apps need this to function as syscalls are unkown to Docker. |
 
 ## Environment variables from files (Docker secrets)
 
@@ -288,6 +308,7 @@ Once registered you can define the dockerfile to use with `-f Dockerfile.aarch64
 
 ## Versions
 
+* **05.02.22:** - Rebase KDE Ubuntu to Jammy, add new documentation for updated gclient, stop recommending priv mode.
 * **21.09.21:** - Add Fedora and Arch images, show seccomp settings in readme.
 * **26.09.21:** - Rebase to Alpine versions to 3.14.
 * **20.04.21:** - Initial release.
