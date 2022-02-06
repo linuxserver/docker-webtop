@@ -1,4 +1,4 @@
-FROM ghcr.io/linuxserver/baseimage-rdesktop-web:focal
+FROM ghcr.io/linuxserver/baseimage-rdesktop-web:jammy
 
 # set version label
 ARG BUILD_DATE
