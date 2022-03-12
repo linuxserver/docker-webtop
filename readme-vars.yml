@@ -66,6 +66,9 @@ opt_custom_params:
 opt_security_opt_param: true
 opt_security_opt_param_vars:
   - { run_var: "seccomp=unconfined", compose_var: "seccomp:unconfined", desc: "For Docker Engine only, many modern gui apps need this to function as syscalls are unkown to Docker." }
+opt_param_device_map: true
+opt_param_devices:
+  - { device_path: "/dev/dri", device_host_path: "/dev/dri", desc: "Add this for GL support (Linux hosts only)" }
 
 # application setup block
 app_setup_block_enabled: true
@@ -110,10 +113,33 @@ app_setup_block: |
   docker exec -it webtop passwd abc
   ```
   By default we perform all logic for the abc user and we reccomend using that user only in the container, but new users can be added as long as there is a `startwm.sh` executable script in their home directory.
-  All of these containers are configured with passwordless sudo, we make no efforts to secure or harden these containers and we do not reccomend ever publishing their ports to the public Internet. 
+  All of these containers are configured with passwordless sudo, we make no efforts to secure or harden these containers and we do not reccomend ever publishing their ports to the public Internet.
+
+  ## Hardware Acceleration (Ubuntu Container Only)
+
+  Many desktop application will need access to a GPU to function properly and even some Desktop Environments have compisitor effects that will not function without a GPU. This is not a hard requirement and all base images will function without a video device mounted into the container.
+
+  ### Intel/ATI/AMD
+
+  To leverage hardware acceleration you will need to mount /dev/dri video device inside of the conainer.
+  ```
+  --device=/dev/dri:/dev/dri
+  ```
+  We will automatically ensure the abc user inside of the container has the proper permissions to access this device.
+  ### Nvidia
+
+  Hardware acceleration users for Nvidia will need to install the container runtime provided by Nvidia on their host, instructions can be found here:
+  https://github.com/NVIDIA/nvidia-docker
+
+  We automatically add the necessary environment variable that will utilise all the features available on a GPU on the host. Once nvidia-docker is installed on your host you will need to re/create the docker container with the nvidia container runtime `--runtime=nvidia` and add an environment variable `-e NVIDIA_VISIBLE_DEVICES=all` (can also be set to a specific gpu's UUID, this can be discovered by running `nvidia-smi --query-gpu=gpu_name,gpu_uuid --format=csv` ). NVIDIA automatically mounts the GPU and drivers from your host into the container.
+
+  ### Arm Devices
+
+  Best effort is made to install tools to allow mounting in /dev/dri on Arm devices. In most cases if /dev/dri exists on the host it should just work. If running a Raspberry Pi 4 be sure to enable `dtoverlay=vc4-fkms-v3d` in your usercfg.txt. 
 
 # changelog
 changelogs:
+  - { date: "12.03.22:", desc: "Add documentation for mounting in a GPU." }
   - { date: "05.02.22:", desc: "Rebase KDE Ubuntu to Jammy, add new documentation for updated gclient, stop recommending priv mode." }
   - { date: "21.09.21:", desc: "Add Fedora and Arch images, show seccomp settings in readme." }
   - { date: "26.09.21:", desc: "Rebase to Alpine versions to 3.14." }
