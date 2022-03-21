@@ -12,8 +12,7 @@ RUN \
   echo "**** install packages ****" && \
   apk add --no-cache \
     firefox-esr \
-    i3status \
-    i3wm && \
+    sway && \
   echo "**** cleanup ****" && \
   rm -rf \
     /tmp/*
