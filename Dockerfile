@@ -6,8 +6,12 @@ ARG VERSION
 LABEL build_version="Linuxserver.io version:- ${VERSION} Build-date:- ${BUILD_DATE}"
 LABEL maintainer="thelamer"
 
+# prevent Ubuntu's firefox stub from being installed
+COPY /root/etc/apt/preferences.d/firefox-no-snap /etc/apt/preferences.d/firefox-no-snap
+
 RUN \
   echo "**** install packages ****" && \
+  add-apt-repository -y ppa:mozillateam/ppa && \
   apt-get update && \
   DEBIAN_FRONTEND=noninteractive \
   apt-get install --no-install-recommends -y \
