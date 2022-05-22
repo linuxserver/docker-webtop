@@ -8,7 +8,7 @@ apt2.4.5
 apt-transport-https2.4.5
 apt-utils2.4.5
 baloo-kf55.92.0-0ubuntu1
-base-files12ubuntu4
+base-files12ubuntu4.1
 base-passwd3.5.52build1
 bash5.1-6ubuntu1
 bc1.07.1-3build1
@@ -23,7 +23,7 @@ catdoc1:0.95-5
 coreutils8.32-4.1ubuntu1
 cpp-1111.2.0-19ubuntu1
 cpp4:11.2.0-1ubuntu1
-curl7.81.0-1
+curl7.81.0-1ubuntu1.2
 dash0.5.11+git20210903+057cd650a4ed-3build1
 dbus1.12.20-2ubuntu4
 dbus-x111.12.20-2ubuntu4
@@ -39,14 +39,14 @@ distro-info-data0.52ubuntu0.1
 dmidecode3.3-3
 docbook-xml4.5-11
 docbook-xsl1.79.2+dfsg-1
-docker-ce-cli5:20.10.14~3-0~ubuntu-bionic
+docker-ce-cli5:20.10.15~3-0~ubuntu-bionic
 dolphin4:21.12.3-0ubuntu1
 dpkg1.21.1ubuntu2
 drkonqi5.24.4-0ubuntu1
 e2fsprogs1.46.5-2ubuntu1
 fdisk2.37.2-4ubuntu3
 findutils4.8.0-1ubuntu3
-firefox100.0+build2-0ubuntu0.22.04.1~mt1
+firefox100.0.2+build1-0ubuntu0.22.04.1~mt1
 fontconfig2.13.1-4.2ubuntu5
 fontconfig-config2.13.1-4.2ubuntu5
 fonts-dejavu-core2.37-2build1
@@ -120,7 +120,7 @@ kpackagetool55.92.0-0ubuntu1
 ktexteditor-data5.92.0-0ubuntu1
 ktexteditor-katepart5.92.0-0ubuntu1
 kubuntu-desktop1.418
-kubuntu-settings-desktop1:22.04.9
+kubuntu-settings-desktop1:22.04.10
 kwayland-data4:5.92.0-0ubuntu1
 kwin-common4:5.24.4-0ubuntu1
 kwin-data4:5.24.4-0ubuntu1
@@ -198,8 +198,8 @@ libcom-err21.46.5-2ubuntu1
 libcrypt11:4.4.27-1
 libcryptsetup122:2.4.3-1ubuntu1
 libcups22.4.1op1-1ubuntu4
-libcurl3-gnutls7.81.0-1
-libcurl47.81.0-1
+libcurl3-gnutls7.81.0-1ubuntu1.2
+libcurl47.81.0-1ubuntu1.2
 libdatrie10.2.13-2
 libdav1d50.9.2-1
 libdb5.35.3.28+dfsg1-0.8ubuntu3
@@ -546,7 +546,7 @@ libpam0g1.4.0-11ubuntu2
 libpam-modules1.4.0-11ubuntu2
 libpam-modules-bin1.4.0-11ubuntu2
 libpam-runtime1.4.0-11ubuntu2
-libpam-systemd249.11-0ubuntu3
+libpam-systemd249.11-0ubuntu3.1
 libpango-1.0-01.50.6+ds-2
 libpangocairo-1.0-01.50.6+ds-2
 libpangoft2-1.0-01.50.6+ds-2
@@ -687,13 +687,13 @@ libss21.46.5-2ubuntu1
 libssh2-11.10.0-3
 libssh-40.9.6-2build1
 libssh-gcrypt-40.9.6-2build1
-libssl33.0.2-0ubuntu1
+libssl33.0.2-0ubuntu1.1
 libstartup-notification00.12-6build2
 libstdc++612-20220319-1ubuntu1
 libstemmer0d2.2.0-1build1
 libswresample37:4.4.1-3ubuntu5
 libswscale57:4.4.1-3ubuntu5
-libsystemd0249.11-0ubuntu3
+libsystemd0249.11-0ubuntu3.1
 libtag1v51.11.1+dfsg.1-3ubuntu3
 libtag1v5-vanilla1.11.1+dfsg.1-3ubuntu3
 libtalloc22.3.3-2build1
@@ -711,7 +711,7 @@ libtirpc-common1.3.2-2build1
 libtwolame00.4.0-2build2
 libu2f-udev1.1.10-3build2
 libuchardet00.0.7-1build2
-libudev1249.11-0ubuntu3
+libudev1249.11-0ubuntu3.1
 libudfread01.1.2-1
 libudisks2-02.9.4-1ubuntu2
 libunistring21.0-1
@@ -800,7 +800,7 @@ libxkbcommon01.4.0-1
 libxkbcommon-x11-01.4.0-1
 libxkbfile11:1.1.0-1build3
 libxml22.9.13+dfsg-1build1
-libxml2-utils2.9.13+dfsg-1build1
+libxml2-utils2.9.13+dfsg-1ubuntu0.1
 libxmlb20.3.6-2build1
 libxmu62:1.1.3-3
 libxmuu12:1.1.3-3
@@ -845,7 +845,7 @@ ocl-icd-libopencl12.2.14-3
 openbox3.6.1-10
 openprinting-ppds20220223-0ubuntu1
 openssh-client1:8.9p1-3
-openssl3.0.2-0ubuntu1
+openssl3.0.2-0ubuntu1.1
 oxygen-sounds4:5.24.4-0ubuntu1
 packagekit1.2.5-2ubuntu2
 parted3.4-2build1
@@ -884,7 +884,7 @@ python2-minimal2.7.18-3
 python3.103.10.4-3
 python3.10-minimal3.10.4-3
 python33.10.4-0ubuntu2
-python3-apport2.20.11-0ubuntu82
+python3-apport2.20.11-0ubuntu82.1
 python3-apt2.3.0ubuntu2
 python3-blinker1.4+dfsg1-0.4
 python3-cffi-backend1.15.0-1build2
@@ -909,7 +909,7 @@ python3-minimal3.10.4-0ubuntu2
 python3-more-itertools8.10.0-2
 python3-oauthlib3.2.0-1
 python3-pkg-resources59.6.0-1.2
-python3-problem-report2.20.11-0ubuntu82
+python3-problem-report2.20.11-0ubuntu82.1
 python3-pyparsing2.4.7-1
 python3-pyqt55.15.6+dfsg-1ubuntu3
 python3-pyqt5.sip12.9.1-1build1
@@ -975,8 +975,8 @@ sound-theme-freedesktop0.8-2ubuntu1
 spice-vdagent0.22.1-1
 ssl-cert1.1.2
 sudo1.9.9-1ubuntu2
-systemd249.11-0ubuntu3
-systemd-sysv249.11-0ubuntu3
+systemd249.11-0ubuntu3.1
+systemd-sysv249.11-0ubuntu3.1
 systemsettings4:5.24.4-0ubuntu1
 sysvinit-utils3.01-1ubuntu1
 tar1.34+dfsg-1build3
@@ -987,7 +987,7 @@ ubuntu-mono20.10-0ubuntu2
 ubuntu-release-upgrader-core1:22.04.10
 ubuntu-release-upgrader-qt1:22.04.10
 ucf3.0043
-udev249.11-0ubuntu3
+udev249.11-0ubuntu3.1
 udisks22.9.4-1ubuntu2
 unzip6.0-26ubuntu3
 usb.ids2022.04.02-1
@@ -998,7 +998,7 @@ vlc-data3.0.16-1build7
 vlc-plugin-base3.0.16-1build7
 vlc-plugin-video-output3.0.16-1build7
 wireless-tools30~pre9-13.1ubuntu4
-wpasupplicant2:2.10-6
+wpasupplicant2:2.10-6ubuntu1
 x11-apps7.7+8build2
 x11-common1:7.7+23ubuntu2
 x11proto-dev2021.5-1
