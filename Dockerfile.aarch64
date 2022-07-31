@@ -12,7 +12,7 @@ RUN \
   echo "**** install packages ****" && \
   apk add --no-cache \
     firefox-esr && \
-  apk add --no-cache --repository=http://dl-cdn.alpinelinux.org/alpine/edge/testing \
+  apk add --no-cache --repository=http://dl-cdn.alpinelinux.org/alpine/edge/community \
     obconf-qt && \
   echo "**** openbox tweaks ****" && \
   ln -s /usr/bin/obconf-qt /usr/bin/obconf && \
