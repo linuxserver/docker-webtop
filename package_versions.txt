@@ -46,7 +46,7 @@ drkonqi5.24.5-0ubuntu0.1
 e2fsprogs1.46.5-2ubuntu1.1
 fdisk2.37.2-4ubuntu3
 findutils4.8.0-1ubuntu3
-firefox104.0.2+build1-0ubuntu0.22.04.1~mt1
+firefox105.0+build2-0ubuntu0.22.04.1~mt1
 fontconfig2.13.1-4.2ubuntu5
 fontconfig-config2.13.1-4.2ubuntu5
 fonts-dejavu-core2.37-2build1
@@ -59,7 +59,7 @@ fuse33.10.5-1build1
 gamin0.1.10-6
 gawk1:5.1.0-1build3
 gcc-11-base11.2.0-19ubuntu1
-gcc-12-base12-20220319-1ubuntu1
+gcc-12-base12.1.0-2ubuntu1~22.04
 gdb12.0.90-0ubuntu1
 gdisk1.0.8-4build1
 ghostscript9.55.0~dfsg1-0ubuntu5
@@ -257,12 +257,12 @@ libfuse22.9.9-5ubuntu3
 libfuse3-33.10.5-1build1
 libgamin00.1.10-6
 libgbm122.0.5-0ubuntu0.1
-libgcc-s112-20220319-1ubuntu1
+libgcc-s112.1.0-2ubuntu1~22.04
 libgcrypt201.9.4-3ubuntu3
 libgdbm61.23-1
 libgdbm-compat41.23-1
-libgdk-pixbuf-2.0-02.42.8+dfsg-1
-libgdk-pixbuf2.0-common2.42.8+dfsg-1
+libgdk-pixbuf-2.0-02.42.8+dfsg-1ubuntu0.1
+libgdk-pixbuf2.0-common2.42.8+dfsg-1ubuntu0.1
 libgif75.1.9-2build2
 libgirepository-1.0-11.72.0-1
 libgl11.4.0-1
@@ -279,7 +279,7 @@ libglx-mesa022.0.5-0ubuntu0.1
 libgme00.6.3-2
 libgmp102:6.2.1+dfsg-3ubuntu1
 libgnutls303.7.3-4ubuntu1.1
-libgomp112-20220319-1ubuntu1
+libgomp112.1.0-2ubuntu1~22.04
 libgpg-error01.43-3
 libgpgme111.16.0-1.2ubuntu4
 libgpgmepp61.16.0-1.2ubuntu4
@@ -556,7 +556,7 @@ libparted23.4-2build1
 libparted-fs-resize03.4-2build1
 libpci31:3.7.0-6
 libpciaccess00.16-3
-libpcre2-16-010.39-3build1
+libpcre2-16-010.39-3ubuntu0.1
 libpcre2-8-010.39-3build1
 libpcre32:8.39-13ubuntu0.22.04.1
 libpcsclite11.9.5-3
@@ -593,9 +593,9 @@ libpulse-mainloop-glib01:15.99.1+dfsg1-1ubuntu1
 libpython2.7-minimal2.7.18-13ubuntu1.1
 libpython2.7-stdlib2.7.18-13ubuntu1.1
 libpython2-stdlib2.7.18-3
-libpython3.103.10.4-3ubuntu0.1
-libpython3.10-minimal3.10.4-3ubuntu0.1
-libpython3.10-stdlib3.10.4-3ubuntu0.1
+libpython3.103.10.6-1~22.04
+libpython3.10-minimal3.10.6-1~22.04
+libpython3.10-stdlib3.10.6-1~22.04
 libpython3-stdlib3.10.4-0ubuntu2
 libqaccessibilityclient-qt5-00.4.1-1build1
 libqalculate223.22.0-3build1
@@ -689,7 +689,7 @@ libssh-40.9.6-2build1
 libssh-gcrypt-40.9.6-2build1
 libssl33.0.2-0ubuntu1.6
 libstartup-notification00.12-6build2
-libstdc++612-20220319-1ubuntu1
+libstdc++612.1.0-2ubuntu1~22.04
 libstemmer0d2.2.0-1build1
 libswresample37:4.4.2-0ubuntu0.22.04.1
 libswscale57:4.4.2-0ubuntu0.22.04.1
@@ -704,7 +704,7 @@ libtevent00.11.0-1build1
 libthai00.1.29-1build1
 libthai-data0.1.29-1build1
 libtheora01.1.1+dfsg.1-15ubuntu4
-libtiff54.3.0-6
+libtiff54.3.0-6ubuntu0.1
 libtinfo66.3-2
 libtirpc31.3.2-2ubuntu0.1
 libtirpc-common1.3.2-2ubuntu0.1
@@ -735,10 +735,10 @@ libvpx71.11.0-2ubuntu2
 libvulkan11.3.204.1-2
 libwacom92.2.0-1
 libwacom-common2.2.0-1
-libwayland-client01.20.0-1
-libwayland-cursor01.20.0-1
-libwayland-egl11.20.0-1
-libwayland-server01.20.0-1
+libwayland-client01.20.0-1ubuntu0.1
+libwayland-cursor01.20.0-1ubuntu0.1
+libwayland-egl11.20.0-1ubuntu0.1
+libwayland-server01.20.0-1ubuntu0.1
 libwbclient02:4.15.9+dfsg-0ubuntu0.2
 libweather-ion74:5.24.6-0ubuntu0.1
 libwebp71.2.2-2
@@ -839,6 +839,8 @@ milou4:5.24.6-0ubuntu0.1
 mount2.37.2-4ubuntu3
 ncurses-base6.3-2
 ncurses-bin6.3-2
+netcat1.218-4ubuntu1
+netcat-openbsd1.218-4ubuntu1
 nodejs16.17.0-deb-1nodesource1
 obconf1:2.0.4+git20150213-2build1
 ocl-icd-libopencl12.2.14-3
@@ -881,8 +883,8 @@ python22.7.18-3
 python2.72.7.18-13ubuntu1.1
 python2.7-minimal2.7.18-13ubuntu1.1
 python2-minimal2.7.18-3
-python3.103.10.4-3ubuntu0.1
-python3.10-minimal3.10.4-3ubuntu0.1
+python3.103.10.6-1~22.04
+python3.10-minimal3.10.6-1~22.04
 python33.10.4-0ubuntu2
 python3-apport2.20.11-0ubuntu82.1
 python3-apt2.3.0ubuntu2.1
@@ -1026,7 +1028,7 @@ xrdp0.9.17-2ubuntu2
 xserver-common2:21.1.3-2ubuntu2.1
 xserver-xorg1:7.7+23ubuntu2
 xserver-xorg-core2:21.1.3-2ubuntu2.1
-xserver-xorg-video-amdgpu22.0.0-1build1
+xserver-xorg-video-amdgpu22.0.0-1ubuntu0.1
 xserver-xorg-video-ati1:19.1.0-2ubuntu1
 xserver-xorg-video-intel2:2.99.917+git20210115-1
 xserver-xorg-video-radeon1:19.1.0-2ubuntu1
@@ -1035,4 +1037,4 @@ xtrans-dev1.4.0-1
 xutils1:7.7+23ubuntu2
 xz-utils5.2.5-2ubuntu1
 zip3.0-12build2
-zlib1g1:1.2.11.dfsg-2ubuntu9
+zlib1g1:1.2.11.dfsg-2ubuntu9.1
