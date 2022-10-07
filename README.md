@@ -270,4 +270,5 @@ Once registered you can define the dockerfile to use with `-f Dockerfile.aarch64
 
 ## Versions
 
+* **07.10.22:** - Rebase fedora-mate to Fedora 36, migrate to s6v3.
 * **20.04.21:** - Initial release.
