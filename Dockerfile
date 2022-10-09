@@ -1,4 +1,4 @@
-FROM ghcr.io/linuxserver/baseimage-rdesktop-web:fedora-2c286ca1-ls70
+FROM ghcr.io/linuxserver/baseimage-rdesktop-web:fedora
 
 # set version label
 ARG BUILD_DATE

@@ -1,4 +1,4 @@
-FROM ghcr.io/linuxserver/baseimage-rdesktop-web:arm32v7-fedora-2c286ca1-ls70
+FROM ghcr.io/linuxserver/baseimage-rdesktop-web:arm32v7-fedora
 
 # set version label
 ARG BUILD_DATE
@@ -13,6 +13,7 @@ RUN \
     greybird-dark-theme \
     greybird-xfwm4-theme \
     gtk-xfce-engine \
+    firefox \
     mousepad \
     Thunar \
     xfce4-appfinder \
