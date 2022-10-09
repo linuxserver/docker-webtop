@@ -1,4 +1,4 @@
-FROM ghcr.io/linuxserver/baseimage-rdesktop-web:fedora-2c286ca1-ls70
+FROM ghcr.io/linuxserver/baseimage-rdesktop-web:fedora
 
 # set version label
 ARG BUILD_DATE
@@ -9,9 +9,9 @@ LABEL maintainer="thelamer"
 RUN \
   echo "**** install packages ****" && \
   dnf install -y --setopt=install_weak_deps=False --best \
-    firefox \
     dmenu \
     feh \
+    firefox \
     i3 \
     i3status && \
   echo "**** cleanup ****" && \
