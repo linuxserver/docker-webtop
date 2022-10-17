@@ -58,6 +58,7 @@ opt_param_usage_include_env: true
 opt_param_env_vars:
   - { env_var: "SUBFOLDER", env_value: "/", desc: "Specify a subfolder to use with reverse proxies, IE `/subfolder/`"}
   - { env_var: "KEYBOARD", env_value: "en-us-qwerty", desc: "See the keyboard layouts section for more information and options."}
+  - { env_var: "TITLE", env_value: "Webtop", desc: "String which will be used as page/tab title in the web browser." }
 opt_param_usage_include_vols: true
 opt_param_volumes:
   - { vol_path: "/var/run/docker.sock", vol_host_path: "/var/run/docker.sock", desc: "Docker Socket on the system, if you want to use Docker in the container" }
