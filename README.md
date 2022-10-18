@@ -334,5 +334,5 @@ Once registered you can define the dockerfile to use with `-f Dockerfile.aarch64
 
 ## Versions
 
-* **18.10.22:** - Migrate to s6v3.
+* **18.10.22:** - Migrate arch xfce to s6v3.
 * **20.04.21:** - Initial release.
