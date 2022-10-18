@@ -1,4 +1,4 @@
-FROM ghcr.io/linuxserver/baseimage-rdesktop-web:arm64v8-arch-a95e952b-ls63
+FROM ghcr.io/linuxserver/baseimage-rdesktop-web:arm64v8-arch
 
 # set version label
 ARG BUILD_DATE
@@ -23,4 +23,5 @@ COPY /root /
 
 # ports and volumes
 EXPOSE 3000
+
 VOLUME /config
