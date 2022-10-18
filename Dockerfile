@@ -1,4 +1,4 @@
-FROM ghcr.io/linuxserver/baseimage-rdesktop-web:arch-a95e952b-ls63
+FROM ghcr.io/linuxserver/baseimage-rdesktop-web:arch
 
 # set version label
 ARG BUILD_DATE
