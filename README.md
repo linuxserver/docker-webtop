@@ -176,6 +176,7 @@ services:
       - TZ=Europe/London
       - SUBFOLDER=/ #optional
       - KEYBOARD=en-us-qwerty #optional
+      - TITLE=Webtop #optional
     volumes:
       - /path/to/data:/config
       - /var/run/docker.sock:/var/run/docker.sock #optional
@@ -198,6 +199,7 @@ docker run -d \
   -e TZ=Europe/London \
   -e SUBFOLDER=/ `#optional` \
   -e KEYBOARD=en-us-qwerty `#optional` \
+  -e TITLE=Webtop `#optional` \
   -p 3000:3000 \
   -v /path/to/data:/config \
   -v /var/run/docker.sock:/var/run/docker.sock `#optional` \
@@ -219,6 +221,7 @@ Container images are configured using parameters passed at runtime (such as thos
 | `-e TZ=Europe/London` | Specify a timezone to use EG Europe/London |
 | `-e SUBFOLDER=/` | Specify a subfolder to use with reverse proxies, IE `/subfolder/` |
 | `-e KEYBOARD=en-us-qwerty` | See the keyboard layouts section for more information and options. |
+| `-e TITLE=Webtop` | String which will be used as page/tab title in the web browser. |
 | `-v /config` | abc users home directory |
 | `-v /var/run/docker.sock` | Docker Socket on the system, if you want to use Docker in the container |
 | `--device /dev/dri` | Add this for GL support (Linux hosts only) |
