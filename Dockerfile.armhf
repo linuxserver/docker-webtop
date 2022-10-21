@@ -1,4 +1,4 @@
-FROM lsiobase/rdesktop-web:arm32v7-alpine
+FROM ghcr.io/linuxserver/baseimage-rdesktop-web:arm32v7-3.16
 
 # set version label
 ARG BUILD_DATE
@@ -11,7 +11,7 @@ LABEL maintainer="thelamer"
 RUN \
   echo "**** install packages ****" && \
   apk add --no-cache \
-    firefox-esr \
+    firefox \
     mate-desktop-environment && \
   echo "**** cleanup ****" && \
   rm -rf \
@@ -22,4 +22,5 @@ COPY /root /
 
 # ports and volumes
 EXPOSE 3000
+
 VOLUME /config
