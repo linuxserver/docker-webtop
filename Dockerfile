@@ -14,7 +14,7 @@ RUN \
     faenza-icon-theme \
     faenza-icon-theme-xfce4-appfinder \
     faenza-icon-theme-xfce4-panel \
-    firefox-esr \
+    firefox \
     mousepad \
     thunar \
     xfce4 \
