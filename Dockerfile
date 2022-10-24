@@ -1,4 +1,4 @@
-FROM lsiobase/rdesktop-web:alpine
+FROM ghcr.io/linuxserver/baseimage-rdesktop-web:3.16
 
 # set version label
 ARG BUILD_DATE
@@ -12,7 +12,7 @@ RUN \
   echo "**** install packages ****" && \
   apk add --no-cache \
     dolphin \
-    firefox-esr \
+    firefox \
     kate \
     konsole \
     plasma && \
@@ -25,4 +25,5 @@ COPY /root /
 
 # ports and volumes
 EXPOSE 3000
+
 VOLUME /config
