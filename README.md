@@ -226,7 +226,7 @@ Container images are configured using parameters passed at runtime (such as thos
 | `-v /var/run/docker.sock` | Docker Socket on the system, if you want to use Docker in the container |
 | `--device /dev/dri` | Add this for GL support (Linux hosts only) |
 | `--shm-size=` | We set this to 1 gig to prevent modern web browsers from crashing |
-| `--security-opt seccomp=unconfined` | For Docker Engine only, many modern gui apps need this to function as syscalls are unkown to Docker. |
+| `--security-opt seccomp=unconfined` | For Docker Engine only, many modern gui apps need this to function on older hosts as syscalls are unknown to Docker. |
 
 ## Environment variables from files (Docker secrets)
 
@@ -337,6 +337,7 @@ Once registered you can define the dockerfile to use with `-f Dockerfile.aarch64
 
 ## Versions
 
+* **21.10.22:** - Rebase xfce to Alpine 3.16, migrate to s6v3.
 * **12.03.22:** - Add documentation for mounting in a GPU.
 * **05.02.22:** - Rebase KDE Ubuntu to Jammy, add new documentation for updated gclient, stop recommending priv mode.
 * **21.09.21:** - Add Fedora and Arch images, show seccomp settings in readme.

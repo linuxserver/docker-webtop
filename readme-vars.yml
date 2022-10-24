@@ -2,7 +2,7 @@
 
 # project information
 project_name: webtop
-project_url: "https://github.com/linuxserver/gclient"
+project_url: "https://github.com/linuxserver/docker-webtop"
 project_logo: "https://raw.githubusercontent.com/linuxserver/docker-templates/master/linuxserver.io/img/webtop-logo.png"
 project_blurb: |
   [{{ project_name|capitalize }}]({{ project_url }}) - Alpine, Ubuntu, Fedora, and Arch based containers containing full desktop environments in officially supported flavors accessible via any modern web browser.
@@ -66,7 +66,7 @@ opt_custom_params:
   - { name: "shm-size", name_compose: "shm_size", value: "1gb",desc: "We set this to 1 gig to prevent modern web browsers from crashing" }
 opt_security_opt_param: true
 opt_security_opt_param_vars:
-  - { run_var: "seccomp=unconfined", compose_var: "seccomp:unconfined", desc: "For Docker Engine only, many modern gui apps need this to function as syscalls are unkown to Docker." }
+  - { run_var: "seccomp=unconfined", compose_var: "seccomp:unconfined", desc: "For Docker Engine only, many modern gui apps need this to function on older hosts as syscalls are unknown to Docker." }
 opt_param_device_map: true
 opt_param_devices:
   - { device_path: "/dev/dri", device_host_path: "/dev/dri", desc: "Add this for GL support (Linux hosts only)" }
@@ -140,6 +140,7 @@ app_setup_block: |
 
 # changelog
 changelogs:
+  - { date: "21.10.22:", desc: "Rebase xfce to Alpine 3.16, migrate to s6v3." }
   - { date: "12.03.22:", desc: "Add documentation for mounting in a GPU." }
   - { date: "05.02.22:", desc: "Rebase KDE Ubuntu to Jammy, add new documentation for updated gclient, stop recommending priv mode." }
   - { date: "21.09.21:", desc: "Add Fedora and Arch images, show seccomp settings in readme." }

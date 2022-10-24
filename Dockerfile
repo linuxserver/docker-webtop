@@ -1,4 +1,4 @@
-FROM lsiobase/rdesktop-web:alpine
+FROM ghcr.io/linuxserver/baseimage-rdesktop-web:3.16
 
 # set version label
 ARG BUILD_DATE
@@ -14,7 +14,7 @@ RUN \
     faenza-icon-theme \
     faenza-icon-theme-xfce4-appfinder \
     faenza-icon-theme-xfce4-panel \
-    firefox-esr \
+    firefox \
     mousepad \
     thunar \
     xfce4 \
@@ -30,4 +30,5 @@ COPY /root /
 
 # ports and volumes
 EXPOSE 3000
+
 VOLUME /config
