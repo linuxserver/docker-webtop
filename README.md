@@ -40,7 +40,7 @@ Find us at:
 [![Jenkins Build](https://img.shields.io/jenkins/build?labelColor=555555&logoColor=ffffff&style=for-the-badge&jobUrl=https%3A%2F%2Fci.linuxserver.io%2Fjob%2FDocker-Pipeline-Builders%2Fjob%2Fdocker-webtop%2Fjob%2Falpine-openbox%2F&logo=jenkins)](https://ci.linuxserver.io/job/Docker-Pipeline-Builders/job/docker-webtop/job/alpine-openbox/)
 [![LSIO CI](https://img.shields.io/badge/dynamic/yaml?color=94398d&labelColor=555555&logoColor=ffffff&style=for-the-badge&label=CI&query=CI&url=https%3A%2F%2Fci-tests.linuxserver.io%2Flinuxserver%2Fwebtop%2Flatest%2Fci-status.yml)](https://ci-tests.linuxserver.io/linuxserver/webtop/latest/index.html)
 
-[Webtop](https://github.com/linuxserver/docker-webtop) - Alpine and Ubuntu based containers containing full desktop environments in officially supported flavors accessible via any modern web browser.
+[Webtop](https://github.com/linuxserver/docker-webtop) - Alpine, Ubuntu, Fedora, and Arch based containers containing full desktop environments in officially supported flavors accessible via any modern web browser.
 
 [![webtop](https://raw.githubusercontent.com/linuxserver/docker-templates/master/linuxserver.io/img/webtop-logo.png)](https://github.com/linuxserver/docker-webtop)
 
@@ -66,16 +66,28 @@ This image provides various versions that are available via tags. Please read th
 | :----: | :----: |--- |
 | latest | ✅ | XFCE Alpine |
 | ubuntu-xfce | ✅ | XFCE Ubuntu |
+| fedora-xfce | ✅ | XFCE Fedora |
+| arch-xfce | ✅ | XFCE Arch |
 | alpine-kde | ✅ | KDE Alpine |
 | ubuntu-kde | ✅ | KDE Ubuntu |
+| fedora-kde | ✅ | KDE Fedora |
+| arch-kde | ✅ | KDE Arch |
 | alpine-mate | ✅ | MATE Alpine |
 | ubuntu-mate | ✅ | MATE Ubuntu |
+| fedora-mate | ✅ | MATE Fedora |
+| arch-mate | ✅ | MATE Arch |
 | alpine-i3 | ✅ | i3 Alpine |
 | ubuntu-i3 | ✅ | i3 Ubuntu |
+| fedora-i3 | ✅ | i3 Fedora |
+| arch-i3 | ✅ | i3 Arch |
 | alpine-openbox | ✅ | Openbox Alpine |
 | ubuntu-openbox | ✅ | Openbox Ubuntu |
+| fedora-openbox | ✅ | Openbox Fedora |
+| arch-openbox | ✅ | Openbox Arch |
 | alpine-icewm | ✅ | IceWM Alpine |
 | ubuntu-icewm | ✅ | IceWM Ubuntu |
+| fedora-icewm | ✅ | IceWM Fedora |
+| arch-icewm | ✅ | IceWM Arch |
 
 ## Application Setup
 
@@ -87,11 +99,32 @@ By default the user/pass is abc/abc, if you change your password or want to logi
 
 * http://yourhost:3000/?login=true
 
-You can access advanced features of the Guacamole remote desktop using ctrl+alt+shift enabling you to use remote copy/paste or an onscreen keyboard.
+You can also force login on the '/' path without this parameter by passing the environment variable `-e AUTO_LOGIN=false`.
 
-**Unlike our other containers these Desktops are not designed to be upgraded by Docker, you will keep your home directoy but anything you installed system level will be lost if you upgrade an existing container. To keep packages up to date instead use Ubuntu's own apt program or Alpine's apk program**
+You can access advanced features of the Guacamole remote desktop using ctrl+alt+shift enabling you to use remote copy/paste, an onscreen keyboard, or a baked in file manager. This can also be accessed by clicking the small circle on the left side of the screen.
 
-**The KDE and i3 flavors for Ubuntu need to be run in privileged mode to function properly**
+**Modern GUI desktop apps (including some flavors terminals) have issues with the latest Docker and syscall compatibility, you can use Docker with the `--security-opt seccomp=unconfined` setting to allow these syscalls or try [podman](https://podman.io/) as they have updated their codebase to support them**
+
+**Unlike our other containers these Desktops are not designed to be upgraded by Docker, you will keep your home directoy but anything you installed system level will be lost if you upgrade an existing container. To keep packages up to date instead use Ubuntu's own apt, Alpine's apk, Fedora's dnf, or Arch's pacman program**
+
+#### Keyboard Layouts
+
+This should match the layout on the computer you are accessing the container from.
+
+The keyboard layouts available for use are:
+* da-dk-qwerty- Danish keyboard
+* de-ch-qwertz- Swiss German keyboard (qwertz)
+* de-de-qwertz- German keyboard (qwertz) - **OSK available**
+* en-gb-qwerty- English (UK) keyboard
+* en-us-qwerty- English (US) keyboard - **OSK available** **DEFAULT**
+* es-es-qwerty- Spanish keyboard - **OSK available**
+* fr-ch-qwertz- Swiss French keyboard (qwertz)
+* fr-fr-azerty- French keyboard (azerty) - **OSK available**
+* it-it-qwerty- Italian keyboard - **OSK available**
+* ja-jp-qwerty- Japanese keyboard
+* pt-br-qwerty- Portuguese Brazilian keyboard
+* sv-se-qwerty- Swedish keyboard
+* tr-tr-qwerty- Turkish-Q keyboard
 
 If you ever lose your password you can always reset it by execing into the container as root:
 ```
@@ -99,6 +132,28 @@ docker exec -it webtop passwd abc
 ```
 By default we perform all logic for the abc user and we reccomend using that user only in the container, but new users can be added as long as there is a `startwm.sh` executable script in their home directory.
 All of these containers are configured with passwordless sudo, we make no efforts to secure or harden these containers and we do not reccomend ever publishing their ports to the public Internet.
+
+## Hardware Acceleration (Ubuntu Container Only)
+
+Many desktop application will need access to a GPU to function properly and even some Desktop Environments have compisitor effects that will not function without a GPU. This is not a hard requirement and all base images will function without a video device mounted into the container.
+
+### Intel/ATI/AMD
+
+To leverage hardware acceleration you will need to mount /dev/dri video device inside of the conainer.
+```
+--device=/dev/dri:/dev/dri
+```
+We will automatically ensure the abc user inside of the container has the proper permissions to access this device.
+### Nvidia
+
+Hardware acceleration users for Nvidia will need to install the container runtime provided by Nvidia on their host, instructions can be found here:
+https://github.com/NVIDIA/nvidia-docker
+
+We automatically add the necessary environment variable that will utilise all the features available on a GPU on the host. Once nvidia-docker is installed on your host you will need to re/create the docker container with the nvidia container runtime `--runtime=nvidia` and add an environment variable `-e NVIDIA_VISIBLE_DEVICES=all` (can also be set to a specific gpu's UUID, this can be discovered by running `nvidia-smi --query-gpu=gpu_name,gpu_uuid --format=csv` ). NVIDIA automatically mounts the GPU and drivers from your host into the container.
+
+### Arm Devices
+
+Best effort is made to install tools to allow mounting in /dev/dri on Arm devices. In most cases if /dev/dri exists on the host it should just work. If running a Raspberry Pi 4 be sure to enable `dtoverlay=vc4-fkms-v3d` in your usercfg.txt.
 
 ## Usage
 
@@ -113,16 +168,22 @@ services:
   webtop:
     image: lscr.io/linuxserver/webtop:alpine-openbox
     container_name: webtop
-    privileged: true #optional
+    security_opt:
+      - seccomp:unconfined #optional
     environment:
       - PUID=1000
       - PGID=1000
       - TZ=Europe/London
+      - SUBFOLDER=/ #optional
+      - KEYBOARD=en-us-qwerty #optional
+      - TITLE=Webtop #optional
     volumes:
       - /path/to/data:/config
       - /var/run/docker.sock:/var/run/docker.sock #optional
     ports:
       - 3000:3000
+    devices:
+      - /dev/dri:/dev/dri #optional
     shm_size: "1gb" #optional
     restart: unless-stopped
 ```
@@ -132,13 +193,17 @@ services:
 ```bash
 docker run -d \
   --name=webtop \
-  --privileged `#optional` \
+  --security-opt seccomp=unconfined `#optional` \
   -e PUID=1000 \
   -e PGID=1000 \
   -e TZ=Europe/London \
+  -e SUBFOLDER=/ `#optional` \
+  -e KEYBOARD=en-us-qwerty `#optional` \
+  -e TITLE=Webtop `#optional` \
   -p 3000:3000 \
   -v /path/to/data:/config \
   -v /var/run/docker.sock:/var/run/docker.sock `#optional` \
+  --device /dev/dri:/dev/dri `#optional` \
   --shm-size="1gb" `#optional` \
   --restart unless-stopped \
   lscr.io/linuxserver/webtop:alpine-openbox
@@ -154,9 +219,14 @@ Container images are configured using parameters passed at runtime (such as thos
 | `-e PUID=1000` | for UserID - see below for explanation |
 | `-e PGID=1000` | for GroupID - see below for explanation |
 | `-e TZ=Europe/London` | Specify a timezone to use EG Europe/London |
+| `-e SUBFOLDER=/` | Specify a subfolder to use with reverse proxies, IE `/subfolder/` |
+| `-e KEYBOARD=en-us-qwerty` | See the keyboard layouts section for more information and options. |
+| `-e TITLE=Webtop` | String which will be used as page/tab title in the web browser. |
 | `-v /config` | abc users home directory |
 | `-v /var/run/docker.sock` | Docker Socket on the system, if you want to use Docker in the container |
+| `--device /dev/dri` | Add this for GL support (Linux hosts only) |
 | `--shm-size=` | We set this to 1 gig to prevent modern web browsers from crashing |
+| `--security-opt seccomp=unconfined` | For Docker Engine only, many modern gui apps need this to function on older hosts as syscalls are unknown to Docker. |
 
 ## Environment variables from files (Docker secrets)
 
@@ -267,4 +337,5 @@ Once registered you can define the dockerfile to use with `-f Dockerfile.aarch64
 
 ## Versions
 
+* **21.10.22:** - Rebase openbox to Alpine 3.16, migrate to s6v3.
 * **20.04.21:** - Initial release.
