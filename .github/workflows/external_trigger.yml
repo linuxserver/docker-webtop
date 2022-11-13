@@ -49,8 +49,12 @@ jobs:
               | jq -r '.config.digest')
           image_info=$(curl -sL \
             --header "Authorization: Bearer ${token}" \
-            "https://ghcr.io/v2/${image}/blobs/${digest}" \
-            | jq -r '.container_config')
+            "https://ghcr.io/v2/${image}/blobs/${digest}")
+          if [[ $(echo $image_info | jq -r '.container_config') == "null" ]]; then
+            image_info=$(echo $image_info | jq -r '.config')
+          else
+            image_info=$(echo $image_info | jq -r '.container_config')
+          fi
           IMAGE_RELEASE=$(echo ${image_info} | jq -r '.Labels.build_version' | awk '{print $3}')
           IMAGE_VERSION=$(echo ${IMAGE_RELEASE} | awk -F'-ls' '{print $1}')
           if [ -z "${IMAGE_VERSION}" ]; then
