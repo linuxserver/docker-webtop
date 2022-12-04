@@ -8,6 +8,6 @@ jobs:
     steps:
     - uses: actions/first-interaction@v1
       with:
-        issue-message: 'Thanks for opening your first issue here! Be sure to follow the [bug](https://github.com/linuxserver/docker-webtop/blob/fedora-icewm/.github/ISSUE_TEMPLATE/issue.bug.md) or [feature](https://github.com/linuxserver/docker-webtop/blob/fedora-icewm/.github/ISSUE_TEMPLATE/issue.feature.md) issue templates!'
+        issue-message: 'Thanks for opening your first issue here! Be sure to follow the [bug](https://github.com/linuxserver/docker-webtop/blob/fedora-icewm/.github/ISSUE_TEMPLATE/issue.bug.yml) or [feature](https://github.com/linuxserver/docker-webtop/blob/fedora-icewm/.github/ISSUE_TEMPLATE/issue.feature.yml) issue templates!'
         pr-message: 'Thanks for opening this pull request! Be sure to follow the [pull request template](https://github.com/linuxserver/docker-webtop/blob/fedora-icewm/.github/PULL_REQUEST_TEMPLATE.md)!'
         repo-token: ${{ secrets.GITHUB_TOKEN }}
