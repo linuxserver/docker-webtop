@@ -22,6 +22,7 @@ RUN \
   apk add --no-cache --repository=http://dl-cdn.alpinelinux.org/alpine/edge/community \
     xfce4-pulseaudio-plugin && \
   echo "**** cleanup ****" && \
+  rm -f /usr/share/xfce4/panel/plugins/power-manager-plugin.desktop && \
   rm -rf \
     /tmp/*
 
