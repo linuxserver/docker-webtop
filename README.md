@@ -56,7 +56,7 @@ The architectures supported by this image are:
 | :----: | :----: | ---- |
 | x86-64 | ✅ | amd64-\<version tag\> |
 | arm64 | ✅ | arm64v8-\<version tag\> |
-| armhf| ✅ | arm32v7-\<version tag\> |
+| armhf | ✅ | arm32v7-\<version tag\> |
 
 ## Version Tags
 
@@ -76,7 +76,6 @@ This image provides various versions that are available via tags. Please read th
 | ubuntu-openbox | ✅ | Openbox Ubuntu |
 | alpine-icewm | ✅ | IceWM Alpine |
 | ubuntu-icewm | ✅ | IceWM Ubuntu |
-
 ## Application Setup
 
 The Webtop can be accessed at:
@@ -117,7 +116,7 @@ services:
     environment:
       - PUID=1000
       - PGID=1000
-      - TZ=Europe/London
+      - TZ=Etc/UTC
       - SUBFOLDER=/ #optional
     volumes:
       - /path/to/data:/config
@@ -136,7 +135,7 @@ docker run -d \
   --privileged `#optional` \
   -e PUID=1000 \
   -e PGID=1000 \
-  -e TZ=Europe/London \
+  -e TZ=Etc/UTC \
   -e SUBFOLDER=/ `#optional` \
   -p 3000:3000 \
   -v /path/to/data:/config \
@@ -144,6 +143,7 @@ docker run -d \
   --shm-size="1gb" `#optional` \
   --restart unless-stopped \
   lscr.io/linuxserver/webtop:fedora-kde
+
 ```
 
 ## Parameters
@@ -155,7 +155,7 @@ Container images are configured using parameters passed at runtime (such as thos
 | `-p 3000` | Web Desktop GUI |
 | `-e PUID=1000` | for UserID - see below for explanation |
 | `-e PGID=1000` | for GroupID - see below for explanation |
-| `-e TZ=Europe/London` | Specify a timezone to use EG Europe/London |
+| `-e TZ=Etc/UTC` | specify a timezone to use, see this [list](https://en.wikipedia.org/wiki/List_of_tz_database_time_zones#List). |
 | `-e SUBFOLDER=/` | Specify a subfolder to use with reverse proxies, IE `/subfolder/` |
 | `-v /config` | abc users home directory |
 | `-v /var/run/docker.sock` | Docker Socket on the system, if you want to use Docker in the container |
