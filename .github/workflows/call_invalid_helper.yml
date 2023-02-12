@@ -1,0 +1,12 @@
+name: Comment on invalid interaction
+on:
+  issues:
+    types:
+      - labeled
+jobs:
+  add-comment-on-invalid:
+    if: github.event.label.name == 'invalid'
+    permissions:
+      issues: write
+    uses: linuxserver/github-workflows/.github/workflows/invalid-interaction-helper.yml@v1
+    secrets: inherit
