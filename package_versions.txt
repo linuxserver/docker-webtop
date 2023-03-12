@@ -3,7 +3,7 @@ NAME                                                                         VER
 @socket.io/component-emitter                                                 3.1.0                                              npm        
 @types/cookie                                                                0.4.1                                              npm        
 @types/cors                                                                  2.8.13                                             npm        
-@types/node                                                                  18.14.0                                            npm        
+@types/node                                                                  18.14.6                                            npm        
 GClient                                                                      1.2.0                                              npm        
 abbrev                                                                       1.1.1                                              npm        
 accepts                                                                      1.3.8                                              npm        
@@ -32,6 +32,7 @@ base64id                                                                     2.0
 bash                                                                         5.1.16-r2                                          apk        
 bindings                                                                     1.5.0                                              npm        
 body-parser                                                                  1.20.1                                             npm        
+body-parser                                                                  1.20.2                                             npm        
 brace-expansion                                                              1.1.11                                             npm        
 brace-expansion                                                              2.0.1                                              npm        
 brotli-libs                                                                  1.0.9-r6                                           apk        
@@ -68,7 +69,7 @@ coreutils                                                                    9.1
 cors                                                                         2.8.5                                              npm        
 cunit                                                                        2.1.3-r2                                           apk        
 cups-libs                                                                    2.4.2-r0                                           apk        
-curl                                                                         7.83.1-r5                                          apk        
+curl                                                                         7.83.1-r6                                          apk        
 dbus                                                                         1.14.4-r0                                          apk        
 dbus-glib                                                                    0.112-r0                                           apk        
 dbus-libs                                                                    1.14.4-r0                                          apk        
@@ -92,7 +93,7 @@ emoji-regex                                                                  8.0
 enchant2                                                                     2.3.2-r1                                           apk        
 encodeurl                                                                    1.0.2                                              npm        
 encodings                                                                    1.0.5-r0                                           apk        
-engine.io                                                                    6.4.0                                              npm        
+engine.io                                                                    6.4.1                                              npm        
 engine.io-parser                                                             5.0.6                                              npm        
 escape-html                                                                  1.0.3                                              npm        
 etag                                                                         1.8.1                                              npm        
@@ -327,6 +328,7 @@ libass                                                                       0.1
 libasyncns                                                                   0.8-r1                                             apk        
 libattr                                                                      2.5.1-r1                                           apk        
 libblkid                                                                     2.38-r1                                            apk        
+libbsd                                                                       0.11.6-r2                                          apk        
 libbz2                                                                       1.0.8-r1                                           apk        
 libc-utils                                                                   0.7.2-r3                                           apk        
 libcanberra                                                                  0.30-r8                                            apk        
@@ -336,7 +338,7 @@ libcanberra-pulse                                                            0.3
 libcap                                                                       2.64-r0                                            apk        
 libcap-ng                                                                    0.8.3-r1                                           apk        
 libcrypto1.1                                                                 1.1.1t-r0                                          apk        
-libcurl                                                                      7.83.1-r5                                          apk        
+libcurl                                                                      7.83.1-r6                                          apk        
 libdav1d                                                                     1.0.0-r0                                           apk        
 libdrm                                                                       2.4.110-r0                                         apk        
 libedit                                                                      20210910.3.1-r0                                    apk        
@@ -362,6 +364,7 @@ libintl                                                                      0.2
 libjpeg-turbo                                                                2.1.3-r1                                           apk        
 libltdl                                                                      2.4.7-r0                                           apk        
 libmanette                                                                   0.2.6-r1                                           apk        
+libmd                                                                        1.0.4-r0                                           apk        
 libmnl                                                                       1.0.5-r0                                           apk        
 libmount                                                                     2.38-r1                                            apk        
 libnftnl                                                                     1.2.3-r0                                           apk        
@@ -469,7 +472,7 @@ mime-types                                                                   2.1
 minimatch                                                                    3.1.2                                              npm        
 minimatch                                                                    5.1.6                                              npm        
 minipass                                                                     3.3.6                                              npm        
-minipass                                                                     4.0.3                                              npm        
+minipass                                                                     4.2.4                                              npm        
 minizlib                                                                     2.1.2                                              npm        
 mkdirp                                                                       1.0.4                                              npm        
 mkfontscale                                                                  1.2.2-r0                                           apk        
@@ -484,6 +487,7 @@ musl-utils                                                                   1.2
 ncurses-libs                                                                 6.3_p20220521-r0                                   apk        
 ncurses-terminfo-base                                                        6.3_p20220521-r0                                   apk        
 negotiator                                                                   0.6.3                                              npm        
+netcat-openbsd                                                               1.130-r3                                           apk        
 nettle                                                                       3.7.3-r0                                           apk        
 nghttp2-libs                                                                 1.47.0-r0                                          apk        
 node                                                                         16.19.1                                            binary     
@@ -546,7 +550,8 @@ pulseaudio-alsa                                                              15.
 qs                                                                           6.11.0                                             npm        
 range-parser                                                                 1.2.1                                              npm        
 raw-body                                                                     2.5.1                                              npm        
-readable-stream                                                              2.3.7                                              npm        
+raw-body                                                                     2.5.2                                              npm        
+readable-stream                                                              2.3.8                                              npm        
 readline                                                                     8.1.2-r0                                           apk        
 require-directory                                                            2.1.1                                              npm        
 require-main-filename                                                        2.0.0                                              npm        
@@ -570,7 +575,7 @@ signal-exit                                                                  3.0
 sigs.k8s.io/structured-merge-diff/v4                                         v4.1.2                                             go-module  
 sigs.k8s.io/yaml                                                             v1.2.0                                             go-module  
 skalibs                                                                      2.11.2.0-r0                                        apk        
-socket.io                                                                    4.6.0                                              npm        
+socket.io                                                                    4.6.1                                              npm        
 socket.io-adapter                                                            2.5.2                                              npm        
 socket.io-parser                                                             4.2.2                                              npm        
 sound-theme-freedesktop                                                      0.8-r0                                             apk        
