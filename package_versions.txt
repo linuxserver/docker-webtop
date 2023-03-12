@@ -23,7 +23,7 @@ NAME                                     VERSION                                
 @tootallnate/once                        2.0.0                                    npm           
 @types/cookie                            0.4.1                                    npm           
 @types/cors                              2.8.13                                   npm           
-@types/node                              18.14.1                                  npm           
+@types/node                              18.14.6                                  npm           
 GClient                                  1.2.0                                    npm           
 PyGObject                                3.42.1                                   python        
 PyJWT                                    2.3.0                                    python        
@@ -117,7 +117,7 @@ cpp                                      4:11.2.0-1ubuntu1                      
 cpp-11                                   11.3.0-1ubuntu1~22.04                    deb           
 cryptography                             3.4.8                                    python        
 cssesc                                   3.0.0                                    npm           
-curl                                     7.81.0-1ubuntu1.7                        deb           
+curl                                     7.81.0-1ubuntu1.8                        deb           
 dash                                     0.5.11+git20210903+057cd650a4ed-3build1  deb           
 dbus                                     1.12.20-2ubuntu4.1                       deb           
 dbus-python                              1.2.18                                   python        
@@ -173,7 +173,7 @@ filelist                                 1.0.4                                  
 finalhandler                             1.2.0                                    npm           
 find-up                                  4.1.0                                    npm           
 findutils                                4.8.0-1ubuntu3                           deb           
-firefox                                  110.0.1+build2-0ubuntu0.22.04.1~mt1      deb           
+firefox                                  111.0+build2-0ubuntu0.22.04.1~mt1        deb           
 fontconfig                               2.13.1-4.2ubuntu5                        deb           
 fontconfig-config                        2.13.1-4.2ubuntu5                        deb           
 fonts-dejavu-core                        2.37-2build1                             deb           
@@ -385,8 +385,8 @@ libcom-err2                              1.46.5-2ubuntu1.1                      
 libcrypt1                                1:4.4.27-1                               deb           
 libcryptsetup12                          2:2.4.3-1ubuntu1.1                       deb           
 libcups2                                 2.4.1op1-1ubuntu4.1                      deb           
-libcurl3-gnutls                          7.81.0-1ubuntu1.7                        deb           
-libcurl4                                 7.81.0-1ubuntu1.7                        deb           
+libcurl3-gnutls                          7.81.0-1ubuntu1.8                        deb           
+libcurl4                                 7.81.0-1ubuntu1.8                        deb           
 libdatrie1                               0.2.13-2                                 deb           
 libdav1d5                                0.9.2-1                                  deb           
 libdb5.3                                 5.3.28+dfsg1-0.8ubuntu3                  deb           
@@ -672,7 +672,7 @@ liblayershellqtinterface5                5.24.6-0ubuntu0.1                      
 liblcms2-2                               2.12~rc1-2build2                         deb           
 libldap-2.5-0                            2.5.13+dfsg-0ubuntu0.22.04.1             deb           
 libldap-common                           2.5.13+dfsg-0ubuntu0.22.04.1             deb           
-libldb2                                  2:2.4.4-0ubuntu0.1                       deb           
+libldb2                                  2:2.4.4-0ubuntu0.22.04.1                 deb           
 liblirc-client0                          0.10.1-6.3ubuntu1                        deb           
 libllvm15                                1:15.0.6-3~ubuntu0.22.04.2               deb           
 liblmdb0                                 0.9.24-1build2                           deb           
@@ -747,10 +747,10 @@ libpam-modules-bin                       1.4.0-11ubuntu2.3                      
 libpam-runtime                           1.4.0-11ubuntu2.3                        deb           
 libpam-systemd                           249.11-0ubuntu3.6                        deb           
 libpam0g                                 1.4.0-11ubuntu2.3                        deb           
-libpango-1.0-0                           1.50.6+ds-2                              deb           
-libpangocairo-1.0-0                      1.50.6+ds-2                              deb           
-libpangoft2-1.0-0                        1.50.6+ds-2                              deb           
-libpangoxft-1.0-0                        1.50.6+ds-2                              deb           
+libpango-1.0-0                           1.50.6+ds-2ubuntu1                       deb           
+libpangocairo-1.0-0                      1.50.6+ds-2ubuntu1                       deb           
+libpangoft2-1.0-0                        1.50.6+ds-2ubuntu1                       deb           
+libpangoxft-1.0-0                        1.50.6+ds-2ubuntu1                       deb           
 libpaper1                                1.1.28build2                             deb           
 libparted-fs-resize0                     3.4-2build1                              deb           
 libparted2                               3.4-2build1                              deb           
@@ -842,9 +842,9 @@ libresid-builder0c2a                     2.1.1-15ubuntu2                        
 librsvg2-2                               2.52.5+dfsg-3                            deb           
 librtmp1                                 2.4+20151223.gitfa8646d.1-2build4        deb           
 libsamplerate0                           0.2.2-1build1                            deb           
-libsasl2-2                               2.1.27+dfsg2-3ubuntu1.1                  deb           
-libsasl2-modules                         2.1.27+dfsg2-3ubuntu1.1                  deb           
-libsasl2-modules-db                      2.1.27+dfsg2-3ubuntu1.1                  deb           
+libsasl2-2                               2.1.27+dfsg2-3ubuntu1.2                  deb           
+libsasl2-modules                         2.1.27+dfsg2-3ubuntu1.2                  deb           
+libsasl2-modules-db                      2.1.27+dfsg2-3ubuntu1.2                  deb           
 libscim8v5                               1.4.18+git20211204-0.1                   deb           
 libsdl-image1.2                          1.2.12-13build1                          deb           
 libsdl1.2debian                          1.2.15+dfsg2-6                           deb           
@@ -1194,7 +1194,7 @@ python3-keyring                          23.5.0-1                               
 python3-launchpadlib                     1.10.16-1                                deb           
 python3-lazr.restfulclient               0.14.4-1                                 deb           
 python3-lazr.uri                         1.0.6-2                                  deb           
-python3-ldb                              2:2.4.4-0ubuntu0.1                       deb           
+python3-ldb                              2:2.4.4-0ubuntu0.22.04.1                 deb           
 python3-minimal                          3.10.6-1~22.04                           deb           
 python3-more-itertools                   8.10.0-2                                 deb           
 python3-oauthlib                         3.2.0-1ubuntu0.1                         deb           
