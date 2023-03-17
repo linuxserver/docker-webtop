@@ -4,8 +4,9 @@
 project_name: docker-webtop
 external_type: os
 release_type: prerelease
-release_tag: ubuntu-kde
-ls_branch: ubuntu-kde
+release_tag: debian-kde
+ls_branch: debian-kde
+build_armhf: false
 repo_vars:
   - BUILD_VERSION_ARG = 'OS_VERSION'
   - LS_USER = 'linuxserver'

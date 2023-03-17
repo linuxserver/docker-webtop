@@ -4,13 +4,13 @@ on:
   workflow_dispatch:
 
 jobs:
-  external-trigger-ubuntu-kde:
+  external-trigger-debian-kde:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3.1.0
 
       - name: External Trigger
-        if: github.ref == 'refs/heads/ubuntu-kde'
+        if: github.ref == 'refs/heads/debian-kde'
         run: |
           echo "**** No external release, exiting ****"
           exit 0
