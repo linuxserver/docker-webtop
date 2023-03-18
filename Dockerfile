@@ -12,31 +12,20 @@ RUN \
   DEBIAN_FRONTEND=noninteractive \
   apt-get install -y --no-install-recommends \
     chromium \
-    dolphin \
-    gwenview \
-    kde-config-gtk-style \
-    kdialog \
-    kfind \
-    khotkeys \
-    kio-extras \
-    knewstuff-dialog \
-    konsole \
-    ksysguard \
-    kwin-addons \
-    kwin-x11 \
-    kwrite \
-    plasma-desktop \
-    plasma-workspace \
-    qml-module-qt-labs-platform \
-    systemsettings && \
+    icewm \
+    stterm && \
   echo "**** application tweaks ****" && \
-  sed -i \
-    's#^Exec=.*#Exec=/usr/local/bin/wrapped-chromium#g' \
-    /usr/share/applications/chromium.desktop && \
-  echo "**** kde tweaks ****" && \
-  sed -i \
-    's/applications:org.kde.discover.desktop,/applications:org.kde.konsole.desktop,/g' \
-    /usr/share/plasma/plasmoids/org.kde.plasma.taskmanager/contents/config/main.xml && \
+  mv \
+    /usr/bin/chromium \
+    /usr/bin/chromium-real && \
+  update-alternatives --set \
+    x-terminal-emulator \
+    /usr/bin/st && \
+  echo "**** theme ****" && \
+  rm -Rf /usr/share/icewm/themes/default && \
+  curl -s \
+    http://ryankuba.com/ice.tar.gz \
+    | tar zxf - -C /usr/share/icewm/themes/ && \
   echo "**** cleanup ****" && \
   apt-get autoclean && \
   rm -rf \

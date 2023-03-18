@@ -4,13 +4,13 @@ on:
   workflow_dispatch:
 
 jobs:
-  external-trigger-debian-kde:
+  external-trigger-debian-icewm:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3.1.0
 
       - name: External Trigger
-        if: github.ref == 'refs/heads/debian-kde'
+        if: github.ref == 'refs/heads/debian-icewm'
         run: |
           echo "**** No external release, exiting ****"
           exit 0
