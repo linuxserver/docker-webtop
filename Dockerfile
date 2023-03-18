@@ -12,31 +12,24 @@ RUN \
   DEBIAN_FRONTEND=noninteractive \
   apt-get install -y --no-install-recommends \
     chromium \
-    dolphin \
-    gwenview \
-    kde-config-gtk-style \
-    kdialog \
-    kfind \
-    khotkeys \
-    kio-extras \
-    knewstuff-dialog \
-    konsole \
-    ksysguard \
-    kwin-addons \
-    kwin-x11 \
-    kwrite \
-    plasma-desktop \
-    plasma-workspace \
-    qml-module-qt-labs-platform \
-    systemsettings && \
+    libxfce4ui-utils \
+    mousepad \
+    tango-icon-theme \
+    thunar \
+    xfce4-appfinder \
+    xfce4-panel \
+    xfce4-session \
+    xfce4-settings \
+    xfce4-taskmanager \
+    xfce4-terminal \
+    xfconf \
+    xfdesktop4 \
+    xfwm4 && \
   echo "**** application tweaks ****" && \
   sed -i \
     's#^Exec=.*#Exec=/usr/local/bin/wrapped-chromium#g' \
     /usr/share/applications/chromium.desktop && \
-  echo "**** kde tweaks ****" && \
-  sed -i \
-    's/applications:org.kde.discover.desktop,/applications:org.kde.konsole.desktop,/g' \
-    /usr/share/plasma/plasmoids/org.kde.plasma.taskmanager/contents/config/main.xml && \
+  mv /usr/bin/exo-open /usr/bin/exo-open-real && \
   echo "**** cleanup ****" && \
   apt-get autoclean && \
   rm -rf \
