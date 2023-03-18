@@ -4,13 +4,13 @@ on:
   workflow_dispatch:
 
 jobs:
-  external-trigger-debian-i3:
+  external-trigger-debian-openbox:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3.1.0
 
       - name: External Trigger
-        if: github.ref == 'refs/heads/debian-i3'
+        if: github.ref == 'refs/heads/debian-openbox'
         run: |
           echo "**** No external release, exiting ****"
           exit 0

@@ -12,8 +12,7 @@ RUN \
   DEBIAN_FRONTEND=noninteractive \
   apt-get install -y --no-install-recommends \
     chromium \
-    i3 \
-    i3-wm \
+    obconf \
     stterm && \
   echo "**** application tweaks ****" && \
   mv \
@@ -22,10 +21,6 @@ RUN \
   update-alternatives --set \
     x-terminal-emulator \
     /usr/bin/st && \
-  echo "**** i3 tweaks ****" && \
-  sed -i \
-    '/status_command/d' \
-    /etc/i3/config && \
   echo "**** cleanup ****" && \
   apt-get autoclean && \
   rm -rf \
