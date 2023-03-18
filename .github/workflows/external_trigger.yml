@@ -4,13 +4,13 @@ on:
   workflow_dispatch:
 
 jobs:
-  external-trigger-debian-xfce:
+  external-trigger-debian-mate:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3.1.0
 
       - name: External Trigger
-        if: github.ref == 'refs/heads/debian-xfce'
+        if: github.ref == 'refs/heads/debian-mate'
         run: |
           echo "**** No external release, exiting ****"
           exit 0

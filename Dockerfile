@@ -12,24 +12,13 @@ RUN \
   DEBIAN_FRONTEND=noninteractive \
   apt-get install -y --no-install-recommends \
     chromium \
-    libxfce4ui-utils \
-    mousepad \
-    tango-icon-theme \
-    thunar \
-    xfce4-appfinder \
-    xfce4-panel \
-    xfce4-session \
-    xfce4-settings \
-    xfce4-taskmanager \
-    xfce4-terminal \
-    xfconf \
-    xfdesktop4 \
-    xfwm4 && \
+    eom \
+    mate-desktop-environment-core \
+    pluma && \
   echo "**** application tweaks ****" && \
   sed -i \
     's#^Exec=.*#Exec=/usr/local/bin/wrapped-chromium#g' \
     /usr/share/applications/chromium.desktop && \
-  mv /usr/bin/exo-open /usr/bin/exo-open-real && \
   echo "**** cleanup ****" && \
   apt-get autoclean && \
   rm -rf \
