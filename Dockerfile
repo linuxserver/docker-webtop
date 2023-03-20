@@ -1,4 +1,4 @@
-FROM ghcr.io/linuxserver/baseimage-rdesktop-web:jammy
+FROM ghcr.io/linuxserver/baseimage-kasmvnc:ubuntujammy
 
 # set version label
 ARG BUILD_DATE
@@ -14,13 +14,19 @@ RUN \
   add-apt-repository -y ppa:mozillateam/ppa && \
   apt-get update && \
   DEBIAN_FRONTEND=noninteractive \
-  apt-get install --no-install-recommends -y \
+  apt-get install -y --no-install-recommends \
     firefox \
     i3 \
-    i3status && \
+    i3-wm \
+    stterm && \
+  echo "**** application tweaks ****" && \
+  update-alternatives --set \
+    x-terminal-emulator \
+    /usr/bin/st && \
   echo "**** cleanup ****" && \
   apt-get autoclean && \
   rm -rf \
+    /config/.cache \
     /var/lib/apt/lists/* \
     /var/tmp/* \
     /tmp/*
