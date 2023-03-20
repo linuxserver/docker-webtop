@@ -1,4 +1,4 @@
-FROM ghcr.io/linuxserver/baseimage-rdesktop-web:jammy
+FROM ghcr.io/linuxserver/baseimage-kasmvnc:ubuntujammy
 
 # set version label
 ARG BUILD_DATE
@@ -15,6 +15,7 @@ RUN \
   apt-get update && \
   DEBIAN_FRONTEND=noninteractive \
   apt-get install --no-install-recommends -y \
+    ayatana-indicator-application \
     firefox \
     mate-applets \
     mate-applet-brisk-menu \
@@ -27,6 +28,8 @@ RUN \
   echo "**** cleanup ****" && \
   apt-get autoclean && \
   rm -rf \
+    /config/.cache \
+    /config/.launchpadlib \
     /var/lib/apt/lists/* \
     /var/tmp/* \
     /tmp/*
