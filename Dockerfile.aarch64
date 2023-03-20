@@ -1,4 +1,4 @@
-FROM ghcr.io/linuxserver/baseimage-rdesktop-web:arm64v8-jammy
+FROM ghcr.io/linuxserver/baseimage-kasmvnc:arm64v8-ubuntujammy
 
 # set version label
 ARG BUILD_DATE
@@ -15,13 +15,17 @@ RUN \
   apt-get update && \
   DEBIAN_FRONTEND=noninteractive \
   apt-get install --no-install-recommends -y \
-    featherpad \
     firefox \
     obconf \
-    python2-minimal && \
+    stterm && \
+  echo "**** application tweaks ****" && \
+  update-alternatives --set \
+    x-terminal-emulator \
+    /usr/bin/st && \
   echo "**** cleanup ****" && \
   apt-get autoclean && \
   rm -rf \
+    /config/.cache \
     /var/lib/apt/lists/* \
     /var/tmp/* \
     /tmp/*
