@@ -1,4 +1,4 @@
-FROM ghcr.io/linuxserver/baseimage-rdesktop-web:fedora
+FROM ghcr.io/linuxserver/baseimage-kasmvnc:fedora37
 
 # set version label
 ARG BUILD_DATE
@@ -9,7 +9,7 @@ LABEL maintainer="thelamer"
 RUN \
   echo "**** install packages ****" && \
   dnf install -y --setopt=install_weak_deps=False --best \
-    firefox \
+    chromium \
     marco \
     mate-control-center \
     mate-desktop \
@@ -22,10 +22,15 @@ RUN \
     mate-terminal \
     mate-themes \
     pluma && \
+  echo "**** application tweaks ****" && \
+  sed -i \
+    's#^Exec=.*#Exec=/usr/local/bin/wrapped-chromium#g' \
+    /usr/share/applications/chromium-browser.desktop && \
   echo "**** cleanup ****" && \
   dnf autoremove -y && \
   dnf clean all && \
   rm -rf \
+    /config/.cache \
     /tmp/*
 
 # add local files
