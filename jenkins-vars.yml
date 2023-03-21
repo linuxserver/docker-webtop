@@ -7,6 +7,7 @@ custom_version_command: "curl -sX GET https://api.github.com/repos/linuxserver/d
 release_type: prerelease
 release_tag: arch-xfce
 ls_branch: arch-xfce
+build_armhf: false
 repo_vars:
   - BUILD_VERSION_ARG = 'XFCE_VERSION'
   - LS_USER = 'linuxserver'
