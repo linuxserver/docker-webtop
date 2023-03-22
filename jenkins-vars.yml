@@ -2,10 +2,11 @@
 
 # jenkins variables
 project_name: docker-webtop
-external_type: alpine_repo
+external_type: os
 release_type: prerelease
 release_tag: alpine-mate
 ls_branch: alpine-mate
+build_armhf: false
 repo_vars:
   - BUILD_VERSION_ARG = 'MATE_VERSION'
   - LS_USER = 'linuxserver'
@@ -15,9 +16,6 @@ repo_vars:
   - DEV_DOCKERHUB_IMAGE = 'lsiodev/webtop'
   - PR_DOCKERHUB_IMAGE = 'lspipepr/webtop'
   - DIST_IMAGE = 'alpine'
-  - DIST_TAG = '3.16'
-  - DIST_REPO = 'http://dl-cdn.alpinelinux.org/alpine/v3.16/community/'
-  - DIST_REPO_PACKAGES = 'mate-desktop-environment'
   - MULTIARCH = 'true'
   - CI = 'true'
   - CI_WEB = 'true'
