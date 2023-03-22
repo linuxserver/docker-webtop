@@ -1,4 +1,4 @@
-FROM ghcr.io/linuxserver/baseimage-rdesktop-web:3.16
+FROM ghcr.io/linuxserver/baseimage-kasmvnc:alpine317
 
 # set version label
 ARG BUILD_DATE
@@ -12,9 +12,27 @@ RUN \
   apk add --no-cache --repository=http://dl-cdn.alpinelinux.org/alpine/edge/testing \
     icewm && \
   apk add --no-cache \
-    firefox && \
+    chromium \
+    st && \
+  echo "**** application tweaks ****" && \
+  mv \
+    /usr/bin/chromium-browser \
+    /usr/bin/chromium-real && \
+  ln -s \
+    /usr/bin/st \
+    /usr/bin/x-terminal-emulator && \
+  rm /usr/bin/xterm && \
+  ln -s \
+    /usr/bin/st \
+    /usr/bin/xterm && \
+  echo "**** theme ****" && \
+  rm -Rf /usr/share/icewm/themes/default && \
+  curl -s \
+    http://ryankuba.com/ice.tar.gz \
+    | tar zxf - -C /usr/share/icewm/themes/ && \
   echo "**** cleanup ****" && \
   rm -rf \
+    /config/.cache \
     /tmp/*
 
 # add local files
