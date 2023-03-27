@@ -21,6 +21,9 @@ RUN \
     xfce4 \
     xubuntu-default-settings \
     xubuntu-icon-theme && \
+  echo "**** xfce tweaks ****" && \
+  rm -f \
+    /etc/xdg/autostart/xscreensaver.desktop && \
   echo "**** cleanup ****" && \
   apt-get autoclean && \
   rm -rf \
