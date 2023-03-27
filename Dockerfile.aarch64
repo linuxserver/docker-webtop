@@ -25,6 +25,10 @@ RUN \
     ubuntu-mate-default-settings \
     ubuntu-mate-desktop \
     ubuntu-mate-icon-themes && \
+  echo "**** mate tweaks ****" && \
+  rm -f \
+    /etc/xdg/autostart/mate-power-manager.desktop \
+    /etc/xdg/autostart/mate-screensaver.desktop && \
   echo "**** cleanup ****" && \
   apt-get autoclean && \
   rm -rf \
