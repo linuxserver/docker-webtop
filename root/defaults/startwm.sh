@@ -1,8 +1,10 @@
 #!/bin/bash
 
-if [ ! -f /config/.config/kwinrc ]; then
-echo '[Compositing]
-Enabled=false' > /config/.config/kwinrc
+if [ ! -f $HOME/.config/kwinrc ]; then
+  kwriteconfig5 --file $HOME/.config/kwinrc --group Compositing --key Enabled false
+fi
+if [ ! -f $HOME/.config/kscreenlockerrc ]; then
+  kwriteconfig5 --file $HOME/.config/kscreenlockerrc --group Daemon --key Autolock false
 fi
 setterm blank 0
 setterm powerdown 0
