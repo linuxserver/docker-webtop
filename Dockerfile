@@ -13,7 +13,8 @@ RUN \
     icewm && \
   apk add --no-cache \
     chromium \
-    st && \
+    st \
+    util-linux-misc && \
   echo "**** application tweaks ****" && \
   mv \
     /usr/bin/chromium-browser \
