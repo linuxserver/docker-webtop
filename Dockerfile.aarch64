@@ -23,6 +23,9 @@ RUN \
     '/compositing-manager/{n;s/.*/      <default>false<\/default>/}' \
     /usr/share/glib-2.0/schemas/org.mate.marco.gschema.xml && \
     glib-compile-schemas /usr/share/glib-2.0/schemas/ && \
+  rm -f \
+    /etc/xdg/autostart/mate-power-manager.desktop \
+    /etc/xdg/autostart/mate-screensaver.desktop && \
   echo "**** cleanup ****" && \
   rm -rf \
     /config/.cache \
