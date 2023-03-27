@@ -12,7 +12,8 @@ RUN \
   echo "**** install packages ****" && \
   apk add --no-cache \
     chromium \
-    mate-desktop-environment && \
+    mate-desktop-environment \
+    util-linux-misc && \
   echo "**** application tweaks ****" && \
   sed -i \
     's#^Exec=.*#Exec=/usr/local/bin/wrapped-chromium#g' \
