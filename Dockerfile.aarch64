@@ -21,7 +21,9 @@ RUN \
   mv /usr/bin/exo-open /usr/bin/exo-open-real && \
   echo "**** xfce tweaks ****" && \
   rm -f \
+    /etc/xdg/autostart/xfce4-power-manager.desktop \
     /etc/xdg/autostart/xfce-polkit.desktop \
+    /etc/xdg/autostart/xscreensaver.desktop \
     /usr/share/xfce4/panel/plugins/power-manager-plugin.desktop && \
   echo "**** cleanup ****" && \
   rm -rf \
