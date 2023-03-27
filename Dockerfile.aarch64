@@ -18,6 +18,7 @@ RUN \
     mousepad \
     ristretto \
     thunar \
+    util-linux-misc \
     xfce4 \
     xfce4-terminal && \
   echo "**** application tweaks ****" && \
