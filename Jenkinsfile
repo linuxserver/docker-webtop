@@ -332,27 +332,6 @@ pipeline {
                 git commit -m 'Bot Updating Documentation'
                 git push https://LinuxServer-CI:${GITHUB_TOKEN}@github.com/linuxserver/docker-documentation.git --all
               fi
-              mkdir -p ${TEMPDIR}/unraid
-              git clone https://github.com/linuxserver/docker-templates.git ${TEMPDIR}/unraid/docker-templates
-              git clone https://github.com/linuxserver/templates.git ${TEMPDIR}/unraid/templates
-              if [[ -f ${TEMPDIR}/unraid/docker-templates/linuxserver.io/img/${CONTAINER_NAME}-logo.png ]]; then
-                sed -i "s|master/linuxserver.io/img/linuxserver-ls-logo.png|master/linuxserver.io/img/${CONTAINER_NAME}-logo.png|" ${TEMPDIR}/docker-${CONTAINER_NAME}/.jenkins-external/${CONTAINER_NAME}.xml
-              fi
-              if [[ ("${BRANCH_NAME}" == "master") || ("${BRANCH_NAME}" == "main") ]] && [[ (! -f ${TEMPDIR}/unraid/templates/unraid/${CONTAINER_NAME}.xml) || ("$(md5sum ${TEMPDIR}/unraid/templates/unraid/${CONTAINER_NAME}.xml | awk '{ print $1 }')" != "$(md5sum ${TEMPDIR}/docker-${CONTAINER_NAME}/.jenkins-external/${CONTAINER_NAME}.xml | awk '{ print $1 }')") ]]; then
-                cd ${TEMPDIR}/unraid/templates/
-                if grep -wq "${CONTAINER_NAME}" ${TEMPDIR}/unraid/templates/unraid/ignore.list; then
-                  echo "Image is on the ignore list, marking Unraid template as deprecated"
-                  cp ${TEMPDIR}/docker-${CONTAINER_NAME}/.jenkins-external/${CONTAINER_NAME}.xml ${TEMPDIR}/unraid/templates/unraid/
-                  git add -u unraid/${CONTAINER_NAME}.xml
-                  git mv unraid/${CONTAINER_NAME}.xml unraid/deprecated/${CONTAINER_NAME}.xml || :
-                  git commit -m 'Bot Moving Deprecated Unraid Template' || :
-                else
-                  cp ${TEMPDIR}/docker-${CONTAINER_NAME}/.jenkins-external/${CONTAINER_NAME}.xml ${TEMPDIR}/unraid/templates/unraid/
-                  git add unraid/${CONTAINER_NAME}.xml
-                  git commit -m 'Bot Updating Unraid Template'
-                fi
-                git push https://LinuxServer-CI:${GITHUB_TOKEN}@github.com/linuxserver/templates.git --all
-              fi
               rm -Rf ${TEMPDIR}'''
         script{
           env.FILES_UPDATED = sh(
@@ -453,7 +432,7 @@ pipeline {
           --label \"org.opencontainers.image.licenses=GPL-3.0-only\" \
           --label \"org.opencontainers.image.ref.name=${COMMIT_SHA}\" \
           --label \"org.opencontainers.image.title=Webtop\" \
-          --label \"org.opencontainers.image.description=[Webtop](https://github.com/linuxserver/docker-webtop) - Alpine and Ubuntu based containers containing full desktop environments in officially supported flavors accessible via any modern web browser.  \" \
+          --label \"org.opencontainers.image.description=webtop image by linuxserver.io\" \
           --no-cache --pull -t ${IMAGE}:${META_TAG} --platform=linux/amd64 \
           --build-arg ${BUILD_VERSION_ARG}=${EXT_RELEASE} --build-arg VERSION=\"${VERSION_TAG}\" --build-arg BUILD_DATE=${GITHUB_DATE} ."
       }
@@ -484,7 +463,7 @@ pipeline {
               --label \"org.opencontainers.image.licenses=GPL-3.0-only\" \
               --label \"org.opencontainers.image.ref.name=${COMMIT_SHA}\" \
               --label \"org.opencontainers.image.title=Webtop\" \
-              --label \"org.opencontainers.image.description=[Webtop](https://github.com/linuxserver/docker-webtop) - Alpine and Ubuntu based containers containing full desktop environments in officially supported flavors accessible via any modern web browser.  \" \
+              --label \"org.opencontainers.image.description=webtop image by linuxserver.io\" \
               --no-cache --pull -t ${IMAGE}:amd64-${META_TAG} --platform=linux/amd64 \
               --build-arg ${BUILD_VERSION_ARG}=${EXT_RELEASE} --build-arg VERSION=\"${VERSION_TAG}\" --build-arg BUILD_DATE=${GITHUB_DATE} ."
           }
@@ -512,7 +491,7 @@ pipeline {
               --label \"org.opencontainers.image.licenses=GPL-3.0-only\" \
               --label \"org.opencontainers.image.ref.name=${COMMIT_SHA}\" \
               --label \"org.opencontainers.image.title=Webtop\" \
-              --label \"org.opencontainers.image.description=[Webtop](https://github.com/linuxserver/docker-webtop) - Alpine and Ubuntu based containers containing full desktop environments in officially supported flavors accessible via any modern web browser.  \" \
+              --label \"org.opencontainers.image.description=webtop image by linuxserver.io\" \
               --no-cache --pull -f Dockerfile.aarch64 -t ${IMAGE}:arm64v8-${META_TAG} --platform=linux/arm64 \
               --build-arg ${BUILD_VERSION_ARG}=${EXT_RELEASE} --build-arg VERSION=\"${VERSION_TAG}\" --build-arg BUILD_DATE=${GITHUB_DATE} ."
             sh "docker tag ${IMAGE}:arm64v8-${META_TAG} ghcr.io/linuxserver/lsiodev-buildcache:arm64v8-${COMMIT_SHA}-${BUILD_NUMBER}"
