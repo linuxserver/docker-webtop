@@ -13,7 +13,8 @@ RUN \
     chromium \
     i3status \
     i3wm \
-    st && \
+    st \
+    util-linux-misc && \
   echo "**** application tweaks ****" && \
   mv \
     /usr/bin/chromium-browser \
