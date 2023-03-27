@@ -47,15 +47,6 @@ body:
       render: markdown
     validations:
       required: false
-  - type: dropdown
-    attributes:
-      label: CPU architecture
-      options:
-        - x86-64
-        - arm64
-        - armhf
-    validations:
-      required: true
   - type: textarea
     attributes:
       label: Docker creation
