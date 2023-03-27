@@ -25,7 +25,8 @@ RUN \
     plasma-desktop \
     plasma-systemmonitor \
     plasma-workspace-wallpapers \
-    systemsettings && \
+    systemsettings \
+    util-linux-misc && \
  echo "**** application tweaks ****" && \
   sed -i \
     's#^Exec=.*#Exec=/usr/local/bin/wrapped-chromium#g' \
