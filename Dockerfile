@@ -19,6 +19,10 @@ RUN \
   sed -i \
     's#^Exec=.*#Exec=/usr/local/bin/wrapped-chromium#g' \
     /usr/share/applications/chromium.desktop && \
+  echo "**** mate tweaks ****" && \
+  rm -f \
+    /etc/xdg/autostart/mate-power-manager.desktop \
+    /etc/xdg/autostart/mate-screensaver.desktop && \
   echo "**** cleanup ****" && \
   apt-get autoclean && \
   rm -rf \
