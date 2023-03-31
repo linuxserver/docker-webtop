@@ -1,9 +1,10 @@
 name: Permission check
 on:
-  pull_request:
+  pull_request_target:
     paths:
       - '**/run'
       - '**/finish'
+      - '**/check'
 jobs:
   permission_check:
     uses: linuxserver/github-workflows/.github/workflows/init-svc-executable-permissions.yml@v1
