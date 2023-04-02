@@ -69,6 +69,13 @@ jobs:
           if [ "${EXT_RELEASE}" == "${IMAGE_VERSION}" ]; then
             echo "**** Version ${EXT_RELEASE} already pushed, exiting ****"
             exit 0
+          elif [[ $(curl -sL "http://dl-cdn.alpinelinux.org/alpine/v3.16/community/aarch64/APKINDEX.tar.gz" | tar -xz -C /tmp && awk '/^P:'"xfce4"'$/,/V:/' /tmp/APKINDEX | sed -n 2p | sed 's/^V://') != "${EXT_RELEASE}" ]] || [[ $(curl -sL "http://dl-cdn.alpinelinux.org/alpine/v3.16/community/armv7/APKINDEX.tar.gz" | tar -xz -C /tmp && awk '/^P:'"xfce4"'$/,/V:/' /tmp/APKINDEX | sed -n 2p | sed 's/^V://') != "${EXT_RELEASE}" ]]; then
+            echo "**** New version ${EXT_RELEASE} found; but not all arch repos updated yet; exiting ****"
+            FAILURE_REASON="New version ${EXT_RELEASE} for webtop tag latest is detected, however not all arch repos are updated yet. Will try again later."
+            curl -X POST -H "Content-Type: application/json" --data '{"avatar_url": "https://cdn.discordapp.com/avatars/354986384542662657/df91181b3f1cf0ef1592fbe18e0962d7.png","embeds": [{"color": 9802903,
+              "description": "**Trigger Failed** \n**Reason:** '"${FAILURE_REASON}"' \n"}],
+              "username": "Github Actions"}' ${{ secrets.DISCORD_WEBHOOK }}
+            exit 0
           elif [ $(curl -s https://ci.linuxserver.io/job/Docker-Pipeline-Builders/job/docker-webtop/job/master/lastBuild/api/json | jq -r '.building') == "true" ]; then
             echo "**** New version ${EXT_RELEASE} found; but there already seems to be an active build on Jenkins; exiting ****"
             exit 0
