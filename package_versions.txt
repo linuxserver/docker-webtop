@@ -3,7 +3,7 @@ NAME                                                          VERSION           
 @socket.io/component-emitter                                  3.1.0                                 npm        
 @types/cookie                                                 0.4.1                                 npm        
 @types/cors                                                   2.8.13                                npm        
-@types/node                                                   18.15.10                              npm        
+@types/node                                                   18.15.11                              npm        
 GClient                                                       1.2.0                                 npm        
 PyGObject                                                     3.42.1                                python     
 abbrev                                                        1.1.1                                 npm        
@@ -102,9 +102,9 @@ dnf                                                           4.14.0-1.fc36     
 dnf-data                                                      4.14.0-1.fc36                         rpm        
 ee-first                                                      1.1.1                                 npm        
 ejs                                                           3.1.9                                 npm        
-elfutils-default-yama-scope                                   0.188-3.fc36                          rpm        
-elfutils-libelf                                               0.188-3.fc36                          rpm        
-elfutils-libs                                                 0.188-3.fc36                          rpm        
+elfutils-default-yama-scope                                   0.189-1.fc36                          rpm        
+elfutils-libelf                                               0.189-1.fc36                          rpm        
+elfutils-libs                                                 0.189-1.fc36                          rpm        
 emoji-regex                                                   8.0.0                                 npm        
 enchant                                                       1:1.6.0-30.fc36                       rpm        
 enchant2                                                      2.3.2-5.fc36                          rpm        
@@ -212,7 +212,9 @@ grep                                                          3.7-2.fc36        
 groff-base                                                    1.22.4-9.fc36                         rpm        
 gsettings-desktop-schemas                                     42.0-1.fc36                           rpm        
 gsm                                                           1.0.19-7.fc36                         rpm        
+gssdp                                                         1.4.0.1-2.fc36                        rpm        
 gstreamer1                                                    1.20.3-1.fc36                         rpm        
+gstreamer1-plugins-bad-free                                   1.20.3-1.fc36                         rpm        
 gstreamer1-plugins-base                                       1.20.3-1.fc36                         rpm        
 gtk-layer-shell                                               0.8.0-1.fc36                          rpm        
 gtk-murrine-engine                                            0.98.2-23.fc36                        rpm        
@@ -223,6 +225,8 @@ gtk3                                                          3.24.35-1.fc36    
 gtkmm30                                                       3.24.6-1.fc36                         rpm        
 gtksourceview4                                                4.8.3-1.fc36                          rpm        
 guacamole-lite                                                0.6.3                                 npm        
+gupnp                                                         1.4.3-2.fc36                          rpm        
+gupnp-igd                                                     1.2.0-5.fc36                          rpm        
 gzip                                                          1.11-3.fc36                           rpm        
 harfbuzz                                                      4.0.0-2.fc36                          rpm        
 harfbuzz-icu                                                  4.0.0-2.fc36                          rpm        
@@ -297,6 +301,7 @@ libXv                                                         1.0.11-16.fc36    
 libXvMC                                                       1.0.12-7.fc36                         rpm        
 libXxf86vm                                                    1.1.4-18.fc36                         rpm        
 libacl                                                        2.3.1-3.fc36                          rpm        
+libaom                                                        3.2.0-5.fc36                          rpm        
 libappindicator-gtk3                                          12.10.0-32.fc36                       rpm        
 libarchive                                                    3.5.3-3.fc36                          rpm        
 libargon2                                                     20171227-9.fc36                       rpm        
@@ -304,6 +309,7 @@ libassuan                                                     2.5.5-4.fc36      
 libasyncns                                                    0.8-22.fc36                           rpm        
 libatomic                                                     12.2.1-4.fc36                         rpm        
 libattr                                                       2.5.1-4.fc36                          rpm        
+libavif                                                       0.9.3-3.fc36                          rpm        
 libblkid                                                      2.38-1.fc36                           rpm        
 libbrotli                                                     1.0.9-7.fc36                          rpm        
 libbsd                                                        0.11.7-2.fc36                         rpm        
@@ -318,11 +324,14 @@ libcomps                                                      0.1.18            
 libcomps                                                      0.1.18-2.fc36                         rpm        
 libcurl                                                       7.82.0-13.fc36                        rpm        
 libdatrie                                                     0.2.13-3.fc36                         rpm        
+libdav1d                                                      0.9.2-2.fc36                          rpm        
 libdb                                                         5.3.28-51.fc36                        rpm        
 libdbusmenu                                                   16.04.0-19.fc36                       rpm        
 libdbusmenu-gtk3                                              16.04.0-19.fc36                       rpm        
 libdnf                                                        0.68.0-1.fc36                         rpm        
 libdrm                                                        2.4.114-1.fc36                        rpm        
+libdvdnav                                                     6.1.1-3.fc36                          rpm        
+libdvdread                                                    6.1.3-1.fc36                          rpm        
 libeconf                                                      0.4.0-3.fc36                          rpm        
 libedit                                                       3.1-41.20210910cvs.fc36               rpm        
 libepoxy                                                      1.5.10-1.fc36                         rpm        
@@ -339,7 +348,6 @@ libglvnd                                                      1:1.4.0-4.fc36    
 libglvnd-egl                                                  1:1.4.0-4.fc36                        rpm        
 libglvnd-gles                                                 1:1.4.0-4.fc36                        rpm        
 libglvnd-glx                                                  1:1.4.0-4.fc36                        rpm        
-libglvnd-opengl                                               1:1.4.0-4.fc36                        rpm        
 libgomp                                                       12.2.1-4.fc36                         rpm        
 libgpg-error                                                  1.45-1.fc36                           rpm        
 libgtop2                                                      2.40.0-8.fc36                         rpm        
@@ -352,6 +360,7 @@ libidn2                                                       2.3.4-1.fc36      
 libindicator-gtk3                                             12.10.1-22.fc36                       rpm        
 libinput                                                      1.21.0-1.fc36                         rpm        
 libjpeg-turbo                                                 2.1.2-2.fc36                          rpm        
+libjxl                                                        0.6.1-9.fc36                          rpm        
 libksba                                                       1.6.3-1.fc36                          rpm        
 libmanette                                                    0.2.6-4.fc36                          rpm        
 libmatekbd                                                    1.26.0-2.fc36                         rpm        
@@ -367,6 +376,7 @@ libnetfilter_conntrack                                        1.0.8-4.fc36      
 libnfnetlink                                                  1.0.1-21.fc36                         rpm        
 libnftnl                                                      1.2.1-2.fc36                          rpm        
 libnghttp2                                                    1.51.0-1.fc36                         rpm        
+libnice                                                       0.1.19-1.fc36                         rpm        
 libnl3                                                        3.7.0-1.fc36                          rpm        
 libnotify                                                     0.7.12-1.fc36                         rpm        
 libnsl2                                                       2.0.0-3.fc36                          rpm        
@@ -383,6 +393,7 @@ libpwquality                                                  1.4.4-7.fc36      
 librepo                                                       1.15.1-1.fc36                         rpm        
 libreport-filesystem                                          2.17.4-1.fc36                         rpm        
 libretls                                                      3.7.0-1.fc36                          rpm        
+librsvg2                                                      2.54.5-1.fc36                         rpm        
 libseccomp                                                    2.5.3-2.fc36                          rpm        
 libsecret                                                     0.20.5-1.fc36                         rpm        
 libselinux                                                    3.3-4.fc36                            rpm        
@@ -395,6 +406,7 @@ libsmartcols                                                  2.38-1.fc36       
 libsndfile                                                    1.1.0-4.fc36                          rpm        
 libsolv                                                       0.7.22-1.fc36                         rpm        
 libsoup                                                       2.74.2-2.fc36                         rpm        
+libsrtp                                                       2.3.0-8.fc36                          rpm        
 libssh                                                        0.9.6-4.fc36                          rpm        
 libssh-config                                                 0.9.6-4.fc36                          rpm        
 libstdc++                                                     12.2.1-4.fc36                         rpm        
@@ -413,8 +425,10 @@ libusb1                                                       1.0.25-8.fc36     
 libutempter                                                   1.2.1-6.fc36                          rpm        
 libuuid                                                       2.38-1.fc36                           rpm        
 libuv                                                         1:1.44.2-1.fc36                       rpm        
+libva                                                         2.14.0-1.fc36                         rpm        
 libverto                                                      0.3.2-3.fc36                          rpm        
 libvisual                                                     1:0.4.0-35.fc36                       rpm        
+libvmaf                                                       2.3.0-3.fc36                          rpm        
 libvorbis                                                     1:1.3.7-5.fc36                        rpm        
 libwacom                                                      2.2.0-1.fc36                          rpm        
 libwacom-data                                                 2.2.0-1.fc36                          rpm        
@@ -436,6 +450,7 @@ libxshmfence                                                  1.3-10.fc36       
 libxslt                                                       1.1.37-1.fc36                         rpm        
 libyaml                                                       0.2.5-7.fc36                          rpm        
 libzstd                                                       1.5.4-1.fc36                          rpm        
+lilv-libs                                                     0.24.12-5.fc36                        rpm        
 llvm-libs                                                     14.0.5-2.fc36                         rpm        
 locate-path                                                   5.0.0                                 npm        
 lru-cache                                                     6.0.0                                 npm        
@@ -524,7 +539,7 @@ oniguruma                                                     6.9.8-1.fc36      
 openbox                                                       3.6.1-19.fc36                         rpm        
 openbox-libs                                                  3.6.1-19.fc36                         rpm        
 openjpeg2                                                     2.4.0-10.fc36                         rpm        
-openldap                                                      2.6.3-1.fc36                          rpm        
+openldap                                                      2.6.4-1.fc36                          rpm        
 openssh                                                       8.8p1-1.fc36.1                        rpm        
 openssh-clients                                               8.8p1-1.fc36.1                        rpm        
 openssl                                                       1:3.0.8-1.fc36                        rpm        
@@ -631,6 +646,7 @@ python3-rpm                                                   4.17.1-3.fc36     
 pyxdg                                                         0.27                                  python     
 qs                                                            6.11.0                                npm        
 range-parser                                                  1.2.1                                 npm        
+rav1e-libs                                                    0.5.0-8.fc36                          rpm        
 raw-body                                                      2.5.1                                 npm        
 raw-body                                                      2.5.2                                 npm        
 readable-stream                                               2.3.8                                 npm        
@@ -657,6 +673,7 @@ selinux-policy-targeted                                       36.17-1.fc36      
 semver                                                        6.3.0                                 npm        
 semver                                                        7.3.8                                 npm        
 send                                                          0.18.0                                npm        
+serd                                                          0.30.10-4.fc36                        rpm        
 serve-static                                                  1.15.0                                npm        
 set-blocking                                                  2.0.0                                 npm        
 setprototypeof                                                1.2.0                                 npm        
@@ -669,10 +686,13 @@ signal-exit                                                   3.0.7             
 socket.io                                                     4.6.1                                 npm        
 socket.io-adapter                                             2.5.2                                 npm        
 socket.io-parser                                              4.2.2                                 npm        
+sord                                                          0.16.8-3.fc36                         rpm        
 sound-theme-freedesktop                                       0.8-17.fc36                           rpm        
+soundtouch                                                    2.3.1-2.fc36                          rpm        
 soxr                                                          0.1.3-11.fc36                         rpm        
 speexdsp                                                      1.2.1-1.fc36                          rpm        
 sqlite-libs                                                   3.36.0-5.fc36                         rpm        
+sratom                                                        0.6.8-2.fc36                          rpm        
 startup-notification                                          0.12-23.fc36                          rpm        
 statuses                                                      2.0.1                                 npm        
 string-template                                               1.0.0                                 npm        
@@ -683,6 +703,7 @@ strip-ansi                                                    3.0.1             
 strip-ansi                                                    6.0.1                                 npm        
 sudo                                                          1.9.13-1.p2.fc36                      rpm        
 supports-color                                                7.2.0                                 npm        
+svt-av1-libs                                                  0.9.0-1.fc36                          rpm        
 systemd                                                       250.10-2.fc36                         rpm        
 systemd-libs                                                  250.10-2.fc36                         rpm        
 systemd-pam                                                   250.10-2.fc36                         rpm        
@@ -710,8 +731,8 @@ vte-profile                                                   0.68.0-1.fc36     
 vte291                                                        0.68.0-1.fc36                         rpm        
 vulkan-loader                                                 1.3.204.0-1.fc36                      rpm        
 webidl-conversions                                            3.0.1                                 npm        
-webkit2gtk3                                                   2.38.5-1.fc36                         rpm        
-webkit2gtk3-jsc                                               2.38.5-1.fc36                         rpm        
+webkit2gtk3                                                   2.40.0-1.fc36                         rpm        
+webkit2gtk3-jsc                                               2.40.0-1.fc36                         rpm        
 webrtc-audio-processing                                       0.3.1-8.fc36                          rpm        
 whatwg-url                                                    5.0.0                                 npm        
 which                                                         2.21-32.fc36                          rpm        
@@ -743,7 +764,7 @@ xorg-x11-xinit                                                1.4.0-14.fc36     
 xorgxrdp                                                      0.9.19-5.fc36                         rpm        
 xrdb                                                          1.2.1-3.fc36                          rpm        
 xrdp                                                          1:0.9.21-1.fc36                       rpm        
-xterm                                                         378-3.fc36                            rpm        
+xterm                                                         379-2.fc36                            rpm        
 xz                                                            5.4.1-1.fc36                          rpm        
 xz-libs                                                       5.4.1-1.fc36                          rpm        
 y18n                                                          4.0.3                                 npm        
