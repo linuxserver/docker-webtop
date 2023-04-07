@@ -1,4 +1,4 @@
-FROM ghcr.io/linuxserver/baseimage-rdesktop-web:arm64v8-jammy
+FROM ghcr.io/linuxserver/baseimage-kasmvnc:arm64v8-ubuntujammy
 
 # set version label
 ARG BUILD_DATE
@@ -21,6 +21,9 @@ RUN \
     xfce4 \
     xubuntu-default-settings \
     xubuntu-icon-theme && \
+  echo "**** xfce tweaks ****" && \
+  rm -f \
+    /etc/xdg/autostart/xscreensaver.desktop && \
   echo "**** cleanup ****" && \
   apt-get autoclean && \
   rm -rf \
