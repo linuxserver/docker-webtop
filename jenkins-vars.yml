@@ -2,10 +2,11 @@
 
 # jenkins variables
 project_name: docker-webtop
-external_type: alpine_repo
+external_type: os
 release_type: prerelease
 release_tag: alpine-openbox
 ls_branch: alpine-openbox
+build_armhf: false
 repo_vars:
   - BUILD_VERSION_ARG = 'OPENBOX_VERSION'
   - LS_USER = 'linuxserver'
@@ -15,9 +16,6 @@ repo_vars:
   - DEV_DOCKERHUB_IMAGE = 'lsiodev/webtop'
   - PR_DOCKERHUB_IMAGE = 'lspipepr/webtop'
   - DIST_IMAGE = 'alpine'
-  - DIST_TAG = '3.16'
-  - DIST_REPO = 'http://dl-cdn.alpinelinux.org/alpine/edge/community/'
-  - DIST_REPO_PACKAGES = 'openbox'
   - MULTIARCH = 'true'
   - CI = 'true'
   - CI_WEB = 'true'

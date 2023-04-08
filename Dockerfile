@@ -1,4 +1,4 @@
-FROM ghcr.io/linuxserver/baseimage-rdesktop-web:3.16
+FROM ghcr.io/linuxserver/baseimage-kasmvnc:alpine317
 
 # set version label
 ARG BUILD_DATE
@@ -10,13 +10,20 @@ LABEL maintainer="thelamer"
 RUN \
   echo "**** install packages ****" && \
   apk add --no-cache \
-    firefox && \
-  apk add --no-cache --repository=http://dl-cdn.alpinelinux.org/alpine/edge/community \
-    obconf-qt && \
-  echo "**** openbox tweaks ****" && \
-  ln -s /usr/bin/obconf-qt /usr/bin/obconf && \
+    chromium \
+    obconf-qt \
+    st \
+    util-linux-misc && \
+  echo "**** application tweaks ****" && \
+  mv \
+    /usr/bin/chromium-browser \
+    /usr/bin/chromium-real && \
+  ln -s \
+    /usr/bin/st \
+    /usr/bin/x-terminal-emulator && \
   echo "**** cleanup ****" && \
   rm -rf \
+    /config/.cache \
     /tmp/*
 
 # add local files
