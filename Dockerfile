@@ -1,4 +1,4 @@
-FROM ghcr.io/linuxserver/baseimage-rdesktop-web:arch
+FROM ghcr.io/linuxserver/baseimage-kasmvnc:arch
 
 # set version label
 ARG BUILD_DATE
@@ -9,11 +9,28 @@ LABEL maintainer="thelamer"
 RUN \
   echo "**** install packages ****" && \
   pacman -Sy --noconfirm --needed \
-    firefox \
+    chromium \
     icewm \
-    leafpad && \
+    xfce4-terminal && \
+  echo "**** application tweaks ****" && \
+  mv \
+    /usr/bin/chromium \
+    /usr/bin/chromium-real && \
+  ln -s \
+    /usr/sbin/xfce4-terminal \
+    /usr/bin/x-terminal-emulator && \
+  rm /usr/bin/xterm && \
+  ln -s \
+    /usr/sbin/xfce4-terminal \
+    /usr/bin/xterm && \
+  echo "**** theme ****" && \
+  rm -Rf /usr/share/icewm/themes/default && \
+  curl -s \
+    http://ryankuba.com/ice.tar.gz \
+    | tar zxf - -C /usr/share/icewm/themes/ && \
   echo "**** cleanup ****" && \
   rm -rf \
+    /config/.cache \
     /tmp/* \
     /var/cache/pacman/pkg/* \
     /var/lib/pacman/sync/*
