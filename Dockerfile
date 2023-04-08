@@ -1,4 +1,4 @@
-FROM ghcr.io/linuxserver/baseimage-rdesktop-web:fedora
+FROM ghcr.io/linuxserver/baseimage-kasmvnc:fedora37
 
 # set version label
 ARG BUILD_DATE
@@ -9,15 +9,18 @@ LABEL maintainer="thelamer"
 RUN \
   echo "**** install packages ****" && \
   dnf install -y --setopt=install_weak_deps=False --best \
-    firefox \
-    leafpad \
-    obconf-qt && \
-  echo "**** openbox tweaks ****" && \
-  ln -s /usr/bin/obconf-qt /usr/bin/obconf && \
+    chromium \
+    obconf-qt \
+    st && \
+  echo "**** application tweaks ****" && \
+  mv \
+    /usr/bin/chromium-browser \
+    /usr/bin/chromium-real && \
   echo "**** cleanup ****" && \
   dnf autoremove -y && \
   dnf clean all && \
   rm -rf \
+    /config/.cache \
     /tmp/*
 
 # add local files
