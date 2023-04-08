@@ -1,4 +1,4 @@
-FROM ghcr.io/linuxserver/baseimage-rdesktop-web:jammy
+FROM ghcr.io/linuxserver/baseimage-kasmvnc:ubuntujammy
 
 # set version label
 ARG BUILD_DATE
@@ -14,13 +14,23 @@ RUN \
   add-apt-repository -y ppa:mozillateam/ppa && \
   apt-get update && \
   DEBIAN_FRONTEND=noninteractive \
-  apt-get install --no-install-recommends -y \
-    featherpad \
+  apt-get install -y --no-install-recommends \
     firefox \
-    icewm-experimental && \
+    icewm \
+    stterm && \
+  echo "**** application tweaks ****" && \
+  update-alternatives --set \
+    x-terminal-emulator \
+    /usr/bin/st && \
+  echo "**** theme ****" && \
+  rm -Rf /usr/share/icewm/themes/default && \
+  curl -s \
+    http://ryankuba.com/ice.tar.gz \
+    | tar zxf - -C /usr/share/icewm/themes/ && \
   echo "**** cleanup ****" && \
   apt-get autoclean && \
   rm -rf \
+    /config/.cache \
     /var/lib/apt/lists/* \
     /var/tmp/* \
     /tmp/*
