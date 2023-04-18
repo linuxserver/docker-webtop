@@ -114,6 +114,21 @@ app_setup_block: |
   | `-v /var/run/docker.sock:/var/run/docker.sock` | Mount in the host level Docker socket to either interact with it via CLI or use Docker enabled applications. |
   | `--device /dev/dri:/dev/dri` | Mount a GPU into the container, this can be used in conjunction with the `DRINODE` environment variable to leverage a host video card for GPU accelerated appplications. Only **Open Source** drivers are supported IE (Intel,AMDGPU,Radeon,ATI,Nouveau) |
 
+  ### Language Support - Internationalization
+
+  The [universal internationalization](https://github.com/linuxserver/docker-mods/tree/universal-internationalization) docker mod can be used with any of these variants to provide non english language support. All you need to know is your specific iso-639 code for your your desired language. For example German is `de_DE.UTF-8` Chinese `zh_CN.UTF-8` a full list is here: 
+
+  [https://github.com/linuxserver/docker-mods/tree/universal-internationalization#other-languages](https://github.com/linuxserver/docker-mods/tree/universal-internationalization#other-languages)
+
+  To enable this pass the environment variables:
+
+  ```
+  -e DOCKER_MODS=linuxserver/mods:universal-internationalization
+  -e LC_ALL=zh_CN.UTF-8
+  ```
+
+  The web interface has the option for "IME Input Mode" in Settings which will allow non english characters to be used from a non en_US keyboard on the client. Once enabled in conjunction with the mod it will perform the same as a local Linux installation set to your locale.
+
   ### Lossless mode
 
   This container is capable of delivering a true lossless image at a high framerate to your web browser by changing the Stream Quality preset to "Lossless", more information [here](https://www.kasmweb.com/docs/latest/how_to/lossless.html#technical-background). In order to use this mode from a non localhost endpoint the HTTPS port on 3001 needs to be used. If using a reverse proxy to port 3000 specific headers will need to be set as outlined [here](https://github.com/linuxserver/docker-baseimage-kasmvnc#lossless).
