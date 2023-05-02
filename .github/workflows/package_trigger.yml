@@ -14,13 +14,16 @@ jobs:
         run: |
           if [ -n "${{ secrets.PAUSE_PACKAGE_TRIGGER_WEBTOP_MASTER }}" ]; then
             echo "**** Github secret PAUSE_PACKAGE_TRIGGER_WEBTOP_MASTER is set; skipping trigger. ****"
+            echo "Github secret \`PAUSE_PACKAGE_TRIGGER_WEBTOP_MASTER\` is set; skipping trigger." >> $GITHUB_STEP_SUMMARY
             exit 0
           fi
           if [ $(curl -s https://ci.linuxserver.io/job/Docker-Pipeline-Builders/job/docker-webtop/job/master/lastBuild/api/json | jq -r '.building') == "true" ]; then
             echo "**** There already seems to be an active build on Jenkins; skipping package trigger ****"
+            echo "There already seems to be an active build on Jenkins; skipping package trigger" >> $GITHUB_STEP_SUMMARY
             exit 0
           fi
           echo "**** Package trigger running off of master branch. To disable, set a Github secret named \"PAUSE_PACKAGE_TRIGGER_WEBTOP_MASTER\". ****"
+          echo "Package trigger running off of master branch. To disable, set a Github secret named \`PAUSE_PACKAGE_TRIGGER_WEBTOP_MASTER\`" >> $GITHUB_STEP_SUMMARY
           response=$(curl -iX POST \
             https://ci.linuxserver.io/job/Docker-Pipeline-Builders/job/docker-webtop/job/master/buildWithParameters?PACKAGE_CHECK=true \
             --user ${{ secrets.JENKINS_USER }}:${{ secrets.JENKINS_TOKEN }} | grep -i location | sed "s|^[L|l]ocation: \(.*\)|\1|")
@@ -30,6 +33,7 @@ jobs:
           buildurl=$(curl -s "${response%$'\r'}api/json" | jq -r '.executable.url')
           buildurl="${buildurl%$'\r'}"
           echo "**** Jenkins job build url: ${buildurl} ****"
+          echo "Jenkins job build url: ${buildurl}" >> $GITHUB_STEP_SUMMARY
           echo "**** Attempting to change the Jenkins job description ****"
           curl -iX POST \
             "${buildurl}submitDescription" \
