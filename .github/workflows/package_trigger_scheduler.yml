@@ -17,18 +17,16 @@ jobs:
         run: |
           echo "**** Branches found: ****"
           git for-each-ref --format='%(refname:short)' refs/remotes
-          echo "**** Pulling the yq docker image ****"
-          docker pull ghcr.io/linuxserver/yq
           for br in $(git for-each-ref --format='%(refname:short)' refs/remotes)
           do
             br=$(echo "$br" | sed 's|origin/||g')
             echo "**** Evaluating branch ${br} ****"
-            ls_branch=$(curl -sX GET https://raw.githubusercontent.com/linuxserver/docker-webtop/${br}/jenkins-vars.yml \
-              | docker run --rm -i --entrypoint yq ghcr.io/linuxserver/yq -r .ls_branch)
+            ls_branch=$(curl -sX GET https://raw.githubusercontent.com/linuxserver/docker-webtop/${br}/jenkins-vars.yml | yq -r '.ls_branch')
             if [ "${br}" == "${ls_branch}" ]; then
               echo "**** Branch ${br} appears to be live; checking workflow. ****"
               if curl -sfX GET https://raw.githubusercontent.com/linuxserver/docker-webtop/${br}/.github/workflows/package_trigger.yml > /dev/null 2>&1; then
                 echo "**** Workflow exists. Triggering package trigger workflow for branch ${br}. ****"
+                echo "Triggering package trigger workflow for branch ${br}" >> $GITHUB_STEP_SUMMARY
                 triggered_branches="${triggered_branches}${br} "
                 curl -iX POST \
                   -H "Authorization: token ${{ secrets.CR_PAT }}" \
@@ -38,9 +36,11 @@ jobs:
                 sleep 30
               else
                 echo "**** Workflow doesn't exist; skipping trigger. ****"
+                echo "Skipping branch ${br} due to no package trigger workflow present." >> $GITHUB_STEP_SUMMARY
               fi
             else
               echo "**** ${br} appears to be a dev branch; skipping trigger. ****"
+              echo "Skipping branch ${br} due to being detected as dev branch." >> $GITHUB_STEP_SUMMARY
             fi
           done
           echo "**** Package check build(s) triggered for branch(es): ${triggered_branches} ****"
