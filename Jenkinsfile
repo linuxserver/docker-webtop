@@ -39,7 +39,12 @@ pipeline {
     // Setup all the basic environment variables needed for the build
     stage("Set ENV Variables base"){
       steps{
-        sh '''docker pull quay.io/skopeo/stable:v1 || : '''
+        sh '''#! /bin/bash
+              containers=$(docker ps -aq)
+              if [[ -n "${containers}" ]]; then
+                docker stop ${containers}
+              fi
+              docker system prune -af --volumes || : '''
         script{
           env.EXIT_STATUS = ''
           env.LS_RELEASE = sh(
@@ -202,12 +207,12 @@ pipeline {
           env.GITLABIMAGE = 'registry.gitlab.com/linuxserver.io/' + env.LS_REPO + '/lspipepr-' + env.CONTAINER_NAME
           env.QUAYIMAGE = 'quay.io/linuxserver.io/lspipepr-' + env.CONTAINER_NAME
           if (env.MULTIARCH == 'true') {
-            env.CI_TAGS = 'amd64-ubuntu-kde-' + env.EXT_RELEASE_CLEAN + '-pkg-' + env.PACKAGE_TAG + '-pr-' + env.PULL_REQUEST + '|arm64v8-ubuntu-kde-' + env.EXT_RELEASE_CLEAN + '-pkg-' + env.PACKAGE_TAG + '-pr-' + env.PULL_REQUEST
+            env.CI_TAGS = 'amd64-ubuntu-kde-' + env.EXT_RELEASE_CLEAN + '-pkg-' + env.PACKAGE_TAG + '-dev-' + env.COMMIT_SHA + '-pr-' + env.PULL_REQUEST + '|arm64v8-ubuntu-kde-' + env.EXT_RELEASE_CLEAN + '-pkg-' + env.PACKAGE_TAG + '-dev-' + env.COMMIT_SHA + '-pr-' + env.PULL_REQUEST
           } else {
-            env.CI_TAGS = 'ubuntu-kde-' + env.EXT_RELEASE_CLEAN + '-pkg-' + env.PACKAGE_TAG + '-pr-' + env.PULL_REQUEST
+            env.CI_TAGS = 'ubuntu-kde-' + env.EXT_RELEASE_CLEAN + '-pkg-' + env.PACKAGE_TAG + '-dev-' + env.COMMIT_SHA + '-pr-' + env.PULL_REQUEST
           }
-          env.VERSION_TAG = env.EXT_RELEASE_CLEAN + '-pkg-' + env.PACKAGE_TAG + '-pr-' + env.PULL_REQUEST
-          env.META_TAG = 'ubuntu-kde-' + env.EXT_RELEASE_CLEAN + '-pkg-' + env.PACKAGE_TAG + '-pr-' + env.PULL_REQUEST
+          env.VERSION_TAG = env.EXT_RELEASE_CLEAN + '-pkg-' + env.PACKAGE_TAG + '-dev-' + env.COMMIT_SHA + '-pr-' + env.PULL_REQUEST
+          env.META_TAG = 'ubuntu-kde-' + env.EXT_RELEASE_CLEAN + '-pkg-' + env.PACKAGE_TAG + '-dev-' + env.COMMIT_SHA + '-pr-' + env.PULL_REQUEST
           env.EXT_RELEASE_TAG = 'ubuntu-kde-version-' + env.EXT_RELEASE_CLEAN
           env.CODE_URL = 'https://github.com/' + env.LS_USER + '/' + env.LS_REPO + '/pull/' + env.PULL_REQUEST
           env.DOCKERHUB_LINK = 'https://hub.docker.com/r/' + env.PR_DOCKERHUB_IMAGE + '/tags/'
@@ -405,8 +410,7 @@ pipeline {
       }
       steps{
         sh '''#! /bin/bash
-              set -e
-              PACKAGE_UUID=$(curl -X GET -H "Authorization: Bearer ${SCARF_TOKEN}" https://scarf.sh/api/v1/organizations/linuxserver-ci/packages | jq -r '.[] | select(.name=="linuxserver/webtop") | .uuid')
+              PACKAGE_UUID=$(curl -X GET -H "Authorization: Bearer ${SCARF_TOKEN}" https://scarf.sh/api/v1/organizations/linuxserver-ci/packages | jq -r '.[] | select(.name=="linuxserver/webtop") | .uuid' || :)
               if [ -z "${PACKAGE_UUID}" ]; then
                 echo "Adding package to Scarf.sh"
                 curl -sX POST https://scarf.sh/api/v1/organizations/linuxserver-ci/packages \
@@ -516,9 +520,12 @@ pipeline {
             retry(5) {
               sh "docker push ghcr.io/linuxserver/lsiodev-buildcache:arm64v8-${COMMIT_SHA}-${BUILD_NUMBER}"
             }
-            sh '''docker rmi \
-                  ${IMAGE}:arm64v8-${META_TAG} \
-                  ghcr.io/linuxserver/lsiodev-buildcache:arm64v8-${COMMIT_SHA}-${BUILD_NUMBER} || :'''
+            sh '''#! /bin/bash
+                  containers=$(docker ps -aq)
+                  if [[ -n "${containers}" ]]; then
+                    docker stop ${containers}
+                  fi
+                  docker system prune -af --volumes || : '''
           }
         }
       }
@@ -579,13 +586,6 @@ pipeline {
         environment name: 'EXIT_STATUS', value: ''
       }
       steps {
-        sh '''#! /bin/bash
-              echo "Packages were updated. Cleaning up the image and exiting."
-              if [ "${MULTIARCH}" == "true" ] && [ "${PACKAGE_CHECK}" == "false" ]; then
-                docker rmi ${IMAGE}:amd64-${META_TAG}
-              else
-                docker rmi ${IMAGE}:${META_TAG}
-              fi'''
         script{
           env.EXIT_STATUS = 'ABORTED'
         }
@@ -603,13 +603,6 @@ pipeline {
         }
       }
       steps {
-        sh '''#! /bin/bash
-              echo "There are no package updates. Cleaning up the image and exiting."
-              if [ "${MULTIARCH}" == "true" ] && [ "${PACKAGE_CHECK}" == "false" ]; then
-                docker rmi ${IMAGE}:amd64-${META_TAG}
-              else
-                docker rmi ${IMAGE}:${META_TAG}
-              fi'''
         script{
           env.EXIT_STATUS = 'ABORTED'
         }
@@ -708,17 +701,6 @@ pipeline {
                   done
                '''
           }
-          sh '''#! /bin/bash
-                for DELETEIMAGE in "${GITHUBIMAGE}" "${GITLABIMAGE}" "${QUAYIMAGE}" "${IMAGE}"; do
-                  docker rmi \
-                  ${DELETEIMAGE}:${META_TAG} \
-                  ${DELETEIMAGE}:${EXT_RELEASE_TAG} \
-                  ${DELETEIMAGE}:ubuntu-kde || :
-                  if [ -n "${SEMVER}" ]; then
-                    docker rmi ${DELETEIMAGE}:${SEMVER} || :
-                  fi
-                done
-             '''
         }
       }
     }
@@ -789,9 +771,16 @@ pipeline {
                       docker manifest create ${MANIFESTIMAGE}:${SEMVER} ${MANIFESTIMAGE}:amd64-${SEMVER} ${MANIFESTIMAGE}:arm64v8-${SEMVER}
                       docker manifest annotate ${MANIFESTIMAGE}:${SEMVER} ${MANIFESTIMAGE}:arm64v8-${SEMVER} --os linux --arch arm64 --variant v8
                     fi
-                    docker manifest push --purge ${MANIFESTIMAGE}:arm32v7-ubuntu-kde || :
-                    docker manifest create ${MANIFESTIMAGE}:arm32v7-ubuntu-kde ${MANIFESTIMAGE}:amd64-ubuntu-kde
-                    docker manifest push --purge ${MANIFESTIMAGE}:arm32v7-ubuntu-kde
+                    token=$(curl -sX GET "https://ghcr.io/token?scope=repository%3Alinuxserver%2F${CONTAINER_NAME}%3Apull" | jq -r '.token')
+                    digest=$(curl -s \
+                      --header "Accept: application/vnd.docker.distribution.manifest.v2+json" \
+                      --header "Authorization: Bearer ${token}" \
+                      "https://ghcr.io/v2/linuxserver/${CONTAINER_NAME}/manifests/arm32v7-ubuntu-kde")
+                    if [[ $(echo "$digest" | jq -r '.layers') != "null" ]]; then
+                      docker manifest push --purge ${MANIFESTIMAGE}:arm32v7-ubuntu-kde || :
+                      docker manifest create ${MANIFESTIMAGE}:arm32v7-ubuntu-kde ${MANIFESTIMAGE}:amd64-ubuntu-kde
+                      docker manifest push --purge ${MANIFESTIMAGE}:arm32v7-ubuntu-kde
+                    fi
                     docker manifest push --purge ${MANIFESTIMAGE}:ubuntu-kde
                     docker manifest push --purge ${MANIFESTIMAGE}:${META_TAG} 
                     docker manifest push --purge ${MANIFESTIMAGE}:${EXT_RELEASE_TAG} 
@@ -801,24 +790,6 @@ pipeline {
                   done
                '''
           }
-          sh '''#! /bin/bash
-                for DELETEIMAGE in "${GITHUBIMAGE}" "${GITLABIMAGE}" "${QUAYIMAGE}" "${IMAGE}"; do
-                  docker rmi \
-                  ${DELETEIMAGE}:amd64-${META_TAG} \
-                  ${DELETEIMAGE}:amd64-ubuntu-kde \
-                  ${DELETEIMAGE}:amd64-${EXT_RELEASE_TAG} \
-                  ${DELETEIMAGE}:arm64v8-${META_TAG} \
-                  ${DELETEIMAGE}:arm64v8-ubuntu-kde \
-                  ${DELETEIMAGE}:arm64v8-${EXT_RELEASE_TAG} || :
-                  if [ -n "${SEMVER}" ]; then
-                    docker rmi \
-                    ${DELETEIMAGE}:amd64-${SEMVER} \
-                    ${DELETEIMAGE}:arm64v8-${SEMVER} || :
-                  fi
-                done
-                docker rmi \
-                ghcr.io/linuxserver/lsiodev-buildcache:arm64v8-${COMMIT_SHA}-${BUILD_NUMBER} || :
-             '''
         }
       }
     }
@@ -889,7 +860,6 @@ pipeline {
     stage('Pull Request Comment') {
       when {
         not {environment name: 'CHANGE_ID', value: ''}
-        environment name: 'CI', value: 'true'
         environment name: 'EXIT_STATUS', value: ''
       }
       steps {
@@ -943,16 +913,24 @@ pipeline {
               echo "$escaped_table"
             }
 
-            # Retrieve JSON data from URL
-            data=$(get_json "$CI_JSON_URL")
-            # Create table from JSON data
-            table=$(build_table "$data")
-            echo -e "$table"
+            if [[ "${CI}" = "true" ]]; then
+              # Retrieve JSON data from URL
+              data=$(get_json "$CI_JSON_URL")
+              # Create table from JSON data
+              table=$(build_table "$data")
+              echo -e "$table"
 
-            curl -X POST -H "Authorization: token $GITHUB_TOKEN" \
-              -H "Accept: application/vnd.github.v3+json" \
-              "https://api.github.com/repos/$LS_USER/$LS_REPO/issues/$PULL_REQUEST/comments" \
-              -d "{\\"body\\": \\"I am a bot, here are the test results for this PR: \\n${CI_URL}\\n${SHELLCHECK_URL}\\n${table}\\"}"'''
+              curl -X POST -H "Authorization: token $GITHUB_TOKEN" \
+                -H "Accept: application/vnd.github.v3+json" \
+                "https://api.github.com/repos/$LS_USER/$LS_REPO/issues/$PULL_REQUEST/comments" \
+                -d "{\\"body\\": \\"I am a bot, here are the test results for this PR: \\n${CI_URL}\\n${SHELLCHECK_URL}\\n${table}\\"}"
+            else
+              curl -X POST -H "Authorization: token $GITHUB_TOKEN" \
+                -H "Accept: application/vnd.github.v3+json" \
+                "https://api.github.com/repos/$LS_USER/$LS_REPO/issues/$PULL_REQUEST/comments" \
+                -d "{\\"body\\": \\"I am a bot, here is the pushed image/manifest for this PR: \\n\\n\\`${GITHUBIMAGE}:${META_TAG}\\`\\"}"
+            fi
+            '''
 
       }
     }
@@ -979,6 +957,14 @@ pipeline {
       }
     }
     cleanup {
+      sh '''#! /bin/bash
+            echo "Performing docker system prune!!"
+            containers=$(docker ps -aq)
+            if [[ -n "${containers}" ]]; then
+              docker stop ${containers}
+            fi
+            docker system prune -af --volumes || :
+         '''
       cleanWs()
     }
   }
