@@ -24,7 +24,7 @@ NAME                                                                          VE
 @tootallnate/once                                                             2.0.0                                              npm        
 @types/cookie                                                                 0.4.1                                              npm        
 @types/cors                                                                   2.8.13                                             npm        
-@types/node                                                                   20.2.1                                             npm        
+@types/node                                                                   20.2.5                                             npm        
 PyGObject                                                                     3.38.0                                             python     
 abbrev                                                                        1.1.1                                              npm        
 abbrev                                                                        2.0.0                                              npm        
@@ -128,9 +128,9 @@ dirmngr                                                                       2.
 distro-info-data                                                              0.51+deb11u3                                       deb        
 dmidecode                                                                     3.3-2                                              deb        
 dmsetup                                                                       2:1.02.175-2.1                                     deb        
-docker-buildx-plugin                                                          0.10.4-1~debian.11~bullseye                        deb        
-docker-ce                                                                     5:24.0.1-1~debian.11~bullseye                      deb        
-docker-ce-cli                                                                 5:24.0.1-1~debian.11~bullseye                      deb        
+docker-buildx-plugin                                                          0.10.5-1~debian.11~bullseye                        deb        
+docker-ce                                                                     5:24.0.2-1~debian.11~bullseye                      deb        
+docker-ce-cli                                                                 5:24.0.2-1~debian.11~bullseye                      deb        
 docker-compose-plugin                                                         2.18.1-1~debian.11~bullseye                        deb        
 dpkg                                                                          1.20.12                                            deb        
 e2fsprogs                                                                     1.46.2-2                                           deb        
@@ -141,7 +141,7 @@ emoji-regex                                                                   8.
 encodeurl                                                                     1.0.2                                              npm        
 encoding                                                                      0.1.13                                             npm        
 engine.io                                                                     6.4.2                                              npm        
-engine.io-parser                                                              5.0.6                                              npm        
+engine.io-parser                                                              5.0.7                                              npm        
 env-paths                                                                     2.2.1                                              npm        
 eom                                                                           1.24.1-1                                           deb        
 eom-common                                                                    1.24.1-1                                           deb        
@@ -227,8 +227,7 @@ github.com/containerd/aufs                                                    v1
 github.com/containerd/btrfs                                                   v1.0.0                                             go-module  
 github.com/containerd/cgroups                                                 v1.0.4                                             go-module  
 github.com/containerd/console                                                 v1.0.3                                             go-module  
-github.com/containerd/containerd                                              v0.0.0-20230505151328-3dce8eb055cb                 go-module  
-github.com/containerd/containerd                                              v1.6.16-0.20230124210447-1709cfe273d9              go-module  
+github.com/containerd/containerd                                              v1.6.20                                            go-module  
 github.com/containerd/containerd                                              v1.6.21                                            go-module  
 github.com/containerd/continuity                                              v0.3.0                                             go-module  
 github.com/containerd/fifo                                                    v1.0.0                                             go-module  
@@ -236,7 +235,6 @@ github.com/containerd/go-cni                                                  v1
 github.com/containerd/go-runc                                                 v1.0.0                                             go-module  
 github.com/containerd/imgcrypt                                                v1.1.4                                             go-module  
 github.com/containerd/nri                                                     v0.1.0                                             go-module  
-github.com/containerd/ttrpc                                                   v1.1.0                                             go-module  
 github.com/containerd/ttrpc                                                   v1.1.1                                             go-module  
 github.com/containerd/typeurl                                                 v1.0.2                                             go-module  
 github.com/containerd/zfs                                                     v1.0.0                                             go-module  
@@ -322,8 +320,8 @@ github.com/miekg/pkcs11                                                       v1
 github.com/mistifyio/go-zfs                                                   v2.1.2-0.20190413222219-f784269be439+incompatible  go-module  
 github.com/mitchellh/go-wordwrap                                              v0.0.0-20150314170334-ad45545899c7                 go-module  
 github.com/mitchellh/mapstructure                                             v1.5.0                                             go-module  
-github.com/moby/buildkit                                                      v0.11.2                                            go-module  
 github.com/moby/buildkit                                                      v0.11.6                                            go-module  
+github.com/moby/buildkit                                                      v0.11.7-0.20230519102302-348e79dfed17              go-module  
 github.com/moby/locker                                                        v1.0.1                                             go-module  
 github.com/moby/patternmatcher                                                v0.5.0                                             go-module  
 github.com/moby/spdystream                                                    v0.2.0                                             go-module  
@@ -340,10 +338,8 @@ github.com/modern-go/reflect2                                                 v1
 github.com/morikuni/aec                                                       v1.0.0                                             go-module  
 github.com/mrunalp/fileutils                                                  v0.5.0                                             go-module  
 github.com/opencontainers/go-digest                                           v1.0.0                                             go-module  
-github.com/opencontainers/image-spec                                          v1.0.3-0.20220303224323-02efb9a75ee1               go-module  
 github.com/opencontainers/image-spec                                          v1.1.0-rc2.0.20221005185240-3a7f492d3f1b           go-module  
 github.com/opencontainers/runc                                                v0.0.0-20230426214901-860f061b76bb                 go-module  
-github.com/opencontainers/runc                                                v1.1.3                                             go-module  
 github.com/opencontainers/runc                                                v1.1.5                                             go-module  
 github.com/opencontainers/runtime-spec                                        v1.0.3-0.20210326190908-1c3f411f0417               go-module  
 github.com/opencontainers/selinux                                             v1.10.0                                            go-module  
@@ -519,7 +515,7 @@ is-fullwidth-code-point                                                       3.
 is-lambda                                                                     1.0.1                                              npm        
 isexe                                                                         2.0.0                                              npm        
 iso-codes                                                                     4.6.0-1                                            deb        
-jake                                                                          10.8.6                                             npm        
+jake                                                                          10.8.7                                             npm        
 jq                                                                            1.6-2.1                                            deb        
 json-parse-even-better-errors                                                 3.0.0                                              npm        
 json-stringify-nice                                                           1.1.4                                              npm        
@@ -920,7 +916,7 @@ libsqlite3-0                                                                  3.
 libsratom-0-0                                                                 0.6.8-1                                            deb        
 libsrt1.4-gnutls                                                              1.4.2-1.3                                          deb        
 libss2                                                                        1.46.2-2                                           deb        
-libssh-gcrypt-4                                                               0.9.5-1+deb11u1                                    deb        
+libssh-gcrypt-4                                                               0.9.7-0+deb11u1                                    deb        
 libssh2-1                                                                     1.9.0-2                                            deb        
 libssl1.1                                                                     1.1.1n-0+deb11u4                                   deb        
 libstartup-notification0                                                      0.12-6+b1                                          deb        
@@ -977,9 +973,9 @@ libwayland-egl1                                                               1.
 libwayland-server0                                                            1.18.0-2~exp1.1                                    deb        
 libwbclient0                                                                  2:4.13.13+dfsg-1~deb11u5                           deb        
 libwebkit2gtk-4.0-37                                                          2.40.1-1~deb11u1                                   deb        
-libwebp6                                                                      0.6.1-2.1                                          deb        
+libwebp6                                                                      0.6.1-2.1+deb11u1                                  deb        
 libwebpdemux2                                                                 0.6.1-2.1+deb11u1                                  deb        
-libwebpmux3                                                                   0.6.1-2.1                                          deb        
+libwebpmux3                                                                   0.6.1-2.1+deb11u1                                  deb        
 libwebrtc-audio-processing1                                                   0.3-1+b1                                           deb        
 libwnck-3-0                                                                   3.36.0-1                                           deb        
 libwnck-3-common                                                              3.36.0-1                                           deb        
@@ -1224,7 +1220,7 @@ sigstore                                                                      1.
 smart-buffer                                                                  4.2.0                                              npm        
 socket.io                                                                     4.6.1                                              npm        
 socket.io-adapter                                                             2.5.2                                              npm        
-socket.io-parser                                                              4.2.2                                              npm        
+socket.io-parser                                                              4.2.3                                              npm        
 socks                                                                         2.7.1                                              npm        
 socks-proxy-agent                                                             7.0.0                                              npm        
 software-properties-common                                                    0.96.20.2-2.1                                      deb        
