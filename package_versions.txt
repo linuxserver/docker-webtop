@@ -4,7 +4,7 @@ NAME                                                                          VE
 @socket.io/component-emitter                                                  3.1.0                                              npm        
 @types/cookie                                                                 0.4.1                                              npm        
 @types/cors                                                                   2.8.13                                             npm        
-@types/node                                                                   20.2.1                                             npm        
+@types/node                                                                   20.2.5                                             npm        
 accepts                                                                       1.3.8                                              npm        
 alpine-baselayout                                                             3.4.3-r1                                           apk        
 alpine-baselayout-data                                                        3.4.3-r1                                           apk        
@@ -16,11 +16,11 @@ aom-libs                                                                      3.
 apk-tools                                                                     2.14.0-r2                                          apk        
 array-flatten                                                                 1.1.1                                              npm        
 async                                                                         3.2.4                                              npm        
-at-spi2-core                                                                  2.48.2-r0                                          apk        
+at-spi2-core                                                                  2.48.3-r0                                          apk        
 avahi-libs                                                                    0.8-r13                                            apk        
 balanced-match                                                                1.0.2                                              npm        
 base64id                                                                      2.0.0                                              npm        
-bash                                                                          5.2.15-r3                                          apk        
+bash                                                                          5.2.15-r5                                          apk        
 bindings                                                                      1.5.0                                              npm        
 body-parser                                                                   1.20.1                                             npm        
 boost1.82-python3                                                             1.82.0-r1                                          apk        
@@ -32,7 +32,7 @@ busybox                                                                       1.
 busybox                                                                       1.36.0-r9                                          apk        
 busybox-binsh                                                                 1.36.0-r9                                          apk        
 bytes                                                                         3.1.2                                              npm        
-c-ares                                                                        1.19.0-r3                                          apk        
+c-ares                                                                        1.19.1-r0                                          apk        
 ca-certificates                                                               20230506-r0                                        apk        
 ca-certificates-bundle                                                        20230506-r0                                        apk        
 cairo                                                                         1.17.8-r1                                          apk        
@@ -40,7 +40,7 @@ cairo-gobject                                                                 1.
 call-bind                                                                     1.0.2                                              npm        
 cdparanoia-libs                                                               10.2-r14                                           apk        
 chalk                                                                         4.1.2                                              npm        
-chromium                                                                      113.0.5672.126-r0                                  apk        
+chromium                                                                      113.0.5672.126-r2                                  apk        
 cjson                                                                         1.7.15-r4                                          apk        
 cloud.google.com/go/compute/metadata                                          v0.2.1                                             go-module  
 color-convert                                                                 2.0.1                                              npm        
@@ -55,7 +55,7 @@ cookie-signature                                                              1.
 coreutils                                                                     9.3-r1                                             apk        
 cors                                                                          2.8.5                                              npm        
 cups-libs                                                                     2.4.2-r6                                           apk        
-curl                                                                          8.1.0-r1                                           apk        
+curl                                                                          8.1.1-r1                                           apk        
 dbus                                                                          1.14.6-r3                                          apk        
 dbus-daemon-launch-helper                                                     1.14.6-r3                                          apk        
 dbus-libs                                                                     1.14.6-r3                                          apk        
@@ -79,7 +79,7 @@ enchant2-libs                                                                 2.
 encodeurl                                                                     1.0.2                                              npm        
 encodings                                                                     1.0.7-r1                                           apk        
 engine.io                                                                     6.4.2                                              npm        
-engine.io-parser                                                              5.0.6                                              npm        
+engine.io-parser                                                              5.0.7                                              npm        
 escape-html                                                                   1.0.3                                              npm        
 etag                                                                          1.8.1                                              npm        
 eudev-libs                                                                    3.2.11-r8                                          apk        
@@ -338,7 +338,7 @@ github.com/xeipuuv/gojsonpointer                                              v0
 github.com/xeipuuv/gojsonreference                                            v0.0.0-20180127040603-bd5ef7bd5415                 go-module  
 github.com/xeipuuv/gojsonschema                                               v1.2.0                                             go-module  
 github.com/zclconf/go-cty                                                     v1.10.0                                            go-module  
-glib                                                                          2.76.2-r0                                          apk        
+glib                                                                          2.76.3-r0                                          apk        
 glib-networking                                                               2.76.0-r1                                          apk        
 glslang-libs                                                                  1.3.243.0-r1                                       apk        
 gmp                                                                           6.2.1-r3                                           apk        
@@ -431,7 +431,7 @@ ip6tables                                                                     1.
 ipaddr.js                                                                     1.9.1                                              npm        
 iptables                                                                      1.8.9-r2                                           apk        
 iso-codes                                                                     4.15.0-r0                                          apk        
-jake                                                                          10.8.6                                             npm        
+jake                                                                          10.8.7                                             npm        
 jq                                                                            1.6-r3                                             apk        
 jsoncpp                                                                       1.9.5-r0                                           apk        
 k8s.io/api                                                                    v0.22.4                                            go-module  
@@ -456,8 +456,8 @@ libacl                                                                        2.
 libarchive                                                                    3.6.2-r2                                           apk        
 libass                                                                        0.17.1-r0                                          apk        
 libasyncns                                                                    0.8-r1                                             apk        
-libatk-1.0                                                                    2.48.2-r0                                          apk        
-libatk-bridge-2.0                                                             2.48.2-r0                                          apk        
+libatk-1.0                                                                    2.48.3-r0                                          apk        
+libatk-bridge-2.0                                                             2.48.3-r0                                          apk        
 libatomic                                                                     12.2.1_git20220924-r10                             apk        
 libattr                                                                       2.5.1-r4                                           apk        
 libavif                                                                       0.11.1-r2                                          apk        
@@ -468,7 +468,7 @@ libbz2                                                                        1.
 libc-utils                                                                    0.7.2-r5                                           apk        
 libcap2                                                                       2.69-r0                                            apk        
 libcrypto3                                                                    3.1.0-r4                                           apk        
-libcurl                                                                       8.1.0-r1                                           apk        
+libcurl                                                                       8.1.1-r1                                           apk        
 libdav1d                                                                      1.2.0-r0                                           apk        
 libdc1394                                                                     2.2.6-r1                                           apk        
 libde265                                                                      1.0.11-r2                                          apk        
@@ -524,7 +524,7 @@ libpsl                                                                        0.
 libpulse                                                                      16.1-r10                                           apk        
 libraw1394                                                                    2.1.2-r4                                           apk        
 librist                                                                       0.2.7-r0                                           apk        
-librsvg                                                                       2.56.0-r4                                          apk        
+librsvg                                                                       2.56.0-r5                                          apk        
 librtmp                                                                       2.4_git20190330-r3                                 apk        
 libseccomp                                                                    2.5.4-r2                                           apk        
 libsecret                                                                     0.20.5-r3                                          apk        
@@ -550,7 +550,7 @@ libva-intel-driver                                                            2.
 libvdpau                                                                      1.5-r1                                             apk        
 libvorbis                                                                     1.3.7-r1                                           apk        
 libvpx                                                                        1.13.0-r1                                          apk        
-libwebp                                                                       1.3.0-r1                                           apk        
+libwebp                                                                       1.3.0-r2                                           apk        
 libwnck3                                                                      43.0-r2                                            apk        
 libwoff2common                                                                1.0.2-r2                                           apk        
 libwoff2enc                                                                   1.0.2-r2                                           apk        
@@ -565,8 +565,8 @@ libxcursor                                                                    1.
 libxdamage                                                                    1.1.6-r2                                           apk        
 libxdmcp                                                                      1.1.4-r2                                           apk        
 libxext                                                                       1.3.5-r2                                           apk        
-libxfce4panel                                                                 4.18.3-r0                                          apk        
-libxfce4ui                                                                    4.18.3-r1                                          apk        
+libxfce4panel                                                                 4.18.4-r0                                          apk        
+libxfce4ui                                                                    4.18.4-r0                                          apk        
 libxfce4util                                                                  4.18.1-r0                                          apk        
 libxfixes                                                                     6.0.1-r2                                           apk        
 libxfont2                                                                     2.0.6-r0                                           apk        
@@ -633,7 +633,7 @@ neon                                                                          0.
 netcat-openbsd                                                                1.219-r1                                           apk        
 nettle                                                                        3.8.1-r2                                           apk        
 nghttp2-libs                                                                  1.53.0-r0                                          apk        
-nginx                                                                         1.24.0-r3                                          apk        
+nginx                                                                         1.24.0-r6                                          apk        
 node                                                                          18.16.0                                            binary     
 nodejs                                                                        18.16.0-r1                                         apk        
 nspr                                                                          4.35-r2                                            apk        
@@ -664,7 +664,7 @@ path-to-regexp                                                                0.
 pciutils-libs                                                                 3.10.0-r0                                          apk        
 pcre                                                                          8.45-r3                                            apk        
 pcre2                                                                         10.42-r1                                           apk        
-perl                                                                          5.36.1-r1                                          apk        
+perl                                                                          5.36.1-r2                                          apk        
 perl-clone                                                                    0.46-r1                                            apk        
 perl-exporter-tiny                                                            1.006002-r0                                        apk        
 perl-hash-merge-simple                                                        0.051-r3                                           apk        
@@ -726,7 +726,7 @@ skalibs                                                                       2.
 snappy                                                                        1.1.10-r1                                          apk        
 socket.io                                                                     4.6.1                                              npm        
 socket.io-adapter                                                             2.5.2                                              npm        
-socket.io-parser                                                              4.2.2                                              npm        
+socket.io-parser                                                              4.2.3                                              npm        
 soundtouch                                                                    2.3.2-r2                                           apk        
 soxr                                                                          0.1.3-r5                                           apk        
 spandsp                                                                       0.0.6-r5                                           apk        
@@ -766,7 +766,7 @@ wayland-libs-client                                                           1.
 wayland-libs-cursor                                                           1.22.0-r2                                          apk        
 wayland-libs-egl                                                              1.22.0-r2                                          apk        
 wayland-libs-server                                                           1.22.0-r2                                          apk        
-webkit2gtk-4.1                                                                2.40.1-r2                                          apk        
+webkit2gtk-4.1                                                                2.40.2-r0                                          apk        
 webrtc-audio-processing                                                       0.3.1-r6                                           apk        
 ws                                                                            8.11.0                                             npm        
 x264-libs                                                                     0.164_git20220602-r1                               apk        
@@ -782,9 +782,9 @@ xf86-video-nouveau                                                            1.
 xf86-video-qxl                                                                0.1.6-r0                                           apk        
 xfce4                                                                         4.18-r0                                            apk        
 xfce4-appfinder                                                               4.18.0-r0                                          apk        
-xfce4-panel                                                                   4.18.3-r0                                          apk        
+xfce4-panel                                                                   4.18.4-r0                                          apk        
 xfce4-power-manager                                                           4.18.1-r0                                          apk        
-xfce4-session                                                                 4.18.2-r0                                          apk        
+xfce4-session                                                                 4.18.3-r0                                          apk        
 xfce4-settings                                                                4.18.2-r0                                          apk        
 xfce4-terminal                                                                1.0.4-r1                                           apk        
 xfconf                                                                        4.18.1-r0                                          apk        
