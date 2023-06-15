@@ -1,4 +1,4 @@
-FROM ghcr.io/linuxserver/baseimage-kasmvnc:debianbullseye
+FROM ghcr.io/linuxserver/baseimage-kasmvnc:debianbookworm
 
 # set version label
 ARG BUILD_DATE
@@ -21,7 +21,7 @@ RUN \
     kio-extras \
     knewstuff-dialog \
     konsole \
-    ksysguard \
+    ksystemstats \
     kwin-addons \
     kwin-x11 \
     kwrite \
