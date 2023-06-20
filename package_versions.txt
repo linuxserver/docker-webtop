@@ -4,12 +4,12 @@ NAME                                                                          VE
 @socket.io/component-emitter                                                  3.1.0                                              npm        
 @types/cookie                                                                 0.4.1                                              npm        
 @types/cors                                                                   2.8.13                                             npm        
-@types/node                                                                   20.2.6                                             npm        
+@types/node                                                                   20.3.1                                             npm        
 accepts                                                                       1.3.8                                              npm        
 alpine-baselayout                                                             3.4.3-r1                                           apk        
 alpine-baselayout-data                                                        3.4.3-r1                                           apk        
 alpine-keys                                                                   2.4-r1                                             apk        
-alpine-release                                                                3.18.0-r0                                          apk        
+alpine-release                                                                3.18.2-r0                                          apk        
 alsa-lib                                                                      1.2.9-r0                                           apk        
 ansi-styles                                                                   4.3.0                                              npm        
 aom-libs                                                                      3.6.1-r0                                           apk        
@@ -38,7 +38,7 @@ cairo-gobject                                                                 1.
 call-bind                                                                     1.0.2                                              npm        
 cdparanoia-libs                                                               10.2-r14                                           apk        
 chalk                                                                         4.1.2                                              npm        
-chromium                                                                      114.0.5735.106-r0                                  apk        
+chromium                                                                      114.0.5735.133-r1                                  apk        
 cjson                                                                         1.7.15-r4                                          apk        
 cloud.google.com/go/compute/metadata                                          v0.2.1                                             go-module  
 color-convert                                                                 2.0.1                                              npm        
@@ -53,7 +53,7 @@ cookie                                                                        0.
 cookie-signature                                                              1.0.6                                              npm        
 coreutils                                                                     9.3-r1                                             apk        
 cors                                                                          2.8.5                                              npm        
-cups-libs                                                                     2.4.4-r0                                           apk        
+cups-libs                                                                     2.4.5-r0                                           apk        
 curl                                                                          8.1.2-r0                                           apk        
 dbus                                                                          1.14.8-r0                                          apk        
 dbus-daemon-launch-helper                                                     1.14.8-r0                                          apk        
@@ -63,7 +63,7 @@ debug                                                                         2.
 debug                                                                         4.3.4                                              npm        
 depd                                                                          2.0.0                                              npm        
 destroy                                                                       1.2.0                                              npm        
-device-mapper-libs                                                            2.03.21-r2                                         apk        
+device-mapper-libs                                                            2.03.21-r3                                         apk        
 docker                                                                        23.0.6-r2                                          apk        
 docker-cli                                                                    23.0.6-r2                                          apk        
 docker-cli-buildx                                                             0.10.4-r5                                          apk        
@@ -395,8 +395,8 @@ hwdata-pci                                                                    0.
 i3status                                                                      2.14-r1                                            apk        
 i3wm                                                                          4.22-r1                                            apk        
 iconv-lite                                                                    0.4.24                                             npm        
-icu-data-en                                                                   73.1-r1                                            apk        
-icu-libs                                                                      73.1-r1                                            apk        
+icu-data-full                                                                 73.2-r0                                            apk        
+icu-libs                                                                      73.2-r0                                            apk        
 imlib2                                                                        1.11.1-r0                                          apk        
 inherits                                                                      2.0.4                                              npm        
 intel-gmmlib                                                                  22.3.5-r0                                          apk        
@@ -460,8 +460,8 @@ libice                                                                        1.
 libid3tag                                                                     0.16.2-r2                                          apk        
 libidn2                                                                       2.3.4-r1                                           apk        
 libintl                                                                       0.21.1-r7                                          apk        
-libjpeg-turbo                                                                 2.1.5.1-r2                                         apk        
-libjxl                                                                        0.8.1-r5                                           apk        
+libjpeg-turbo                                                                 2.1.5.1-r3                                         apk        
+libjxl                                                                        0.8.2-r0                                           apk        
 libltdl                                                                       2.4.7-r2                                           apk        
 libmagic                                                                      5.44-r3                                            apk        
 libmd                                                                         1.0.4-r2                                           apk        
@@ -503,7 +503,7 @@ libvpx                                                                        1.
 libwebp                                                                       1.3.0-r2                                           apk        
 libwoff2common                                                                1.0.2-r2                                           apk        
 libwoff2enc                                                                   1.0.2-r2                                           apk        
-libx11                                                                        1.8.4-r3                                           apk        
+libx11                                                                        1.8.4-r4                                           apk        
 libxau                                                                        1.0.11-r2                                          apk        
 libxaw                                                                        1.0.15-r1                                          apk        
 libxcb                                                                        1.15-r1                                            apk        
@@ -640,7 +640,7 @@ setarch                                                                       2.
 setprototypeof                                                                1.2.0                                              npm        
 setxkbmap                                                                     1.3.3-r1                                           apk        
 shaderc                                                                       2023.3-r1                                          apk        
-shadow                                                                        4.13-r2                                            apk        
+shadow                                                                        4.13-r4                                            apk        
 shared-mime-info                                                              2.2-r5                                             apk        
 side-channel                                                                  1.0.4                                              npm        
 sigs.k8s.io/json                                                              v0.0.0-20220713155537-f223a00ba0e2                 go-module  
@@ -667,7 +667,7 @@ supports-color                                                                7.
 svt-av1-libs                                                                  1.5.0-r0                                           apk        
 tar                                                                           1.34-r3                                            apk        
 tdb-libs                                                                      1.4.8-r1                                           apk        
-tiff                                                                          4.5.0-r6                                           apk        
+tiff                                                                          4.5.1-r0                                           apk        
 tini-static                                                                   0.19.0-r1                                          apk        
 toidentifier                                                                  1.0.1                                              npm        
 type-is                                                                       1.6.18                                             npm        
