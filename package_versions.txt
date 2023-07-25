@@ -4,7 +4,7 @@ NAME                                                                          VE
 @socket.io/component-emitter                                                  3.1.0                                              npm        
 @types/cookie                                                                 0.4.1                                              npm        
 @types/cors                                                                   2.8.13                                             npm        
-@types/node                                                                   20.4.2                                             npm        
+@types/node                                                                   20.4.4                                             npm        
 accepts                                                                       1.3.8                                              npm        
 alpine-baselayout                                                             3.4.3-r1                                           apk        
 alpine-baselayout-data                                                        3.4.3-r1                                           apk        
@@ -38,7 +38,7 @@ cairo-gobject                                                                 1.
 call-bind                                                                     1.0.2                                              npm        
 cdparanoia-libs                                                               10.2-r14                                           apk        
 chalk                                                                         4.1.2                                              npm        
-chromium                                                                      114.0.5735.198-r0                                  apk        
+chromium                                                                      115.0.5790.102-r0                                  apk        
 cjson                                                                         1.7.15-r4                                          apk        
 cloud.google.com/go/compute/metadata                                          v0.2.1                                             go-module  
 color-convert                                                                 2.0.1                                              npm        
@@ -54,7 +54,7 @@ cookie-signature                                                              1.
 coreutils                                                                     9.3-r1                                             apk        
 cors                                                                          2.8.5                                              npm        
 cups-libs                                                                     2.4.6-r0                                           apk        
-curl                                                                          8.1.2-r0                                           apk        
+curl                                                                          8.2.0-r1                                           apk        
 dbus                                                                          1.14.8-r0                                          apk        
 dbus-daemon-launch-helper                                                     1.14.8-r0                                          apk        
 dbus-libs                                                                     1.14.8-r0                                          apk        
@@ -93,6 +93,7 @@ file-uri-to-path                                                              1.
 filelist                                                                      1.0.4                                              npm        
 finalhandler                                                                  1.2.0                                              npm        
 flac-libs                                                                     1.4.3-r0                                           apk        
+font-liberation                                                               2.1.5-r2                                           apk        
 font-noto                                                                     23.5.1-r0                                          apk        
 font-noto-common                                                              23.5.1-r0                                          apk        
 font-noto-math                                                                23.5.1-r0                                          apk        
@@ -379,8 +380,8 @@ gopkg.in/yaml.v2                                                              v2
 gopkg.in/yaml.v3                                                              v3.0.1                                             go-module  
 graphene                                                                      1.10.8-r2                                          apk        
 graphite2                                                                     1.3.14-r5                                          apk        
-gst-plugins-base                                                              1.22.4-r0                                          apk        
-gstreamer                                                                     1.22.4-r0                                          apk        
+gst-plugins-base                                                              1.22.5-r0                                          apk        
+gstreamer                                                                     1.22.5-r0                                          apk        
 gtk+3.0                                                                       3.24.38-r0                                         apk        
 gtk-update-icon-cache                                                         3.24.38-r0                                         apk        
 harfbuzz                                                                      7.3.0-r0                                           apk        
@@ -438,8 +439,8 @@ libbsd                                                                        0.
 libbz2                                                                        1.0.8-r5                                           apk        
 libc-utils                                                                    0.7.2-r5                                           apk        
 libcap2                                                                       2.69-r0                                            apk        
-libcrypto3                                                                    3.1.1-r2                                           apk        
-libcurl                                                                       8.1.2-r0                                           apk        
+libcrypto3                                                                    3.1.1-r3                                           apk        
+libcurl                                                                       8.2.0-r1                                           apk        
 libdav1d                                                                      1.2.1-r0                                           apk        
 libdrm                                                                        2.4.115-r4                                         apk        
 libedit                                                                       20221030.3.1-r1                                    apk        
@@ -479,7 +480,7 @@ libpng                                                                        1.
 libproc2                                                                      4.0.3-r1                                           apk        
 libpulse                                                                      16.1-r10                                           apk        
 librist                                                                       0.2.7-r0                                           apk        
-librsvg                                                                       2.56.2-r0                                          apk        
+librsvg                                                                       2.56.3-r0                                          apk        
 libseccomp                                                                    2.5.4-r2                                           apk        
 libsm                                                                         1.2.4-r1                                           apk        
 libsmartcols                                                                  2.38.1-r8                                          apk        
@@ -487,7 +488,7 @@ libsndfile                                                                    1.
 libsodium                                                                     1.0.18-r3                                          apk        
 libsrt                                                                        1.5.2-r0                                           apk        
 libssh                                                                        0.10.5-r0                                          apk        
-libssl3                                                                       3.1.1-r2                                           apk        
+libssl3                                                                       3.1.1-r3                                           apk        
 libstdc++                                                                     12.2.1_git20220924-r10                             apk        
 libtasn1                                                                      4.19.0-r1                                          apk        
 libtheora                                                                     1.1.1-r17                                          apk        
@@ -571,10 +572,10 @@ ncurses-terminfo-base                                                         6.
 negotiator                                                                    0.6.3                                              npm        
 netcat-openbsd                                                                1.219-r1                                           apk        
 nettle                                                                        3.8.1-r2                                           apk        
-nghttp2-libs                                                                  1.53.0-r0                                          apk        
+nghttp2-libs                                                                  1.55.1-r0                                          apk        
 nginx                                                                         1.24.0-r6                                          apk        
-node                                                                          18.16.1                                            binary     
-nodejs                                                                        18.16.1-r0                                         apk        
+node                                                                          18.17.0                                            binary     
+nodejs                                                                        18.17.0-r0                                         apk        
 nspr                                                                          4.35-r2                                            apk        
 nss                                                                           3.91-r0                                            apk        
 numactl                                                                       2.0.16-r4                                          apk        
@@ -585,10 +586,10 @@ onevpl-libs                                                                   20
 oniguruma                                                                     6.9.8-r1                                           apk        
 openbox                                                                       3.6.1-r5                                           apk        
 openbox-libs                                                                  3.6.1-r5                                           apk        
-openssh-client-common                                                         9.3_p1-r3                                          apk        
-openssh-client-default                                                        9.3_p1-r3                                          apk        
-openssh-keygen                                                                9.3_p1-r3                                          apk        
-openssl                                                                       3.1.1-r2                                           apk        
+openssh-client-common                                                         9.3_p2-r0                                          apk        
+openssh-client-default                                                        9.3_p2-r0                                          apk        
+openssh-keygen                                                                9.3_p2-r0                                          apk        
+openssl                                                                       3.1.1-r3                                           apk        
 opus                                                                          1.4-r0                                             apk        
 orc                                                                           0.4.34-r0                                          apk        
 p11-kit                                                                       0.24.1-r2                                          apk        
@@ -659,7 +660,7 @@ speexdsp                                                                      1.
 spirv-tools                                                                   1.3.243.0-r1                                       apk        
 sqlite-libs                                                                   3.41.2-r2                                          apk        
 ssl_client                                                                    1.36.1-r1                                          apk        
-st                                                                            0.9-r0                                             apk        
+st                                                                            0.9-r1                                             apk        
 startup-notification                                                          0.12-r5                                            apk        
 statuses                                                                      2.0.1                                              npm        
 sudo                                                                          1.9.13_p3-r2                                       apk        
