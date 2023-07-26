@@ -2,7 +2,7 @@ name: External Trigger Scheduler
 
 on:
   schedule:
-    - cron:  '15 * * * *'
+    - cron:  '27 * * * *'
   workflow_dispatch:
 
 jobs:
@@ -17,18 +17,18 @@ jobs:
         run: |
           echo "**** Branches found: ****"
           git for-each-ref --format='%(refname:short)' refs/remotes
-          echo "**** Pulling the yq docker image ****"
-          docker pull ghcr.io/linuxserver/yq
           for br in $(git for-each-ref --format='%(refname:short)' refs/remotes)
           do
             br=$(echo "$br" | sed 's|origin/||g')
             echo "**** Evaluating branch ${br} ****"
-            ls_branch=$(curl -sX GET https://raw.githubusercontent.com/linuxserver/docker-webtop/${br}/jenkins-vars.yml \
-              | docker run --rm -i --entrypoint yq ghcr.io/linuxserver/yq -r .ls_branch)
-            if [ "$br" == "$ls_branch" ]; then
-              echo "**** Branch ${br} appears to be live; checking workflow. ****"
+            ls_jenkins_vars=$(curl -sX GET https://raw.githubusercontent.com/linuxserver/docker-webtop/${br}/jenkins-vars.yml)
+            ls_branch=$(echo "${ls_jenkins_vars}" | yq -r '.ls_branch')
+            ls_trigger=$(echo "${ls_jenkins_vars}" | yq -r '.external_type')
+            if [[ "${br}" == "${ls_branch}" ]] && [[ "${ls_trigger}" != "os" ]]; then
+              echo "**** Branch ${br} appears to be live and trigger is not os; checking workflow. ****"
               if curl -sfX GET https://raw.githubusercontent.com/linuxserver/docker-webtop/${br}/.github/workflows/external_trigger.yml > /dev/null 2>&1; then
                 echo "**** Workflow exists. Triggering external trigger workflow for branch ${br} ****."
+                echo "Triggering external trigger workflow for branch ${br}" >> $GITHUB_STEP_SUMMARY
                 curl -iX POST \
                   -H "Authorization: token ${{ secrets.CR_PAT }}" \
                   -H "Accept: application/vnd.github.v3+json" \
@@ -36,8 +36,10 @@ jobs:
                   https://api.github.com/repos/linuxserver/docker-webtop/actions/workflows/external_trigger.yml/dispatches
               else
                 echo "**** Workflow doesn't exist; skipping trigger. ****"
+                echo "Skipping branch ${br} due to no external trigger workflow present." >> $GITHUB_STEP_SUMMARY
               fi
             else
-              echo "**** ${br} appears to be a dev branch; skipping trigger. ****"
+              echo "**** ${br} is either a dev branch, or has no external version; skipping trigger. ****"
+              echo "Skipping branch ${br} due to being detected as dev branch or having no external version." >> $GITHUB_STEP_SUMMARY
             fi
           done
