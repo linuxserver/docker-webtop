@@ -39,10 +39,16 @@ pipeline {
     // Setup all the basic environment variables needed for the build
     stage("Set ENV Variables base"){
       steps{
+        sh '''#! /bin/bash
+              containers=$(docker ps -aq)
+              if [[ -n "${containers}" ]]; then
+                docker stop ${containers}
+              fi
+              docker system prune -af --volumes || : '''
         script{
           env.EXIT_STATUS = ''
           env.LS_RELEASE = sh(
-            script: '''docker run --rm ghcr.io/linuxserver/alexeiled-skopeo sh -c 'skopeo inspect docker://docker.io/'${DOCKERHUB_IMAGE}':arch-openbox 2>/dev/null' | jq -r '.Labels.build_version' | awk '{print $3}' | grep '\\-ls' || : ''',
+            script: '''docker run --rm quay.io/skopeo/stable:v1 inspect docker://ghcr.io/${LS_USER}/${CONTAINER_NAME}:arch-openbox 2>/dev/null | jq -r '.Labels.build_version' | awk '{print $3}' | grep '\\-ls' || : ''',
             returnStdout: true).trim()
           env.LS_RELEASE_NOTES = sh(
             script: '''cat readme-vars.yml | awk -F \\" '/date: "[0-9][0-9].[0-9][0-9].[0-9][0-9]:/ {print $4;exit;}' | sed -E ':a;N;$!ba;s/\\r{0,1}\\n/\\\\n/g' ''',
@@ -201,12 +207,12 @@ pipeline {
           env.GITLABIMAGE = 'registry.gitlab.com/linuxserver.io/' + env.LS_REPO + '/lspipepr-' + env.CONTAINER_NAME
           env.QUAYIMAGE = 'quay.io/linuxserver.io/lspipepr-' + env.CONTAINER_NAME
           if (env.MULTIARCH == 'true') {
-            env.CI_TAGS = 'amd64-arch-openbox-' + env.EXT_RELEASE_CLEAN + '-pkg-' + env.PACKAGE_TAG + '-pr-' + env.PULL_REQUEST + '|arm64v8-arch-openbox-' + env.EXT_RELEASE_CLEAN + '-pkg-' + env.PACKAGE_TAG + '-pr-' + env.PULL_REQUEST
+            env.CI_TAGS = 'amd64-arch-openbox-' + env.EXT_RELEASE_CLEAN + '-pkg-' + env.PACKAGE_TAG + '-dev-' + env.COMMIT_SHA + '-pr-' + env.PULL_REQUEST + '|arm64v8-arch-openbox-' + env.EXT_RELEASE_CLEAN + '-pkg-' + env.PACKAGE_TAG + '-dev-' + env.COMMIT_SHA + '-pr-' + env.PULL_REQUEST
           } else {
-            env.CI_TAGS = 'arch-openbox-' + env.EXT_RELEASE_CLEAN + '-pkg-' + env.PACKAGE_TAG + '-pr-' + env.PULL_REQUEST
+            env.CI_TAGS = 'arch-openbox-' + env.EXT_RELEASE_CLEAN + '-pkg-' + env.PACKAGE_TAG + '-dev-' + env.COMMIT_SHA + '-pr-' + env.PULL_REQUEST
           }
-          env.VERSION_TAG = env.EXT_RELEASE_CLEAN + '-pkg-' + env.PACKAGE_TAG + '-pr-' + env.PULL_REQUEST
-          env.META_TAG = 'arch-openbox-' + env.EXT_RELEASE_CLEAN + '-pkg-' + env.PACKAGE_TAG + '-pr-' + env.PULL_REQUEST
+          env.VERSION_TAG = env.EXT_RELEASE_CLEAN + '-pkg-' + env.PACKAGE_TAG + '-dev-' + env.COMMIT_SHA + '-pr-' + env.PULL_REQUEST
+          env.META_TAG = 'arch-openbox-' + env.EXT_RELEASE_CLEAN + '-pkg-' + env.PACKAGE_TAG + '-dev-' + env.COMMIT_SHA + '-pr-' + env.PULL_REQUEST
           env.EXT_RELEASE_TAG = 'arch-openbox-version-' + env.EXT_RELEASE_CLEAN
           env.CODE_URL = 'https://github.com/' + env.LS_USER + '/' + env.LS_REPO + '/pull/' + env.PULL_REQUEST
           env.DOCKERHUB_LINK = 'https://hub.docker.com/r/' + env.PR_DOCKERHUB_IMAGE + '/tags/'
@@ -226,7 +232,7 @@ pipeline {
           script{
             env.SHELLCHECK_URL = 'https://ci-tests.linuxserver.io/' + env.IMAGE + '/' + env.META_TAG + '/shellcheck-result.xml'
           }
-          sh '''curl -sL https://raw.githubusercontent.com/linuxserver/docker-shellcheck/master/checkrun.sh | /bin/bash'''
+          sh '''curl -sL https://raw.githubusercontent.com/linuxserver/docker-jenkins-builder/master/checkrun.sh | /bin/bash'''
           sh '''#! /bin/bash
                 docker run --rm \
                   -v ${WORKSPACE}:/mnt \
@@ -272,7 +278,7 @@ pipeline {
                 echo "Jenkinsfile is up to date."
               fi
               # Stage 2 - Delete old templates
-              OLD_TEMPLATES=".github/ISSUE_TEMPLATE.md .github/ISSUE_TEMPLATE/issue.bug.md .github/ISSUE_TEMPLATE/issue.feature.md .github/workflows/call_invalid_helper.yml .github/workflows/stale.yml"
+              OLD_TEMPLATES=".github/ISSUE_TEMPLATE.md .github/ISSUE_TEMPLATE/issue.bug.md .github/ISSUE_TEMPLATE/issue.feature.md .github/workflows/call_invalid_helper.yml .github/workflows/stale.yml Dockerfile.armhf"
               for i in ${OLD_TEMPLATES}; do
                 if [[ -f "${i}" ]]; then
                   TEMPLATES_TO_DELETE="${i} ${TEMPLATES_TO_DELETE}"
@@ -308,12 +314,13 @@ pipeline {
                 mkdir -p ${TEMPDIR}/repo/${LS_REPO}/.github/workflows
                 mkdir -p ${TEMPDIR}/repo/${LS_REPO}/.github/ISSUE_TEMPLATE
                 cp --parents ${TEMPLATED_FILES} ${TEMPDIR}/repo/${LS_REPO}/ || :
+                cp --parents readme-vars.yml ${TEMPDIR}/repo/${LS_REPO}/ || :
                 cd ${TEMPDIR}/repo/${LS_REPO}/
                 if ! grep -q '.jenkins-external' .gitignore 2>/dev/null; then
                   echo ".jenkins-external" >> .gitignore
                   git add .gitignore
                 fi
-                git add ${TEMPLATED_FILES}
+                git add readme-vars.yml ${TEMPLATED_FILES}
                 git commit -m 'Bot Updating Templated Files'
                 git push https://LinuxServer-CI:${GITHUB_TOKEN}@github.com/${LS_USER}/${LS_REPO}.git --all
                 echo "true" > /tmp/${COMMIT_SHA}-${BUILD_NUMBER}
@@ -353,6 +360,26 @@ pipeline {
         }
       }
     }
+    // If this is a arch-openbox build check the S6 service file perms
+    stage("Check S6 Service file Permissions"){
+      when {
+        branch "arch-openbox"
+        environment name: 'CHANGE_ID', value: ''
+        environment name: 'EXIT_STATUS', value: ''
+      }
+      steps {
+        script{
+          sh '''#! /bin/bash
+            WRONG_PERM=$(find ./  -path "./.git" -prune -o \\( -name "run" -o -name "finish" -o -name "check" \\) -not -perm -u=x,g=x,o=x -print)
+            if [[ -n "${WRONG_PERM}" ]]; then
+              echo "The following S6 service files are missing the executable bit; canceling the faulty build: ${WRONG_PERM}"
+              exit 1
+            else
+              echo "S6 service file perms look good."
+            fi '''
+        }
+      }
+    }
     /* #######################
            GitLab Mirroring
        ####################### */
@@ -384,8 +411,7 @@ pipeline {
       }
       steps{
         sh '''#! /bin/bash
-              set -e
-              PACKAGE_UUID=$(curl -X GET -H "Authorization: Bearer ${SCARF_TOKEN}" https://scarf.sh/api/v1/organizations/linuxserver-ci/packages | jq -r '.[] | select(.name=="linuxserver/webtop") | .uuid')
+              PACKAGE_UUID=$(curl -X GET -H "Authorization: Bearer ${SCARF_TOKEN}" https://scarf.sh/api/v1/organizations/linuxserver-ci/packages | jq -r '.[] | select(.name=="linuxserver/webtop") | .uuid' || :)
               if [ -z "${PACKAGE_UUID}" ]; then
                 echo "Adding package to Scarf.sh"
                 curl -sX POST https://scarf.sh/api/v1/organizations/linuxserver-ci/packages \
@@ -495,9 +521,12 @@ pipeline {
             retry(5) {
               sh "docker push ghcr.io/linuxserver/lsiodev-buildcache:arm64v8-${COMMIT_SHA}-${BUILD_NUMBER}"
             }
-            sh '''docker rmi \
-                  ${IMAGE}:arm64v8-${META_TAG} \
-                  ghcr.io/linuxserver/lsiodev-buildcache:arm64v8-${COMMIT_SHA}-${BUILD_NUMBER} || :'''
+            sh '''#! /bin/bash
+                  containers=$(docker ps -aq)
+                  if [[ -n "${containers}" ]]; then
+                    docker stop ${containers}
+                  fi
+                  docker system prune -af --volumes || : '''
           }
         }
       }
@@ -558,13 +587,6 @@ pipeline {
         environment name: 'EXIT_STATUS', value: ''
       }
       steps {
-        sh '''#! /bin/bash
-              echo "Packages were updated. Cleaning up the image and exiting."
-              if [ "${MULTIARCH}" == "true" ] && [ "${PACKAGE_CHECK}" == "false" ]; then
-                docker rmi ${IMAGE}:amd64-${META_TAG}
-              else
-                docker rmi ${IMAGE}:${META_TAG}
-              fi'''
         script{
           env.EXIT_STATUS = 'ABORTED'
         }
@@ -582,13 +604,6 @@ pipeline {
         }
       }
       steps {
-        sh '''#! /bin/bash
-              echo "There are no package updates. Cleaning up the image and exiting."
-              if [ "${MULTIARCH}" == "true" ] && [ "${PACKAGE_CHECK}" == "false" ]; then
-                docker rmi ${IMAGE}:amd64-${META_TAG}
-              else
-                docker rmi ${IMAGE}:${META_TAG}
-              fi'''
         script{
           env.EXIT_STATUS = 'ABORTED'
         }
@@ -610,6 +625,7 @@ pipeline {
         ]) {
           script{
             env.CI_URL = 'https://ci-tests.linuxserver.io/' + env.IMAGE + '/' + env.META_TAG + '/index.html'
+            env.CI_JSON_URL = 'https://ci-tests.linuxserver.io/' + env.IMAGE + '/' + env.META_TAG + '/report.json'
           }
           sh '''#! /bin/bash
                 set -e
@@ -634,8 +650,6 @@ pipeline {
                 -e WEB_SCREENSHOT=\"${CI_WEB}\" \
                 -e WEB_AUTH=\"${CI_AUTH}\" \
                 -e WEB_PATH=\"${CI_WEBPATH}\" \
-                -e DO_REGION="ams3" \
-                -e DO_BUCKET="lsio-ci" \
                 -t ghcr.io/linuxserver/ci:latest \
                 python3 test_build.py'''
         }
@@ -688,17 +702,6 @@ pipeline {
                   done
                '''
           }
-          sh '''#! /bin/bash
-                for DELETEIMAGE in "${GITHUBIMAGE}" "${GITLABIMAGE}" "${QUAYIMAGE}" "${IMAGE}"; do
-                  docker rmi \
-                  ${DELETEIMAGE}:${META_TAG} \
-                  ${DELETEIMAGE}:${EXT_RELEASE_TAG} \
-                  ${DELETEIMAGE}:arch-openbox || :
-                  if [ -n "${SEMVER}" ]; then
-                    docker rmi ${DELETEIMAGE}:${SEMVER} || :
-                  fi
-                done
-             '''
         }
       }
     }
@@ -769,6 +772,16 @@ pipeline {
                       docker manifest create ${MANIFESTIMAGE}:${SEMVER} ${MANIFESTIMAGE}:amd64-${SEMVER} ${MANIFESTIMAGE}:arm64v8-${SEMVER}
                       docker manifest annotate ${MANIFESTIMAGE}:${SEMVER} ${MANIFESTIMAGE}:arm64v8-${SEMVER} --os linux --arch arm64 --variant v8
                     fi
+                    token=$(curl -sX GET "https://ghcr.io/token?scope=repository%3Alinuxserver%2F${CONTAINER_NAME}%3Apull" | jq -r '.token')
+                    digest=$(curl -s \
+                      --header "Accept: application/vnd.docker.distribution.manifest.v2+json" \
+                      --header "Authorization: Bearer ${token}" \
+                      "https://ghcr.io/v2/linuxserver/${CONTAINER_NAME}/manifests/arm32v7-arch-openbox")
+                    if [[ $(echo "$digest" | jq -r '.layers') != "null" ]]; then
+                      docker manifest push --purge ${MANIFESTIMAGE}:arm32v7-arch-openbox || :
+                      docker manifest create ${MANIFESTIMAGE}:arm32v7-arch-openbox ${MANIFESTIMAGE}:amd64-arch-openbox
+                      docker manifest push --purge ${MANIFESTIMAGE}:arm32v7-arch-openbox
+                    fi
                     docker manifest push --purge ${MANIFESTIMAGE}:arch-openbox
                     docker manifest push --purge ${MANIFESTIMAGE}:${META_TAG} 
                     docker manifest push --purge ${MANIFESTIMAGE}:${EXT_RELEASE_TAG} 
@@ -778,24 +791,6 @@ pipeline {
                   done
                '''
           }
-          sh '''#! /bin/bash
-                for DELETEIMAGE in "${GITHUBIMAGE}" "${GITLABIMAGE}" "${QUAYIMAGE}" "${IMAGE}"; do
-                  docker rmi \
-                  ${DELETEIMAGE}:amd64-${META_TAG} \
-                  ${DELETEIMAGE}:amd64-arch-openbox \
-                  ${DELETEIMAGE}:amd64-${EXT_RELEASE_TAG} \
-                  ${DELETEIMAGE}:arm64v8-${META_TAG} \
-                  ${DELETEIMAGE}:arm64v8-arch-openbox \
-                  ${DELETEIMAGE}:arm64v8-${EXT_RELEASE_TAG} || :
-                  if [ -n "${SEMVER}" ]; then
-                    docker rmi \
-                    ${DELETEIMAGE}:amd64-${SEMVER} \
-                    ${DELETEIMAGE}:arm64v8-${SEMVER} || :
-                  fi
-                done
-                docker rmi \
-                ghcr.io/linuxserver/lsiodev-buildcache:arm64v8-${COMMIT_SHA}-${BUILD_NUMBER} || :
-             '''
         }
       }
     }
@@ -866,12 +861,78 @@ pipeline {
     stage('Pull Request Comment') {
       when {
         not {environment name: 'CHANGE_ID', value: ''}
-        environment name: 'CI', value: 'true'
         environment name: 'EXIT_STATUS', value: ''
       }
       steps {
-        sh '''curl -H "Authorization: token ${GITHUB_TOKEN}" -X POST https://api.github.com/repos/${LS_USER}/${LS_REPO}/issues/${PULL_REQUEST}/comments \
-        -d '{"body": "I am a bot, here are the test results for this PR: \\n'${CI_URL}' \\n'${SHELLCHECK_URL}'"}' '''
+        sh '''#! /bin/bash
+            # Function to retrieve JSON data from URL
+            get_json() {
+              local url="$1"
+              local response=$(curl -s "$url")
+              if [ $? -ne 0 ]; then
+                echo "Failed to retrieve JSON data from $url"
+                return 1
+              fi
+              local json=$(echo "$response" | jq .)
+              if [ $? -ne 0 ]; then
+                echo "Failed to parse JSON data from $url"
+                return 1
+              fi
+              echo "$json"
+            }
+
+            build_table() {
+              local data="$1"
+
+              # Get the keys in the JSON data
+              local keys=$(echo "$data" | jq -r 'to_entries | map(.key) | .[]')
+
+              # Check if keys are empty
+              if [ -z "$keys" ]; then
+                echo "JSON report data does not contain any keys or the report does not exist."
+                return 1
+              fi
+
+              # Build table header
+              local header="| Tag | Passed |\\n| --- | --- |\\n"
+
+              # Loop through the JSON data to build the table rows
+              local rows=""
+              for build in $keys; do
+                local status=$(echo "$data" | jq -r ".[\\"$build\\"].test_success")
+                if [ "$status" = "true" ]; then
+                  status="✅"
+                else
+                  status="❌"
+                fi
+                local row="| "$build" | "$status" |\\n"
+                rows="${rows}${row}"
+              done
+
+              local table="${header}${rows}"
+              local escaped_table=$(echo "$table" | sed 's/\"/\\\\"/g')
+              echo "$escaped_table"
+            }
+
+            if [[ "${CI}" = "true" ]]; then
+              # Retrieve JSON data from URL
+              data=$(get_json "$CI_JSON_URL")
+              # Create table from JSON data
+              table=$(build_table "$data")
+              echo -e "$table"
+
+              curl -X POST -H "Authorization: token $GITHUB_TOKEN" \
+                -H "Accept: application/vnd.github.v3+json" \
+                "https://api.github.com/repos/$LS_USER/$LS_REPO/issues/$PULL_REQUEST/comments" \
+                -d "{\\"body\\": \\"I am a bot, here are the test results for this PR: \\n${CI_URL}\\n${SHELLCHECK_URL}\\n${table}\\"}"
+            else
+              curl -X POST -H "Authorization: token $GITHUB_TOKEN" \
+                -H "Accept: application/vnd.github.v3+json" \
+                "https://api.github.com/repos/$LS_USER/$LS_REPO/issues/$PULL_REQUEST/comments" \
+                -d "{\\"body\\": \\"I am a bot, here is the pushed image/manifest for this PR: \\n\\n\\`${GITHUBIMAGE}:${META_TAG}\\`\\"}"
+            fi
+            '''
+
       }
     }
   }
@@ -897,6 +958,14 @@ pipeline {
       }
     }
     cleanup {
+      sh '''#! /bin/bash
+            echo "Performing docker system prune!!"
+            containers=$(docker ps -aq)
+            if [[ -n "${containers}" ]]; then
+              docker stop ${containers}
+            fi
+            docker system prune -af --volumes || :
+         '''
       cleanWs()
     }
   }
