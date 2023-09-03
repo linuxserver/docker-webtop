@@ -434,18 +434,18 @@ pipeline {
       }
       steps{
         sh '''#! /bin/bash
-              PACKAGE_UUID=$(curl -X GET -H "Authorization: Bearer ${SCARF_TOKEN}" https://scarf.sh/api/v1/organizations/linuxserver-ci/packages | jq -r '.[] | select(.name=="linuxserver/Webtop") | .uuid' || :)
+              PACKAGE_UUID=$(curl -X GET -H "Authorization: Bearer ${SCARF_TOKEN}" https://scarf.sh/api/v1/organizations/linuxserver-ci/packages | jq -r '.[] | select(.name=="linuxserver/webtop") | .uuid' || :)
               if [ -z "${PACKAGE_UUID}" ]; then
                 echo "Adding package to Scarf.sh"
                 curl -sX POST https://scarf.sh/api/v1/organizations/linuxserver-ci/packages \
                   -H "Authorization: Bearer ${SCARF_TOKEN}" \
                   -H "Content-Type: application/json" \
-                  -d '{"name":"linuxserver/Webtop",\
+                  -d '{"name":"linuxserver/webtop",\
                        "shortDescription":"example description",\
                        "libraryType":"docker",\
-                       "website":"https://github.com/linuxserver/docker-Webtop",\
-                       "backendUrl":"https://ghcr.io/linuxserver/Webtop",\
-                       "publicUrl":"https://lscr.io/linuxserver/Webtop"}' || :
+                       "website":"https://github.com/linuxserver/docker-webtop",\
+                       "backendUrl":"https://ghcr.io/linuxserver/webtop",\
+                       "publicUrl":"https://lscr.io/linuxserver/webtop"}' || :
               else
                 echo "Package already exists on Scarf.sh"
               fi
@@ -469,9 +469,9 @@ pipeline {
         sh "docker buildx build \
           --label \"org.opencontainers.image.created=${GITHUB_DATE}\" \
           --label \"org.opencontainers.image.authors=linuxserver.io\" \
-          --label \"org.opencontainers.image.url=https://github.com/linuxserver/docker-Webtop/packages\" \
-          --label \"org.opencontainers.image.documentation=https://docs.linuxserver.io/images/docker-Webtop\" \
-          --label \"org.opencontainers.image.source=https://github.com/linuxserver/docker-Webtop\" \
+          --label \"org.opencontainers.image.url=https://github.com/linuxserver/docker-webtop/packages\" \
+          --label \"org.opencontainers.image.documentation=https://docs.linuxserver.io/images/docker-webtop\" \
+          --label \"org.opencontainers.image.source=https://github.com/linuxserver/docker-webtop\" \
           --label \"org.opencontainers.image.version=${EXT_RELEASE_CLEAN}-ls${LS_TAG_NUMBER}\" \
           --label \"org.opencontainers.image.revision=${COMMIT_SHA}\" \
           --label \"org.opencontainers.image.vendor=linuxserver.io\" \
@@ -500,9 +500,9 @@ pipeline {
             sh "docker buildx build \
               --label \"org.opencontainers.image.created=${GITHUB_DATE}\" \
               --label \"org.opencontainers.image.authors=linuxserver.io\" \
-              --label \"org.opencontainers.image.url=https://github.com/linuxserver/docker-Webtop/packages\" \
-              --label \"org.opencontainers.image.documentation=https://docs.linuxserver.io/images/docker-Webtop\" \
-              --label \"org.opencontainers.image.source=https://github.com/linuxserver/docker-Webtop\" \
+              --label \"org.opencontainers.image.url=https://github.com/linuxserver/docker-webtop/packages\" \
+              --label \"org.opencontainers.image.documentation=https://docs.linuxserver.io/images/docker-webtop\" \
+              --label \"org.opencontainers.image.source=https://github.com/linuxserver/docker-webtop\" \
               --label \"org.opencontainers.image.version=${EXT_RELEASE_CLEAN}-ls${LS_TAG_NUMBER}\" \
               --label \"org.opencontainers.image.revision=${COMMIT_SHA}\" \
               --label \"org.opencontainers.image.vendor=linuxserver.io\" \
@@ -528,9 +528,9 @@ pipeline {
             sh "docker buildx build \
               --label \"org.opencontainers.image.created=${GITHUB_DATE}\" \
               --label \"org.opencontainers.image.authors=linuxserver.io\" \
-              --label \"org.opencontainers.image.url=https://github.com/linuxserver/docker-Webtop/packages\" \
-              --label \"org.opencontainers.image.documentation=https://docs.linuxserver.io/images/docker-Webtop\" \
-              --label \"org.opencontainers.image.source=https://github.com/linuxserver/docker-Webtop\" \
+              --label \"org.opencontainers.image.url=https://github.com/linuxserver/docker-webtop/packages\" \
+              --label \"org.opencontainers.image.documentation=https://docs.linuxserver.io/images/docker-webtop\" \
+              --label \"org.opencontainers.image.source=https://github.com/linuxserver/docker-webtop\" \
               --label \"org.opencontainers.image.version=${EXT_RELEASE_CLEAN}-ls${LS_TAG_NUMBER}\" \
               --label \"org.opencontainers.image.revision=${COMMIT_SHA}\" \
               --label \"org.opencontainers.image.vendor=linuxserver.io\" \
