@@ -103,7 +103,7 @@ The Webtop can be accessed at:
 
 **Modern GUI desktop apps (including some flavors terminals) have issues with the latest Docker and syscall compatibility, you can use Docker with the `--security-opt seccomp=unconfined` setting to allow these syscalls**
 
-**Unlike our other containers these Desktops are not designed to be upgraded by Docker, you will keep your home directoy but anything you installed system level will be lost if you upgrade an existing container. To keep packages up to date instead use Ubuntu/Debians's own apt, Alpine's apk, Fedora's dnf, or Arch's pacman program**
+**Unlike our other containers these Desktops are not designed to be upgraded by Docker, you will keep your home directory but anything you installed system level will be lost if you upgrade an existing container. To keep packages up to date instead use Ubuntu/Debians's own apt, Alpine's apk, Fedora's dnf, or Arch's pacman program**
 
 ### Options in all KasmVNC based GUI containers
 
@@ -129,11 +129,11 @@ This container is based on [Docker Baseimage KasmVNC](https://github.com/linuxse
 | :----: | --- |
 | `--privileged` | Will start a Docker in Docker (DinD) setup inside the container to use docker in an isolated environment. For increased performance mount the Docker directory inside the container to the host IE `-v /home/user/docker-data:/var/lib/docker`. |
 | `-v /var/run/docker.sock:/var/run/docker.sock` | Mount in the host level Docker socket to either interact with it via CLI or use Docker enabled applications. |
-| `--device /dev/dri:/dev/dri` | Mount a GPU into the container, this can be used in conjunction with the `DRINODE` environment variable to leverage a host video card for GPU accelerated appplications. Only **Open Source** drivers are supported IE (Intel,AMDGPU,Radeon,ATI,Nouveau) |
+| `--device /dev/dri:/dev/dri` | Mount a GPU into the container, this can be used in conjunction with the `DRINODE` environment variable to leverage a host video card for GPU accelerated applications. Only **Open Source** drivers are supported IE (Intel,AMDGPU,Radeon,ATI,Nouveau) |
 
 ### Language Support - Internationalization
 
-The [universal internationalization](https://github.com/linuxserver/docker-mods/tree/universal-internationalization) docker mod can be used with any of these variants to provide non english language support. All you need to know is your specific iso-639 code for your your desired language. For example German is `de_DE.UTF-8` Chinese `zh_CN.UTF-8` a full list is here: 
+The [universal internationalization](https://github.com/linuxserver/docker-mods/tree/universal-internationalization) docker mod can be used with any of these variants to provide non english language support. All you need to know is your specific iso-639 code for your your desired language. For example German is `de_DE.UTF-8` Chinese `zh_CN.UTF-8` a full list is here:
 
 [https://github.com/linuxserver/docker-mods/tree/universal-internationalization#other-languages](https://github.com/linuxserver/docker-mods/tree/universal-internationalization#other-languages)
 
