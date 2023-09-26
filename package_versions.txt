@@ -29,7 +29,7 @@ NAME                                                                          VE
 @tufjs/models                                                                 1.0.4                                               npm        
 @types/cookie                                                                 0.4.1                                               npm        
 @types/cors                                                                   2.8.14                                              npm        
-@types/node                                                                   20.6.2                                              npm        
+@types/node                                                                   20.6.3                                              npm        
 SDL2                                                                          2.26.3-1.fc38                                       rpm        
 abbrev                                                                        1.1.1                                               npm        
 abbrev                                                                        2.0.0                                               npm        
@@ -46,8 +46,8 @@ agentkeepalive                                                                4.
 aggregate-error                                                               3.1.0                                               npm        
 alsa-lib                                                                      1.2.10-2.fc38                                       rpm        
 alternatives                                                                  1.25-1.fc38                                         rpm        
-annobin-docs                                                                  12.23-1.fc38                                        rpm        
-annobin-plugin-gcc                                                            12.23-1.fc38                                        rpm        
+annobin-docs                                                                  12.26-1.fc38                                        rpm        
+annobin-plugin-gcc                                                            12.26-1.fc38                                        rpm        
 ansi-regex                                                                    5.0.1                                               npm        
 ansi-regex                                                                    6.0.1                                               npm        
 ansi-styles                                                                   4.3.0                                               npm        
@@ -95,8 +95,8 @@ cdparanoia-libs                                                               10
 chalk                                                                         4.1.2                                               npm        
 checkpolicy                                                                   3.5-1.fc38                                          rpm        
 chownr                                                                        2.0.0                                               npm        
-chromium                                                                      117.0.5938.62-1.fc38                                rpm        
-chromium-common                                                               117.0.5938.62-1.fc38                                rpm        
+chromium                                                                      117.0.5938.88-1.fc38                                rpm        
+chromium-common                                                               117.0.5938.88-1.fc38                                rpm        
 ci-info                                                                       3.8.0                                               npm        
 cidr-regex                                                                    3.1.1                                               npm        
 clean-stack                                                                   2.2.0                                               npm        
@@ -118,8 +118,8 @@ columnify                                                                     1.
 common-ancestor-path                                                          1.0.1                                               npm        
 concat-map                                                                    0.0.1                                               npm        
 console-control-strings                                                       1.1.0                                               npm        
-container-selinux                                                             2:2.221.1-1.fc38                                    rpm        
-containerd.io                                                                 1.6.22-3.1.fc38                                     rpm        
+container-selinux                                                             2:2.222.0-1.fc38                                    rpm        
+containerd.io                                                                 1.6.24-3.1.fc38                                     rpm        
 content-disposition                                                           0.5.4                                               npm        
 content-type                                                                  1.0.5                                               npm        
 cookie                                                                        0.4.2                                               npm        
@@ -141,7 +141,7 @@ cups-filesystem                                                               1:
 cups-filters                                                                  1:2.0~rc2-3.fc38                                    rpm        
 cups-libs                                                                     1:2.4.6-4.fc38                                      rpm        
 cups-pdf                                                                      3.0.1-18.fc38                                       rpm        
-curl                                                                          8.0.1-3.fc38                                        rpm        
+curl                                                                          8.0.1-4.fc38                                        rpm        
 cyrus-sasl-lib                                                                2.1.28-9.fc38                                       rpm        
 dbus                                                                          1:1.14.10-1.fc38                                    rpm        
 dbus-broker                                                                   33-1.fc38                                           rpm        
@@ -251,10 +251,11 @@ ghc-srpm-macros                                                               1.
 ghostscript                                                                   10.01.2-3.fc38                                      rpm        
 ghostscript-tools-fonts                                                       10.01.2-3.fc38                                      rpm        
 ghostscript-tools-printing                                                    10.01.2-3.fc38                                      rpm        
-giflib                                                                        5.2.1-15.fc38                                       rpm        
+giflib                                                                        5.2.1-17.fc38                                       rpm        
 github.com/AlecAivazis/survey/v2                                              v2.3.7                                              go-module  
 github.com/Graylog2/go-gelf                                                   v0.0.0-20191017102106-1550ee647df0                  go-module  
 github.com/Masterminds/semver/v3                                              v3.2.1                                              go-module  
+github.com/Microsoft/hcsshim                                                  v0.9.10                                             go-module  
 github.com/Microsoft/hcsshim                                                  v0.9.8                                              go-module  
 github.com/RackSec/srslog                                                     v0.0.0-20180709174129-a4725f04ec91                  go-module  
 github.com/adrg/xdg                                                           v0.4.0                                              go-module  
@@ -311,6 +312,7 @@ github.com/containerd/cgroups                                                 v1
 github.com/containerd/cgroups/v3                                              v3.0.2                                              go-module  
 github.com/containerd/console                                                 v1.0.3                                              go-module  
 github.com/containerd/containerd                                              v1.6.22                                             go-module  
+github.com/containerd/containerd                                              v1.6.24                                             go-module  
 github.com/containerd/containerd                                              v1.7.2                                              go-module  
 github.com/containerd/containerd                                              v1.7.3                                              go-module  
 github.com/containerd/continuity                                              v0.3.0                                              go-module  
@@ -475,7 +477,7 @@ github.com/opencontainers/go-digest                                           v1
 github.com/opencontainers/image-spec                                          v1.1.0-rc2.0.20221005185240-3a7f492d3f1b            go-module  
 github.com/opencontainers/image-spec                                          v1.1.0-rc3                                          go-module  
 github.com/opencontainers/image-spec                                          v1.1.0-rc4                                          go-module  
-github.com/opencontainers/runc                                                v0.0.0-20230719051532-82f18fe0e44a                  go-module  
+github.com/opencontainers/runc                                                v0.0.0-20230810173218-ccaecfcbc907                  go-module  
 github.com/opencontainers/runc                                                v1.1.5                                              go-module  
 github.com/opencontainers/runc                                                v1.1.7                                              go-module  
 github.com/opencontainers/runtime-spec                                        v1.0.3-0.20210326190908-1c3f411f0417                go-module  
@@ -619,7 +621,6 @@ golang.org/x/oauth2                                                           v0
 golang.org/x/oauth2                                                           v0.1.0                                              go-module  
 golang.org/x/oauth2                                                           v0.5.0                                              go-module  
 golang.org/x/oauth2                                                           v0.7.0                                              go-module  
-golang.org/x/sync                                                             v0.0.0-20210220032951-036812b2e83c                  go-module  
 golang.org/x/sync                                                             v0.1.0                                              go-module  
 golang.org/x/sync                                                             v0.2.0                                              go-module  
 golang.org/x/sync                                                             v0.3.0                                              go-module  
@@ -665,7 +666,7 @@ graphite2                                                                     1.
 grep                                                                          3.8-3.fc38                                          rpm        
 groff-base                                                                    1.22.4-11.fc38                                      rpm        
 gsm                                                                           1.0.22-2.fc38                                       rpm        
-gstreamer1                                                                    1.22.5-1.fc38                                       rpm        
+gstreamer1                                                                    1.22.6-1.fc38                                       rpm        
 gstreamer1-plugins-base                                                       1.22.5-1.fc38                                       rpm        
 gtk-update-icon-cache                                                         3.24.38-1.fc38                                      rpm        
 gtk3                                                                          3.24.38-1.fc38                                      rpm        
@@ -824,7 +825,7 @@ libcomps                                                                      0.
 libconfig                                                                     1.7.3-5.fc38                                        rpm        
 libconfuse                                                                    3.3-8.fc38                                          rpm        
 libcupsfilters                                                                1:2.0~rc2-1.fc38                                    rpm        
-libcurl                                                                       8.0.1-3.fc38                                        rpm        
+libcurl                                                                       8.0.1-4.fc38                                        rpm        
 libdaemon                                                                     0.14-25.fc38                                        rpm        
 libdatrie                                                                     0.2.13-5.fc38                                       rpm        
 libdav1d                                                                      1.2.1-1.fc38                                        rpm        
@@ -964,7 +965,7 @@ libwayland-cursor                                                             1.
 libwayland-egl                                                                1.22.0-1.fc38                                       rpm        
 libwayland-server                                                             1.22.0-1.fc38                                       rpm        
 libwbclient                                                                   2:4.18.6-1.fc38                                     rpm        
-libwebp                                                                       1.3.1-3.fc38                                        rpm        
+libwebp                                                                       1.3.2-1.fc38                                        rpm        
 libxcb                                                                        1.13.1-11.fc38                                      rpm        
 libxcrypt                                                                     4.4.36-1.fc38                                       rpm        
 libxcrypt-devel                                                               4.4.36-1.fc38                                       rpm        
@@ -1454,9 +1455,9 @@ qpdf-libs                                                                     11
 qrcode-terminal                                                               0.12.0                                              npm        
 qs                                                                            6.11.0                                              npm        
 qt-settings                                                                   38.3-1.fc38                                         rpm        
-qt5-qtbase                                                                    5.15.10-5.fc38                                      rpm        
-qt5-qtbase-common                                                             5.15.10-5.fc38                                      rpm        
-qt5-qtbase-gui                                                                5.15.10-5.fc38                                      rpm        
+qt5-qtbase                                                                    5.15.10-9.fc38                                      rpm        
+qt5-qtbase-common                                                             5.15.10-9.fc38                                      rpm        
+qt5-qtbase-gui                                                                5.15.10-9.fc38                                      rpm        
 qt5-srpm-macros                                                               5.15.10-1.fc38                                      rpm        
 range-parser                                                                  1.2.1                                               npm        
 rav1e-libs                                                                    0.6.6-1.fc38                                        rpm        
@@ -1495,8 +1496,8 @@ samba-common                                                                  2:
 samba-common-libs                                                             2:4.18.6-1.fc38                                     rpm        
 sed                                                                           4.8-12.fc38                                         rpm        
 selinux                                                                       3.5                                                 python     
-selinux-policy                                                                38.27-1.fc38                                        rpm        
-selinux-policy-targeted                                                       38.27-1.fc38                                        rpm        
+selinux-policy                                                                38.28-1.fc38                                        rpm        
+selinux-policy-targeted                                                       38.28-1.fc38                                        rpm        
 semver                                                                        7.5.1                                               npm        
 send                                                                          0.18.0                                              npm        
 sepolicy                                                                      3.5                                                 python     
@@ -1556,11 +1557,11 @@ strip-ansi                                                                    7.
 sudo                                                                          1.9.13-2.p2.fc38                                    rpm        
 supports-color                                                                7.2.0                                               npm        
 svt-av1-libs                                                                  1.4.1-2.fc38                                        rpm        
-systemd                                                                       253.9-1.fc38                                        rpm        
-systemd-libs                                                                  253.9-1.fc38                                        rpm        
-systemd-pam                                                                   253.9-1.fc38                                        rpm        
+systemd                                                                       253.10-1.fc38                                       rpm        
+systemd-libs                                                                  253.10-1.fc38                                       rpm        
+systemd-pam                                                                   253.10-1.fc38                                       rpm        
 systemd-python                                                                235                                                 python     
-systemd-udev                                                                  253.9-1.fc38                                        rpm        
+systemd-udev                                                                  253.10-1.fc38                                       rpm        
 systemtap-sdt-devel                                                           4.9-2.fc38                                          rpm        
 tar                                                                           2:1.34-8.fc38                                       rpm        
 tar                                                                           6.1.14                                              npm        
@@ -1654,6 +1655,6 @@ yum                                                                           4.
 zchunk-libs                                                                   1.3.1-1.fc38                                        rpm        
 zeromq                                                                        4.3.4-5.fc38                                        rpm        
 zimg                                                                          3.0.4-2.fc38                                        rpm        
-zip                                                                           3.0-36.fc38                                         rpm        
+zip                                                                           3.0-37.fc38                                         rpm        
 zlib                                                                          1.2.13-3.fc38                                       rpm        
 zvbi                                                                          0.2.35-19.fc38                                      rpm        
