@@ -29,7 +29,7 @@ NAME                                                                          VE
 @tufjs/models                                                                 1.0.4                                     npm        
 @types/cookie                                                                 0.4.1                                     npm        
 @types/cors                                                                   2.8.14                                    npm        
-@types/node                                                                   20.6.2                                    npm        
+@types/node                                                                   20.6.3                                    npm        
 PyGObject                                                                     3.42.1                                    python     
 PyJWT                                                                         2.3.0                                     python     
 SecretStorage                                                                 3.3.1                                     python     
@@ -98,7 +98,7 @@ columnify                                                                     1.
 common-ancestor-path                                                          1.0.1                                     npm        
 concat-map                                                                    0.0.1                                     npm        
 console-control-strings                                                       1.1.0                                     npm        
-containerd.io                                                                 1.6.22-1                                  deb        
+containerd.io                                                                 1.6.24-1                                  deb        
 content-disposition                                                           0.5.4                                     npm        
 content-type                                                                  1.0.5                                     npm        
 cookie                                                                        0.4.2                                     npm        
@@ -112,16 +112,16 @@ cpp-11                                                                        11
 cross-spawn                                                                   7.0.3                                     npm        
 cryptography                                                                  3.4.8                                     python     
 cssesc                                                                        3.0.0                                     npm        
-cups                                                                          2.4.1op1-1ubuntu4.6                       deb        
-cups-client                                                                   2.4.1op1-1ubuntu4.6                       deb        
-cups-common                                                                   2.4.1op1-1ubuntu4.6                       deb        
-cups-core-drivers                                                             2.4.1op1-1ubuntu4.6                       deb        
-cups-daemon                                                                   2.4.1op1-1ubuntu4.6                       deb        
+cups                                                                          2.4.1op1-1ubuntu4.7                       deb        
+cups-client                                                                   2.4.1op1-1ubuntu4.7                       deb        
+cups-common                                                                   2.4.1op1-1ubuntu4.7                       deb        
+cups-core-drivers                                                             2.4.1op1-1ubuntu4.7                       deb        
+cups-daemon                                                                   2.4.1op1-1ubuntu4.7                       deb        
 cups-filters                                                                  1.28.15-0ubuntu1.2                        deb        
 cups-filters-core-drivers                                                     1.28.15-0ubuntu1.2                        deb        
-cups-ipp-utils                                                                2.4.1op1-1ubuntu4.6                       deb        
-cups-ppdc                                                                     2.4.1op1-1ubuntu4.6                       deb        
-cups-server-common                                                            2.4.1op1-1ubuntu4.6                       deb        
+cups-ipp-utils                                                                2.4.1op1-1ubuntu4.7                       deb        
+cups-ppdc                                                                     2.4.1op1-1ubuntu4.7                       deb        
+cups-server-common                                                            2.4.1op1-1ubuntu4.7                       deb        
 curl                                                                          7.81.0-1ubuntu1.13                        deb        
 dash                                                                          0.5.11+git20210903+057cd650a4ed-3build1   deb        
 dbus                                                                          1.12.20-2ubuntu4.1                        deb        
@@ -170,7 +170,7 @@ file-uri-to-path                                                              1.
 filelist                                                                      1.0.4                                     npm        
 finalhandler                                                                  1.2.0                                     npm        
 findutils                                                                     4.8.0-1ubuntu3                            deb        
-firefox                                                                       117.0.1+build2-0ubuntu0.22.04.1~mt1       deb        
+firefox                                                                       118.0+build1-0ubuntu0.22.04.1~mt1         deb        
 fontconfig                                                                    2.13.1-4.2ubuntu5                         deb        
 fontconfig-config                                                             2.13.1-4.2ubuntu5                         deb        
 fonts-dejavu-core                                                             2.37-2build1                              deb        
@@ -195,6 +195,7 @@ gir1.2-packagekitglib-1.0                                                     1.
 github.com/AlecAivazis/survey/v2                                              v2.3.7                                    go-module  
 github.com/Graylog2/go-gelf                                                   v0.0.0-20191017102106-1550ee647df0        go-module  
 github.com/Masterminds/semver/v3                                              v3.2.1                                    go-module  
+github.com/Microsoft/hcsshim                                                  v0.9.10                                   go-module  
 github.com/Microsoft/hcsshim                                                  v0.9.8                                    go-module  
 github.com/RackSec/srslog                                                     v0.0.0-20180709174129-a4725f04ec91        go-module  
 github.com/adrg/xdg                                                           v0.4.0                                    go-module  
@@ -246,6 +247,7 @@ github.com/containerd/cgroups                                                 v1
 github.com/containerd/cgroups/v3                                              v3.0.2                                    go-module  
 github.com/containerd/console                                                 v1.0.3                                    go-module  
 github.com/containerd/containerd                                              v1.6.22                                   go-module  
+github.com/containerd/containerd                                              v1.6.24                                   go-module  
 github.com/containerd/containerd                                              v1.7.3                                    go-module  
 github.com/containerd/continuity                                              v0.3.0                                    go-module  
 github.com/containerd/continuity                                              v0.4.1                                    go-module  
@@ -393,7 +395,7 @@ github.com/opencontainers/go-digest                                           v1
 github.com/opencontainers/image-spec                                          v1.1.0-rc2.0.20221005185240-3a7f492d3f1b  go-module  
 github.com/opencontainers/image-spec                                          v1.1.0-rc3                                go-module  
 github.com/opencontainers/image-spec                                          v1.1.0-rc4                                go-module  
-github.com/opencontainers/runc                                                v0.0.0-20230719051532-82f18fe0e44a        go-module  
+github.com/opencontainers/runc                                                v0.0.0-20230810173218-ccaecfcbc907        go-module  
 github.com/opencontainers/runc                                                v1.1.5                                    go-module  
 github.com/opencontainers/runc                                                v1.1.7                                    go-module  
 github.com/opencontainers/runtime-spec                                        v1.0.3-0.20210326190908-1c3f411f0417      go-module  
@@ -519,7 +521,6 @@ golang.org/x/net                                                              v0
 golang.org/x/oauth2                                                           v0.0.0-20210819190943-2bc19b11175f        go-module  
 golang.org/x/oauth2                                                           v0.1.0                                    go-module  
 golang.org/x/oauth2                                                           v0.7.0                                    go-module  
-golang.org/x/sync                                                             v0.0.0-20210220032951-036812b2e83c        go-module  
 golang.org/x/sync                                                             v0.1.0                                    go-module  
 golang.org/x/sync                                                             v0.3.0                                    go-module  
 golang.org/x/sys                                                              v0.6.0                                    go-module  
@@ -691,7 +692,7 @@ libcolord2                                                                    1.
 libcom-err2                                                                   1.46.5-2ubuntu1.1                         deb        
 libcrypt1                                                                     1:4.4.27-1                                deb        
 libcryptsetup12                                                               2:2.4.3-1ubuntu1.1                        deb        
-libcups2                                                                      2.4.1op1-1ubuntu4.6                       deb        
+libcups2                                                                      2.4.1op1-1ubuntu4.7                       deb        
 libcupsfilters1                                                               1.28.15-0ubuntu1.2                        deb        
 libcurl3-gnutls                                                               7.81.0-1ubuntu1.13                        deb        
 libcurl4                                                                      7.81.0-1ubuntu1.13                        deb        
@@ -1335,7 +1336,7 @@ xfonts-utils                                                                  1:
 xkb-data                                                                      2.33-1                                    deb        
 xserver-common                                                                2:21.1.4-2ubuntu1.7~22.04.1               deb        
 xserver-xorg-core                                                             2:21.1.4-2ubuntu1.7~22.04.1               deb        
-xserver-xorg-video-amdgpu                                                     22.0.0-1ubuntu0.1                         deb        
+xserver-xorg-video-amdgpu                                                     22.0.0-1ubuntu0.2                         deb        
 xserver-xorg-video-ati                                                        1:19.1.0-2ubuntu1                         deb        
 xserver-xorg-video-intel                                                      2:2.99.917+git20210115-1                  deb        
 xserver-xorg-video-nouveau                                                    1:1.0.17-2build1                          deb        
