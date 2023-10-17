@@ -29,7 +29,7 @@ NAME                                                                          VE
 @tufjs/models                                                                 1.0.4                                               npm        
 @types/cookie                                                                 0.4.1                                               npm        
 @types/cors                                                                   2.8.14                                              npm        
-@types/node                                                                   20.8.3                                              npm        
+@types/node                                                                   20.8.6                                              npm        
 PyGObject                                                                     3.42.2                                              python     
 PyJWT                                                                         2.6.0                                               python     
 abbrev                                                                        1.1.1                                               npm        
@@ -57,7 +57,7 @@ async                                                                         3.
 at-spi2-common                                                                2.46.0-5                                            deb        
 balanced-match                                                                1.0.2                                               npm        
 baloo-kf5                                                                     5.103.0-2                                           deb        
-base-files                                                                    12.4+deb12u1                                        deb        
+base-files                                                                    12.4+deb12u2                                        deb        
 base-passwd                                                                   3.6.1                                               deb        
 base64-js                                                                     1.5.1                                               npm        
 base64id                                                                      2.0.0                                               npm        
@@ -85,8 +85,8 @@ cacache                                                                       17
 call-bind                                                                     1.0.2                                               npm        
 chalk                                                                         4.1.2                                               npm        
 chownr                                                                        2.0.0                                               npm        
-chromium                                                                      117.0.5938.149-1~deb12u1                            deb        
-chromium-common                                                               117.0.5938.149-1~deb12u1                            deb        
+chromium                                                                      118.0.5993.70-1~deb12u1                             deb        
+chromium-common                                                               118.0.5993.70-1~deb12u1                             deb        
 ci-info                                                                       3.8.0                                               npm        
 cidr-regex                                                                    3.1.1                                               npm        
 clean-stack                                                                   2.2.0                                               npm        
@@ -129,7 +129,7 @@ cups-filters-core-drivers                                                     1.
 cups-ipp-utils                                                                2.4.2-3+deb12u4                                     deb        
 cups-ppdc                                                                     2.4.2-3+deb12u4                                     deb        
 cups-server-common                                                            2.4.2-3+deb12u4                                     deb        
-curl                                                                          7.88.1-10+deb12u3                                   deb        
+curl                                                                          7.88.1-10+deb12u4                                   deb        
 dash                                                                          0.5.12-2                                            deb        
 dbus                                                                          1.14.10-1~deb12u1                                   deb        
 dbus-bin                                                                      1.14.10-1~deb12u1                                   deb        
@@ -141,8 +141,8 @@ dbus-x11                                                                      1.
 dconf-gsettings-backend                                                       0.40.0-4                                            deb        
 dconf-service                                                                 0.40.0-4                                            deb        
 debconf                                                                       1.5.82                                              deb        
-debian-archive-keyring                                                        2023.3                                              deb        
-debianutils                                                                   5.7-0.4                                             deb        
+debian-archive-keyring                                                        2023.3+deb12u1                                      deb        
+debianutils                                                                   5.7-0.5~deb12u1                                     deb        
 debug                                                                         2.6.9                                               npm        
 debug                                                                         4.3.4                                               npm        
 defaults                                                                      1.0.4                                               npm        
@@ -200,6 +200,7 @@ fs-minipass                                                                   2.
 fs-minipass                                                                   3.0.2                                               npm        
 fs.realpath                                                                   1.0.0                                               npm        
 function-bind                                                                 1.1.1                                               npm        
+function-bind                                                                 1.1.2                                               npm        
 fuse-overlayfs                                                                1.10-1                                              deb        
 fuse3                                                                         3.14.0-4                                            deb        
 gauge                                                                         4.0.4                                               npm        
@@ -688,7 +689,7 @@ knewstuff-dialog                                                              5.
 konsole                                                                       4:22.12.3-1                                         deb        
 konsole-kpart                                                                 4:22.12.3-1                                         deb        
 kpackagetool5                                                                 5.103.0-1                                           deb        
-krb5-locales                                                                  1.20.1-2                                            deb        
+krb5-locales                                                                  1.20.1-2+deb12u1                                    deb        
 ksystemstats                                                                  5.27.5-2                                            deb        
 ktexteditor-data                                                              5.103.0-1.1                                         deb        
 ktexteditor-katepart                                                          5.103.0-1.1                                         deb        
@@ -790,8 +791,8 @@ libcrypt1                                                                     1:
 libcryptsetup12                                                               2:2.6.1-4~deb12u1                                   deb        
 libcups2                                                                      2.4.2-3+deb12u4                                     deb        
 libcupsfilters1                                                               1.28.17-3                                           deb        
-libcurl3-gnutls                                                               7.88.1-10+deb12u3                                   deb        
-libcurl4                                                                      7.88.1-10+deb12u3                                   deb        
+libcurl3-gnutls                                                               7.88.1-10+deb12u4                                   deb        
+libcurl4                                                                      7.88.1-10+deb12u4                                   deb        
 libdata-optlist-perl                                                          0.113-1                                             deb        
 libdatetime-locale-perl                                                       1:1.37-1                                            deb        
 libdatetime-perl                                                              2:1.59-1                                            deb        
@@ -894,7 +895,7 @@ libgs-common                                                                  10
 libgs10                                                                       10.0.0~dfsg-11+deb12u2                              deb        
 libgs10-common                                                                10.0.0~dfsg-11+deb12u2                              deb        
 libgsm1                                                                       1.0.22-1                                            deb        
-libgssapi-krb5-2                                                              1.20.1-2                                            deb        
+libgssapi-krb5-2                                                              1.20.1-2+deb12u1                                    deb        
 libgstreamer-plugins-base1.0-0                                                1.22.0-3+deb12u1                                    deb        
 libgstreamer1.0-0                                                             1.22.0-2                                            deb        
 libgtk-3-0                                                                    3.24.38-2~deb12u1                                   deb        
@@ -935,7 +936,7 @@ libjs-underscore                                                              1.
 libjson-c5                                                                    0.16-2                                              deb        
 libjsoncpp25                                                                  1.9.5-4                                             deb        
 libjxl0.7                                                                     0.7.0-10                                            deb        
-libk5crypto3                                                                  1.20.1-2                                            deb        
+libk5crypto3                                                                  1.20.1-2+deb12u1                                    deb        
 libkaccounts2                                                                 4:22.12.3-1                                         deb        
 libkate1                                                                      0.4.1-11                                            deb        
 libkcolorpicker0                                                              0.2.0-1                                             deb        
@@ -1082,8 +1083,8 @@ libkimageannotator-common                                                     0.
 libkimageannotator0                                                           0.6.0-1                                             deb        
 libkmod2                                                                      30+20221128-1                                       deb        
 libkpipewire5                                                                 5.27.5-3                                            deb        
-libkrb5-3                                                                     1.20.1-2                                            deb        
-libkrb5support0                                                               1.20.1-2                                            deb        
+libkrb5-3                                                                     1.20.1-2+deb12u1                                    deb        
+libkrb5support0                                                               1.20.1-2+deb12u1                                    deb        
 libksba8                                                                      1.6.3-2                                             deb        
 libkscreenlocker5                                                             5.27.5-2                                            deb        
 libksgrd9                                                                     4:5.27.5-2                                          deb        
@@ -1102,7 +1103,7 @@ liblayershellqtinterface5                                                     5.
 liblcms2-2                                                                    2.14-2                                              deb        
 libldap-2.5-0                                                                 2.5.13+dfsg-5                                       deb        
 libldap-common                                                                2.5.13+dfsg-5                                       deb        
-libldb2                                                                       2:2.6.2+samba4.17.11+dfsg-0+deb12u1                 deb        
+libldb2                                                                       2:2.6.2+samba4.17.12+dfsg-0+deb12u1                 deb        
 liblerc4                                                                      4.0.0+ds-2                                          deb        
 liblilv-0-0                                                                   0.24.14-1                                           deb        
 liblirc-client0                                                               0.10.1-7.2                                          deb        
@@ -1314,7 +1315,7 @@ libsignon-qt5-1                                                               8.
 libslang2                                                                     2.3.3-3                                             deb        
 libsm6                                                                        2:1.2.3-1                                           deb        
 libsmartcols1                                                                 2.38.1-5+b1                                         deb        
-libsmbclient                                                                  2:4.17.11+dfsg-0+deb12u1                            deb        
+libsmbclient                                                                  2:4.17.12+dfsg-0+deb12u1                            deb        
 libsnappy1v5                                                                  1.1.9-3                                             deb        
 libsndfile1                                                                   1.2.0-1                                             deb        
 libsndio7.0                                                                   1.9.0-0.3+b2                                        deb        
@@ -1399,7 +1400,7 @@ libwayland-client0                                                            1.
 libwayland-cursor0                                                            1.21.0-1                                            deb        
 libwayland-egl1                                                               1.21.0-1                                            deb        
 libwayland-server0                                                            1.21.0-1                                            deb        
-libwbclient0                                                                  2:4.17.11+dfsg-0+deb12u1                            deb        
+libwbclient0                                                                  2:4.17.12+dfsg-0+deb12u1                            deb        
 libweather-ion7                                                               4:5.27.5-2+deb12u1                                  deb        
 libwebp7                                                                      1.2.4-0.2+deb12u1                                   deb        
 libwebpdemux2                                                                 1.2.4-0.2+deb12u1                                   deb        
@@ -1688,7 +1689,7 @@ rimraf                                                                        3.
 safe-buffer                                                                   5.1.2                                               npm        
 safe-buffer                                                                   5.2.1                                               npm        
 safer-buffer                                                                  2.1.2                                               npm        
-samba-libs                                                                    2:4.17.11+dfsg-0+deb12u1                            deb        
+samba-libs                                                                    2:4.17.12+dfsg-0+deb12u1                            deb        
 sed                                                                           4.9-1                                               deb        
 semver                                                                        7.5.1                                               npm        
 send                                                                          0.18.0                                              npm        
@@ -1726,6 +1727,9 @@ ssl-cert                                                                      1.
 ssri                                                                          10.0.4                                              npm        
 ssri                                                                          9.0.1                                               npm        
 statuses                                                                      2.0.1                                               npm        
+stdlib                                                                        go1.20.6                                            go-module  
+stdlib                                                                        go1.20.7                                            go-module  
+stdlib                                                                        go1.20.8                                            go-module  
 string-width                                                                  4.2.3                                               npm        
 string-width                                                                  5.1.2                                               npm        
 string_decoder                                                                1.1.1                                               npm        
@@ -1749,6 +1753,7 @@ tzdata                                                                        20
 ucf                                                                           3.0043+nmu1                                         deb        
 udev                                                                          252.17-1~deb12u1                                    deb        
 udisks2                                                                       2.9.4-4                                             deb        
+undici-types                                                                  5.25.3                                              npm        
 unique-filename                                                               2.0.1                                               npm        
 unique-filename                                                               3.0.0                                               npm        
 unique-slug                                                                   3.0.0                                               npm        
