@@ -29,7 +29,7 @@ NAME                                                                          VE
 @tufjs/models                                                                 1.0.4                                               npm        
 @types/cookie                                                                 0.4.1                                               npm        
 @types/cors                                                                   2.8.14                                              npm        
-@types/node                                                                   20.8.3                                              npm        
+@types/node                                                                   20.8.6                                              npm        
 PyGObject                                                                     3.42.2                                              python     
 PyJWT                                                                         2.6.0                                               python     
 abbrev                                                                        1.1.1                                               npm        
@@ -55,7 +55,7 @@ array-flatten                                                                 1.
 async                                                                         3.2.4                                               npm        
 at-spi2-common                                                                2.46.0-5                                            deb        
 balanced-match                                                                1.0.2                                               npm        
-base-files                                                                    12.4+deb12u1                                        deb        
+base-files                                                                    12.4+deb12u2                                        deb        
 base-passwd                                                                   3.6.1                                               deb        
 base64-js                                                                     1.5.1                                               npm        
 base64id                                                                      2.0.0                                               npm        
@@ -80,8 +80,8 @@ cacache                                                                       17
 call-bind                                                                     1.0.2                                               npm        
 chalk                                                                         4.1.2                                               npm        
 chownr                                                                        2.0.0                                               npm        
-chromium                                                                      117.0.5938.149-1~deb12u1                            deb        
-chromium-common                                                               117.0.5938.149-1~deb12u1                            deb        
+chromium                                                                      118.0.5993.70-1~deb12u1                             deb        
+chromium-common                                                               118.0.5993.70-1~deb12u1                             deb        
 ci-info                                                                       3.8.0                                               npm        
 cidr-regex                                                                    3.1.1                                               npm        
 clean-stack                                                                   2.2.0                                               npm        
@@ -124,7 +124,7 @@ cups-filters-core-drivers                                                     1.
 cups-ipp-utils                                                                2.4.2-3+deb12u4                                     deb        
 cups-ppdc                                                                     2.4.2-3+deb12u4                                     deb        
 cups-server-common                                                            2.4.2-3+deb12u4                                     deb        
-curl                                                                          7.88.1-10+deb12u3                                   deb        
+curl                                                                          7.88.1-10+deb12u4                                   deb        
 dash                                                                          0.5.12-2                                            deb        
 dbus                                                                          1.14.10-1~deb12u1                                   deb        
 dbus-bin                                                                      1.14.10-1~deb12u1                                   deb        
@@ -136,8 +136,8 @@ dbus-x11                                                                      1.
 dconf-gsettings-backend                                                       0.40.0-4                                            deb        
 dconf-service                                                                 0.40.0-4                                            deb        
 debconf                                                                       1.5.82                                              deb        
-debian-archive-keyring                                                        2023.3                                              deb        
-debianutils                                                                   5.7-0.4                                             deb        
+debian-archive-keyring                                                        2023.3+deb12u1                                      deb        
+debianutils                                                                   5.7-0.5~deb12u1                                     deb        
 debug                                                                         2.6.9                                               npm        
 debug                                                                         4.3.4                                               npm        
 defaults                                                                      1.0.4                                               npm        
@@ -191,6 +191,7 @@ fs-minipass                                                                   2.
 fs-minipass                                                                   3.0.2                                               npm        
 fs.realpath                                                                   1.0.0                                               npm        
 function-bind                                                                 1.1.1                                               npm        
+function-bind                                                                 1.1.2                                               npm        
 fuse-overlayfs                                                                1.10-1                                              deb        
 fuse3                                                                         3.14.0-4                                            deb        
 gauge                                                                         4.0.4                                               npm        
@@ -656,7 +657,7 @@ k8s.io/utils                                                                  v0
 k8s.io/utils                                                                  v0.0.0-20230220204549-a5ecb0141aa5                  go-module  
 kclient                                                                       0.3.6                                               npm        
 keyboard-configuration                                                        1.221                                               deb        
-krb5-locales                                                                  1.20.1-2                                            deb        
+krb5-locales                                                                  1.20.1-2+deb12u1                                    deb        
 lazr.restfulclient                                                            0.14.5                                              python     
 lazr.uri                                                                      1.0.6                                               python     
 libacl1                                                                       2.3.1-3                                             deb        
@@ -727,8 +728,8 @@ libcrypt1                                                                     1:
 libcryptsetup12                                                               2:2.6.1-4~deb12u1                                   deb        
 libcups2                                                                      2.4.2-3+deb12u4                                     deb        
 libcupsfilters1                                                               1.28.17-3                                           deb        
-libcurl3-gnutls                                                               7.88.1-10+deb12u3                                   deb        
-libcurl4                                                                      7.88.1-10+deb12u3                                   deb        
+libcurl3-gnutls                                                               7.88.1-10+deb12u4                                   deb        
+libcurl4                                                                      7.88.1-10+deb12u4                                   deb        
 libdata-optlist-perl                                                          0.113-1                                             deb        
 libdatetime-locale-perl                                                       1:1.37-1                                            deb        
 libdatetime-perl                                                              2:1.59-1                                            deb        
@@ -813,7 +814,7 @@ libgs-common                                                                  10
 libgs10                                                                       10.0.0~dfsg-11+deb12u2                              deb        
 libgs10-common                                                                10.0.0~dfsg-11+deb12u2                              deb        
 libgsm1                                                                       1.0.22-1                                            deb        
-libgssapi-krb5-2                                                              1.20.1-2                                            deb        
+libgssapi-krb5-2                                                              1.20.1-2+deb12u1                                    deb        
 libgstreamer-plugins-base1.0-0                                                1.22.0-3+deb12u1                                    deb        
 libgstreamer1.0-0                                                             1.22.0-2                                            deb        
 libgtk-3-0                                                                    3.24.38-2~deb12u1                                   deb        
@@ -843,11 +844,11 @@ libjq1                                                                        1.
 libjson-c5                                                                    0.16-2                                              deb        
 libjsoncpp25                                                                  1.9.5-4                                             deb        
 libjxl0.7                                                                     0.7.0-10                                            deb        
-libk5crypto3                                                                  1.20.1-2                                            deb        
+libk5crypto3                                                                  1.20.1-2+deb12u1                                    deb        
 libkeyutils1                                                                  1.6.3-2                                             deb        
 libkmod2                                                                      30+20221128-1                                       deb        
-libkrb5-3                                                                     1.20.1-2                                            deb        
-libkrb5support0                                                               1.20.1-2                                            deb        
+libkrb5-3                                                                     1.20.1-2+deb12u1                                    deb        
+libkrb5support0                                                               1.20.1-2+deb12u1                                    deb        
 libksba8                                                                      1.6.3-2                                             deb        
 liblapack3                                                                    3.11.0-2                                            deb        
 liblcms2-2                                                                    2.14-2                                              deb        
@@ -1315,6 +1316,9 @@ ssl-cert                                                                      1.
 ssri                                                                          10.0.4                                              npm        
 ssri                                                                          9.0.1                                               npm        
 statuses                                                                      2.0.1                                               npm        
+stdlib                                                                        go1.20.6                                            go-module  
+stdlib                                                                        go1.20.7                                            go-module  
+stdlib                                                                        go1.20.8                                            go-module  
 string-width                                                                  4.2.3                                               npm        
 string-width                                                                  5.1.2                                               npm        
 string_decoder                                                                1.1.1                                               npm        
@@ -1337,6 +1341,7 @@ type-is                                                                       1.
 tzdata                                                                        2023c-5                                             deb        
 ucf                                                                           3.0043+nmu1                                         deb        
 udev                                                                          252.17-1~deb12u1                                    deb        
+undici-types                                                                  5.25.3                                              npm        
 unique-filename                                                               2.0.1                                               npm        
 unique-filename                                                               3.0.0                                               npm        
 unique-slug                                                                   3.0.0                                               npm        
