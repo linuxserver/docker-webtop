@@ -3,8 +3,8 @@ NAME                                                                          VE
 @kasmtech/novnc                                                               1.3.0                                              npm        
 @socket.io/component-emitter                                                  3.1.0                                              npm        
 @types/cookie                                                                 0.4.1                                              npm        
-@types/cors                                                                   2.8.14                                             npm        
-@types/node                                                                   20.8.6                                             npm        
+@types/cors                                                                   2.8.15                                             npm        
+@types/node                                                                   20.8.7                                             npm        
 PyGObject                                                                     3.44.1                                             python     
 accepts                                                                       1.3.8                                              npm        
 accounts-qml-module                                                           0.7_git20190605-r3                                 apk        
@@ -48,7 +48,7 @@ ca-certificates                                                               20
 ca-certificates-bundle                                                        20230506-r0                                        apk        
 cairo                                                                         1.17.8-r1                                          apk        
 cairo-gobject                                                                 1.17.8-r1                                          apk        
-call-bind                                                                     1.0.2                                              npm        
+call-bind                                                                     1.0.5                                              npm        
 cdparanoia-libs                                                               10.2-r14                                           apk        
 chalk                                                                         4.1.2                                              npm        
 chromium                                                                      117.0.5938.62-r0                                   apk        
@@ -79,6 +79,7 @@ dbus-x11                                                                      1.
 dconf                                                                         0.40.0-r4                                          apk        
 debug                                                                         2.6.9                                              npm        
 debug                                                                         4.3.4                                              npm        
+define-data-property                                                          1.1.1                                              npm        
 depd                                                                          2.0.0                                              npm        
 destroy                                                                       1.2.0                                              npm        
 device-mapper-event-libs                                                      2.03.21-r3                                         apk        
@@ -140,7 +141,7 @@ fuse3-libs                                                                    3.
 gcompat                                                                       1.1.0-r1                                           apk        
 gdbm                                                                          1.23-r1                                            apk        
 gdk-pixbuf                                                                    2.42.10-r5                                         apk        
-get-intrinsic                                                                 1.2.1                                              npm        
+get-intrinsic                                                                 1.2.2                                              npm        
 giflib                                                                        5.2.1-r4                                           apk        
 github.com/AlecAivazis/survey/v2                                              v2.3.6                                             go-module  
 github.com/Azure/go-autorest/autorest                                         v0.11.24                                           go-module  
@@ -405,6 +406,7 @@ google.golang.org/grpc                                                        v1
 google.golang.org/protobuf                                                    v1.27.1                                            go-module  
 google.golang.org/protobuf                                                    v1.28.1                                            go-module  
 google.golang.org/protobuf                                                    v1.29.1                                            go-module  
+gopd                                                                          1.0.1                                              npm        
 gopkg.in/inf.v0                                                               v0.9.1                                             go-module  
 gopkg.in/square/go-jose.v2                                                    v2.5.1                                             go-module  
 gopkg.in/yaml.v2                                                              v2.4.0                                             go-module  
@@ -432,10 +434,11 @@ gtk-engines-thinice                                                           2.
 gtk-update-icon-cache                                                         3.24.38-r1                                         apk        
 harfbuzz                                                                      7.3.0-r0                                           apk        
 harfbuzz-subset                                                               7.3.0-r0                                           apk        
-has                                                                           1.0.4                                              npm        
 has-flag                                                                      4.0.0                                              npm        
+has-property-descriptors                                                      1.0.1                                              npm        
 has-proto                                                                     1.0.1                                              npm        
 has-symbols                                                                   1.0.3                                              npm        
+hasown                                                                        2.0.0                                              npm        
 hicolor-icon-theme                                                            0.17-r2                                            apk        
 http-errors                                                                   2.0.0                                              npm        
 hunspell                                                                      1.7.2-r3                                           apk        
@@ -727,7 +730,7 @@ mime-db                                                                       1.
 mime-types                                                                    2.1.35                                             npm        
 minimatch                                                                     3.1.2                                              npm        
 minimatch                                                                     5.1.6                                              npm        
-minizip                                                                       1.2.13-r0                                          apk        
+minizip                                                                       1.2.13-r1                                          apk        
 mkfontscale                                                                   1.2.2-r3                                           apk        
 mpdecimal                                                                     2.5.1-r2                                           apk        
 mpfr4                                                                         4.2.0_p12-r0                                       apk        
@@ -750,14 +753,14 @@ networkmanager                                                                1.
 networkmanager-common                                                         1.42.8-r0                                          apk        
 networkmanager-qt                                                             5.105.0-r0                                         apk        
 nghttp2-libs                                                                  1.57.0-r0                                          apk        
-nginx                                                                         1.24.0-r6                                          apk        
-nodejs                                                                        18.17.1-r0                                         apk        
+nginx                                                                         1.24.0-r7                                          apk        
+nodejs                                                                        18.18.2-r0                                         apk        
 npth                                                                          1.6-r4                                             apk        
 nspr                                                                          4.35-r2                                            apk        
 nss                                                                           3.91-r0                                            apk        
 numactl                                                                       2.0.16-r4                                          apk        
 object-assign                                                                 4.1.1                                              npm        
-object-inspect                                                                1.12.3                                             npm        
+object-inspect                                                                1.13.1                                             npm        
 on-finished                                                                   2.4.1                                              npm        
 onevpl-libs                                                                   2023.2.1-r0                                        apk        
 oniguruma                                                                     6.9.8-r1                                           apk        
@@ -886,6 +889,7 @@ scanelf                                                                       1.
 sdl2                                                                          2.26.5-r0                                          apk        
 send                                                                          0.18.0                                             npm        
 serve-static                                                                  1.15.0                                             npm        
+set-function-length                                                           1.1.1                                              npm        
 setarch                                                                       2.38.1-r8                                          apk        
 setprototypeof                                                                1.2.0                                              npm        
 setxkbmap                                                                     1.3.3-r1                                           apk        
