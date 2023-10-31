@@ -29,7 +29,7 @@ NAME                                                                          VE
 @tufjs/models                                                                 1.0.4                                               npm        
 @types/cookie                                                                 0.4.1                                               npm        
 @types/cors                                                                   2.8.15                                              npm        
-@types/node                                                                   20.8.7                                              npm        
+@types/node                                                                   20.8.9                                              npm        
 PyGObject                                                                     3.42.2                                              python     
 PyJWT                                                                         2.6.0                                               python     
 abbrev                                                                        1.1.1                                               npm        
@@ -80,8 +80,8 @@ cacache                                                                       17
 call-bind                                                                     1.0.5                                               npm        
 chalk                                                                         4.1.2                                               npm        
 chownr                                                                        2.0.0                                               npm        
-chromium                                                                      118.0.5993.70-1~deb12u1                             deb        
-chromium-common                                                               118.0.5993.70-1~deb12u1                             deb        
+chromium                                                                      118.0.5993.117-1~deb12u1                            deb        
+chromium-common                                                               118.0.5993.117-1~deb12u1                            deb        
 ci-info                                                                       3.8.0                                               npm        
 cidr-regex                                                                    3.1.1                                               npm        
 clean-stack                                                                   2.2.0                                               npm        
@@ -153,8 +153,8 @@ distro                                                                        1.
 distro-info-data                                                              0.58                                                deb        
 dmsetup                                                                       2:1.02.185-2                                        deb        
 docker-buildx-plugin                                                          0.11.2-1~debian.12~bookworm                         deb        
-docker-ce                                                                     5:24.0.6-1~debian.12~bookworm                       deb        
-docker-ce-cli                                                                 5:24.0.6-1~debian.12~bookworm                       deb        
+docker-ce                                                                     5:24.0.7-1~debian.12~bookworm                       deb        
+docker-ce-cli                                                                 5:24.0.7-1~debian.12~bookworm                       deb        
 docker-compose-plugin                                                         2.21.0-1~debian.12~bookworm                         deb        
 dpkg                                                                          1.21.22                                             deb        
 e2fsprogs                                                                     1.47.0-2                                            deb        
@@ -299,12 +299,12 @@ github.com/docker/buildx                                                      v0
 github.com/docker/cli                                                         v24.0.2+incompatible                                go-module  
 github.com/docker/cli                                                         v24.0.5+incompatible                                go-module  
 github.com/docker/cli-docs-tool                                               v0.6.0                                              go-module  
-github.com/docker/cli/cmd/docker                                              v24.0.6                                             go-module  
+github.com/docker/cli/cmd/docker                                              v24.0.7                                             go-module  
 github.com/docker/compose/v2                                                  (devel)                                             go-module  
 github.com/docker/distribution                                                v2.8.2+incompatible                                 go-module  
 github.com/docker/docker                                                      v24.0.5+incompatible                                go-module  
 github.com/docker/docker                                                      v24.0.5-0.20230714235725-36e9e796c6fc+incompatible  go-module  
-github.com/docker/docker                                                      v24.0.6                                             go-module  
+github.com/docker/docker                                                      v24.0.7                                             go-module  
 github.com/docker/docker-credential-helpers                                   v0.7.0                                              go-module  
 github.com/docker/go                                                          v1.5.1-1.0.20160303222718-d30aec9fd63c              go-module  
 github.com/docker/go-connections                                              v0.4.0                                              go-module  
@@ -383,6 +383,7 @@ github.com/kballard/go-shellquote                                             v0
 github.com/klauspost/compress                                                 v1.11.13                                            go-module  
 github.com/klauspost/compress                                                 v1.16.3                                             go-module  
 github.com/klauspost/compress                                                 v1.16.5                                             go-module  
+github.com/klauspost/compress                                                 v1.17.2                                             go-module  
 github.com/mailru/easyjson                                                    v0.7.6                                              go-module  
 github.com/mattn/go-colorable                                                 v0.1.13                                             go-module  
 github.com/mattn/go-isatty                                                    v0.0.17                                             go-module  
@@ -396,7 +397,7 @@ github.com/mistifyio/go-zfs/v3                                                v3
 github.com/mitchellh/go-wordwrap                                              v0.0.0-20150314170334-ad45545899c7                  go-module  
 github.com/mitchellh/hashstructure/v2                                         v2.0.2                                              go-module  
 github.com/mitchellh/mapstructure                                             v1.5.0                                              go-module  
-github.com/moby/buildkit                                                      v0.11.7-0.20230723230859-616c3f613b54               go-module  
+github.com/moby/buildkit                                                      v0.11.7-0.20230908085316-d3e6c1360f6e               go-module  
 github.com/moby/buildkit                                                      v0.12.1                                             go-module  
 github.com/moby/buildkit                                                      v0.12.1-0.20230717122532-faa0cc7da353               go-module  
 github.com/moby/ipvs                                                          v1.1.0                                              go-module  
@@ -539,10 +540,11 @@ go.uber.org/atomic                                                            v1
 go.uber.org/multierr                                                          v1.8.0                                              go-module  
 go.uber.org/zap                                                               v1.21.0                                             go-module  
 golang.org/x/crypto                                                           v0.0.0-20220315160706-3147a52a75dd                  go-module  
+golang.org/x/crypto                                                           v0.14.0                                             go-module  
 golang.org/x/crypto                                                           v0.2.0                                              go-module  
 golang.org/x/crypto                                                           v0.7.0                                              go-module  
 golang.org/x/exp                                                              v0.0.0-20230713183714-613f0c0eb8a1                  go-module  
-golang.org/x/net                                                              v0.10.0                                             go-module  
+golang.org/x/net                                                              v0.17.0                                             go-module  
 golang.org/x/net                                                              v0.8.0                                              go-module  
 golang.org/x/net                                                              v0.9.0                                              go-module  
 golang.org/x/oauth2                                                           v0.0.0-20210819190943-2bc19b11175f                  go-module  
@@ -552,11 +554,12 @@ golang.org/x/oauth2                                                           v0
 golang.org/x/sync                                                             v0.1.0                                              go-module  
 golang.org/x/sync                                                             v0.2.0                                              go-module  
 golang.org/x/sync                                                             v0.3.0                                              go-module  
+golang.org/x/sys                                                              v0.13.0                                             go-module  
 golang.org/x/sys                                                              v0.6.0                                              go-module  
 golang.org/x/sys                                                              v0.7.0                                              go-module  
-golang.org/x/sys                                                              v0.8.0                                              go-module  
 golang.org/x/term                                                             v0.6.0                                              go-module  
 golang.org/x/term                                                             v0.7.0                                              go-module  
+golang.org/x/text                                                             v0.13.0                                             go-module  
 golang.org/x/text                                                             v0.8.0                                              go-module  
 golang.org/x/text                                                             v0.9.0                                              go-module  
 golang.org/x/time                                                             v0.0.0-20210723032227-1f47c861a9ac                  go-module  
@@ -1006,7 +1009,7 @@ libsrt1.5-gnutls                                                              1.
 libss2                                                                        1.47.0-2                                            deb        
 libssh-gcrypt-4                                                               0.10.5-2                                            deb        
 libssh2-1                                                                     1.10.0-3+b1                                         deb        
-libssl3                                                                       3.0.11-1~deb12u1                                    deb        
+libssl3                                                                       3.0.11-1~deb12u2                                    deb        
 libstartup-notification0                                                      0.12-6+b1                                           deb        
 libstdc++6                                                                    12.2.0-14                                           deb        
 libstemmer0d                                                                  2.2.0-2                                             deb        
@@ -1207,7 +1210,7 @@ on-finished                                                                   2.
 once                                                                          1.4.0                                               npm        
 openbox                                                                       3.6.1-10                                            deb        
 openssh-client                                                                1:9.2p1-2+deb12u1                                   deb        
-openssl                                                                       3.0.11-1~deb12u1                                    deb        
+openssl                                                                       3.0.11-1~deb12u2                                    deb        
 p-map                                                                         4.0.0                                               npm        
 packagekit                                                                    1.2.6-5                                             deb        
 pacote                                                                        15.1.3                                              npm        
@@ -1320,6 +1323,7 @@ ssl-cert                                                                      1.
 ssri                                                                          10.0.4                                              npm        
 ssri                                                                          9.0.1                                               npm        
 statuses                                                                      2.0.1                                               npm        
+stdlib                                                                        go1.20.10                                           go-module  
 stdlib                                                                        go1.20.6                                            go-module  
 stdlib                                                                        go1.20.7                                            go-module  
 stdlib                                                                        go1.20.8                                            go-module  
@@ -1345,7 +1349,7 @@ type-is                                                                       1.
 tzdata                                                                        2023c-5                                             deb        
 ucf                                                                           3.0043+nmu1                                         deb        
 udev                                                                          252.17-1~deb12u1                                    deb        
-undici-types                                                                  5.25.3                                              npm        
+undici-types                                                                  5.26.5                                              npm        
 unique-filename                                                               2.0.1                                               npm        
 unique-filename                                                               3.0.0                                               npm        
 unique-slug                                                                   3.0.0                                               npm        
@@ -1384,8 +1388,8 @@ xfonts-encodings                                                              1:
 xfonts-utils                                                                  1:7.7+6                                             deb        
 xkb-data                                                                      2.35.1-1                                            deb        
 xml-core                                                                      0.18+nmu1                                           deb        
-xserver-common                                                                2:21.1.7-3                                          deb        
-xserver-xorg-core                                                             2:21.1.7-3                                          deb        
+xserver-common                                                                2:21.1.7-3+deb12u2                                  deb        
+xserver-xorg-core                                                             2:21.1.7-3+deb12u2                                  deb        
 xserver-xorg-video-amdgpu                                                     23.0.0-1                                            deb        
 xserver-xorg-video-ati                                                        1:19.1.0-3                                          deb        
 xserver-xorg-video-intel                                                      2:2.99.917+git20210115-1                            deb        
