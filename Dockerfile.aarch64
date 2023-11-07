@@ -1,4 +1,4 @@
-FROM ghcr.io/linuxserver/baseimage-kasmvnc:arm64v8-fedora38
+FROM ghcr.io/linuxserver/baseimage-kasmvnc:arm64v8-fedora39
 
 # set version label
 ARG BUILD_DATE
@@ -9,6 +9,7 @@ LABEL maintainer="thelamer"
 RUN \
   echo "**** install packages ****" && \
   dnf install -y --setopt=install_weak_deps=False --best \
+    caja \
     chromium \
     marco \
     mate-control-center \
