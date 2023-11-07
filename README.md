@@ -399,6 +399,7 @@ Once registered you can define the dockerfile to use with `-f Dockerfile.aarch64
 
 ## Versions
 
+* **07.11.23:** - Rebase Fedora to 39.
 * **14.06.23:** - Rebase to Debian Bookworm.
 * **13.05.23:** - Rebase to Alpine 3.18 and Fedora 38.
 * **23.03.23:** - Rebase all Webtops to KasmVNC base image.
