@@ -29,7 +29,7 @@ NAME                                                                          VE
 @tufjs/models                                                                 1.0.4                                               npm        
 @types/cookie                                                                 0.4.1                                               npm        
 @types/cors                                                                   2.8.15                                              npm        
-@types/node                                                                   20.8.9                                              npm        
+@types/node                                                                   20.8.10                                             npm        
 PyGObject                                                                     3.42.2                                              python     
 PyJWT                                                                         2.6.0                                               python     
 abbrev                                                                        1.1.1                                               npm        
@@ -53,7 +53,7 @@ archy                                                                         1.
 are-we-there-yet                                                              3.0.1                                               npm        
 are-we-there-yet                                                              4.0.0                                               npm        
 array-flatten                                                                 1.1.1                                               npm        
-async                                                                         3.2.4                                               npm        
+async                                                                         3.2.5                                               npm        
 at-spi2-common                                                                2.46.0-5                                            deb        
 balanced-match                                                                1.0.2                                               npm        
 baloo-kf5                                                                     5.103.0-2                                           deb        
@@ -74,6 +74,7 @@ brace-expansion                                                               2.
 breeze                                                                        4:5.27.5-2                                          deb        
 breeze-cursor-theme                                                           4:5.27.5-2                                          deb        
 breeze-icon-theme                                                             4:5.103.0-1                                         deb        
+bsd-mailx                                                                     8.1.2-0.20220412cvs-1                               deb        
 bsdextrautils                                                                 2.38.1-5+b1                                         deb        
 bsdutils                                                                      1:2.38.1-5+b1                                       deb        
 buffer                                                                        6.0.3                                               npm        
@@ -85,8 +86,8 @@ cacache                                                                       17
 call-bind                                                                     1.0.5                                               npm        
 chalk                                                                         4.1.2                                               npm        
 chownr                                                                        2.0.0                                               npm        
-chromium                                                                      118.0.5993.117-1~deb12u1                            deb        
-chromium-common                                                               118.0.5993.117-1~deb12u1                            deb        
+chromium                                                                      119.0.6045.105-1~deb12u1                            deb        
+chromium-common                                                               119.0.6045.105-1~deb12u1                            deb        
 ci-info                                                                       3.8.0                                               npm        
 cidr-regex                                                                    3.1.1                                               npm        
 clean-stack                                                                   2.2.0                                               npm        
@@ -116,6 +117,8 @@ coreutils                                                                     9.
 cors                                                                          2.8.5                                               npm        
 cpp                                                                           4:12.2.0-3                                          deb        
 cpp-12                                                                        12.2.0-14                                           deb        
+cron                                                                          3.0pl1-162                                          deb        
+cron-daemon-common                                                            3.0pl1-162                                          deb        
 cross-spawn                                                                   7.0.3                                               npm        
 cryptography                                                                  38.0.4                                              python     
 cssesc                                                                        3.0.0                                               npm        
@@ -180,6 +183,9 @@ escape-html                                                                   1.
 etag                                                                          1.8.1                                               npm        
 event-target-shim                                                             5.0.1                                               npm        
 events                                                                        3.3.0                                               npm        
+exim4-base                                                                    4.96-15+deb12u2                                     deb        
+exim4-config                                                                  4.96-15+deb12u2                                     deb        
+exim4-daemon-light                                                            4.96-15+deb12u2                                     deb        
 express                                                                       4.18.2                                              npm        
 fastest-levenshtein                                                           1.0.16                                              npm        
 fdisk                                                                         2.38.1-5+b1                                         deb        
@@ -889,6 +895,7 @@ libglx-mesa0                                                                  22
 libglx0                                                                       1.6.0-1                                             deb        
 libgme0                                                                       0.6.3-6                                             deb        
 libgmp10                                                                      2:6.2.1+dfsg1-1.1                                   deb        
+libgnutls-dane0                                                               3.7.9-2                                             deb        
 libgnutls30                                                                   3.7.9-2                                             deb        
 libgomp1                                                                      12.2.0-14                                           deb        
 libgpg-error0                                                                 1.46-1                                              deb        
@@ -1118,6 +1125,8 @@ liblist-moreutils-xs-perl                                                     0.
 libllvm15                                                                     1:15.0.6-4+b1                                       deb        
 liblmdb0                                                                      0.9.24-1                                            deb        
 liblocale-gettext-perl                                                        1.07-5                                              deb        
+liblockfile-bin                                                               1.17-1+b1                                           deb        
+liblockfile1                                                                  1.17-1+b1                                           deb        
 libltdl7                                                                      2.4.7-5                                             deb        
 liblua5.2-0                                                                   5.2.4-3                                             deb        
 liblz4-1                                                                      1.9.4-1                                             deb        
@@ -1379,6 +1388,7 @@ libuchardet0                                                                  0.
 libudev1                                                                      252.17-1~deb12u1                                    deb        
 libudfread0                                                                   1.1.2-1                                             deb        
 libudisks2-0                                                                  2.9.4-4                                             deb        
+libunbound8                                                                   1.17.1-2+deb12u1                                    deb        
 libunistring2                                                                 1.0-2                                               deb        
 libunwind8                                                                    1.6.2-3                                             deb        
 libupnp13                                                                     1:1.8.4-2                                           deb        
@@ -1393,8 +1403,8 @@ libva2                                                                        2.
 libvariable-magic-perl                                                        0.63-1+b1                                           deb        
 libvdpau1                                                                     1.5-2                                               deb        
 libvidstab1.1                                                                 1.1.0-2+b1                                          deb        
-libvlc5                                                                       3.0.18-2                                            deb        
-libvlccore9                                                                   3.0.18-2                                            deb        
+libvlc5                                                                       3.0.20-0+deb12u1                                    deb        
+libvlccore9                                                                   3.0.20-0+deb12u1                                    deb        
 libvorbis0a                                                                   1.3.7-1                                             deb        
 libvorbisenc2                                                                 1.3.7-1                                             deb        
 libvorbisfile3                                                                1.3.7-1                                             deb        
@@ -1776,9 +1786,9 @@ utils-merge                                                                   1.
 validate-npm-package-license                                                  3.0.4                                               npm        
 validate-npm-package-name                                                     5.0.0                                               npm        
 vary                                                                          1.1.2                                               npm        
-vlc-data                                                                      3.0.18-2                                            deb        
-vlc-plugin-base                                                               3.0.18-2                                            deb        
-vlc-plugin-video-output                                                       3.0.18-2                                            deb        
+vlc-data                                                                      3.0.20-0+deb12u1                                    deb        
+vlc-plugin-base                                                               3.0.20-0+deb12u1                                    deb        
+vlc-plugin-video-output                                                       3.0.20-0+deb12u1                                    deb        
 wadllib                                                                       1.3.6                                               python     
 walk-up-path                                                                  3.0.1                                               npm        
 wcwidth                                                                       1.0.1                                               npm        
