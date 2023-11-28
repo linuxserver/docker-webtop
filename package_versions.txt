@@ -28,8 +28,8 @@ NAME                                                                          VE
 @tufjs/canonical-json                                                         1.0.0                                               npm        
 @tufjs/models                                                                 1.0.4                                               npm        
 @types/cookie                                                                 0.4.1                                               npm        
-@types/cors                                                                   2.8.16                                              npm        
-@types/node                                                                   20.9.1                                              npm        
+@types/cors                                                                   2.8.17                                              npm        
+@types/node                                                                   20.10.0                                             npm        
 PyGObject                                                                     3.42.2                                              python     
 PyJWT                                                                         2.6.0                                               python     
 abbrev                                                                        1.1.1                                               npm        
@@ -101,7 +101,7 @@ columnify                                                                     1.
 common-ancestor-path                                                          1.0.1                                               npm        
 concat-map                                                                    0.0.1                                               npm        
 console-control-strings                                                       1.1.0                                               npm        
-containerd.io                                                                 1.6.24-1                                            deb        
+containerd.io                                                                 1.6.25-1                                            deb        
 content-disposition                                                           0.5.4                                               npm        
 content-type                                                                  1.0.5                                               npm        
 cookie                                                                        0.4.2                                               npm        
@@ -268,7 +268,7 @@ github.com/containerd/cgroups                                                 v1
 github.com/containerd/cgroups/v3                                              v3.0.2                                              go-module  
 github.com/containerd/console                                                 v1.0.3                                              go-module  
 github.com/containerd/containerd                                              v1.6.22                                             go-module  
-github.com/containerd/containerd                                              v1.6.24                                             go-module  
+github.com/containerd/containerd                                              v1.6.25                                             go-module  
 github.com/containerd/containerd                                              v1.7.2                                              go-module  
 github.com/containerd/containerd                                              v1.7.3                                              go-module  
 github.com/containerd/continuity                                              v0.3.0                                              go-module  
@@ -279,7 +279,8 @@ github.com/containerd/go-cni                                                  v1
 github.com/containerd/go-runc                                                 v1.0.0                                              go-module  
 github.com/containerd/go-runc                                                 v1.1.0                                              go-module  
 github.com/containerd/imgcrypt                                                v1.1.4                                              go-module  
-github.com/containerd/nri                                                     v0.1.0                                              go-module  
+github.com/containerd/log                                                     v0.1.0                                              go-module  
+github.com/containerd/nri                                                     v0.1.1                                              go-module  
 github.com/containerd/stargz-snapshotter/estargz                              v0.13.0                                             go-module  
 github.com/containerd/ttrpc                                                   v1.1.2                                              go-module  
 github.com/containerd/ttrpc                                                   v1.2.2                                              go-module  
@@ -321,7 +322,7 @@ github.com/docker/go-units                                                    v0
 github.com/docker/libkv                                                       v0.2.2-0.20211217103745-e480589147e3                go-module  
 github.com/docker/libtrust                                                    v0.0.0-20150526203908-9cbd2a1374f4                  go-module  
 github.com/dustin/go-humanize                                                 v1.0.0                                              go-module  
-github.com/emicklei/go-restful                                                v2.9.5+incompatible                                 go-module  
+github.com/emicklei/go-restful                                                v2.16.0+incompatible                                go-module  
 github.com/emicklei/go-restful/v3                                             v3.10.1                                             go-module  
 github.com/felixge/httpsnoop                                                  v1.0.2                                              go-module  
 github.com/felixge/httpsnoop                                                  v1.0.3                                              go-module  
@@ -424,13 +425,13 @@ github.com/moby/term                                                          v0
 github.com/modern-go/concurrent                                               v0.0.0-20180306012644-bacd9c7ef1dd                  go-module  
 github.com/modern-go/reflect2                                                 v1.0.2                                              go-module  
 github.com/morikuni/aec                                                       v1.0.0                                              go-module  
-github.com/mrunalp/fileutils                                                  v0.5.0                                              go-module  
+github.com/mrunalp/fileutils                                                  v0.5.1                                              go-module  
 github.com/munnerz/goautoneg                                                  v0.0.0-20191010083416-a7dc8b61c822                  go-module  
 github.com/opencontainers/go-digest                                           v1.0.0                                              go-module  
 github.com/opencontainers/image-spec                                          v1.1.0-rc2.0.20221005185240-3a7f492d3f1b            go-module  
 github.com/opencontainers/image-spec                                          v1.1.0-rc3                                          go-module  
 github.com/opencontainers/image-spec                                          v1.1.0-rc4                                          go-module  
-github.com/opencontainers/runc                                                v0.0.0-20230810173218-ccaecfcbc907                  go-module  
+github.com/opencontainers/runc                                                v0.0.0-20231101070151-18a0cb0f32bc                  go-module  
 github.com/opencontainers/runc                                                v1.1.5                                              go-module  
 github.com/opencontainers/runc                                                v1.1.7                                              go-module  
 github.com/opencontainers/runtime-spec                                        v1.0.3-0.20210326190908-1c3f411f0417                go-module  
@@ -545,7 +546,6 @@ go.opentelemetry.io/proto/otlp                                                v0
 go.uber.org/atomic                                                            v1.9.0                                              go-module  
 go.uber.org/multierr                                                          v1.8.0                                              go-module  
 go.uber.org/zap                                                               v1.21.0                                             go-module  
-golang.org/x/crypto                                                           v0.0.0-20220315160706-3147a52a75dd                  go-module  
 golang.org/x/crypto                                                           v0.14.0                                             go-module  
 golang.org/x/crypto                                                           v0.2.0                                              go-module  
 golang.org/x/crypto                                                           v0.7.0                                              go-module  
@@ -563,6 +563,7 @@ golang.org/x/sync                                                             v0
 golang.org/x/sys                                                              v0.13.0                                             go-module  
 golang.org/x/sys                                                              v0.6.0                                              go-module  
 golang.org/x/sys                                                              v0.7.0                                              go-module  
+golang.org/x/term                                                             v0.13.0                                             go-module  
 golang.org/x/term                                                             v0.6.0                                              go-module  
 golang.org/x/term                                                             v0.7.0                                              go-module  
 golang.org/x/text                                                             v0.13.0                                             go-module  
@@ -1337,7 +1338,6 @@ statuses                                                                      2.
 stdlib                                                                        go1.20.10                                           go-module  
 stdlib                                                                        go1.20.6                                            go-module  
 stdlib                                                                        go1.20.7                                            go-module  
-stdlib                                                                        go1.20.8                                            go-module  
 string-width                                                                  4.2.3                                               npm        
 string-width                                                                  5.1.2                                               npm        
 string_decoder                                                                1.1.1                                               npm        
