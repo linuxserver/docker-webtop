@@ -399,6 +399,7 @@ Once registered you can define the dockerfile to use with `-f Dockerfile.aarch64
 
 ## Versions
 
+* **29.12.23:** - Rebase Alpine to 3.19 and swap back to Firefox.
 * **07.11.23:** - Rebase Fedora to 39.
 * **14.06.23:** - Rebase to Debian Bookworm.
 * **13.05.23:** - Rebase to Alpine 3.18 and Fedora 38.
