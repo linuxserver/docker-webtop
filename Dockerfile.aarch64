@@ -1,4 +1,4 @@
-FROM ghcr.io/linuxserver/baseimage-kasmvnc:arm64v8-alpine318
+FROM ghcr.io/linuxserver/baseimage-kasmvnc:arm64v8-alpine319
 
 # set version label
 ARG BUILD_DATE
@@ -11,13 +11,13 @@ LABEL maintainer="thelamer"
 RUN \
   echo "**** install packages ****" && \
   apk add --no-cache \
-    chromium \
     dolphin \
     konsole \
     kwrite \
     breeze \
     breeze-gtk \
-    breeze-icons \
+    breeze-icons5 \
+    firefox \
     kde-gtk-config \
     khotkeys \
     kmenuedit \
@@ -27,10 +27,6 @@ RUN \
     plasma-workspace-wallpapers \
     systemsettings \
     util-linux-misc && \
- echo "**** application tweaks ****" && \
-  sed -i \
-    's#^Exec=.*#Exec=/usr/local/bin/wrapped-chromium#g' \
-    /usr/share/applications/chromium.desktop && \
   echo "**** kde tweaks ****" && \
   sed -i \
     's/applications:org.kde.discover.desktop,/applications:org.kde.konsole.desktop,/g' \
