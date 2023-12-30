@@ -1,4 +1,4 @@
-FROM ghcr.io/linuxserver/baseimage-kasmvnc:alpine318
+FROM ghcr.io/linuxserver/baseimage-kasmvnc:alpine319
 
 # set version label
 ARG BUILD_DATE
@@ -11,21 +11,16 @@ LABEL maintainer="thelamer"
 RUN \
   echo "**** install packages ****" && \
   apk add --no-cache \
-    chromium \
     faenza-icon-theme \
     faenza-icon-theme-xfce4-appfinder \
     faenza-icon-theme-xfce4-panel \
+    firefox \
     mousepad \
     ristretto \
     thunar \
     util-linux-misc \
     xfce4 \
     xfce4-terminal && \
-  echo "**** application tweaks ****" && \
-  sed -i \
-    's#^Exec=.*#Exec=/usr/local/bin/wrapped-chromium#g' \
-    /usr/share/applications/chromium.desktop && \
-  mv /usr/bin/exo-open /usr/bin/exo-open-real && \
   echo "**** cleanup ****" && \
   rm -f \
     /etc/xdg/autostart/xfce4-power-manager.desktop \
