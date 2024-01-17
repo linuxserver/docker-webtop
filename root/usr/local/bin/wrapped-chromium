@@ -2,8 +2,13 @@
 
 BIN=/usr/bin/chromium
 
+# Cleanup
+if ! pgrep chromium > /dev/null;then
+  rm -f $HOME/.config/chromium/Singleton*
+fi
+
 # Run normally on privved containers or modified un non priv
-if grep -q 'Seccomp:	0' /proc/1/status; then
+if grep -q 'Seccomp:\t0' /proc/1/status; then
   ${BIN} --password-store=basic "$@"
 else
   ${BIN} --password-store=basic --no-sandbox --test-type "$@"
