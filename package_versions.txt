@@ -29,7 +29,7 @@ NAME                                                                          VE
 @tufjs/models                                                                 1.0.4                                        npm        
 @types/cookie                                                                 0.4.1                                        npm        
 @types/cors                                                                   2.8.17                                       npm        
-@types/node                                                                   20.11.5                                      npm        
+@types/node                                                                   20.11.8                                      npm        
 PyGObject                                                                     3.42.1                                       python     
 PyJWT                                                                         2.3.0                                        python     
 SecretStorage                                                                 3.3.1                                        python     
@@ -152,9 +152,9 @@ dirmngr                                                                       2.
 distro                                                                        1.7.0                                        python     
 distro-info-data                                                              0.52ubuntu0.6                                deb        
 dmidecode                                                                     3.3-3ubuntu0.1                               deb        
-docker-ce                                                                     5:25.0.0-1~ubuntu.22.04~jammy                deb        
-docker-ce-cli                                                                 5:25.0.0-1~ubuntu.22.04~jammy                deb        
-docker-compose-plugin                                                         2.24.1-1~ubuntu.22.04~jammy                  deb        
+docker-ce                                                                     5:25.0.1-1~ubuntu.22.04~jammy                deb        
+docker-ce-cli                                                                 5:25.0.1-1~ubuntu.22.04~jammy                deb        
+docker-compose-plugin                                                         2.24.2-1~ubuntu.22.04~jammy                  deb        
 dolphin                                                                       4:21.12.3-0ubuntu1                           deb        
 dpkg                                                                          1.21.1ubuntu2.2                              deb        
 drkonqi                                                                       5.24.5-0ubuntu0.1                            deb        
@@ -243,7 +243,7 @@ github.com/checkpoint-restore/go-criu/v5                                      v5
 github.com/cilium/ebpf                                                        v0.11.0                                      go-module  
 github.com/cilium/ebpf                                                        v0.7.0                                       go-module  
 github.com/cloudflare/cfssl                                                   v1.6.4                                       go-module  
-github.com/compose-spec/compose-go/v2                                         v2.0.0-rc.1                                  go-module  
+github.com/compose-spec/compose-go/v2                                         v2.0.0-rc.2                                  go-module  
 github.com/container-storage-interface/spec                                   v1.5.0                                       go-module  
 github.com/containerd/aufs                                                    v1.0.0                                       go-module  
 github.com/containerd/btrfs                                                   v1.0.0                                       go-module  
@@ -284,12 +284,12 @@ github.com/deckarep/golang-set/v2                                             v2
 github.com/dimchansky/utfbom                                                  v1.1.1                                       go-module  
 github.com/distribution/reference                                             v0.5.0                                       go-module  
 github.com/docker/buildx                                                      v0.12.0-rc2.0.20231219140829-617f538cb315    go-module  
-github.com/docker/cli                                                         v25.0.0-rc.3+incompatible                    go-module  
-github.com/docker/cli/cmd/docker                                              v25.0.0                                      go-module  
+github.com/docker/cli                                                         v25.0.0+incompatible                         go-module  
+github.com/docker/cli/cmd/docker                                              v25.0.1                                      go-module  
 github.com/docker/compose/v2                                                  (devel)                                      go-module  
 github.com/docker/distribution                                                v2.8.3+incompatible                          go-module  
-github.com/docker/docker                                                      v25.0.0                                      go-module  
-github.com/docker/docker                                                      v25.0.0-rc.3+incompatible                    go-module  
+github.com/docker/docker                                                      v25.0.0+incompatible                         go-module  
+github.com/docker/docker                                                      v25.0.1                                      go-module  
 github.com/docker/docker-credential-helpers                                   v0.8.0                                       go-module  
 github.com/docker/go                                                          v1.5.1-1.0.20160303222718-d30aec9fd63c       go-module  
 github.com/docker/go-connections                                              v0.5.0                                       go-module  
@@ -332,7 +332,6 @@ github.com/google/gofuzz                                                      v1
 github.com/google/s2a-go                                                      v0.1.4                                       go-module  
 github.com/google/shlex                                                       v0.0.0-20191202100458-e7afc7fbc510           go-module  
 github.com/google/uuid                                                        v1.3.0                                       go-module  
-github.com/google/uuid                                                        v1.3.1                                       go-module  
 github.com/google/uuid                                                        v1.5.0                                       go-module  
 github.com/googleapis/enterprise-certificate-proxy                            v0.2.3                                       go-module  
 github.com/googleapis/gax-go/v2                                               v2.11.0                                      go-module  
@@ -846,7 +845,7 @@ libglx-mesa0                                                                  23
 libglx0                                                                       1.4.0-1                                      deb        
 libgme0                                                                       0.6.3-2                                      deb        
 libgmp10                                                                      2:6.2.1+dfsg-3ubuntu1                        deb        
-libgnutls30                                                                   3.7.3-4ubuntu1.3                             deb        
+libgnutls30                                                                   3.7.3-4ubuntu1.4                             deb        
 libgomp1                                                                      12.3.0-1ubuntu1~22.04                        deb        
 libgpg-error0                                                                 1.43-3                                       deb        
 libgpgme11                                                                    1.16.0-1.2ubuntu4.1                          deb        
@@ -1152,7 +1151,7 @@ libpackagekitqt5-1                                                            1.
 libpam-modules                                                                1.4.0-11ubuntu2.3                            deb        
 libpam-modules-bin                                                            1.4.0-11ubuntu2.3                            deb        
 libpam-runtime                                                                1.4.0-11ubuntu2.3                            deb        
-libpam-systemd                                                                249.11-0ubuntu3.11                           deb        
+libpam-systemd                                                                249.11-0ubuntu3.12                           deb        
 libpam0g                                                                      1.4.0-11ubuntu2.4                            deb        
 libpango-1.0-0                                                                1.50.6+ds-2ubuntu1                           deb        
 libpangocairo-1.0-0                                                           1.50.6+ds-2ubuntu1                           deb        
@@ -1298,8 +1297,8 @@ libsquashfuse0                                                                0.
 libsratom-0-0                                                                 0.6.8-1                                      deb        
 libsrt1.4-gnutls                                                              1.4.4-4                                      deb        
 libss2                                                                        1.46.5-2ubuntu1.1                            deb        
-libssh-4                                                                      0.9.6-2ubuntu0.22.04.2                       deb        
-libssh-gcrypt-4                                                               0.9.6-2ubuntu0.22.04.2                       deb        
+libssh-4                                                                      0.9.6-2ubuntu0.22.04.3                       deb        
+libssh-gcrypt-4                                                               0.9.6-2ubuntu0.22.04.3                       deb        
 libssh2-1                                                                     1.10.0-3                                     deb        
 libssl3                                                                       3.0.2-0ubuntu1.10                            deb        
 libstartup-notification0                                                      0.12-6build2                                 deb        
@@ -1314,7 +1313,7 @@ libsub-quote-perl                                                             2.
 libswitch-perl                                                                2.17-2.1                                     deb        
 libswresample3                                                                7:4.4.2-0ubuntu0.22.04.1                     deb        
 libswscale5                                                                   7:4.4.2-0ubuntu0.22.04.1                     deb        
-libsystemd0                                                                   249.11-0ubuntu3.11                           deb        
+libsystemd0                                                                   249.11-0ubuntu3.12                           deb        
 libtag1v5                                                                     1.11.1+dfsg.1-3ubuntu3                       deb        
 libtag1v5-vanilla                                                             1.11.1+dfsg.1-3ubuntu3                       deb        
 libtalloc2                                                                    2.3.3-2build1                                deb        
@@ -1332,7 +1331,7 @@ libtirpc3                                                                     1.
 libtry-tiny-perl                                                              0.31-1                                       deb        
 libtwolame0                                                                   0.4.0-2build2                                deb        
 libuchardet0                                                                  0.0.7-1build2                                deb        
-libudev1                                                                      249.11-0ubuntu3.11                           deb        
+libudev1                                                                      249.11-0ubuntu3.12                           deb        
 libudfread0                                                                   1.1.2-1                                      deb        
 libudisks2-0                                                                  2.9.4-1ubuntu2                               deb        
 libunistring2                                                                 1.0-1                                        deb        
@@ -1522,7 +1521,7 @@ on-finished                                                                   2.
 once                                                                          1.4.0                                        npm        
 openbox                                                                       3.6.1-10                                     deb        
 openssh-client                                                                1:8.9p1-3ubuntu0.6                           deb        
-openssl                                                                       3.0.2-0ubuntu1.12                            deb        
+openssl                                                                       3.0.2-0ubuntu1.13                            deb        
 oxygen-sounds                                                                 4:5.24.6-0ubuntu0.1                          deb        
 p-map                                                                         4.0.0                                        npm        
 packagekit                                                                    1.2.5-2ubuntu2                               deb        
@@ -1708,8 +1707,8 @@ strip-ansi                                                                    6.
 strip-ansi                                                                    7.0.1                                        npm        
 sudo                                                                          1.9.9-1ubuntu2.4                             deb        
 supports-color                                                                7.2.0                                        npm        
-systemd                                                                       249.11-0ubuntu3.11                           deb        
-systemd-sysv                                                                  249.11-0ubuntu3.11                           deb        
+systemd                                                                       249.11-0ubuntu3.12                           deb        
+systemd-sysv                                                                  249.11-0ubuntu3.12                           deb        
 systemsettings                                                                4:5.24.6-0ubuntu0.1                          deb        
 sysvinit-utils                                                                3.01-1ubuntu1                                deb        
 tags.cncf.io/container-device-interface                                       v0.6.2                                       go-module  
@@ -1726,7 +1725,7 @@ tzdata                                                                        20
 ubuntu-keyring                                                                2021.03.26                                   deb        
 ubuntu-mono                                                                   20.10-0ubuntu2                               deb        
 ucf                                                                           3.0043                                       deb        
-udev                                                                          249.11-0ubuntu3.11                           deb        
+udev                                                                          249.11-0ubuntu3.12                           deb        
 udisks2                                                                       2.9.4-1ubuntu2                               deb        
 undici-types                                                                  5.26.5                                       npm        
 unique-filename                                                               2.0.1                                        npm        
