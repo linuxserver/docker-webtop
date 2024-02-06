@@ -22,6 +22,7 @@ array-flatten                                                                 1.
 arrayvec                                                                      0.7.2                                        rust-crate  
 async                                                                         3.2.5                                        npm         
 at-spi2-core                                                                  2.50.1-r0                                    apk         
+at-spi2-core-lang                                                             2.50.1-r0                                    apk         
 av-metrics                                                                    0.9.0                                        rust-crate  
 av1-grain                                                                     0.2.2                                        rust-crate  
 avahi-libs                                                                    0.8-r13                                      apk         
@@ -46,7 +47,7 @@ ca-certificates                                                               20
 ca-certificates-bundle                                                        20230506-r0                                  apk         
 cairo                                                                         1.18.0-r0                                    apk         
 cairo-gobject                                                                 1.18.0-r0                                    apk         
-call-bind                                                                     1.0.5                                        npm         
+call-bind                                                                     1.0.6                                        npm         
 cdparanoia-libs                                                               10.2-r14                                     apk         
 cfg-if                                                                        1.0.0                                        rust-crate  
 chalk                                                                         4.1.2                                        npm         
@@ -84,6 +85,7 @@ crossbeam-queue                                                               0.
 crossbeam-utils                                                               0.8.15                                       rust-crate  
 cups                                                                          2.4.7-r0                                     apk         
 cups-client                                                                   2.4.7-r0                                     apk         
+cups-lang                                                                     2.4.7-r0                                     apk         
 cups-libs                                                                     2.4.7-r0                                     apk         
 cups-pdf                                                                      3.0.1-r1                                     apk         
 curl                                                                          8.5.0-r0                                     apk         
@@ -94,7 +96,7 @@ dbus-libs                                                                     1.
 dbus-x11                                                                      1.14.10-r0                                   apk         
 debug                                                                         2.6.9                                        npm         
 debug                                                                         4.3.4                                        npm         
-define-data-property                                                          1.1.1                                        npm         
+define-data-property                                                          1.1.2                                        npm         
 depd                                                                          2.0.0                                        npm         
 destroy                                                                       1.2.0                                        npm         
 docker                                                                        25.0.2-r0                                    apk         
@@ -108,8 +110,8 @@ either                                                                        1.
 ejs                                                                           3.1.9                                        npm         
 encodeurl                                                                     1.0.2                                        npm         
 engine.io                                                                     6.5.4                                        npm         
-engine.io-parser                                                              5.2.1                                        npm         
-es-errors                                                                     1.0.0                                        npm         
+engine.io-parser                                                              5.2.2                                        npm         
+es-errors                                                                     1.3.0                                        npm         
 escape-html                                                                   1.0.3                                        npm         
 etag                                                                          1.8.1                                        npm         
 eudev-libs                                                                    3.2.14-r0                                    apk         
@@ -132,6 +134,7 @@ firefox                                                                       12
 font-liberation                                                               2.1.5-r2                                     apk         
 font-noto                                                                     23.7.1-r0                                    apk         
 font-noto-common                                                              23.7.1-r0                                    apk         
+font-noto-emoji                                                               2.042-r0                                     apk         
 font-noto-math                                                                23.7.1-r0                                    apk         
 font-noto-symbols                                                             23.7.1-r0                                    apk         
 fontconfig                                                                    2.14.2-r4                                    apk         
@@ -148,7 +151,8 @@ fuse3-libs                                                                    3.
 gcompat                                                                       1.1.0-r4                                     apk         
 gdbm                                                                          1.23-r1                                      apk         
 gdk-pixbuf                                                                    2.42.10-r6                                   apk         
-get-intrinsic                                                                 1.2.3                                        npm         
+gdk-pixbuf-lang                                                               2.42.10-r6                                   apk         
+get-intrinsic                                                                 1.2.4                                        npm         
 getrandom                                                                     0.2.9                                        rust-crate  
 giflib                                                                        5.2.1-r5                                     apk         
 github.com/AlecAivazis/survey/v2                                              v2.3.7                                       go-module   
@@ -421,6 +425,7 @@ github.com/zclconf/go-cty                                                     v1
 github.com/zmap/zcrypto                                                       v0.0.0-20210511125630-18f1e0152cfc           go-module   
 github.com/zmap/zlint/v3                                                      v3.1.0                                       go-module   
 glib                                                                          2.78.4-r0                                    apk         
+glib-lang                                                                     2.78.4-r0                                    apk         
 glslang-libs                                                                  1.3.261.1-r0                                 apk         
 gmp                                                                           6.3.0-r0                                     apk         
 gnutls                                                                        3.8.3-r0                                     apk         
@@ -501,8 +506,11 @@ gopkg.in/yaml.v3                                                              v3
 graphene                                                                      1.10.8-r4                                    apk         
 graphite2                                                                     1.3.14-r6                                    apk         
 gst-plugins-base                                                              1.22.8-r0                                    apk         
+gst-plugins-base-lang                                                         1.22.8-r0                                    apk         
 gstreamer                                                                     1.22.8-r0                                    apk         
+gstreamer-lang                                                                1.22.8-r0                                    apk         
 gtk+3.0                                                                       3.24.38-r5                                   apk         
+gtk+3.0-lang                                                                  3.24.38-r5                                   apk         
 gtk-update-icon-cache                                                         3.24.38-r5                                   apk         
 harfbuzz                                                                      8.3.0-r0                                     apk         
 has-flag                                                                      4.0.0                                        npm         
@@ -516,6 +524,7 @@ hiredis                                                                       1.
 http-errors                                                                   2.0.0                                        npm         
 hwdata-pci                                                                    0.377.2-r0                                   apk         
 icewm                                                                         3.4.4-r0                                     apk         
+icewm-lang                                                                    3.4.4-r0                                     apk         
 iconv-lite                                                                    0.4.24                                       npm         
 icu-data-en                                                                   74.1-r0                                      apk         
 icu-libs                                                                      74.1-r0                                      apk         
@@ -548,6 +557,7 @@ k8s.io/utils                                                                  v0
 kclient                                                                       0.3.7                                        npm         
 lab                                                                           0.11.0                                       rust-crate  
 lame-libs                                                                     3.100-r5                                     apk         
+lang                                                                          0.1-r2                                       apk         
 lazy_static                                                                   1.4.0                                        rust-crate  
 lcms2                                                                         2.15-r4                                      apk         
 libSvtAv1Enc                                                                  1.7.0-r0                                     apk         
@@ -697,6 +707,8 @@ ms                                                                            2.
 ms                                                                            2.1.2                                        npm         
 ms                                                                            2.1.3                                        npm         
 musl                                                                          1.2.4_git20230717-r4                         apk         
+musl-locales                                                                  0.1.0-r1                                     apk         
+musl-locales-lang                                                             0.1.0-r1                                     apk         
 musl-obstack                                                                  1.2.3-r2                                     apk         
 musl-utils                                                                    1.2.4_git20230717-r4                         apk         
 nan                                                                           2.18.0                                       npm         
@@ -726,6 +738,7 @@ once_cell                                                                     1.
 onevpl-libs                                                                   2023.3.1-r2                                  apk         
 oniguruma                                                                     6.9.9-r0                                     apk         
 openbox                                                                       3.6.1-r6                                     apk         
+openbox-lang                                                                  3.6.1-r6                                     apk         
 openbox-libs                                                                  3.6.1-r6                                     apk         
 openjpeg                                                                      2.5.0-r3                                     apk         
 openssh-client-common                                                         9.6_p1-r0                                    apk         
@@ -796,9 +809,11 @@ proc-macro-error                                                              1.
 proc-macro-error-attr                                                         1.0.4                                        rust-crate  
 proc-macro2                                                                   1.0.57                                       rust-crate  
 procps-ng                                                                     4.0.4-r0                                     apk         
+procps-ng-lang                                                                4.0.4-r0                                     apk         
 proxy-addr                                                                    2.0.7                                        npm         
 pulseaudio                                                                    16.1-r11                                     apk         
 pulseaudio-alsa                                                               16.1-r11                                     apk         
+pulseaudio-lang                                                               16.1-r11                                     apk         
 pulseaudio-utils                                                              16.1-r11                                     apk         
 pulseaudio2                                                                   0.5.5                                        npm         
 py3-xdg                                                                       0.28-r2                                      apk         
@@ -839,14 +854,15 @@ serd-libs                                                                     0.
 serde                                                                         1.0.163                                      rust-crate  
 serde_derive                                                                  1.0.163                                      rust-crate  
 serve-static                                                                  1.15.0                                       npm         
-set-function-length                                                           1.2.0                                        npm         
+set-function-length                                                           1.2.1                                        npm         
 setarch                                                                       2.39.3-r0                                    apk         
 setprototypeof                                                                1.2.0                                        npm         
 setxkbmap                                                                     1.3.4-r0                                     apk         
 shaderc                                                                       2023.7-r0                                    apk         
 shadow                                                                        4.14.2-r0                                    apk         
 shared-mime-info                                                              2.4-r0                                       apk         
-side-channel                                                                  1.0.4                                        npm         
+shared-mime-info-lang                                                         2.4-r0                                       apk         
+side-channel                                                                  1.0.5                                        npm         
 signal-hook                                                                   0.3.15                                       rust-crate  
 signal-hook-registry                                                          1.4.1                                        rust-crate  
 sigs.k8s.io/json                                                              v0.0.0-20220713155537-f223a00ba0e2           go-module   
@@ -918,6 +934,7 @@ xf86-video-nouveau                                                            1.
 xf86-video-qxl                                                                0.1.6-r2                                     apk         
 xkbcomp                                                                       1.4.6-r1                                     apk         
 xkeyboard-config                                                              2.40-r0                                      apk         
+xkeyboard-config-lang                                                         2.40-r0                                      apk         
 xterm                                                                         388-r0                                       apk         
 xvidcore                                                                      1.3.7-r2                                     apk         
 xz-libs                                                                       5.4.5-r0                                     apk         
