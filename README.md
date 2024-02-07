@@ -122,6 +122,8 @@ This container is based on [Docker Baseimage KasmVNC](https://github.com/linuxse
 | FM_HOME | This is the home directory (landing) for the file manager, default "/config". |
 | START_DOCKER | If set to false a container with privilege will not automatically start the DinD Docker setup. |
 | DRINODE | If mounting in /dev/dri for [DRI3 GPU Acceleration](https://www.kasmweb.com/kasmvnc/docs/master/gpu_acceleration.html) allows you to specify the device to use IE `/dev/dri/renderD128` |
+| DISABLE_IPV6 | If set to true or any value this will disable IPv6 | 
+| LC_ALL | Set the Language for the container to run as IE `fr_FR.UTF-8` `ar_AE.UTF-8` |
 
 #### Optional run configurations
 
@@ -133,18 +135,17 @@ This container is based on [Docker Baseimage KasmVNC](https://github.com/linuxse
 
 ### Language Support - Internationalization
 
-The [universal internationalization](https://github.com/linuxserver/docker-mods/tree/universal-internationalization) docker mod can be used with any of these variants to provide non english language support. All you need to know is your specific iso-639 code for your your desired language. For example German is `de_DE.UTF-8` Chinese `zh_CN.UTF-8` a full list is here:
+The environment variable `LC_ALL` can be used to start Webtop in a different language than English simply pass for example to launch the Desktop session in French `LC_ALL=fr_FR.UTF-8`. Some languages like Chinese, Japanese, or Korean will be missing fonts needed to render properly known as cjk fonts, but others may exist and not be installed inside the Webtop depending on what underlying distribution you are running. We only ensure fonts for Latin characters are present. Fonts can be installed with a mod on startup.
 
-[https://github.com/linuxserver/docker-mods/tree/universal-internationalization#other-languages](https://github.com/linuxserver/docker-mods/tree/universal-internationalization#other-languages)
-
-To enable this pass the environment variables:
+To install cjk fonts on startup as an example pass the environment variables (Alpine base):
 
 ```
--e DOCKER_MODS=linuxserver/mods:universal-internationalization
+-e DOCKER_MODS=linuxserver/mods:universal-package-install 
+-e INSTALL_PACKAGES=font-noto-cjk 
 -e LC_ALL=zh_CN.UTF-8
 ```
 
-The web interface has the option for "IME Input Mode" in Settings which will allow non english characters to be used from a non en_US keyboard on the client. Once enabled in conjunction with the mod it will perform the same as a local Linux installation set to your locale.
+The web interface has the option for "IME Input Mode" in Settings which will allow non english characters to be used from a non en_US keyboard on the client. Once enabled it will perform the same as a local Linux installation set to your locale.
 
 ### Lossless mode
 
@@ -383,6 +384,7 @@ Once registered you can define the dockerfile to use with `-f Dockerfile.aarch64
 
 ## Versions
 
+* **06.01.24:** - Update Readme about native language support.
 * **29.12.23:** - Rebase Alpine to 3.19 and swap back to Firefox.
 * **07.11.23:** - Rebase Fedora to 39.
 * **14.06.23:** - Rebase to Debian Bookworm.
