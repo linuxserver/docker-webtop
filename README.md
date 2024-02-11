@@ -124,6 +124,8 @@ This container is based on [Docker Baseimage KasmVNC](https://github.com/linuxse
 | DRINODE | If mounting in /dev/dri for [DRI3 GPU Acceleration](https://www.kasmweb.com/kasmvnc/docs/master/gpu_acceleration.html) allows you to specify the device to use IE `/dev/dri/renderD128` |
 | DISABLE_IPV6 | If set to true or any value this will disable IPv6 | 
 | LC_ALL | Set the Language for the container to run as IE `fr_FR.UTF-8` `ar_AE.UTF-8` |
+| NO_DECOR | If set the application will run without window borders in openbox for use as a PWA. |
+| NO_FULL | Do not autmatically fullscreen applications when using openbox. |
 
 #### Optional run configurations
 
@@ -384,7 +386,8 @@ Once registered you can define the dockerfile to use with `-f Dockerfile.aarch64
 
 ## Versions
 
-* **06.01.24:** - Update Readme about native language support.
+* **11.02.24:** - Add PWA icons and title variants properly.
+* **06.02.24:** - Update Readme about native language support.
 * **29.12.23:** - Rebase Alpine to 3.19 and swap back to Firefox.
 * **07.11.23:** - Rebase Fedora to 39.
 * **14.06.23:** - Rebase to Debian Bookworm.
