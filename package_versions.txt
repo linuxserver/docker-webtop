@@ -4,7 +4,7 @@ NAME                                                                          VE
 @socket.io/component-emitter                                                  3.1.0                                        npm        
 @types/cookie                                                                 0.4.1                                        npm        
 @types/cors                                                                   2.8.17                                       npm        
-@types/node                                                                   20.11.17                                     npm        
+@types/node                                                                   20.11.19                                     npm        
 SDL2                                                                          2.28.5-1.fc39                                rpm        
 abattis-cantarell-vf-fonts                                                    0.301-10.fc39                                rpm        
 accepts                                                                       1.3.8                                        npm        
@@ -37,6 +37,7 @@ bash                                                                          5.
 bindings                                                                      1.5.0                                        npm        
 binutils                                                                      2.40-14.fc39                                 rpm        
 binutils-gold                                                                 2.40-14.fc39                                 rpm        
+bluez-libs                                                                    5.72-1.fc39                                  rpm        
 body-parser                                                                   1.20.1                                       npm        
 brace-expansion                                                               1.1.11                                       npm        
 brace-expansion                                                               2.0.1                                        npm        
@@ -50,8 +51,8 @@ call-bind                                                                     1.
 cdparanoia-libs                                                               10.2-42.fc39                                 rpm        
 chalk                                                                         4.1.2                                        npm        
 checkpolicy                                                                   3.5-3.fc39                                   rpm        
-chromium                                                                      121.0.6167.160-1.fc39                        rpm        
-chromium-common                                                               121.0.6167.160-1.fc39                        rpm        
+chromium                                                                      121.0.6167.184-1.fc39                        rpm        
+chromium-common                                                               121.0.6167.184-1.fc39                        rpm        
 cloud.google.com/go/compute/metadata                                          v0.2.3                                       go-module  
 cloud.google.com/go/logging                                                   v1.7.0                                       go-module  
 cloud.google.com/go/longrunning                                               v0.5.1                                       go-module  
@@ -131,6 +132,7 @@ escape-html                                                                   1.
 etag                                                                          1.8.1                                        npm        
 expat                                                                         2.5.0-3.fc39                                 rpm        
 express                                                                       4.18.2                                       npm        
+fdk-aac                                                                       2.0.2-6.fc39                                 rpm        
 fedora-gpg-keys                                                               39-1                                         rpm        
 fedora-logos-httpd                                                            38.1.0-2.fc39                                rpm        
 fedora-release-common                                                         39-34                                        rpm        
@@ -149,7 +151,7 @@ filesystem                                                                    3.
 finalhandler                                                                  1.2.0                                        npm        
 findutils                                                                     1:4.9.0-5.fc39                               rpm        
 flac-libs                                                                     1.4.3-2.fc39                                 rpm        
-fontconfig                                                                    2.14.2-5.fc39                                rpm        
+fontconfig                                                                    2.14.2-6.fc39                                rpm        
 fonts-filesystem                                                              1:2.0.5-12.fc39                              rpm        
 fonts-srpm-macros                                                             1:2.0.5-12.fc39                              rpm        
 forge-srpm-macros                                                             0.2.0-3.fc39                                 rpm        
@@ -262,7 +264,7 @@ github.com/docker/cli                                                         v2
 github.com/docker/cli                                                         v25.0.1+incompatible                         go-module  
 github.com/docker/cli-docs-tool                                               v0.6.0                                       go-module  
 github.com/docker/cli/cmd/docker                                              v25.0.3                                      go-module  
-github.com/docker/compose/v2                                                  (devel)                                      go-module  
+github.com/docker/compose/v2                                                  v2.24.5                                      go-module  
 github.com/docker/distribution                                                v2.8.2+incompatible                          go-module  
 github.com/docker/distribution                                                v2.8.3+incompatible                          go-module  
 github.com/docker/docker                                                      v24.0.5+incompatible                         go-module  
@@ -392,7 +394,7 @@ github.com/munnerz/goautoneg                                                  v0
 github.com/opencontainers/go-digest                                           v1.0.0                                       go-module  
 github.com/opencontainers/image-spec                                          v1.1.0-rc2.0.20221005185240-3a7f492d3f1b     go-module  
 github.com/opencontainers/image-spec                                          v1.1.0-rc5                                   go-module  
-github.com/opencontainers/runc                                                v0.0.0-20240123131248-51d5e94601ce           go-module  
+github.com/opencontainers/runc                                                1.1.12                                       go-module  
 github.com/opencontainers/runc                                                v1.1.12                                      go-module  
 github.com/opencontainers/runc                                                v1.1.9                                       go-module  
 github.com/opencontainers/runtime-spec                                        v1.0.3-0.20210326190908-1c3f411f0417         go-module  
@@ -474,7 +476,7 @@ gmp                                                                           1:
 gnat-srpm-macros                                                              6-3.fc39                                     rpm        
 gnupg2                                                                        2.4.3-4.fc39                                 rpm        
 gnutls                                                                        3.8.2-2.fc39                                 rpm        
-go-srpm-macros                                                                3.3.1-1.fc39                                 rpm        
+go-srpm-macros                                                                3.4.0-2.fc39                                 rpm        
 go.etcd.io/bbolt                                                              v1.3.7                                       go-module  
 go.etcd.io/etcd/client/pkg/v3                                                 v3.5.6                                       go-module  
 go.etcd.io/etcd/pkg/v3                                                        v3.5.6                                       go-module  
@@ -641,7 +643,7 @@ k8s.io/utils                                                                  v0
 kbd                                                                           2.6.3-1.fc39                                 rpm        
 kbd-legacy                                                                    2.6.3-1.fc39                                 rpm        
 kbd-misc                                                                      2.6.3-1.fc39                                 rpm        
-kclient                                                                       0.3.8                                        npm        
+kclient                                                                       0.3.10                                       npm        
 kernel-headers                                                                6.7.3-200.fc39                               rpm        
 kernel-srpm-macros                                                            1.0-20.fc39                                  rpm        
 keyutils-libs                                                                 1.6.1-7.fc39                                 rpm        
@@ -755,6 +757,8 @@ libinput                                                                      1.
 libjpeg-turbo                                                                 2.1.4-3.fc39                                 rpm        
 libjxl                                                                        1:0.8.2-3.fc39                               rpm        
 libksba                                                                       1.6.4-2.fc39                                 rpm        
+liblc3                                                                        1.0.4-2.fc39                                 rpm        
+libldac                                                                       2.0.2.3-13.fc39                              rpm        
 libldb                                                                        2.8.0-1.fc39                                 rpm        
 liblerc                                                                       4.0.0-4.fc39                                 rpm        
 libmd                                                                         1.1.0-2.fc39                                 rpm        
@@ -787,6 +791,7 @@ libreport-filesystem                                                          2.
 libretls                                                                      3.8.1-1.fc39                                 rpm        
 librsvg2                                                                      2.57.1-1.fc39                                rpm        
 libsamplerate                                                                 0.2.2-5.fc39                                 rpm        
+libsbc                                                                        2.0-3.fc39                                   rpm        
 libseccomp                                                                    2.5.3-6.fc39                                 rpm        
 libselinux                                                                    3.5-5.fc39                                   rpm        
 libselinux-utils                                                              3.5-5.fc39                                   rpm        
@@ -1218,6 +1223,7 @@ perl-vars                                                                     0:
 perl-version                                                                  8:0.99.30-1.fc39                             rpm        
 perl-vmsish                                                                   0:1.04-502.fc39                              rpm        
 perltidy                                                                      20230912-1.fc39                              rpm        
+pipewire-libs                                                                 1.0.3-1.fc39                                 rpm        
 pixman                                                                        0.42.2-2.fc39                                rpm        
 pkgconf                                                                       1.9.5-2.fc39                                 rpm        
 pkgconf-m4                                                                    1.9.5-2.fc39                                 rpm        
@@ -1261,7 +1267,7 @@ python3-libsemanage                                                           3.
 python3-policycoreutils                                                       3.5-8.fc39                                   rpm        
 python3-pyparsing                                                             3.0.9-11.fc39                                rpm        
 python3-pyxdg                                                                 0.27-9.fc39                                  rpm        
-python3-rpm                                                                   4.19.1-2.fc39                                rpm        
+python3-rpm                                                                   4.19.1.1-1.fc39                              rpm        
 python3-setools                                                               4.4.3-1.fc39                                 rpm        
 python3-setuptools                                                            67.7.2-7.fc39                                rpm        
 python3-six                                                                   1.16.0-12.fc39                               rpm        
@@ -1270,9 +1276,9 @@ pyxdg                                                                         0.
 qpdf-libs                                                                     11.6.4-1.fc39                                rpm        
 qs                                                                            6.11.0                                       npm        
 qt-settings                                                                   39.1-1.fc39                                  rpm        
-qt5-qtbase                                                                    5.15.12-1.fc39                               rpm        
-qt5-qtbase-common                                                             5.15.12-1.fc39                               rpm        
-qt5-qtbase-gui                                                                5.15.12-1.fc39                               rpm        
+qt5-qtbase                                                                    5.15.12-5.fc39                               rpm        
+qt5-qtbase-common                                                             5.15.12-5.fc39                               rpm        
+qt5-qtbase-gui                                                                5.15.12-5.fc39                               rpm        
 qt5-qtx11extras                                                               5.15.12-1.fc39                               rpm        
 qt5-srpm-macros                                                               5.15.12-1.fc39                               rpm        
 qt6-qtbase                                                                    6.6.0-6.fc39                                 rpm        
@@ -1287,14 +1293,14 @@ redhat-menus                                                                  12
 redhat-rpm-config                                                             265-1.fc39                                   rpm        
 resenje.org/singleflight                                                      v0.4.1                                       go-module  
 rootfiles                                                                     8.1-34.fc39                                  rpm        
-rpm                                                                           4.19.1                                       python     
-rpm                                                                           4.19.1-2.fc39                                rpm        
-rpm-build-libs                                                                4.19.1-2.fc39                                rpm        
-rpm-libs                                                                      4.19.1-2.fc39                                rpm        
-rpm-plugin-selinux                                                            4.19.1-2.fc39                                rpm        
+rpm                                                                           4.19.1.1                                     python     
+rpm                                                                           4.19.1.1-1.fc39                              rpm        
+rpm-build-libs                                                                4.19.1.1-1.fc39                              rpm        
+rpm-libs                                                                      4.19.1.1-1.fc39                              rpm        
+rpm-plugin-selinux                                                            4.19.1.1-1.fc39                              rpm        
 rpm-sequoia                                                                   1.5.0-2.fc39                                 rpm        
-rpm-sign-libs                                                                 4.19.1-2.fc39                                rpm        
-rpmautospec-rpm-macros                                                        0.6.0-2.fc39                                 rpm        
+rpm-sign-libs                                                                 4.19.1.1-1.fc39                              rpm        
+rpmautospec-rpm-macros                                                        0.6.1-3.fc39                                 rpm        
 rpmfusion-free-release                                                        39-1                                         rpm        
 rpmfusion-nonfree-release                                                     39-1                                         rpm        
 rsvg-pixbuf-loader                                                            2.57.1-1.fc39                                rpm        
@@ -1367,7 +1373,7 @@ tpm2-tss                                                                      4.
 tslib                                                                         1.22-9.fc39                                  rpm        
 twolame-libs                                                                  0.4.0-3.fc39                                 rpm        
 type-is                                                                       1.6.18                                       npm        
-tzdata                                                                        2023d-1.fc39                                 rpm        
+tzdata                                                                        2024a-2.fc39                                 rpm        
 undici-types                                                                  5.26.5                                       npm        
 unpipe                                                                        1.0.0                                        npm        
 unzip                                                                         6.0-62.fc39                                  rpm        
