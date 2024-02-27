@@ -7,7 +7,7 @@ jobs:
   package-trigger-master:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3.1.0
+      - uses: actions/checkout@v4.1.1
 
       - name: Package Trigger
         if: github.ref == 'refs/heads/master'
