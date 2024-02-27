@@ -7,7 +7,7 @@ jobs:
   external-trigger-ubuntu-xfce:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3.1.0
+      - uses: actions/checkout@v4.1.1
 
       - name: External Trigger
         if: github.ref == 'refs/heads/ubuntu-xfce'
