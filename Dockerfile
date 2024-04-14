@@ -1,4 +1,4 @@
-FROM ghcr.io/linuxserver/baseimage-kasmvnc:fedora39
+FROM ghcr.io/linuxserver/baseimage-kasmvnc:fedora40
 
 # set version label
 ARG BUILD_DATE
@@ -18,6 +18,7 @@ RUN \
   dnf install -y --setopt=install_weak_deps=False --best \
     caja \
     chromium \
+    dconf-editor \
     marco \
     mate-control-center \
     mate-desktop \
