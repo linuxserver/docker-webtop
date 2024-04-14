@@ -1,4 +1,4 @@
-FROM ghcr.io/linuxserver/baseimage-kasmvnc:fedora39
+FROM ghcr.io/linuxserver/baseimage-kasmvnc:fedora40
 
 # set version label
 ARG BUILD_DATE
@@ -24,7 +24,6 @@ RUN \
     kde-wallpapers \
     kdialog \
     kfind \
-    khotkeys \
     kmenuedit \
     konsole5 \
     kwrite \
