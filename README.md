@@ -386,6 +386,7 @@ Once registered you can define the dockerfile to use with `-f Dockerfile.aarch64
 
 ## Versions
 
+* **14.04.24:** - Rebase Fedora to 40.
 * **11.02.24:** - Add PWA icons and title variants properly.
 * **06.02.24:** - Update Readme about native language support.
 * **29.12.23:** - Rebase Alpine to 3.19 and swap back to Firefox.
