@@ -34,6 +34,8 @@ RUN \
   echo "**** cleanup ****" && \
   apt-get autoclean && \
   rm -rf \
+    /config/.cache \
+    /config/.launchpadlib \
     /var/lib/apt/lists/* \
     /var/tmp/* \
     /tmp/*
