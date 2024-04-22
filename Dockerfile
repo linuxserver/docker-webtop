@@ -1,4 +1,4 @@
-FROM ghcr.io/linuxserver/baseimage-kasmvnc:ubuntujammy
+FROM ghcr.io/linuxserver/baseimage-kasmvnc:ubuntunoble
 
 # set version label
 ARG BUILD_DATE
@@ -34,11 +34,15 @@ RUN \
     knewstuff-dialog \
     konsole \
     ksystemstats \
+    kubuntu-settings-desktop \
+    kubuntu-wallpapers \
+    kubuntu-web-shortcuts \
     kwin-addons \
     kwin-x11 \
     kwrite \
     plasma-desktop \
     plasma-workspace \
+    plymouth-theme-kubuntu-logo \
     qml-module-qt-labs-platform \
     systemsettings && \
   echo "**** kde tweaks ****" && \
@@ -49,6 +53,7 @@ RUN \
   apt-get autoclean && \
   rm -rf \
     /config/.cache \
+    /config/.launchpadlib \
     /var/lib/apt/lists/* \
     /var/tmp/* \
     /tmp/*
