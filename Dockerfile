@@ -1,4 +1,4 @@
-FROM ghcr.io/linuxserver/baseimage-kasmvnc:ubuntujammy
+FROM ghcr.io/linuxserver/baseimage-kasmvnc:ubuntunoble
 
 # set version label
 ARG BUILD_DATE
@@ -34,6 +34,7 @@ RUN \
   apt-get autoclean && \
   rm -rf \
     /config/.cache \
+    /config/.launchpadlib \
     /var/lib/apt/lists/* \
     /var/tmp/* \
     /tmp/*
