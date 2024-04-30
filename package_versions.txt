@@ -2,7 +2,7 @@ NAME                                                                          VE
 1to2                                                                          1.0.0                                     npm                         
 @fastify/busboy                                                               2.0.0                                     npm                         
 @kasmtech/novnc                                                               1.3.0                                     npm                         
-@socket.io/component-emitter                                                  3.1.1                                     npm                         
+@socket.io/component-emitter                                                  3.1.2                                     npm                         
 @types/busboy                                                                 1.5.0                                     npm                         
 @types/cookie                                                                 0.4.1                                     npm                         
 @types/cors                                                                   2.8.17                                    npm                         
@@ -111,8 +111,8 @@ dirmngr                                                                       2.
 distro                                                                        1.9.0                                     python                      
 distro-info-data                                                              0.60                                      deb                         
 dmsetup                                                                       2:1.02.185-3ubuntu3                       deb                         
-docker-ce                                                                     5:26.0.2-1~ubuntu.24.04~noble             deb                         
-docker-ce-cli                                                                 5:26.0.2-1~ubuntu.24.04~noble             deb                         
+docker-ce                                                                     5:26.1.0-1~ubuntu.24.04~noble             deb                         
+docker-ce-cli                                                                 5:26.1.0-1~ubuntu.24.04~noble             deb                         
 docker-compose-plugin                                                         2.26.1-1~ubuntu.24.04~noble               deb                         
 dpkg                                                                          1.22.6ubuntu6                             deb                         
 e2fsprogs                                                                     1.47.0-2.4~exp1ubuntu3                    deb                         
@@ -132,7 +132,7 @@ file-uri-to-path                                                              1.
 filelist                                                                      1.0.4                                     npm                         
 finalhandler                                                                  1.2.0                                     npm                         
 findutils                                                                     4.9.0-5                                   deb                         
-firefox                                                                       125.0.2+build1-0ubuntu0.24.04.1~mt1       deb                         
+firefox                                                                       125.0.3+build1-0ubuntu0.24.04.1~mt1       deb                         
 fontconfig                                                                    2.15.0-1.1ubuntu2                         deb                         
 fontconfig-config                                                             2.15.0-1.1ubuntu2                         deb                         
 fonts-dejavu-core                                                             2.37-8                                    deb                         
@@ -180,6 +180,7 @@ github.com/aws/aws-sdk-go-v2/service/ssooidc                                  v1
 github.com/aws/aws-sdk-go-v2/service/sts                                      v1.26.7                                   go-module  (+1 duplicate)   
 github.com/aws/smithy-go                                                      v1.19.0                                   go-module  (+1 duplicate)   
 github.com/beorn7/perks                                                       v1.0.1                                    go-module  (+2 duplicates)  
+github.com/bits-and-blooms/bitset                                             v1.13.0                                   go-module                   
 github.com/blang/semver                                                       v3.5.1+incompatible                       go-module                   
 github.com/buger/goterm                                                       v1.0.4                                    go-module                   
 github.com/cenkalti/backoff/v4                                                v4.1.2                                    go-module                   
@@ -229,17 +230,17 @@ github.com/coreos/go-systemd/v22                                              v2
 github.com/cpuguy83/go-md2man/v2                                              v2.0.0                                    go-module  (+1 duplicate)   
 github.com/cpuguy83/go-md2man/v2                                              v2.0.0-20190314233015-f79a8a8ca69d        go-module                   
 github.com/cyphar/filepath-securejoin                                         v0.2.4                                    go-module  (+1 duplicate)   
-github.com/davecgh/go-spew                                                    v1.1.1                                    go-module  (+1 duplicate)   
+github.com/davecgh/go-spew                                                    v1.1.1                                    go-module  (+2 duplicates)  
 github.com/deckarep/golang-set/v2                                             v2.3.0                                    go-module                   
 github.com/dimchansky/utfbom                                                  v1.1.1                                    go-module                   
 github.com/distribution/reference                                             v0.5.0                                    go-module  (+1 duplicate)   
 github.com/docker/buildx                                                      v0.13.1                                   go-module                   
 github.com/docker/cli                                                         v26.0.0+incompatible                      go-module                   
-github.com/docker/cli/cmd/docker                                              v26.0.2                                   go-module                   
+github.com/docker/cli/cmd/docker                                              v26.1.0                                   go-module                   
 github.com/docker/compose/v2                                                  v2.26.1                                   go-module                   
 github.com/docker/distribution                                                v2.8.3+incompatible                       go-module  (+1 duplicate)   
 github.com/docker/docker                                                      v26.0.0+incompatible                      go-module                   
-github.com/docker/docker                                                      v26.0.2                                   go-module  (+1 duplicate)   
+github.com/docker/docker                                                      v26.1.0                                   go-module  (+1 duplicate)   
 github.com/docker/docker-credential-helpers                                   v0.8.0                                    go-module                   
 github.com/docker/go                                                          v1.5.1-1.0.20160303222718-d30aec9fd63c    go-module                   
 github.com/docker/go-connections                                              v0.5.0                                    go-module  (+1 duplicate)   
@@ -335,7 +336,7 @@ github.com/moby/locker                                                        v1
 github.com/moby/patternmatcher                                                v0.6.0                                    go-module  (+1 duplicate)   
 github.com/moby/pubsub                                                        v1.0.0                                    go-module                   
 github.com/moby/spdystream                                                    v0.2.0                                    go-module  (+1 duplicate)   
-github.com/moby/swarmkit/v2                                                   v2.0.0-20240125134710-dcda100a8261        go-module                   
+github.com/moby/swarmkit/v2                                                   v2.0.0-20240412154004-f3ffc0881d0e        go-module                   
 github.com/moby/sys/mount                                                     v0.3.3                                    go-module                   
 github.com/moby/sys/mountinfo                                                 v0.5.0                                    go-module                   
 github.com/moby/sys/mountinfo                                                 v0.6.2                                    go-module  (+4 duplicates)  
@@ -359,7 +360,7 @@ github.com/opencontainers/image-spec                                          v1
 github.com/opencontainers/runc                                                v1.1.12                                   go-module                   
 github.com/opencontainers/runc                                                v1.1.12-0-g51d5e94                        go-module                   
 github.com/opencontainers/runtime-spec                                        v1.0.3-0.20210326190908-1c3f411f0417      go-module  (+5 duplicates)  
-github.com/opencontainers/runtime-spec                                        v1.1.0                                    go-module                   
+github.com/opencontainers/runtime-spec                                        v1.2.0                                    go-module                   
 github.com/opencontainers/runtime-tools                                       v0.9.1-0.20221107090550-2e043c6bd626      go-module                   
 github.com/opencontainers/selinux                                             v1.10.0                                   go-module                   
 github.com/opencontainers/selinux                                             v1.10.1                                   go-module  (+1 duplicate)   
@@ -368,7 +369,7 @@ github.com/package-url/packageurl-go                                          v0
 github.com/pelletier/go-toml                                                  v1.9.5                                    go-module  (+3 duplicates)  
 github.com/philhofer/fwd                                                      v1.1.2                                    go-module                   
 github.com/pkg/errors                                                         v0.9.1                                    go-module  (+6 duplicates)  
-github.com/pmezard/go-difflib                                                 v1.0.0                                    go-module                   
+github.com/pmezard/go-difflib                                                 v1.0.0                                    go-module  (+1 duplicate)   
 github.com/prometheus/client_golang                                           v1.11.1                                   go-module                   
 github.com/prometheus/client_golang                                           v1.17.0                                   go-module  (+1 duplicate)   
 github.com/prometheus/client_model                                            v0.2.0                                    go-module                   
@@ -394,7 +395,7 @@ github.com/spdx/tools-golang                                                  v0
 github.com/spf13/cobra                                                        v1.8.0                                    go-module  (+1 duplicate)   
 github.com/spf13/pflag                                                        v1.0.5                                    go-module  (+2 duplicates)  
 github.com/stefanberger/go-pkcs11uri                                          v0.0.0-20201008174630-78d3cae3a980        go-module                   
-github.com/stretchr/testify                                                   v1.8.4                                    go-module                   
+github.com/stretchr/testify                                                   v1.8.4                                    go-module  (+1 duplicate)   
 github.com/syndtr/gocapability                                                v0.0.0-20200815063812-42c35b437635        go-module  (+1 duplicate)   
 github.com/tchap/go-patricia                                                  v2.2.6+incompatible                       go-module                   
 github.com/theupdateframework/notary                                          v0.7.0                                    go-module                   
@@ -494,7 +495,7 @@ gopkg.in/cenkalti/backoff.v1                                                  v1
 gopkg.in/inf.v0                                                               v0.9.1                                    go-module  (+1 duplicate)   
 gopkg.in/square/go-jose.v2                                                    v2.5.1                                    go-module                   
 gopkg.in/yaml.v2                                                              v2.4.0                                    go-module  (+2 duplicates)  
-gopkg.in/yaml.v3                                                              v3.0.1                                    go-module                   
+gopkg.in/yaml.v3                                                              v3.0.1                                    go-module  (+1 duplicate)   
 gpg                                                                           2.4.4-2ubuntu17                           deb                         
 gpg-agent                                                                     2.4.4-2ubuntu17                           deb                         
 gpg-wks-client                                                                2.4.4-2ubuntu17                           deb                         
@@ -1131,8 +1132,9 @@ systemd-resolved                                                              25
 systemd-sysv                                                                  255.4-1ubuntu8                            deb                         
 systemd-timesyncd                                                             255.4-1ubuntu8                            deb                         
 sysvinit-utils                                                                3.08-6ubuntu2                             deb                         
-tags.cncf.io/container-device-interface                                       v0.6.2                                    go-module  (+1 duplicate)   
-tags.cncf.io/container-device-interface/specs-go                              v0.6.0                                    go-module                   
+tags.cncf.io/container-device-interface                                       v0.6.2                                    go-module                   
+tags.cncf.io/container-device-interface                                       v0.7.1                                    go-module                   
+tags.cncf.io/container-device-interface/specs-go                              v0.7.0                                    go-module                   
 tar                                                                           1.35+dfsg-3build1                         deb                         
 toidentifier                                                                  1.0.1                                     npm                         
 type-is                                                                       1.6.18                                    npm                         
