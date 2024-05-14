@@ -7,7 +7,7 @@ NAME                                                                          VE
 @types/cookie                                                                 0.4.1                                     npm                            
 @types/cors                                                                   2.8.17                                    npm                            
 @types/node                                                                   18.18.14                                  npm                            
-@types/node                                                                   20.12.8                                   npm                            
+@types/node                                                                   20.12.11                                  npm                            
 PyGObject                                                                     3.48.2                                    python                         
 PyJWT                                                                         2.7.0                                     python                         
 PyYAML                                                                        6.0.1                                     python                         
@@ -137,8 +137,8 @@ distro-info                                                                   1.
 distro-info-data                                                              0.60ubuntu0.1                             deb                            
 dmidecode                                                                     3.5-3build1                               deb                            
 dmsetup                                                                       2:1.02.185-3ubuntu3                       deb                            
-docker-ce                                                                     5:26.1.1-1~ubuntu.24.04~noble             deb                            
-docker-ce-cli                                                                 5:26.1.1-1~ubuntu.24.04~noble             deb                            
+docker-ce                                                                     5:26.1.2-1~ubuntu.24.04~noble             deb                            
+docker-ce-cli                                                                 5:26.1.2-1~ubuntu.24.04~noble             deb                            
 docker-compose-plugin                                                         2.27.0-1~ubuntu.24.04~noble               deb                            
 dpkg                                                                          1.22.6ubuntu6                             deb                            
 e2fsprogs                                                                     1.47.0-2.4~exp1ubuntu3                    deb                            
@@ -159,7 +159,7 @@ file-uri-to-path                                                              1.
 filelist                                                                      1.0.4                                     npm                            
 finalhandler                                                                  1.2.0                                     npm                            
 findutils                                                                     4.9.0-5                                   deb                            
-firefox                                                                       125.0.3+build1-0ubuntu0.24.04.1~mt1       deb                            
+firefox                                                                       126.0+build2-0ubuntu0.24.04.1~mt1         deb                            
 fontconfig                                                                    2.15.0-1.1ubuntu2                         deb                            
 fontconfig-config                                                             2.15.0-1.1ubuntu2                         deb                            
 fonts-dejavu-core                                                             2.37-8                                    deb                            
@@ -185,7 +185,7 @@ gir1.2-atk-1.0                                                                2.
 gir1.2-freedesktop                                                            1.80.1-1                                  deb                            
 gir1.2-gdkpixbuf-2.0                                                          2.42.10+dfsg-3ubuntu3                     deb                            
 gir1.2-girepository-2.0                                                       1.80.1-1                                  deb                            
-gir1.2-glib-2.0                                                               2.80.0-6ubuntu1                           deb                            
+gir1.2-glib-2.0                                                               2.80.0-6ubuntu3.1                         deb                            
 gir1.2-gtk-3.0                                                                3.24.41-4ubuntu1                          deb                            
 gir1.2-gtksource-4                                                            4.8.4-5build4                             deb                            
 gir1.2-handy-1                                                                1.8.3-1build2                             deb                            
@@ -283,11 +283,11 @@ github.com/distribution/reference                                             v0
 github.com/distribution/reference                                             v0.6.0                                    go-module                      
 github.com/docker/buildx                                                      v0.14.0                                   go-module                      
 github.com/docker/cli                                                         v26.1.0+incompatible                      go-module                      
-github.com/docker/cli/cmd/docker                                              v26.1.1                                   go-module                      
+github.com/docker/cli/cmd/docker                                              v26.1.2                                   go-module                      
 github.com/docker/compose/v2                                                  v2.27.0                                   go-module                      
 github.com/docker/distribution                                                v2.8.3+incompatible                       go-module     (+1 duplicate)   
 github.com/docker/docker                                                      v26.1.0+incompatible                      go-module                      
-github.com/docker/docker                                                      v26.1.1                                   go-module     (+1 duplicate)   
+github.com/docker/docker                                                      v26.1.2                                   go-module     (+1 duplicate)   
 github.com/docker/docker-credential-helpers                                   v0.8.0                                    go-module                      
 github.com/docker/go                                                          v1.5.1-1.0.20160303222718-d30aec9fd63c    go-module                      
 github.com/docker/go-connections                                              v0.5.0                                    go-module     (+1 duplicate)   
@@ -807,9 +807,9 @@ libglapi-mesa                                                                 24
 libgles2                                                                      1.7.0-1build1                             deb                            
 libglib-object-introspection-perl                                             0.051-1build3                             deb                            
 libglib-perl                                                                  3:1.329.3-3build3                         deb                            
-libglib2.0-0t64                                                               2.80.0-6ubuntu1                           deb                            
-libglib2.0-bin                                                                2.80.0-6ubuntu1                           deb                            
-libglib2.0-data                                                               2.80.0-6ubuntu1                           deb                            
+libglib2.0-0t64                                                               2.80.0-6ubuntu3.1                         deb                            
+libglib2.0-bin                                                                2.80.0-6ubuntu3.1                         deb                            
+libglib2.0-data                                                               2.80.0-6ubuntu3.1                         deb                            
 libglu1-mesa                                                                  9.0.2-1.1build1                           deb                            
 libglvnd0                                                                     1.7.0-1build1                             deb                            
 libglx-mesa0                                                                  24.0.5-1ubuntu1                           deb                            
@@ -1361,7 +1361,7 @@ python-apt-common                                                             2.
 python-dateutil                                                               2.8.2                                     python                         
 python-debian                                                                 0.1.49+ubuntu2                            python                         
 python3                                                                       3.12.3-0ubuntu1                           deb                            
-python3-apport                                                                2.28.1-0ubuntu2                           deb                            
+python3-apport                                                                2.28.1-0ubuntu3                           deb                            
 python3-apt                                                                   2.7.7ubuntu1                              deb                            
 python3-aptdaemon                                                             1.1.1+bzr982-0ubuntu44                    deb                            
 python3-aptdaemon.gtk3widgets                                                 1.1.1+bzr982-0ubuntu44                    deb                            
@@ -1390,7 +1390,7 @@ python3-lazr.uri                                                              1.
 python3-minimal                                                               3.12.3-0ubuntu1                           deb                            
 python3-oauthlib                                                              3.2.2-1                                   deb                            
 python3-pkg-resources                                                         68.1.2-2ubuntu1                           deb                            
-python3-problem-report                                                        2.28.1-0ubuntu2                           deb                            
+python3-problem-report                                                        2.28.1-0ubuntu3                           deb                            
 python3-pyparsing                                                             3.1.1-1                                   deb                            
 python3-requests                                                              2.31.0+dfsg-1ubuntu1                      deb                            
 python3-six                                                                   1.16.0-4                                  deb                            
@@ -1437,7 +1437,8 @@ sound-theme-freedesktop                                                       0.
 spice-vdagent                                                                 0.22.1-4build3                            deb                            
 ssl-cert                                                                      1.1.2ubuntu1                              deb                            
 statuses                                                                      2.0.1                                     npm                            
-stdlib                                                                        go1.21.9                                  go-module     (+9 duplicates)  
+stdlib                                                                        go1.21.10                                 go-module     (+2 duplicates)  
+stdlib                                                                        go1.21.9                                  go-module     (+6 duplicates)  
 streamsearch                                                                  1.1.0                                     npm                            
 sudo                                                                          1.9.15p5-3ubuntu5                         deb                            
 supports-color                                                                7.2.0                                     npm                            
