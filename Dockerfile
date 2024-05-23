@@ -1,4 +1,4 @@
-FROM ghcr.io/linuxserver/baseimage-kasmvnc:alpine319
+FROM ghcr.io/linuxserver/baseimage-kasmvnc:alpine320
 
 # set version label
 ARG BUILD_DATE
@@ -22,10 +22,9 @@ RUN \
     kwrite \
     breeze \
     breeze-gtk \
-    breeze-icons5 \
+    breeze-icons \
     firefox \
     kde-gtk-config \
-    khotkeys \
     kmenuedit \
     plasma-browser-integration \
     plasma-desktop \
