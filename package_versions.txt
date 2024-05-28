@@ -53,8 +53,8 @@ bluez-libs                                                                    5.
 body-parser                                                                   1.20.2                                              npm                         
 brace-expansion                                                               1.1.11                                              npm                         
 brace-expansion                                                               2.0.1                                               npm                         
-breeze-cursor-theme                                                           6.0.4-1.fc40                                        rpm                         
-breeze-gtk-common                                                             6.0.4.1-1.fc40                                      rpm                         
+breeze-cursor-theme                                                           6.0.5-1.fc40                                        rpm                         
+breeze-gtk-common                                                             6.0.5-1.fc40                                        rpm                         
 breeze-icon-theme                                                             6.2.0-1.fc40                                        rpm                         
 busybox                                                                       1:1.36.1-7.fc40                                     rpm                         
 bytes                                                                         3.1.2                                               npm                         
@@ -84,7 +84,7 @@ colord                                                                        1.
 colord-libs                                                                   1.4.7-3.fc40                                        rpm                         
 concat-map                                                                    0.0.1                                               npm                         
 container-selinux                                                             2:2.231.0-1.fc40                                    rpm                         
-containerd.io                                                                 1.6.31-3.1.fc40                                     rpm                         
+containerd.io                                                                 1.6.32-3.1.fc40                                     rpm                         
 content-disposition                                                           0.5.4                                               npm                         
 content-type                                                                  1.0.5                                               npm                         
 cookie                                                                        0.4.2                                               npm                         
@@ -220,7 +220,7 @@ github.com/AlecAivazis/survey/v2                                              v2
 github.com/Graylog2/go-gelf                                                   v0.0.0-20191017102106-1550ee647df0                  go-module                   
 github.com/Masterminds/semver/v3                                              v3.2.1                                              go-module  (+1 duplicate)   
 github.com/Microsoft/hcsshim                                                  v0.11.4                                             go-module                   
-github.com/Microsoft/hcsshim                                                  v0.9.10                                             go-module  (+1 duplicate)   
+github.com/Microsoft/hcsshim                                                  v0.9.11                                             go-module  (+1 duplicate)   
 github.com/RackSec/srslog                                                     v0.0.0-20180709174129-a4725f04ec91                  go-module                   
 github.com/acarl005/stripansi                                                 v0.0.0-20180116102854-5a71ef0e047d                  go-module                   
 github.com/agext/levenshtein                                                  v1.2.3                                              go-module  (+1 duplicate)   
@@ -264,7 +264,7 @@ github.com/containerd/cgroups                                                 v1
 github.com/containerd/cgroups/v3                                              v3.0.3                                              go-module                   
 github.com/containerd/console                                                 v1.0.3                                              go-module  (+5 duplicates)  
 github.com/containerd/console                                                 v1.0.4                                              go-module  (+2 duplicates)  
-github.com/containerd/containerd                                              v1.6.31                                             go-module  (+4 duplicates)  
+github.com/containerd/containerd                                              v1.6.32                                             go-module  (+4 duplicates)  
 github.com/containerd/containerd                                              v1.7.15                                             go-module  (+1 duplicate)   
 github.com/containerd/containerd                                              v1.7.16                                             go-module                   
 github.com/containerd/continuity                                              v0.3.0                                              go-module  (+3 duplicates)  
@@ -275,7 +275,7 @@ github.com/containerd/go-cni                                                  v1
 github.com/containerd/go-cni                                                  v1.1.9                                              go-module                   
 github.com/containerd/go-runc                                                 v1.0.0                                              go-module  (+4 duplicates)  
 github.com/containerd/go-runc                                                 v1.1.0                                              go-module                   
-github.com/containerd/imgcrypt                                                v1.1.4                                              go-module                   
+github.com/containerd/imgcrypt                                                v1.1.8                                              go-module                   
 github.com/containerd/log                                                     v0.1.0                                              go-module  (+8 duplicates)  
 github.com/containerd/nri                                                     v0.1.1                                              go-module                   
 github.com/containerd/nydus-snapshotter                                       v0.13.7                                             go-module                   
@@ -289,7 +289,7 @@ github.com/containernetworking/cni                                            v1
 github.com/containernetworking/cni                                            v1.1.2                                              go-module                   
 github.com/containernetworking/plugins                                        v1.1.1                                              go-module                   
 github.com/containernetworking/plugins                                        v1.4.0                                              go-module                   
-github.com/containers/ocicrypt                                                v1.1.3                                              go-module                   
+github.com/containers/ocicrypt                                                v1.1.10                                             go-module                   
 github.com/coreos/go-systemd/v22                                              v22.3.2                                             go-module  (+4 duplicates)  
 github.com/coreos/go-systemd/v22                                              v22.5.0                                             go-module                   
 github.com/cpuguy83/go-md2man/v2                                              v2.0.0                                              go-module  (+1 duplicate)   
@@ -332,6 +332,7 @@ github.com/fsnotify/fsnotify                                                  v1
 github.com/fsnotify/fsnotify                                                  v1.6.0                                              go-module                   
 github.com/fvbommel/sortorder                                                 v1.0.1                                              go-module                   
 github.com/fvbommel/sortorder                                                 v1.0.2                                              go-module                   
+github.com/go-jose/go-jose/v3                                                 v3.0.3                                              go-module                   
 github.com/go-logr/logr                                                       v1.3.0                                              go-module  (+3 duplicates)  
 github.com/go-logr/stdr                                                       v1.2.2                                              go-module  (+3 duplicates)  
 github.com/go-openapi/jsonpointer                                             v0.19.6                                             go-module  (+1 duplicate)   
@@ -431,8 +432,7 @@ github.com/mrunalp/fileutils                                                  v0
 github.com/munnerz/goautoneg                                                  v0.0.0-20191010083416-a7dc8b61c822                  go-module  (+1 duplicate)   
 github.com/mxk/go-flowrate                                                    v0.0.0-20140419014527-cca7078d478f                  go-module  (+1 duplicate)   
 github.com/opencontainers/go-digest                                           v1.0.0                                              go-module  (+7 duplicates)  
-github.com/opencontainers/image-spec                                          v1.1.0                                              go-module                   
-github.com/opencontainers/image-spec                                          v1.1.0-rc2.0.20221005185240-3a7f492d3f1b            go-module  (+3 duplicates)  
+github.com/opencontainers/image-spec                                          v1.1.0                                              go-module  (+4 duplicates)  
 github.com/opencontainers/image-spec                                          v1.1.0-rc5                                          go-module  (+1 duplicate)   
 github.com/opencontainers/runc                                                v1.1.12                                             go-module                   
 github.com/opencontainers/runc                                                v1.1.12-0-g51d5e94                                  go-module                   
@@ -471,7 +471,7 @@ github.com/skratchdot/open-golang                                             v0
 github.com/spdx/tools-golang                                                  v0.5.3                                              go-module                   
 github.com/spf13/cobra                                                        v1.8.0                                              go-module  (+2 duplicates)  
 github.com/spf13/pflag                                                        v1.0.5                                              go-module  (+3 duplicates)  
-github.com/stefanberger/go-pkcs11uri                                          v0.0.0-20201008174630-78d3cae3a980                  go-module                   
+github.com/stefanberger/go-pkcs11uri                                          v0.0.0-20230803200340-78284954bff6                  go-module                   
 github.com/stretchr/testify                                                   v1.8.4                                              go-module  (+1 duplicate)   
 github.com/stretchr/testify                                                   v1.9.0                                              go-module                   
 github.com/syndtr/gocapability                                                v0.0.0-20200815063812-42c35b437635                  go-module  (+1 duplicate)   
@@ -551,25 +551,21 @@ go.uber.org/mock                                                              v0
 go.uber.org/multierr                                                          v1.8.0                                              go-module                   
 go.uber.org/zap                                                               v1.21.0                                             go-module                   
 gobject-introspection                                                         1.80.1-1.fc40                                       rpm                         
-golang.org/x/crypto                                                           v0.18.0                                             go-module                   
-golang.org/x/crypto                                                           v0.21.0                                             go-module  (+2 duplicates)  
+golang.org/x/crypto                                                           v0.21.0                                             go-module  (+3 duplicates)  
 golang.org/x/exp                                                              v0.0.0-20231006140011-7918f672742d                  go-module                   
 golang.org/x/exp                                                              v0.0.0-20240112132812-db7319d0e0e3                  go-module  (+1 duplicate)   
 golang.org/x/mod                                                              v0.13.0                                             go-module                   
-golang.org/x/net                                                              v0.18.0                                             go-module  (+1 duplicate)   
-golang.org/x/net                                                              v0.23.0                                             go-module  (+2 duplicates)  
+golang.org/x/net                                                              v0.23.0                                             go-module  (+4 duplicates)  
 golang.org/x/net                                                              v0.8.0                                              go-module                   
 golang.org/x/oauth2                                                           v0.11.0                                             go-module  (+3 duplicates)  
 golang.org/x/sync                                                             v0.3.0                                              go-module  (+3 duplicates)  
 golang.org/x/sync                                                             v0.5.0                                              go-module                   
 golang.org/x/sync                                                             v0.6.0                                              go-module                   
 golang.org/x/sync                                                             v0.7.0                                              go-module                   
-golang.org/x/sys                                                              v0.16.0                                             go-module  (+4 duplicates)  
-golang.org/x/sys                                                              v0.18.0                                             go-module  (+2 duplicates)  
+golang.org/x/sys                                                              v0.18.0                                             go-module  (+7 duplicates)  
 golang.org/x/sys                                                              v0.19.0                                             go-module                   
 golang.org/x/sys                                                              v0.6.0                                              go-module                   
-golang.org/x/term                                                             v0.16.0                                             go-module                   
-golang.org/x/term                                                             v0.18.0                                             go-module  (+1 duplicate)   
+golang.org/x/term                                                             v0.18.0                                             go-module  (+2 duplicates)  
 golang.org/x/text                                                             v0.14.0                                             go-module  (+4 duplicates)  
 golang.org/x/time                                                             v0.0.0-20210723032227-1f47c861a9ac                  go-module                   
 golang.org/x/time                                                             v0.3.0                                              go-module  (+2 duplicates)  
@@ -592,9 +588,8 @@ google.golang.org/protobuf                                                    v1
 gopd                                                                          1.0.1                                               npm                         
 gopkg.in/cenkalti/backoff.v1                                                  v1.1.0                                              go-module                   
 gopkg.in/inf.v0                                                               v0.9.1                                              go-module  (+2 duplicates)  
-gopkg.in/square/go-jose.v2                                                    v2.5.1                                              go-module                   
 gopkg.in/yaml.v2                                                              v2.4.0                                              go-module  (+3 duplicates)  
-gopkg.in/yaml.v3                                                              v3.0.1                                              go-module  (+2 duplicates)  
+gopkg.in/yaml.v3                                                              v3.0.1                                              go-module  (+3 duplicates)  
 gperftools-libs                                                               2.14-3.fc40                                         rpm                         
 gpg-pubkey                                                                    621e9f35-58ade481                                   rpm                         
 gpg-pubkey                                                                    94843c65-5dadbc64                                   rpm                         
@@ -675,22 +670,22 @@ k8s.io/kube-openapi                                                           v0
 k8s.io/utils                                                                  v0.0.0-20210930125809-cb0fa318a74b                  go-module                   
 k8s.io/utils                                                                  v0.0.0-20230726121419-3b25d923346b                  go-module  (+1 duplicate)   
 kaccounts-integration-qt6                                                     24.02.2-3.fc40                                      rpm                         
-kactivitymanagerd                                                             6.0.4-1.fc40                                        rpm                         
+kactivitymanagerd                                                             6.0.5-1.fc40                                        rpm                         
 kate-libs                                                                     24.02.2-2.fc40                                      rpm                         
 kbd                                                                           2.6.4-3.fc40                                        rpm                         
 kbd-legacy                                                                    2.6.4-3.fc40                                        rpm                         
 kbd-misc                                                                      2.6.4-3.fc40                                        rpm                         
 kclient                                                                       0.3.10                                              npm                         
-kde-cli-tools                                                                 6.0.4-1.fc40                                        rpm                         
+kde-cli-tools                                                                 6.0.5-1.fc40                                        rpm                         
 kde-filesystem                                                                5-3.fc40                                            rpm                         
-kde-gtk-config                                                                6.0.4-1.fc40                                        rpm                         
+kde-gtk-config                                                                6.0.5-1.fc40                                        rpm                         
 kde-settings                                                                  40.0-1.fc40                                         rpm                         
 kde-settings-plasma                                                           40.0-1.fc40                                         rpm                         
 kde-settings-pulseaudio                                                       40.0-1.fc40                                         rpm                         
 kde-wallpapers                                                                15.08.3-20.fc40                                     rpm                         
-kdecoration                                                                   6.0.4-1.fc40                                        rpm                         
+kdecoration                                                                   6.0.5-1.fc40                                        rpm                         
 kdegraphics-mobipocket                                                        24.02.2-1.fc40                                      rpm                         
-kdesu                                                                         1:6.0.4-1.fc40                                      rpm                         
+kdesu                                                                         1:6.0.5-1.fc40                                      rpm                         
 kdialog                                                                       24.02.2-1.fc40                                      rpm                         
 kdsoap-ws-discovery-client                                                    0.4.0-1.fc40                                        rpm                         
 kdsoap6                                                                       2.2.0-4.fc40                                        rpm                         
@@ -804,9 +799,9 @@ kf6-ksvg                                                                      6.
 kf6-ktexteditor                                                               6.2.0-1.fc40                                        rpm                         
 kf6-ktextwidgets                                                              6.2.0-1.fc40                                        rpm                         
 kf6-kuserfeedback                                                             6.2.0-1.fc40                                        rpm                         
-kf6-kwallet                                                                   6.2.0-1.fc40                                        rpm                         
-kf6-kwallet-libs                                                              6.2.0-1.fc40                                        rpm                         
-kf6-kwidgetsaddons                                                            6.2.0-1.fc40                                        rpm                         
+kf6-kwallet                                                                   6.2.1-1.fc40                                        rpm                         
+kf6-kwallet-libs                                                              6.2.1-1.fc40                                        rpm                         
+kf6-kwidgetsaddons                                                            6.2.2-1.fc40                                        rpm                         
 kf6-kwindowsystem                                                             6.2.0-1.fc40                                        rpm                         
 kf6-kxmlgui                                                                   6.2.0-1.fc40                                        rpm                         
 kf6-networkmanager-qt                                                         6.2.0-1.fc40                                        rpm                         
@@ -817,31 +812,31 @@ kf6-sonnet                                                                    6.
 kf6-syndication                                                               6.2.0-1.fc40                                        rpm                         
 kf6-syntax-highlighting                                                       6.2.0-1.fc40                                        rpm                         
 kfind                                                                         24.02.2-1.fc40                                      rpm                         
-kglobalacceld                                                                 6.0.4-1.fc40                                        rpm                         
+kglobalacceld                                                                 6.0.5-1.fc40                                        rpm                         
 kio-extras                                                                    24.02.2-1.fc40                                      rpm                         
 kio-fuse                                                                      5.1.0-5.fc40                                        rpm                         
-kmenuedit                                                                     6.0.4-1.fc40                                        rpm                         
+kmenuedit                                                                     6.0.5-1.fc40                                        rpm                         
 kmod                                                                          31-5.fc40                                           rpm                         
 kmod-libs                                                                     31-5.fc40                                           rpm                         
 konsole                                                                       24.02.2-1.fc40                                      rpm                         
 konsole-part                                                                  24.02.2-1.fc40                                      rpm                         
-kpipewire                                                                     6.0.4-1.fc40                                        rpm                         
+kpipewire                                                                     6.0.5-1.fc40                                        rpm                         
 krb5-libs                                                                     1.21.2-5.fc40                                       rpm                         
-kscreenlocker                                                                 6.0.4-1.fc40                                        rpm                         
-ksystemstats                                                                  6.0.4-1.fc40                                        rpm                         
-kwayland                                                                      6.0.4-1.fc40                                        rpm                         
-kwayland-integration                                                          6.0.4-1.fc40                                        rpm                         
-kwin                                                                          6.0.4.1-4.fc40                                      rpm                         
-kwin-common                                                                   6.0.4.1-4.fc40                                      rpm                         
-kwin-libs                                                                     6.0.4.1-4.fc40                                      rpm                         
-kwin-wayland                                                                  6.0.4.1-4.fc40                                      rpm                         
-kwin-x11                                                                      6.0.4.1-3.fc40                                      rpm                         
+kscreenlocker                                                                 6.0.5-1.fc40                                        rpm                         
+ksystemstats                                                                  6.0.5-1.fc40                                        rpm                         
+kwayland                                                                      6.0.5-1.fc40                                        rpm                         
+kwayland-integration                                                          6.0.5-1.fc40                                        rpm                         
+kwin                                                                          6.0.5-1.fc40                                        rpm                         
+kwin-common                                                                   6.0.5-1.fc40                                        rpm                         
+kwin-libs                                                                     6.0.5-1.fc40                                        rpm                         
+kwin-wayland                                                                  6.0.5-1.fc40                                        rpm                         
+kwin-x11                                                                      6.0.5-1.fc40                                        rpm                         
 kwrite                                                                        24.02.2-2.fc40                                      rpm                         
-kwrited                                                                       6.0.4-1.fc40                                        rpm                         
+kwrited                                                                       6.0.5-1.fc40                                        rpm                         
 kyotocabinet-libs                                                             1.2.80-5.fc40                                       rpm                         
 ladspa                                                                        1.17-4.fc40                                         rpm                         
 lame-libs                                                                     3.100-17.fc40                                       rpm                         
-layer-shell-qt                                                                6.0.4-1.fc40                                        rpm                         
+layer-shell-qt                                                                6.0.5-1.fc40                                        rpm                         
 lcms2                                                                         2.16-3.fc40                                         rpm                         
 leptonica                                                                     1.84.1-3.fc40                                       rpm                         
 libICE                                                                        1.1.1-3.fc40                                        rpm                         
@@ -875,7 +870,7 @@ libXxf86vm                                                                    1.
 libaccounts-glib                                                              1.25-13.fc39                                        rpm                         
 libaccounts-qt6                                                               1.16^20231010.211051.29fd38e-4.fc40                 rpm                         
 libacl                                                                        2.3.2-1.fc40                                        rpm                         
-libaom                                                                        3.8.2-1.fc40                                        rpm                         
+libaom                                                                        3.9.0-1.fc40                                        rpm                         
 libarchive                                                                    3.7.2-3.fc40                                        rpm                         
 libass                                                                        0.17.1-4.fc40                                       rpm                         
 libassuan                                                                     2.5.7-1.fc40                                        rpm                         
@@ -918,7 +913,7 @@ libdnf                                                                        0.
 libdovi                                                                       3.2.0-3.fc40                                        rpm                         
 libdrm                                                                        2.4.120-3.fc40                                      rpm                         
 libeconf                                                                      0.6.2-1.fc40                                        rpm                         
-libedit                                                                       3.1-50.20230828cvs.fc40                             rpm                         
+libedit                                                                       3.1-51.20240517cvs.fc40                             rpm                         
 libei                                                                         1.2.1-1.fc40                                        rpm                         
 libepoxy                                                                      1.5.10-6.fc40                                       rpm                         
 libevdev                                                                      1.13.1-4.fc40                                       rpm                         
@@ -955,10 +950,10 @@ libjpeg-turbo                                                                 3.
 libjxl                                                                        1:0.8.2-6.fc40                                      rpm                         
 libkexiv2-qt6                                                                 24.02.2-1.fc40                                      rpm                         
 libksba                                                                       1.6.6-1.fc40                                        rpm                         
-libkscreen                                                                    6.0.4-1.fc40                                        rpm                         
-libksysguard                                                                  6.0.4-1.fc40                                        rpm                         
-libksysguard-common                                                           6.0.4-1.fc40                                        rpm                         
-libkworkspace6                                                                6.0.4-1.fc40                                        rpm                         
+libkscreen                                                                    6.0.5-1.fc40                                        rpm                         
+libksysguard                                                                  6.0.5-1.fc40                                        rpm                         
+libksysguard-common                                                           6.0.5-1.fc40                                        rpm                         
+libkworkspace6                                                                6.0.5-1.fc40                                        rpm                         
 liblc3                                                                        1.1.1-1.fc40                                        rpm                         
 libldac                                                                       2.0.2.3-15.fc40                                     rpm                         
 libldb                                                                        2.9.0-1.fc40                                        rpm                         
@@ -988,7 +983,7 @@ libpinyin                                                                     2.
 libpinyin-data                                                                2.8.1-7.fc40                                        rpm                         
 libpkgconf                                                                    2.1.0-1.fc40                                        rpm                         
 libplacebo                                                                    6.338.2-1.fc40                                      rpm                         
-libplasma                                                                     6.0.4-2.fc40                                        rpm                         
+libplasma                                                                     6.0.5-1.fc40                                        rpm                         
 libplist                                                                      2.3.0-4.fc40                                        rpm                         
 libpng                                                                        2:1.6.40-3.fc40                                     rpm                         
 libppd                                                                        1:2.0.0-4.fc40                                      rpm                         
@@ -1092,14 +1087,14 @@ maliit-framework-qt5                                                          2.
 maliit-keyboard                                                               2.3.1-7.fc40                                        rpm                         
 media-typer                                                                   0.3.0                                               npm                         
 merge-descriptors                                                             1.0.1                                               npm                         
-mesa-dri-drivers                                                              24.0.7-3.fc40                                       rpm                         
-mesa-filesystem                                                               24.0.7-3.fc40                                       rpm                         
-mesa-libEGL                                                                   24.0.7-3.fc40                                       rpm                         
-mesa-libGL                                                                    24.0.7-3.fc40                                       rpm                         
-mesa-libgbm                                                                   24.0.7-3.fc40                                       rpm                         
-mesa-libglapi                                                                 24.0.7-3.fc40                                       rpm                         
-mesa-va-drivers                                                               24.0.7-3.fc40                                       rpm                         
-mesa-vulkan-drivers                                                           24.0.7-3.fc40                                       rpm                         
+mesa-dri-drivers                                                              24.0.8-1.fc40                                       rpm                         
+mesa-filesystem                                                               24.0.8-1.fc40                                       rpm                         
+mesa-libEGL                                                                   24.0.8-1.fc40                                       rpm                         
+mesa-libGL                                                                    24.0.8-1.fc40                                       rpm                         
+mesa-libgbm                                                                   24.0.8-1.fc40                                       rpm                         
+mesa-libglapi                                                                 24.0.8-1.fc40                                       rpm                         
+mesa-va-drivers                                                               24.0.8-1.fc40                                       rpm                         
+mesa-vulkan-drivers                                                           24.0.8-1.fc40                                       rpm                         
 methods                                                                       1.1.2                                               npm                         
 mime                                                                          1.6.0                                               npm                         
 mime-db                                                                       1.52.0                                              npm                         
@@ -1140,7 +1135,7 @@ numactl-libs                                                                  2.
 object-assign                                                                 4.1.1                                               npm                         
 object-inspect                                                                1.13.1                                              npm                         
 ocaml-srpm-macros                                                             9-3.fc40                                            rpm                         
-ocean-sound-theme                                                             6.0.4-1.fc40                                        rpm                         
+ocean-sound-theme                                                             6.0.5-1.fc40                                        rpm                         
 ocl-icd                                                                       2.3.2-5.fc40                                        rpm                         
 on-finished                                                                   2.4.1                                               npm                         
 oniguruma                                                                     6.9.9-3.fc40                                        rpm                         
@@ -1449,35 +1444,35 @@ phonon-common                                                                 4.
 phonon-qt6                                                                    4.12.0-5.fc40                                       rpm                         
 pinentry                                                                      1.3.0-2.fc40                                        rpm                         
 pinentry-gnome3                                                               1.3.0-2.fc40                                        rpm                         
-pipewire-libs                                                                 1.0.6-1.fc40                                        rpm                         
+pipewire-libs                                                                 1.0.7-1.fc40                                        rpm                         
 pixman                                                                        0.43.4-1.fc40                                       rpm                         
 pkgconf                                                                       2.1.0-1.fc40                                        rpm                         
 pkgconf-m4                                                                    2.1.0-1.fc40                                        rpm                         
 pkgconf-pkg-config                                                            2.1.0-1.fc40                                        rpm                         
-plasma-activities                                                             6.0.4-1.fc40                                        rpm                         
-plasma-activities-stats                                                       6.0.4-1.fc40                                        rpm                         
-plasma-breeze                                                                 6.0.4-1.fc40                                        rpm                         
-plasma-breeze-common                                                          6.0.4-1.fc40                                        rpm                         
-plasma-breeze-qt5                                                             6.0.4-1.fc40                                        rpm                         
-plasma-breeze-qt6                                                             6.0.4-1.fc40                                        rpm                         
-plasma-desktop                                                                6.0.4-1.fc40                                        rpm                         
-plasma-integration                                                            6.0.4-1.fc40                                        rpm                         
-plasma-integration-qt5                                                        6.0.4-1.fc40                                        rpm                         
-plasma-lookandfeel-fedora                                                     6.0.4-1.fc40                                        rpm                         
-plasma-systemmonitor                                                          6.0.4-1.fc40                                        rpm                         
-plasma-systemsettings                                                         6.0.4-1.fc40                                        rpm                         
-plasma-workspace                                                              6.0.4-1.fc40                                        rpm                         
-plasma-workspace-common                                                       6.0.4-1.fc40                                        rpm                         
-plasma-workspace-geolocation                                                  6.0.4-1.fc40                                        rpm                         
-plasma-workspace-geolocation-libs                                             6.0.4-1.fc40                                        rpm                         
-plasma-workspace-libs                                                         6.0.4-1.fc40                                        rpm                         
-plasma-workspace-wayland                                                      6.0.4-1.fc40                                        rpm                         
-plasma-workspace-x11                                                          6.0.4-1.fc40                                        rpm                         
-plasma5support                                                                6.0.4-1.fc40                                        rpm                         
+plasma-activities                                                             6.0.5-1.fc40                                        rpm                         
+plasma-activities-stats                                                       6.0.5-1.fc40                                        rpm                         
+plasma-breeze                                                                 6.0.5-1.fc40                                        rpm                         
+plasma-breeze-common                                                          6.0.5-1.fc40                                        rpm                         
+plasma-breeze-qt5                                                             6.0.5-1.fc40                                        rpm                         
+plasma-breeze-qt6                                                             6.0.5-1.fc40                                        rpm                         
+plasma-desktop                                                                6.0.5-1.fc40                                        rpm                         
+plasma-integration                                                            6.0.5-1.fc40                                        rpm                         
+plasma-integration-qt5                                                        6.0.5-1.fc40                                        rpm                         
+plasma-lookandfeel-fedora                                                     6.0.5-1.fc40                                        rpm                         
+plasma-systemmonitor                                                          6.0.5-1.fc40                                        rpm                         
+plasma-systemsettings                                                         6.0.5-1.fc40                                        rpm                         
+plasma-workspace                                                              6.0.5-1.fc40                                        rpm                         
+plasma-workspace-common                                                       6.0.5-1.fc40                                        rpm                         
+plasma-workspace-geolocation                                                  6.0.5-1.fc40                                        rpm                         
+plasma-workspace-geolocation-libs                                             6.0.5-1.fc40                                        rpm                         
+plasma-workspace-libs                                                         6.0.5-1.fc40                                        rpm                         
+plasma-workspace-wayland                                                      6.0.5-1.fc40                                        rpm                         
+plasma-workspace-x11                                                          6.0.5-1.fc40                                        rpm                         
+plasma5support                                                                6.0.5-1.fc40                                        rpm                         
 policycoreutils                                                               3.6-3.fc40                                          rpm                         
 policycoreutils-python-utils                                                  3.6-3.fc40                                          rpm                         
 polkit                                                                        124-2.fc40                                          rpm                         
-polkit-kde                                                                    6.0.4-1.fc40                                        rpm                         
+polkit-kde                                                                    6.0.5-1.fc40                                        rpm                         
 polkit-libs                                                                   124-2.fc40                                          rpm                         
 polkit-pkla-compat                                                            0.1-28.fc40                                         rpm                         
 polkit-qt5-1                                                                  0.200.0-1.fc40                                      rpm                         
@@ -1488,7 +1483,7 @@ poppler-data                                                                  0.
 poppler-qt6                                                                   24.02.0-2.fc40                                      rpm                         
 poppler-utils                                                                 24.02.0-2.fc40                                      rpm                         
 popt                                                                          1.19-6.fc40                                         rpm                         
-powerdevil                                                                    6.0.4-1.fc40                                        rpm                         
+powerdevil                                                                    6.0.5-1.fc40                                        rpm                         
 procps-ng                                                                     4.0.4-3.fc40                                        rpm                         
 proxy-addr                                                                    2.0.7                                               npm                         
 publicsuffix-list-dafsa                                                       20240107-3.fc40                                     rpm                         
@@ -1531,7 +1526,7 @@ pyxdg                                                                         0.
 qaccessibilityclient-qt6                                                      0.6.0-1.fc40                                        rpm                         
 qca-qt6                                                                       2.3.8-1.fc40                                        rpm                         
 qpdf-libs                                                                     11.9.0-1.fc40                                       rpm                         
-qqc2-breeze-style                                                             6.0.4-1.fc40                                        rpm                         
+qqc2-breeze-style                                                             6.0.5-1.fc40                                        rpm                         
 qrencode-libs                                                                 4.1.1-7.fc40                                        rpm                         
 qs                                                                            6.11.0                                              npm                         
 qt-settings                                                                   40.0-1.fc40                                         rpm                         
@@ -1638,8 +1633,8 @@ sratom                                                                        0.
 srt-libs                                                                      1.5.3-2.fc40                                        rpm                         
 startup-notification                                                          0.12-29.fc40                                        rpm                         
 statuses                                                                      2.0.1                                               npm                         
-stdlib                                                                        go1.21.10                                           go-module  (+2 duplicates)  
-stdlib                                                                        go1.21.9                                            go-module  (+7 duplicates)  
+stdlib                                                                        go1.21.10                                           go-module  (+8 duplicates)  
+stdlib                                                                        go1.21.9                                            go-module  (+1 duplicate)   
 sudo                                                                          1.9.15-2.p5.fc40                                    rpm                         
 supports-color                                                                7.2.0                                               npm                         
 svt-av1-libs                                                                  1.4.1-5.fc40                                        rpm                         
@@ -1707,7 +1702,7 @@ xcb-util-renderutil                                                           0.
 xcb-util-wm                                                                   0.4.2-5.fc40                                        rpm                         
 xdg-desktop-portal                                                            1.18.4-1.fc40                                       rpm                         
 xdg-desktop-portal-gtk                                                        1.15.1-5.fc40                                       rpm                         
-xdg-desktop-portal-kde                                                        6.0.4-1.fc40                                        rpm                         
+xdg-desktop-portal-kde                                                        6.0.5-1.fc40                                        rpm                         
 xdg-user-dirs                                                                 0.18-4.fc40                                         rpm                         
 xdg-utils                                                                     1.2.1-1.fc40                                        rpm                         
 xkbcomp                                                                       1.4.7-1.fc40                                        rpm                         
