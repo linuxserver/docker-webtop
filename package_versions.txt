@@ -35,8 +35,8 @@ busybox                                                                       1.
 busybox-binsh                                                                 1.36.1-r29                                          apk                         
 bytes                                                                         3.1.2                                               npm                         
 c-ares                                                                        1.28.1-r0                                           apk                         
-ca-certificates                                                               20240226-r0                                         apk                         
-ca-certificates-bundle                                                        20240226-r0                                         apk                         
+ca-certificates                                                               20240705-r0                                         apk                         
+ca-certificates-bundle                                                        20240705-r0                                         apk                         
 cairo                                                                         1.18.0-r0                                           apk                         
 cairo-gobject                                                                 1.18.0-r0                                           apk                         
 call-bind                                                                     1.0.7                                               npm                         
@@ -52,7 +52,7 @@ code.cloudfoundry.org/clock                                                   v1
 color-convert                                                                 2.0.1                                               npm                         
 color-name                                                                    1.1.4                                               npm                         
 concat-map                                                                    0.0.1                                               npm                         
-containerd                                                                    1.7.17-r1                                           apk                         
+containerd                                                                    1.7.17-r2                                           apk                         
 content-disposition                                                           0.5.4                                               npm                         
 content-type                                                                  1.0.5                                               npm                         
 cookie                                                                        0.4.2                                               npm                         
@@ -82,11 +82,11 @@ desktop-file-utils                                                            0.
 destroy                                                                       1.2.0                                               npm                         
 directfb                                                                      1.7.7-r8                                            apk                         
 dmesg                                                                         2.40.1-r1                                           apk                         
-docker                                                                        26.1.3-r1                                           apk                         
-docker-cli                                                                    26.1.3-r1                                           apk                         
-docker-cli-buildx                                                             0.14.0-r2                                           apk                         
-docker-cli-compose                                                            2.27.0-r2                                           apk                         
-docker-engine                                                                 26.1.3-r1                                           apk                         
+docker                                                                        26.1.3-r2                                           apk                         
+docker-cli                                                                    26.1.3-r2                                           apk                         
+docker-cli-buildx                                                             0.14.0-r3                                           apk                         
+docker-cli-compose                                                            2.27.0-r3                                           apk                         
+docker-engine                                                                 26.1.3-r2                                           apk                         
 duktape                                                                       2.7.0-r1                                            apk                         
 ee-first                                                                      1.1.1                                               npm                         
 ejs                                                                           3.1.10                                              npm                         
@@ -94,7 +94,7 @@ enchant2-libs                                                                 2.
 encodeurl                                                                     1.0.2                                               npm                         
 encodings                                                                     1.0.7-r1                                            apk                         
 engine.io                                                                     6.5.5                                               npm                         
-engine.io-parser                                                              5.2.2                                               npm                         
+engine.io-parser                                                              5.2.3                                               npm                         
 es-define-property                                                            1.0.0                                               npm                         
 es-errors                                                                     1.3.0                                               npm                         
 escape-html                                                                   1.0.3                                               npm                         
@@ -605,7 +605,7 @@ libbsd                                                                        0.
 libbz2                                                                        1.0.8-r6                                            apk                         
 libcap-ng                                                                     0.8.5-r0                                            apk                         
 libcap2                                                                       2.70-r0                                             apk                         
-libcrypto3                                                                    3.3.1-r1                                            apk                         
+libcrypto3                                                                    3.3.1-r3                                            apk                         
 libcurl                                                                       8.8.0-r0                                            apk                         
 libdav1d                                                                      1.4.2-r0                                            apk                         
 libdc1394                                                                     2.2.7-r0                                            apk                         
@@ -683,7 +683,7 @@ libsoup3-lang                                                                 3.
 libsrt                                                                        1.5.3-r0                                            apk                         
 libsrtp                                                                       2.5.0-r1                                            apk                         
 libssh                                                                        0.10.6-r0                                           apk                         
-libssl3                                                                       3.3.1-r1                                            apk                         
+libssl3                                                                       3.3.1-r3                                            apk                         
 libstdc++                                                                     13.2.1_git20240309-r0                               apk                         
 libtasn1                                                                      4.19.0-r2                                           apk                         
 libtheora                                                                     1.1.1-r18                                           apk                         
@@ -794,7 +794,7 @@ netcat-openbsd                                                                1.
 nettle                                                                        3.9.1-r0                                            apk                         
 nghttp2-libs                                                                  1.62.1-r0                                           apk                         
 nginx                                                                         1.26.1-r0                                           apk                         
-nodejs                                                                        20.13.1-r0                                          apk                         
+nodejs                                                                        20.15.1-r0                                          apk                         
 nspr                                                                          4.35-r4                                             apk                         
 nss                                                                           3.101-r0                                            apk                         
 numactl                                                                       2.0.18-r0                                           apk                         
@@ -815,7 +815,7 @@ openjpeg                                                                      2.
 openssh-client-common                                                         9.7_p1-r4                                           apk                         
 openssh-client-default                                                        9.7_p1-r4                                           apk                         
 openssh-keygen                                                                9.7_p1-r4                                           apk                         
-openssl                                                                       3.3.1-r1                                            apk                         
+openssl                                                                       3.3.1-r3                                            apk                         
 opus                                                                          1.5.2-r0                                            apk                         
 orc                                                                           0.4.37-r0                                           apk                         
 p11-kit                                                                       0.25.3-r0                                           apk                         
@@ -901,7 +901,7 @@ readline                                                                      8.
 resenje.org/singleflight                                                      v0.4.1                                              go-module                   
 ristretto                                                                     0.13.2-r0                                           apk                         
 ristretto-lang                                                                0.13.2-r0                                           apk                         
-runc                                                                          1.1.12-r4                                           apk                         
+runc                                                                          1.1.12-r5                                           apk                         
 runuser                                                                       2.40.1-r1                                           apk                         
 safe-buffer                                                                   5.2.1                                               npm                         
 safer-buffer                                                                  2.1.2                                               npm                         
@@ -943,7 +943,7 @@ sratom                                                                        0.
 ssl_client                                                                    1.36.1-r29                                          apk                         
 startup-notification                                                          0.12-r7                                             apk                         
 statuses                                                                      2.0.1                                               npm                         
-stdlib                                                                        go1.22.4                                            go-module  (+9 duplicates)  
+stdlib                                                                        go1.22.5                                            go-module  (+9 duplicates)  
 sudo                                                                          1.9.15_p5-r0                                        apk                         
 supports-color                                                                7.2.0                                               npm                         
 tags.cncf.io/container-device-interface                                       v0.6.2                                              go-module                   
