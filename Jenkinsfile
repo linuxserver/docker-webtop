@@ -243,7 +243,7 @@ pipeline {
                   -v ${WORKSPACE}:/mnt \
                   -e AWS_ACCESS_KEY_ID=\"${S3_KEY}\" \
                   -e AWS_SECRET_ACCESS_KEY=\"${S3_SECRET}\" \
-                  ghcr.io/linuxserver/baseimage-alpine:3.19 s6-envdir -fn -- /var/run/s6/container_environment /bin/bash -c "\
+                  ghcr.io/linuxserver/baseimage-alpine:3.20 s6-envdir -fn -- /var/run/s6/container_environment /bin/bash -c "\
                     apk add --no-cache python3 && \
                     python3 -m venv /lsiopy && \
                     pip install --no-cache-dir -U pip && \
@@ -350,7 +350,7 @@ pipeline {
               fi
               echo "Starting Stage 4 - External repo updates: Docs, Unraid Template and Readme Sync to Docker Hub"
               mkdir -p ${TEMPDIR}/docs
-              git clone https://github.com/linuxserver/docker-documentation.git ${TEMPDIR}/docs/docker-documentation
+              git clone --depth=1 https://github.com/linuxserver/docker-documentation.git ${TEMPDIR}/docs/docker-documentation
               if [[ "${BRANCH_NAME}" == "${GH_DEFAULT_BRANCH}"  ]] && [[ (! -f ${TEMPDIR}/docs/docker-documentation/docs/images/docker-${CONTAINER_NAME}.md) || ("$(md5sum ${TEMPDIR}/docs/docker-documentation/docs/images/docker-${CONTAINER_NAME}.md | awk '{ print $1 }')" != "$(md5sum ${TEMPDIR}/docker-${CONTAINER_NAME}/.jenkins-external/docker-${CONTAINER_NAME}.md | awk '{ print $1 }')") ]]; then
                 cp ${TEMPDIR}/docker-${CONTAINER_NAME}/.jenkins-external/docker-${CONTAINER_NAME}.md ${TEMPDIR}/docs/docker-documentation/docs/images/
                 cd ${TEMPDIR}/docs/docker-documentation
@@ -667,7 +667,7 @@ pipeline {
                 set -e
                 docker pull ghcr.io/linuxserver/ci:latest
                 if [ "${MULTIARCH}" == "true" ]; then
-                  docker pull ghcr.io/linuxserver/lsiodev-buildcache:arm64v8-${COMMIT_SHA}-${BUILD_NUMBER}
+                  docker pull ghcr.io/linuxserver/lsiodev-buildcache:arm64v8-${COMMIT_SHA}-${BUILD_NUMBER} --platform=arm64
                   docker tag ghcr.io/linuxserver/lsiodev-buildcache:arm64v8-${COMMIT_SHA}-${BUILD_NUMBER} ${IMAGE}:arm64v8-${META_TAG}
                 fi
                 docker run --rm \
@@ -758,7 +758,7 @@ pipeline {
                   echo $GITLAB_TOKEN | docker login registry.gitlab.com -u LinuxServer.io --password-stdin
                   echo $QUAYPASS | docker login quay.io -u $QUAYUSER --password-stdin
                   if [ "${CI}" == "false" ]; then
-                    docker pull ghcr.io/linuxserver/lsiodev-buildcache:arm64v8-${COMMIT_SHA}-${BUILD_NUMBER}
+                    docker pull ghcr.io/linuxserver/lsiodev-buildcache:arm64v8-${COMMIT_SHA}-${BUILD_NUMBER} --platform=arm64
                     docker tag ghcr.io/linuxserver/lsiodev-buildcache:arm64v8-${COMMIT_SHA}-${BUILD_NUMBER} ${IMAGE}:arm64v8-${META_TAG}
                   fi
                   for MANIFESTIMAGE in "${IMAGE}" "${GITLABIMAGE}" "${GITHUBIMAGE}" "${QUAYIMAGE}"; do
