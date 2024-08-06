@@ -30,9 +30,7 @@ NAME                                                                          VE
 @tufjs/models                                                                 2.0.0                                   npm                          
 @types/cookie                                                                 0.4.1                                   npm                          
 @types/cors                                                                   2.8.17                                  npm                          
-@types/node                                                                   20.14.12                                npm                          
-PyGObject                                                                     3.42.2                                  python                       
-PyJWT                                                                         2.6.0                                   python                       
+@types/node                                                                   22.1.0                                  npm                          
 abbrev                                                                        2.0.0                                   npm                          
 accepts                                                                       1.3.8                                   npm                          
 adduser                                                                       3.134                                   deb                          
@@ -76,9 +74,9 @@ catatonit                                                                     0.
 chalk                                                                         4.1.2                                   npm                          
 chalk                                                                         5.3.0                                   npm                          
 chownr                                                                        2.0.0                                   npm                          
-chromium                                                                      126.0.6478.182-1~deb12u1                deb                          
-chromium-common                                                               126.0.6478.182-1~deb12u1                deb                          
-chromium-l10n                                                                 126.0.6478.182-1~deb12u1                deb                          
+chromium                                                                      127.0.6533.88-1~deb12u1                 deb                          
+chromium-common                                                               127.0.6533.88-1~deb12u1                 deb                          
+chromium-l10n                                                                 127.0.6533.88-1~deb12u1                 deb                          
 ci-info                                                                       4.0.0                                   npm                          
 cidr-regex                                                                    4.0.5                                   npm                          
 clean-stack                                                                   2.2.0                                   npm                          
@@ -150,6 +148,7 @@ docker-ce                                                                     5:
 docker-ce-cli                                                                 5:27.1.1-1~debian.12~bookworm           deb                          
 docker-compose-plugin                                                         2.29.1-1~debian.12~bookworm             deb                          
 dpkg                                                                          1.21.22                                 deb                          
+dunst                                                                         1.9.0-0.1                               deb                          
 e2fsprogs                                                                     1.47.0-2                                deb                          
 eastasianwidth                                                                0.2.0                                   npm                          
 ee-first                                                                      1.1.1                                   npm                          
@@ -284,7 +283,7 @@ github.com/docker/buildx                                                      v0
 github.com/docker/cli                                                         v27.0.3+incompatible                    go-module                    
 github.com/docker/cli                                                         v27.1.0+incompatible                    go-module                    
 github.com/docker/cli-docs-tool                                               v0.8.0                                  go-module  (+1 duplicate)    
-github.com/docker/cli/cmd/docker                                              v27.1.1                                 go-module                    
+github.com/docker/cli/cmd/docker                                              27.1.1                                  go-module                    
 github.com/docker/compose/v2                                                  v2.29.1                                 go-module                    
 github.com/docker/distribution                                                v2.8.2+incompatible                     go-module                    
 github.com/docker/distribution                                                v2.8.3+incompatible                     go-module  (+1 duplicate)    
@@ -634,8 +633,8 @@ k8s.io/utils                                                                  v0
 kclient                                                                       0.4.0                                   npm                          
 keyboard-configuration                                                        1.221                                   deb                          
 krb5-locales                                                                  1.20.1-2+deb12u2                        deb                          
-lazr.restfulclient                                                            0.14.5                                  python                       
-lazr.uri                                                                      1.0.6                                   python                       
+lazr-restfulclient                                                            0.14.5                                  python                       
+lazr-uri                                                                      1.0.6                                   python                       
 libacl1                                                                       2.3.1-3                                 deb                          
 libalgorithm-c3-perl                                                          0.11-2                                  deb                          
 libao-common                                                                  1.2.2+20180113-1.1                      deb                          
@@ -653,7 +652,6 @@ libassuan0                                                                    2.
 libasyncns0                                                                   0.8-6+b3                                deb                          
 libatk-bridge2.0-0                                                            2.46.0-5                                deb                          
 libatk1.0-0                                                                   2.46.0-5                                deb                          
-libatomic1                                                                    12.2.0-14                               deb                          
 libatspi2.0-0                                                                 2.46.0-5                                deb                          
 libattr1                                                                      1:2.5.1-4                               deb                          
 libaudit-common                                                               1:3.0.9-1                               deb                          
@@ -677,6 +675,8 @@ libbrotli1                                                                    1.
 libbs2b0                                                                      3.1.0+dfsg-7                            deb                          
 libbsd0                                                                       0.11.7-2                                deb                          
 libbz2-1.0                                                                    1.0.8-5+b1                              deb                          
+libc++1-16                                                                    1:16.0.6-15~deb12u1                     deb                          
+libc++abi1-16                                                                 1:16.0.6-15~deb12u1                     deb                          
 libc-bin                                                                      2.36-9+deb12u7                          deb                          
 libc-l10n                                                                     2.36-9+deb12u7                          deb                          
 libc6                                                                         2.36-9+deb12u7                          deb                          
@@ -819,7 +819,6 @@ libjbig2dec0                                                                  0.
 libjpeg62-turbo                                                               1:2.1.5-2                               deb                          
 libjq1                                                                        1.6-2.1                                 deb                          
 libjson-c5                                                                    0.16-2                                  deb                          
-libjsoncpp25                                                                  1.9.5-4                                 deb                          
 libjxl0.7                                                                     0.7.0-10                                deb                          
 libk5crypto3                                                                  1.20.1-2+deb12u2                        deb                          
 libkeyutils1                                                                  1.6.3-2                                 deb                          
@@ -867,6 +866,8 @@ libnfnetlink0                                                                 1.
 libnftnl11                                                                    1.2.4-2                                 deb                          
 libnghttp2-14                                                                 1.52.0-1+deb12u1                        deb                          
 libnorm1                                                                      1.5.9+dfsg-2                            deb                          
+libnotify-bin                                                                 0.8.1-1                                 deb                          
+libnotify4                                                                    0.8.1-1                                 deb                          
 libnpmaccess                                                                  8.0.5                                   npm                          
 libnpmdiff                                                                    6.1.1                                   npm                          
 libnpmexec                                                                    8.1.0                                   npm                          
@@ -1012,6 +1013,7 @@ libudev1                                                                      25
 libudfread0                                                                   1.1.2-1                                 deb                          
 libunbound8                                                                   1.17.1-2+deb12u2                        deb                          
 libunistring2                                                                 1.0-2                                   deb                          
+libunwind-16                                                                  1:16.0.6-15~deb12u1                     deb                          
 libunwind8                                                                    1.6.2-3                                 deb                          
 libusb-1.0-0                                                                  2:1.0.26-1                              deb                          
 libutempter0                                                                  1.2.1-3                                 deb                          
@@ -1035,7 +1037,6 @@ libwebp7                                                                      1.
 libwebpdemux2                                                                 1.2.4-0.2+deb12u1                       deb                          
 libwebpmux3                                                                   1.2.4-0.2+deb12u1                       deb                          
 libwebrtc-audio-processing1                                                   0.3-1+b1                                deb                          
-libwoff1                                                                      1.0.2-2                                 deb                          
 libwrap0                                                                      7.6.q-32                                deb                          
 libx11-6                                                                      2:1.8.4-2+deb12u2                       deb                          
 libx11-data                                                                   2:1.8.4-2+deb12u2                       deb                          
@@ -1204,6 +1205,8 @@ publicsuffix                                                                  20
 pulseaudio                                                                    16.1+dfsg1-2+b1                         deb                          
 pulseaudio-utils                                                              16.1+dfsg1-2+b1                         deb                          
 pulseaudio2                                                                   0.5.5                                   npm                          
+pygobject                                                                     3.42.2                                  python                       
+pyjwt                                                                         2.6.0                                   python                       
 pyparsing                                                                     3.0.9                                   python                       
 python-apt                                                                    2.6.0                                   python                       
 python-apt-common                                                             2.6.0                                   deb                          
@@ -1301,7 +1304,7 @@ type-is                                                                       1.
 tzdata                                                                        2024a-0+deb12u1                         deb                          
 ucf                                                                           3.0043+nmu1                             deb                          
 udev                                                                          252.26-1~deb12u2                        deb                          
-undici-types                                                                  5.26.5                                  npm                          
+undici-types                                                                  6.13.0                                  npm                          
 unique-filename                                                               3.0.0                                   npm                          
 unique-slug                                                                   4.0.0                                   npm                          
 unpipe                                                                        1.0.0                                   npm                          
