@@ -4,7 +4,7 @@ NAME                                                                          VE
 @socket.io/component-emitter                                                  3.1.2                                   npm                          
 @types/cookie                                                                 0.4.1                                   npm                          
 @types/cors                                                                   2.8.17                                  npm                          
-@types/node                                                                   22.1.0                                  npm                          
+@types/node                                                                   22.2.0                                  npm                          
 SDL2                                                                          2.30.3-1.fc40                           rpm                          
 abattis-cantarell-vf-fonts                                                    0.301-12.fc40                           rpm                          
 accepts                                                                       1.3.8                                   npm                          
@@ -87,18 +87,18 @@ cookie-signature                                                              1.
 coreutils                                                                     9.4-7.fc40                              rpm                          
 coreutils-common                                                              9.4-7.fc40                              rpm                          
 cors                                                                          2.8.5                                   npm                          
-cpp                                                                           14.1.1-7.fc40                           rpm                          
+cpp                                                                           14.2.1-1.fc40                           rpm                          
 cracklib                                                                      2.9.11-5.fc40                           rpm                          
 crypto-policies                                                               20240201-2.git9f501f3.fc40              rpm                          
 crypto-policies-scripts                                                       20240201-2.git9f501f3.fc40              rpm                          
-cryptsetup-libs                                                               2.7.3-1.fc40                            rpm                          
+cryptsetup-libs                                                               2.7.4-1.fc40                            rpm                          
 cups                                                                          1:2.4.10-3.fc40                         rpm                          
 cups-client                                                                   1:2.4.10-3.fc40                         rpm                          
 cups-filesystem                                                               1:2.4.10-3.fc40                         rpm                          
 cups-filters                                                                  1:2.0.0-6.fc40                          rpm                          
 cups-libs                                                                     1:2.4.10-3.fc40                         rpm                          
 cups-pdf                                                                      3.0.1-21.fc40                           rpm                          
-curl                                                                          8.6.0-9.fc40                            rpm                          
+curl                                                                          8.6.0-10.fc40                           rpm                          
 cyrus-sasl-lib                                                                2.1.28-19.fc40                          rpm                          
 dario.cat/mergo                                                               v1.0.0                                  go-module  (+3 duplicates)   
 dbus                                                                          1:1.14.10-3.fc40                        rpm                          
@@ -164,8 +164,8 @@ fedora-release-common                                                         40
 fedora-release-container                                                      40-38                                   rpm                          
 fedora-release-identity-container                                             40-38                                   rpm                          
 fedora-repos                                                                  40-1                                    rpm                          
-ffmpeg                                                                        6.1.1-15.fc40                           rpm                          
-ffmpeg-libs                                                                   6.1.1-15.fc40                           rpm                          
+ffmpeg                                                                        6.1.2-1.fc40                            rpm                          
+ffmpeg-libs                                                                   6.1.2-1.fc40                            rpm                          
 fftw-libs-double                                                              3.3.10-12.fc40                          rpm                          
 fftw-libs-single                                                              3.3.10-12.fc40                          rpm                          
 file                                                                          5.45-4.fc40                             rpm                          
@@ -192,9 +192,9 @@ fuse3                                                                         3.
 fuse3-libs                                                                    3.16.2-3.fc40                           rpm                          
 gawk                                                                          5.3.0-3.fc40                            rpm                          
 gc                                                                            8.2.2-6.fc40                            rpm                          
-gcc                                                                           14.1.1-7.fc40                           rpm                          
-gcc-c++                                                                       14.1.1-7.fc40                           rpm                          
-gcc-plugin-annobin                                                            14.1.1-7.fc40                           rpm                          
+gcc                                                                           14.2.1-1.fc40                           rpm                          
+gcc-c++                                                                       14.2.1-1.fc40                           rpm                          
+gcc-plugin-annobin                                                            14.2.1-1.fc40                           rpm                          
 gcr-libs                                                                      4.3.0-1.fc40                            rpm                          
 gcr3                                                                          3.41.1-8.fc40                           rpm                          
 gcr3-base                                                                     3.41.1-8.fc40                           rpm                          
@@ -296,7 +296,7 @@ github.com/docker/buildx                                                      v0
 github.com/docker/cli                                                         v27.0.3+incompatible                    go-module                    
 github.com/docker/cli                                                         v27.1.0+incompatible                    go-module                    
 github.com/docker/cli-docs-tool                                               v0.8.0                                  go-module  (+1 duplicate)    
-github.com/docker/cli/cmd/docker                                              27.1.1                                  go-module                    
+github.com/docker/cli/cmd/docker                                              v27.1.1                                 go-module                    
 github.com/docker/compose/v2                                                  v2.29.1                                 go-module                    
 github.com/docker/distribution                                                v2.8.2+incompatible                     go-module                    
 github.com/docker/distribution                                                v2.8.3+incompatible                     go-module  (+1 duplicate)    
@@ -493,14 +493,14 @@ github.com/zmap/zcrypto                                                       v0
 github.com/zmap/zlint/v3                                                      v3.1.0                                  go-module                    
 glib-networking                                                               2.80.0-1.fc40                           rpm                          
 glib2                                                                         2.80.0-1.fc40                           rpm                          
-glibc                                                                         2.39-17.fc40                            rpm                          
-glibc-all-langpacks                                                           2.39-17.fc40                            rpm                          
-glibc-common                                                                  2.39-17.fc40                            rpm                          
-glibc-devel                                                                   2.39-17.fc40                            rpm                          
-glibc-gconv-extra                                                             2.39-17.fc40                            rpm                          
-glibc-headers-x86                                                             2.39-17.fc40                            rpm                          
-glibc-locale-source                                                           2.39-17.fc40                            rpm                          
-glibc-minimal-langpack                                                        2.39-17.fc40                            rpm                          
+glibc                                                                         2.39-22.fc40                            rpm                          
+glibc-all-langpacks                                                           2.39-22.fc40                            rpm                          
+glibc-common                                                                  2.39-22.fc40                            rpm                          
+glibc-devel                                                                   2.39-22.fc40                            rpm                          
+glibc-gconv-extra                                                             2.39-22.fc40                            rpm                          
+glibc-headers-x86                                                             2.39-22.fc40                            rpm                          
+glibc-locale-source                                                           2.39-22.fc40                            rpm                          
+glibc-minimal-langpack                                                        2.39-22.fc40                            rpm                          
 glibmm2.4                                                                     2.66.7-1.fc40                           rpm                          
 gmp                                                                           1:6.2.1-8.fc40                          rpm                          
 gnat-srpm-macros                                                              6-5.fc40                                rpm                          
@@ -637,7 +637,7 @@ http-errors                                                                   2.
 hunspell                                                                      1.7.2-7.fc40                            rpm                          
 hunspell-en-US                                                                0.20201207-9.fc40                       rpm                          
 hunspell-filesystem                                                           1.7.2-7.fc40                            rpm                          
-hwdata                                                                        0.383-1.fc40                            rpm                          
+hwdata                                                                        0.385-1.fc40                            rpm                          
 hyphen                                                                        2.8.8-24.fc40                           rpm                          
 iconv-lite                                                                    0.4.24                                  npm                          
 ilbc                                                                          3.0.4-10.fc40                           rpm                          
@@ -679,7 +679,7 @@ kbd                                                                           2.
 kbd-legacy                                                                    2.6.4-3.fc40                            rpm                          
 kbd-misc                                                                      2.6.4-3.fc40                            rpm                          
 kclient                                                                       0.4.0                                   npm                          
-kernel-headers                                                                6.9.4-200.fc40                          rpm                          
+kernel-headers                                                                6.10.3-200.fc40                         rpm                          
 kernel-srpm-macros                                                            1.0-23.fc40                             rpm                          
 keyutils-libs                                                                 1.6.3-3.fc40                            rpm                          
 kmod                                                                          31-5.fc40                               rpm                          
@@ -704,7 +704,7 @@ libXdamage                                                                    1.
 libXdmcp                                                                      1.1.4-3.fc40                            rpm                          
 libXext                                                                       1.3.6-1.fc40                            rpm                          
 libXfixes                                                                     6.0.1-3.fc40                            rpm                          
-libXfont2                                                                     2.0.6-3.fc40                            rpm                          
+libXfont2                                                                     2.0.7-1.fc40                            rpm                          
 libXft                                                                        2.3.8-6.fc40                            rpm                          
 libXi                                                                         1.8.1-5.fc40                            rpm                          
 libXinerama                                                                   1.1.5-6.fc40                            rpm                          
@@ -715,7 +715,7 @@ libXrandr                                                                     1.
 libXrender                                                                    0.9.11-6.fc40                           rpm                          
 libXres                                                                       1.2.2-3.fc40                            rpm                          
 libXt                                                                         1.3.0-3.fc40                            rpm                          
-libXtst                                                                       1.2.4-6.fc40                            rpm                          
+libXtst                                                                       1.2.5-1.fc40                            rpm                          
 libXv                                                                         1.0.12-3.fc40                           rpm                          
 libXvMC                                                                       1.0.13-5.fc40                           rpm                          
 libXxf86vm                                                                    1.1.5-6.fc40                            rpm                          
@@ -730,7 +730,7 @@ libasyncns                                                                    0.
 libatasmart                                                                   0.19-28.fc40                            rpm                          
 libatomic                                                                     14.2.1-1.fc40                           rpm                          
 libattr                                                                       2.5.2-3.fc40                            rpm                          
-libavdevice                                                                   6.1.1-15.fc40                           rpm                          
+libavdevice                                                                   6.1.2-1.fc40                            rpm                          
 libavif                                                                       1.0.4-3.fc40                            rpm                          
 libb2                                                                         0.98.1-11.fc40                          rpm                          
 libblkid                                                                      2.40.1-1.fc40                           rpm                          
@@ -764,7 +764,7 @@ libcomps                                                                      0.
 libcomps                                                                      0.1.20-5.fc40                           rpm                          
 libconfig                                                                     1.7.3-8.fc40                            rpm                          
 libcupsfilters                                                                1:2.0.0-7.fc40                          rpm                          
-libcurl                                                                       8.6.0-9.fc40                            rpm                          
+libcurl                                                                       8.6.0-10.fc40                           rpm                          
 libdaemon                                                                     0.14-29.fc40                            rpm                          
 libdatrie                                                                     0.2.13-9.fc40                           rpm                          
 libdav1d                                                                      1.4.3-1.fc40                            rpm                          
@@ -788,13 +788,13 @@ libffi                                                                        3.
 libfido2                                                                      1.14.0-4.fc40                           rpm                          
 libfontenc                                                                    1.1.7-3.fc40                            rpm                          
 libfsverity                                                                   1.4-12.fc40                             rpm                          
-libgcc                                                                        14.1.1-7.fc40                           rpm                          
+libgcc                                                                        14.2.1-1.fc40                           rpm                          
 libgcrypt                                                                     1.10.3-3.fc40                           rpm                          
 libglvnd                                                                      1:1.7.0-4.fc40                          rpm                          
 libglvnd-egl                                                                  1:1.7.0-4.fc40                          rpm                          
 libglvnd-gles                                                                 1:1.7.0-4.fc40                          rpm                          
 libglvnd-glx                                                                  1:1.7.0-4.fc40                          rpm                          
-libgomp                                                                       14.1.1-7.fc40                           rpm                          
+libgomp                                                                       14.2.1-1.fc40                           rpm                          
 libgpg-error                                                                  1.48-1.fc40                             rpm                          
 libgs                                                                         10.02.1-12.fc40                         rpm                          
 libgtop2                                                                      2.41.3-1.fc40                           rpm                          
@@ -872,8 +872,8 @@ libsoup3                                                                      3.
 libspectre                                                                    0.2.12-6.fc40                           rpm                          
 libssh                                                                        0.10.6-5.fc40                           rpm                          
 libssh-config                                                                 0.10.6-5.fc40                           rpm                          
-libstdc++                                                                     14.1.1-7.fc40                           rpm                          
-libstdc++-devel                                                               14.1.1-7.fc40                           rpm                          
+libstdc++                                                                     14.2.1-1.fc40                           rpm                          
+libstdc++-devel                                                               14.2.1-1.fc40                           rpm                          
 libstemmer                                                                    2.2.0-10.fc40                           rpm                          
 libtalloc                                                                     2.4.2-1.fc40                            rpm                          
 libtasn1                                                                      4.19.0-6.fc40                           rpm                          
@@ -893,7 +893,7 @@ libusb1                                                                       1.
 libutempter                                                                   1.2.1-13.fc40                           rpm                          
 libuuid                                                                       2.40.1-1.fc40                           rpm                          
 libuv                                                                         1:1.48.0-1.fc40                         rpm                          
-libv4l                                                                        1.26.1-4.fc40                           rpm                          
+libv4l                                                                        1.28.1-1.fc40                           rpm                          
 libva                                                                         2.21.0-3.fc40                           rpm                          
 libvdpau                                                                      1.5-6.fc40                              rpm                          
 libverto                                                                      0.3.2-8.fc40                            rpm                          
@@ -1024,7 +1024,7 @@ openssh-clients                                                               9.
 openssl                                                                       1:3.2.1-2.fc40                          rpm                          
 openssl-libs                                                                  1:3.2.1-2.fc40                          rpm                          
 opus                                                                          1.5.1-1.fc40                            rpm                          
-orc                                                                           0.4.38-2.fc40                           rpm                          
+orc                                                                           0.4.39-1.fc40                           rpm                          
 p11-kit                                                                       0.25.3-4.fc40                           rpm                          
 p11-kit-trust                                                                 0.25.3-4.fc40                           rpm                          
 package-notes-srpm-macros                                                     0.5-11.fc40                             rpm                          
@@ -1167,8 +1167,8 @@ perl-Math-BigInt-FastCalc                                                     0.
 perl-Math-Complex                                                             0:1.62-506.fc40                         rpm                          
 perl-Memoize                                                                  0:1.16-506.fc40                         rpm                          
 perl-Module-Build                                                             2:0.42.34-5.fc40                        rpm                          
-perl-Module-CoreList                                                          1:5.20240702-1.fc40                     rpm                          
-perl-Module-CoreList-tools                                                    1:5.20240702-1.fc40                     rpm                          
+perl-Module-CoreList                                                          1:5.20240720-1.fc40                     rpm                          
+perl-Module-CoreList-tools                                                    1:5.20240720-1.fc40                     rpm                          
 perl-Module-Implementation                                                    0.09-39.fc40                            rpm                          
 perl-Module-Load                                                              1:0.36-503.fc40                         rpm                          
 perl-Module-Load-Conditional                                                  0.74-503.fc40                           rpm                          
@@ -1363,7 +1363,7 @@ python3-pyparsing                                                             3.
 python3-pyxdg                                                                 0.27-11.fc40                            rpm                          
 python3-rpm                                                                   4.19.1.1-1.fc40                         rpm                          
 python3-setools                                                               4.5.1-2.fc40                            rpm                          
-python3-setuptools                                                            69.0.3-3.fc40                           rpm                          
+python3-setuptools                                                            69.0.3-4.fc40                           rpm                          
 python3-six                                                                   1.16.0-14.fc40                          rpm                          
 python3-systemd                                                               235-9.fc40                              rpm                          
 pyxdg                                                                         0.27                                    python                       
@@ -1439,11 +1439,11 @@ stdlib                                                                        go
 sudo                                                                          1.9.15-2.p5.fc40                        rpm                          
 supports-color                                                                7.2.0                                   npm                          
 svt-av1-libs                                                                  2.1.0-1.fc40                            rpm                          
-systemd                                                                       255.10-1.fc40                           rpm                          
-systemd-libs                                                                  255.10-1.fc40                           rpm                          
-systemd-pam                                                                   255.10-1.fc40                           rpm                          
+systemd                                                                       255.10-3.fc40                           rpm                          
+systemd-libs                                                                  255.10-3.fc40                           rpm                          
+systemd-pam                                                                   255.10-3.fc40                           rpm                          
 systemd-python                                                                235                                     python                       
-systemd-udev                                                                  255.10-1.fc40                           rpm                          
+systemd-udev                                                                  255.10-3.fc40                           rpm                          
 systemtap-sdt-devel                                                           5.1-1.fc40                              rpm                          
 tags.cncf.io/container-device-interface                                       v0.7.2                                  go-module  (+2 duplicates)   
 tags.cncf.io/container-device-interface/specs-go                              v0.7.0                                  go-module  (+1 duplicate)    
