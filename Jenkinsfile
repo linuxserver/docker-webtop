@@ -17,6 +17,8 @@ pipeline {
     GITLAB_TOKEN=credentials('b6f0f1dd-6952-4cf6-95d1-9c06380283f0')
     GITLAB_NAMESPACE=credentials('gitlab-namespace-id')
     DOCKERHUB_TOKEN=credentials('docker-hub-ci-pat')
+    QUAYIO_API_TOKEN=credentials('quayio-repo-api-token')
+    GIT_SIGNING_KEY=credentials('484fbca6-9a4f-455e-b9e3-97ac98785f5f')
     BUILD_VERSION_ARG = 'OS_VERSION'
     LS_USER = 'linuxserver'
     LS_REPO = 'docker-webtop'
@@ -36,9 +38,23 @@ pipeline {
     CI_WEBPATH=''
   }
   stages {
+    stage("Set git config"){
+      steps{
+        sh '''#!/bin/bash
+              cat ${GIT_SIGNING_KEY} > /config/.ssh/id_sign
+              chmod 600 /config/.ssh/id_sign
+              ssh-keygen -y -f /config/.ssh/id_sign > /config/.ssh/id_sign.pub
+              echo "Using $(ssh-keygen -lf /config/.ssh/id_sign) to sign commits"
+              git config --global gpg.format ssh
+              git config --global user.signingkey /config/.ssh/id_sign
+              git config --global commit.gpgsign true
+        '''
+      }
+    }
     // Setup all the basic environment variables needed for the build
     stage("Set ENV Variables base"){
       steps{
+        echo "Running on node: ${NODE_NAME}"
         sh '''#! /bin/bash
               containers=$(docker ps -aq)
               if [[ -n "${containers}" ]]; then
@@ -440,10 +456,10 @@ pipeline {
       }
     }
     /* #######################
-           GitLab Mirroring
+       GitLab Mirroring and Quay.io Repo Visibility
        ####################### */
-    // Ping into Gitlab to mirror this repo and have a registry endpoint
-    stage("GitLab Mirror"){
+    // Ping into Gitlab to mirror this repo and have a registry endpoint & mark this repo on Quay.io as public
+    stage("GitLab Mirror and Quay.io Visibility"){
       when {
         environment name: 'EXIT_STATUS', value: ''
       }
@@ -459,6 +475,8 @@ pipeline {
             "visibility":"public"}' '''
         sh '''curl -H "Private-Token: ${GITLAB_TOKEN}" -X PUT "https://gitlab.com/api/v4/projects/Linuxserver.io%2F${LS_REPO}" \
           -d "mirror=true&import_url=https://github.com/linuxserver/${LS_REPO}.git" '''
+        sh '''curl -H "Content-Type: application/json" -H "Authorization: Bearer ${QUAYIO_API_TOKEN}" -X POST "https://quay.io/api/v1/repository${QUAYIMAGE/quay.io/}/changevisibility" \
+          -d '{"visibility":"public"}' ||: '''
       } 
     }
     /* ###############
@@ -553,7 +571,7 @@ pipeline {
               --provenance=false --sbom=false \
               --build-arg ${BUILD_VERSION_ARG}=${EXT_RELEASE} --build-arg VERSION=\"${VERSION_TAG}\" --build-arg BUILD_DATE=${GITHUB_DATE} ."
             sh "docker tag ${IMAGE}:arm64v8-${META_TAG} ghcr.io/linuxserver/lsiodev-buildcache:arm64v8-${COMMIT_SHA}-${BUILD_NUMBER}"
-            retry(5) {
+            retry_backoff(5,5) {
               sh "docker push ghcr.io/linuxserver/lsiodev-buildcache:arm64v8-${COMMIT_SHA}-${BUILD_NUMBER}"
             }
             sh '''#! /bin/bash
@@ -709,7 +727,7 @@ pipeline {
             passwordVariable: 'QUAYPASS'
           ]
         ]) {
-          retry(5) {
+          retry_backoff(5,5) {
             sh '''#! /bin/bash
                   set -e
                   echo $DOCKERHUB_TOKEN | docker login -u linuxserverci --password-stdin
@@ -727,7 +745,7 @@ pipeline {
                     docker push ${PUSHIMAGE}:${META_TAG}
                     docker push ${PUSHIMAGE}:${EXT_RELEASE_TAG}
                     if [ -n "${SEMVER}" ]; then
-                     docker push ${PUSHIMAGE}:${SEMVER}
+                      docker push ${PUSHIMAGE}:${SEMVER}
                     fi
                   done
                '''
@@ -750,7 +768,7 @@ pipeline {
             passwordVariable: 'QUAYPASS'
           ]
         ]) {
-          retry(5) {
+          retry_backoff(5,5) {
             sh '''#! /bin/bash
                   set -e
                   echo $DOCKERHUB_TOKEN | docker login -u linuxserverci --password-stdin
@@ -813,7 +831,7 @@ pipeline {
              "object": "'${COMMIT_SHA}'",\
              "message": "Tagging Release '${EXT_RELEASE_CLEAN}'-ls'${LS_TAG_NUMBER}' to ubuntu-kde",\
              "type": "commit",\
-             "tagger": {"name": "LinuxServer Jenkins","email": "jenkins@linuxserver.io","date": "'${GITHUB_DATE}'"}}' '''
+             "tagger": {"name": "LinuxServer-CI","email": "ci@linuxserver.io","date": "'${GITHUB_DATE}'"}}' '''
         echo "Pushing New release for Tag"
         sh '''#! /bin/bash
               echo "Updating base packages to ${PACKAGE_TAG}" > releasebody.json
@@ -945,6 +963,13 @@ EOF
      ###################### */
   post {
     always {
+      sh '''#!/bin/bash
+            rm -rf /config/.ssh/id_sign
+            rm -rf /config/.ssh/id_sign.pub
+            git config --global --unset gpg.format
+            git config --global --unset user.signingkey
+            git config --global --unset commit.gpgsign
+        '''
       script{
         if (env.EXIT_STATUS == "ABORTED"){
           sh 'echo "build aborted"'
@@ -973,4 +998,21 @@ EOF
       cleanWs()
     }
   }
+}
+
+def retry_backoff(int max_attempts, int power_base, Closure c) {
+  int n = 0
+  while (n < max_attempts) {
+    try {
+      c()
+      return
+    } catch (err) {
+      if ((n + 1) >= max_attempts) {
+        throw err
+      }
+      sleep(power_base ** n)
+      n++
+    }
+  }
+  return
 }
