@@ -12,6 +12,7 @@ jobs:
       - name: External Trigger
         if: github.ref == 'refs/heads/fedora-kde'
         run: |
-          echo "**** No external release, exiting ****"
+          printf "# External trigger for docker-webtop\n\n" >> $GITHUB_STEP_SUMMARY
+          echo "Type is \`os\`" >> $GITHUB_STEP_SUMMARY
           echo "No external release, exiting" >> $GITHUB_STEP_SUMMARY
           exit 0
