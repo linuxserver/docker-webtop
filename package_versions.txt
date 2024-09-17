@@ -4,7 +4,7 @@ NAME                                                                          VE
 @socket.io/component-emitter                                                  3.1.2                                   npm                         
 @types/cookie                                                                 0.4.1                                   npm                         
 @types/cors                                                                   2.8.17                                  npm                         
-@types/node                                                                   22.5.4                                  npm                         
+@types/node                                                                   22.5.5                                  npm                         
 SDL2                                                                          2.30.3-1.fc40                           rpm                         
 abattis-cantarell-vf-fonts                                                    0.301-12.fc40                           rpm                         
 accepts                                                                       1.3.8                                   npm                         
@@ -39,8 +39,8 @@ bash                                                                          5.
 bindings                                                                      1.5.0                                   npm                         
 binutils                                                                      2.41-37.fc40                            rpm                         
 binutils-gold                                                                 2.41-37.fc40                            rpm                         
-bluez-libs                                                                    5.77-1.fc40                             rpm                         
-body-parser                                                                   1.20.2                                  npm                         
+bluez-libs                                                                    5.78-1.fc40                             rpm                         
+body-parser                                                                   1.20.3                                  npm                         
 brace-expansion                                                               1.1.11                                  npm                         
 brace-expansion                                                               2.0.1                                   npm                         
 busybox                                                                       1:1.36.1-7.fc40                         rpm                         
@@ -55,8 +55,8 @@ catatonit                                                                     0.
 cdparanoia-libs                                                               10.2-44.fc40                            rpm                         
 chalk                                                                         4.1.2                                   npm                         
 checkpolicy                                                                   3.6-3.fc40                              rpm                         
-chromium                                                                      128.0.6613.119-1.fc40                   rpm                         
-chromium-common                                                               128.0.6613.119-1.fc40                   rpm                         
+chromium                                                                      128.0.6613.137-1.fc40                   rpm                         
+chromium-common                                                               128.0.6613.137-1.fc40                   rpm                         
 cjs-module-lexer                                                              1.2.3                                   npm                         
 cloud.google.com/go/compute/metadata                                          v0.3.0                                  go-module                   
 cloud.google.com/go/logging                                                   v1.9.0                                  go-module                   
@@ -70,7 +70,7 @@ colord                                                                        1.
 colord-libs                                                                   1.4.7-3.fc40                            rpm                         
 concat-map                                                                    0.0.1                                   npm                         
 container-selinux                                                             2:2.232.1-1.fc40                        rpm                         
-containerd.io                                                                 1.7.21-3.1.fc40                         rpm                         
+containerd.io                                                                 1.7.22-3.1.fc40                         rpm                         
 content-disposition                                                           0.5.4                                   npm                         
 content-type                                                                  1.0.5                                   npm                         
 cookie                                                                        0.4.2                                   npm                         
@@ -131,6 +131,7 @@ elfutils-default-yama-scope                                                   0.
 elfutils-libelf                                                               0.191-4.fc40                            rpm                         
 elfutils-libs                                                                 0.191-4.fc40                            rpm                         
 encodeurl                                                                     1.0.2                                   npm                         
+encodeurl                                                                     2.0.0                                   npm                         
 engine.io                                                                     6.5.5                                   npm                         
 engine.io-parser                                                              5.2.3                                   npm                         
 es-define-property                                                            1.0.0                                   npm                         
@@ -138,7 +139,7 @@ es-errors                                                                     1.
 escape-html                                                                   1.0.3                                   npm                         
 etag                                                                          1.8.1                                   npm                         
 expat                                                                         2.6.0-1.fc40                            rpm                         
-express                                                                       4.19.2                                  npm                         
+express                                                                       4.21.0                                  npm                         
 fdk-aac                                                                       2.0.3-2.fc40                            rpm                         
 fedora-gpg-keys                                                               40-1                                    rpm                         
 fedora-logos-httpd                                                            38.1.0-5.fc40                           rpm                         
@@ -155,7 +156,7 @@ file-libs                                                                     5.
 file-uri-to-path                                                              1.0.0                                   npm                         
 filelist                                                                      1.0.4                                   npm                         
 filesystem                                                                    3.18-8.fc40                             rpm                         
-finalhandler                                                                  1.2.0                                   npm                         
+finalhandler                                                                  1.3.1                                   npm                         
 findutils                                                                     1:4.9.0-9.fc40                          rpm                         
 flac-libs                                                                     1.4.3-4.fc40                            rpm                         
 fontconfig                                                                    2.15.0-6.fc40                           rpm                         
@@ -237,7 +238,8 @@ github.com/containerd/console                                                 v1
 github.com/containerd/console                                                 v1.0.4                                  go-module  (+2 duplicates)  
 github.com/containerd/containerd                                              v1.7.19                                 go-module                   
 github.com/containerd/containerd                                              v1.7.20                                 go-module                   
-github.com/containerd/containerd                                              v1.7.21                                 go-module  (+6 duplicates)  
+github.com/containerd/containerd                                              v1.7.21                                 go-module                   
+github.com/containerd/containerd                                              v1.7.22                                 go-module  (+5 duplicates)  
 github.com/containerd/containerd/api                                          v1.7.19                                 go-module  (+8 duplicates)  
 github.com/containerd/continuity                                              v0.4.2                                  go-module  (+5 duplicates)  
 github.com/containerd/continuity                                              v0.4.3                                  go-module  (+2 duplicates)  
@@ -406,8 +408,8 @@ github.com/munnerz/goautoneg                                                  v0
 github.com/mxk/go-flowrate                                                    v0.0.0-20140419014527-cca7078d478f      go-module  (+1 duplicate)   
 github.com/opencontainers/go-digest                                           v1.0.0                                  go-module  (+7 duplicates)  
 github.com/opencontainers/image-spec                                          v1.1.0                                  go-module  (+7 duplicates)  
-github.com/opencontainers/runc                                                v1.1.13-0-g58aa920                      go-module                   
 github.com/opencontainers/runc                                                v1.1.14                                 go-module                   
+github.com/opencontainers/runc                                                v1.1.14-0-g2c9f560                      go-module                   
 github.com/opencontainers/runtime-spec                                        v1.0.3-0.20210326190908-1c3f411f0417    go-module                   
 github.com/opencontainers/runtime-spec                                        v1.1.0                                  go-module  (+5 duplicates)  
 github.com/opencontainers/runtime-spec                                        v1.2.0                                  go-module                   
@@ -556,8 +558,7 @@ google.golang.org/genproto/googleapis/rpc                                     v0
 google.golang.org/genproto/googleapis/rpc                                     v0.0.0-20231212172506-995d672761c0      go-module  (+7 duplicates)  
 google.golang.org/grpc                                                        v1.59.0                                 go-module  (+7 duplicates)  
 google.golang.org/grpc                                                        v1.60.1                                 go-module                   
-google.golang.org/protobuf                                                    v1.27.1                                 go-module                   
-google.golang.org/protobuf                                                    v1.33.0                                 go-module  (+8 duplicates)  
+google.golang.org/protobuf                                                    v1.33.0                                 go-module  (+9 duplicates)  
 gopd                                                                          1.0.1                                   npm                         
 gopkg.in/cenkalti/backoff.v1                                                  v1.1.0                                  go-module                   
 gopkg.in/inf.v0                                                               v0.9.1                                  go-module  (+4 duplicates)  
@@ -658,7 +659,7 @@ libXext                                                                       1.
 libXfixes                                                                     6.0.1-3.fc40                            rpm                         
 libXfont2                                                                     2.0.7-1.fc40                            rpm                         
 libXft                                                                        2.3.8-6.fc40                            rpm                         
-libXi                                                                         1.8.1-5.fc40                            rpm                         
+libXi                                                                         1.8.2-1.fc40                            rpm                         
 libXinerama                                                                   1.1.5-6.fc40                            rpm                         
 libXmu                                                                        1.2.1-1.fc40                            rpm                         
 libXpm                                                                        3.5.17-3.fc40                           rpm                         
@@ -680,7 +681,7 @@ libavdevice                                                                   6.
 libb2                                                                         0.98.1-11.fc40                          rpm                         
 libblkid                                                                      2.40.1-1.fc40                           rpm                         
 libbluray                                                                     1.3.4-5.fc40                            rpm                         
-libbpf                                                                        2:1.2.0-3.fc40                          rpm                         
+libbpf                                                                        2:1.2.3-1.fc40                          rpm                         
 libbrotli                                                                     1.1.0-3.fc40                            rpm                         
 libbs2b                                                                       3.1.0-33.fc40                           rpm                         
 libbsd                                                                        0.12.2-3.fc40                           rpm                         
@@ -842,7 +843,7 @@ libxslt                                                                       1.
 libyaml                                                                       0.2.5-14.fc40                           rpm                         
 libzstd                                                                       1.5.5-5.fc40                            rpm                         
 lilv-libs                                                                     0.24.20-3.fc40                          rpm                         
-llvm-libs                                                                     18.1.6-2.fc40                           rpm                         
+llvm-libs                                                                     18.1.8-1.fc40                           rpm                         
 lm_sensors-libs                                                               3.6.0-18.fc40                           rpm                         
 lmdb-libs                                                                     0.9.33-1.fc40                           rpm                         
 lpcnetfreedv                                                                  0.5-5.fc40                              rpm                         
@@ -853,7 +854,7 @@ lz4-libs                                                                      1.
 mailcap                                                                       2.1.54-5.fc40                           rpm                         
 make                                                                          1:4.4.1-6.fc40                          rpm                         
 media-typer                                                                   0.3.0                                   npm                         
-merge-descriptors                                                             1.0.1                                   npm                         
+merge-descriptors                                                             1.0.3                                   npm                         
 mesa-dri-drivers                                                              24.1.7-1.fc40                           rpm                         
 mesa-filesystem                                                               24.1.7-1.fc40                           rpm                         
 mesa-libEGL                                                                   24.1.7-1.fc40                           rpm                         
@@ -927,7 +928,7 @@ pam                                                                           1.
 pam-libs                                                                      1.6.0-2.fc40                            rpm                         
 pango                                                                         1.54.0-1.fc40                           rpm                         
 parseurl                                                                      1.3.3                                   npm                         
-path-to-regexp                                                                0.1.7                                   npm                         
+path-to-regexp                                                                0.1.10                                  npm                         
 pciutils-libs                                                                 3.13.0-1.fc40                           rpm                         
 pcre                                                                          8.45-1.fc40.6                           rpm                         
 pcre2                                                                         10.42-2.fc40.2                          rpm                         
@@ -1256,7 +1257,7 @@ python3-six                                                                   1.
 python3-systemd                                                               235-9.fc40                              rpm                         
 pyxdg                                                                         0.27                                    python                      
 qpdf-libs                                                                     11.9.1-1.fc40                           rpm                         
-qs                                                                            6.11.0                                  npm                         
+qs                                                                            6.13.0                                  npm                         
 qt-settings                                                                   40.1-1.fc40                             rpm                         
 qt5-filesystem                                                                5.15.14-2.fc40                          rpm                         
 qt5-qtbase                                                                    5.15.14-6.fc40                          rpm                         
@@ -1295,10 +1296,10 @@ sed                                                                           4.
 selinux                                                                       3.6                                     python                      
 selinux-policy                                                                40.27-1.fc40                            rpm                         
 selinux-policy-targeted                                                       40.27-1.fc40                            rpm                         
-send                                                                          0.18.0                                  npm                         
+send                                                                          0.19.0                                  npm                         
 sepolicy                                                                      3.6                                     python                      
 serd                                                                          0.30.16-3.fc40                          rpm                         
-serve-static                                                                  1.15.0                                  npm                         
+serve-static                                                                  1.16.2                                  npm                         
 set-function-length                                                           1.2.2                                   npm                         
 setools                                                                       4.5.1                                   python                      
 setprototypeof                                                                1.2.0                                   npm                         
@@ -1331,16 +1332,15 @@ st                                                                            0.
 startup-notification                                                          0.12-29.fc40                            rpm                         
 statuses                                                                      2.0.1                                   npm                         
 stdlib                                                                        go1.21.13                               go-module  (+1 duplicate)   
-stdlib                                                                        go1.22.6                                go-module  (+6 duplicates)  
-stdlib                                                                        go1.22.7                                go-module  (+2 duplicates)  
+stdlib                                                                        go1.22.7                                go-module  (+9 duplicates)  
 sudo                                                                          1.9.15-2.p5.fc40                        rpm                         
 supports-color                                                                7.2.0                                   npm                         
 svt-av1-libs                                                                  2.1.0-1.fc40                            rpm                         
-systemd                                                                       255.10-3.fc40                           rpm                         
-systemd-libs                                                                  255.10-3.fc40                           rpm                         
-systemd-pam                                                                   255.10-3.fc40                           rpm                         
+systemd                                                                       255.12-1.fc40                           rpm                         
+systemd-libs                                                                  255.12-1.fc40                           rpm                         
+systemd-pam                                                                   255.12-1.fc40                           rpm                         
 systemd-python                                                                235                                     python                      
-systemd-udev                                                                  255.10-3.fc40                           rpm                         
+systemd-udev                                                                  255.12-1.fc40                           rpm                         
 systemtap-sdt-devel                                                           5.2~pre17250223gd07e4284-1.fc40         rpm                         
 tags.cncf.io/container-device-interface                                       v0.7.2                                  go-module  (+2 duplicates)  
 tags.cncf.io/container-device-interface/specs-go                              v0.7.0                                  go-module  (+1 duplicate)   
