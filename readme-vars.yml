@@ -104,7 +104,6 @@ app_setup_block: |
 
   ```yaml
     environment:
-      - TZ=Europe/Warsaw
       - DOCKER_MODS=linuxserver/mods:universal-package-install
       - INSTALL_PACKAGES=libfuse2|git|gdb
   ```
