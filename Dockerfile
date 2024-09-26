@@ -17,7 +17,7 @@ RUN \
     https://raw.githubusercontent.com/linuxserver/docker-templates/master/linuxserver.io/img/webtop-logo.png && \
   echo "**** install packages ****" && \
   apk add --no-cache \
-    firefox \
+    chromium \
     obconf-qt \
     st \
     util-linux-misc && \
@@ -25,6 +25,9 @@ RUN \
   ln -s \
     /usr/bin/st \
     /usr/bin/x-terminal-emulator && \
+  sed -i \
+    's:/usr/bin/chromium-browser:/usr/bin/chromium:g' \
+    /usr/share/applications/chromium.desktop && \
   echo "**** cleanup ****" && \
   rm -rf \
     /config/.cache \
