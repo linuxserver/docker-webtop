@@ -17,7 +17,7 @@ RUN \
     https://raw.githubusercontent.com/linuxserver/docker-templates/master/linuxserver.io/img/webtop-logo.png && \
   echo "**** install packages ****" && \
   apk add --no-cache \
-    firefox \
+    chromium \
     icewm \
     st \
     util-linux-misc && \
@@ -29,6 +29,9 @@ RUN \
   ln -s \
     /usr/bin/st \
     /usr/bin/xterm && \
+  sed -i \
+    's:/usr/bin/chromium-browser:/usr/bin/chromium:g' \
+    /usr/share/applications/chromium.desktop && \
   echo "**** theme ****" && \
   rm -Rf /usr/share/icewm/themes/default && \
   curl -s \
