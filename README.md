@@ -103,7 +103,9 @@ The Webtop can be accessed at:
 
 **Modern GUI desktop apps (including some flavors terminals) have issues with the latest Docker and syscall compatibility, you can use Docker with the `--security-opt seccomp=unconfined` setting to allow these syscalls**
 
-### Application management - PRoot Apps
+### Application management
+
+#### PRoot Apps
 
 If you run system native installations of software IE `sudo apt-get install filezilla` and then upgrade or destroy/re-create the container that software will be removed and the Webtop will be at a clean state. For some users that will be acceptable and they can update their system packages as well using system native commands like `apt-get upgrade`. If you want Docker to handle upgrading the container and retain your applications and settings we have created [proot-apps](https://github.com/linuxserver/proot-apps) which allow portable applications to be installed to persistent storage in the user's `$HOME` directory and they will work in a confined Docker environment out of the box. These applications and their settings will persist upgrades of the base container and can be mounted into different flavors of Webtop containers on the fly facilitating virtual "Distro Hopping". IE if you are running the `alpine-mate` Webtop you will be able to use the same `/config` directory mounted into the `arch-kde` Webtop and retain the same applications and settings as long as they were installed with `proot-apps install`. This can be achieved from the command line with:
 
@@ -112,6 +114,16 @@ proot-apps install filezilla
 ```
 
 PRoot Apps is included in all KasmVNC based containers, a list of linuxserver.io supported applications is located [HERE](https://github.com/linuxserver/proot-apps?tab=readme-ov-file#supported-apps).
+
+#### Native Apps
+
+It is possible to install extra packages during container start using [universal-package-install](https://github.com/linuxserver/docker-mods/tree/universal-package-install). It might increase starting time significantly. PRoot is preferred.
+
+```yaml
+  environment:
+    - DOCKER_MODS=linuxserver/mods:universal-package-install
+    - INSTALL_PACKAGES=libfuse2|git|gdb
+```
 
 ### Options in all KasmVNC based GUI containers
 
