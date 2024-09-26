@@ -49,6 +49,8 @@ catatonit                                                                     0.
 cdparanoia-libs                                                               10.2-r14                                            apk                         
 cfdisk                                                                        2.40.1-r1                                           apk                         
 chalk                                                                         4.1.2                                               npm                         
+chromium                                                                      128.0.6613.119-r0                                   apk                         
+chromium-lang                                                                 128.0.6613.119-r0                                   apk                         
 cjson                                                                         1.7.18-r0                                           apk                         
 cloud.google.com/go/compute/metadata                                          v0.2.3                                              go-module                   
 cloud.google.com/go/logging                                                   v1.8.1                                              go-module                   
@@ -70,6 +72,7 @@ coreutils-env                                                                 9.
 coreutils-fmt                                                                 9.5-r1                                              apk                         
 coreutils-sha512sum                                                           9.5-r1                                              apk                         
 cors                                                                          2.8.5                                               npm                         
+crc32c                                                                        1.1.2-r0                                            apk                         
 cups                                                                          2.4.9-r0                                            apk                         
 cups-client                                                                   2.4.9-r0                                            apk                         
 cups-lang                                                                     2.4.9-r0                                            apk                         
@@ -97,6 +100,7 @@ docker-cli                                                                    26
 docker-cli-buildx                                                             0.14.0-r3                                           apk                         
 docker-cli-compose                                                            2.27.0-r3                                           apk                         
 docker-engine                                                                 26.1.5-r0                                           apk                         
+double-conversion                                                             3.3.0-r0                                            apk                         
 duktape                                                                       2.7.0-r1                                            apk                         
 dunst                                                                         1.11.0-r0                                           apk                         
 dunstify                                                                      1.11.0-r0                                           apk                         
@@ -124,18 +128,19 @@ ffmpeg-libpostproc                                                            6.
 ffmpeg-libswresample                                                          6.1.1-r8                                            apk                         
 ffmpeg-libswscale                                                             6.1.1-r8                                            apk                         
 fftw-single-libs                                                              3.3.10-r5                                           apk                         
+file                                                                          5.45-r1                                             apk                         
 file-uri-to-path                                                              1.0.0                                               npm                         
 filelist                                                                      1.0.4                                               npm                         
 finalhandler                                                                  1.3.1                                               npm                         
 findmnt                                                                       2.40.1-r1                                           apk                         
 findutils                                                                     4.9.0-r5                                            apk                         
-firefox                                                                       128.0.3-r0                                          apk                         
 flock                                                                         2.40.1-r1                                           apk                         
 font-noto                                                                     23.7.1-r0                                           apk                         
 font-noto-common                                                              23.7.1-r0                                           apk                         
 font-noto-emoji                                                               2.042-r0                                            apk                         
 font-noto-math                                                                23.7.1-r0                                           apk                         
 font-noto-symbols                                                             23.7.1-r0                                           apk                         
+font-opensans                                                                 0_git20210927-r1                                    apk                         
 fontconfig                                                                    2.15.0-r1                                           apk                         
 forwarded                                                                     0.2.0                                               npm                         
 freetype                                                                      2.13.2-r0                                           apk                         
@@ -531,6 +536,7 @@ gtksourceview4-lang                                                           4.
 gucharmap                                                                     15.1.4-r0                                           apk                         
 gucharmap-lang                                                                15.1.4-r0                                           apk                         
 harfbuzz                                                                      8.5.0-r0                                            apk                         
+harfbuzz-subset                                                               8.5.0-r0                                            apk                         
 has-flag                                                                      4.0.0                                               npm                         
 has-property-descriptors                                                      1.0.2                                               npm                         
 has-proto                                                                     1.0.3                                               npm                         
@@ -541,7 +547,7 @@ hicolor-icon-theme                                                            0.
 http-errors                                                                   2.0.0                                               npm                         
 hwdata-pci                                                                    0.382-r0                                            apk                         
 iconv-lite                                                                    0.4.24                                              npm                         
-icu-data-en                                                                   74.2-r0                                             apk                         
+icu-data-full                                                                 74.2-r0                                             apk                         
 icu-libs                                                                      74.2-r0                                             apk                         
 imath                                                                         3.1.12-r0                                           apk                         
 imlib2                                                                        1.12.2-r0                                           apk                         
@@ -587,6 +593,8 @@ libblkid                                                                      2.
 libbluray                                                                     1.3.4-r1                                            apk                         
 libbsd                                                                        0.12.2-r0                                           apk                         
 libbz2                                                                        1.0.8-r6                                            apk                         
+libcamera                                                                     0.3.0-r0                                            apk                         
+libcamera-ipa                                                                 0.3.0-r0                                            apk                         
 libcanberra                                                                   0.30-r10                                            apk                         
 libcanberra-gstreamer                                                         0.30-r10                                            apk                         
 libcanberra-gtk3                                                              0.30-r10                                            apk                         
@@ -626,6 +634,7 @@ libintl                                                                       0.
 libjpeg-turbo                                                                 3.0.3-r0                                            apk                         
 libjxl                                                                        0.10.2-r0                                           apk                         
 libltdl                                                                       2.4.7-r3                                            apk                         
+libmagic                                                                      5.45-r1                                             apk                         
 libmatekbd                                                                    1.26.1-r0                                           apk                         
 libmatekbd-lang                                                               1.26.1-r0                                           apk                         
 libmatemixer                                                                  1.26.0-r2                                           apk                         
@@ -675,8 +684,10 @@ libtheora                                                                     1.
 libucontext                                                                   1.2-r3                                              apk                         
 libunibreak                                                                   6.1-r0                                              apk                         
 libunistring                                                                  1.2-r0                                              apk                         
+libunwind                                                                     1.8.1-r0                                            apk                         
 libusb                                                                        1.0.27-r0                                           apk                         
 libuuid                                                                       2.40.1-r1                                           apk                         
+libuv                                                                         1.48.0-r0                                           apk                         
 libva                                                                         2.21.0-r0                                           apk                         
 libva-intel-driver                                                            2.4.1-r0                                            apk                         
 libvdpau                                                                      1.5-r3                                              apk                         
@@ -796,6 +807,8 @@ mime-db                                                                       1.
 mime-types                                                                    2.1.35                                              npm                         
 minimatch                                                                     3.1.2                                               npm                         
 minimatch                                                                     5.1.6                                               npm                         
+minizip                                                                       1.3.1-r0                                            apk                         
+mkfontscale                                                                   1.2.2-r6                                            apk                         
 mount                                                                         2.40.1-r1                                           apk                         
 mozo                                                                          1.26.2-r2                                           apk                         
 mozo-lang                                                                     1.26.2-r2                                           apk                         
@@ -833,6 +846,7 @@ openbox-libs                                                                  3.
 openexr-libiex                                                                3.1.13-r1                                           apk                         
 openexr-libilmthread                                                          3.1.13-r1                                           apk                         
 openexr-libopenexr                                                            3.1.13-r1                                           apk                         
+openh264                                                                      2.4.1-r0                                            apk                         
 openjpeg                                                                      2.5.2-r0                                            apk                         
 openssh-client-common                                                         9.7_p1-r4                                           apk                         
 openssh-client-default                                                        9.7_p1-r4                                           apk                         
@@ -907,6 +921,7 @@ perl-uri                                                                      5.
 perl-www-robotrules                                                           6.02-r5                                             apk                         
 perl-xml-parser                                                               2.47-r0                                             apk                         
 perl-yaml-tiny                                                                1.74-r1                                             apk                         
+pipewire-libs                                                                 1.0.6-r1                                            apk                         
 pixman                                                                        0.43.2-r0                                           apk                         
 pkgconf                                                                       2.2.0-r0                                            apk                         
 pluma                                                                         1.26.1-r0                                           apk                         
@@ -943,12 +958,12 @@ rav1e-libs                                                                    0.
 raw-body                                                                      2.5.2                                               npm                         
 readline                                                                      8.2.10-r0                                           apk                         
 resenje.org/singleflight                                                      v0.4.1                                              go-module                   
+roc-toolkit-libs                                                              0.3.0-r0                                            apk                         
 runc                                                                          1.1.14-r0                                           apk                         
 runuser                                                                       2.40.1-r1                                           apk                         
 safe-buffer                                                                   5.2.1                                               npm                         
 safer-buffer                                                                  2.1.2                                               npm                         
 scanelf                                                                       1.3.7-r2                                            apk                         
-scudo-malloc                                                                  17.0.6-r0                                           apk                         
 sdl2                                                                          2.28.5-r1                                           apk                         
 send                                                                          0.19.0                                              npm                         
 serd-libs                                                                     0.32.2-r0                                           apk                         
@@ -1027,6 +1042,7 @@ x264-libs                                                                     0.
 x265-libs                                                                     3.6-r0                                              apk                         
 xauth                                                                         1.1.3-r0                                            apk                         
 xcb-util                                                                      0.4.1-r3                                            apk                         
+xdg-utils                                                                     1.2.1-r0                                            apk                         
 xf86-video-amdgpu                                                             23.0.0-r3                                           apk                         
 xf86-video-ati                                                                22.0.0-r3                                           apk                         
 xf86-video-intel                                                              2.99.917_git20221028-r7                             apk                         
@@ -1035,9 +1051,12 @@ xf86-video-qxl                                                                0.
 xkbcomp                                                                       1.4.7-r0                                            apk                         
 xkeyboard-config                                                              2.41-r0                                             apk                         
 xkeyboard-config-lang                                                         2.41-r0                                             apk                         
+xprop                                                                         1.2.7-r0                                            apk                         
+xset                                                                          1.2.5-r1                                            apk                         
 xterm                                                                         391-r0                                              apk                         
 xvidcore                                                                      1.3.7-r2                                            apk                         
 xz-libs                                                                       5.6.2-r0                                            apk                         
+yaml                                                                          0.2.5-r2                                            apk                         
 yelp-tools                                                                    42.1-r1                                             apk                         
 zimg                                                                          3.0.5-r2                                            apk                         
 zix-libs                                                                      0.4.2-r0                                            apk                         
