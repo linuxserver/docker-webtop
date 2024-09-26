@@ -17,7 +17,7 @@ RUN \
     https://raw.githubusercontent.com/linuxserver/docker-templates/master/linuxserver.io/img/webtop-logo.png && \
   echo "**** install packages ****" && \
   apk add --no-cache \
-    firefox \
+    chromium \
     mate-desktop-environment \
     util-linux-misc && \
   echo "**** mate tweaks ****" && \
@@ -28,6 +28,9 @@ RUN \
   rm -f \
     /etc/xdg/autostart/mate-power-manager.desktop \
     /etc/xdg/autostart/mate-screensaver.desktop && \
+  sed -i \
+    's:/usr/bin/chromium-browser:/usr/bin/chromium:g' \
+    /usr/share/applications/chromium.desktop && \
   echo "**** cleanup ****" && \
   rm -rf \
     /tmp/*
