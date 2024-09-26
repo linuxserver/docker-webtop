@@ -460,6 +460,7 @@ Once registered you can define the dockerfile to use with `-f Dockerfile.aarch64
 
 ## Versions
 
+* **26.09.24:** - Swap from firefox to chromium on Alpine images.
 * **23.05.24:** - Rebase Alpine to 3.20, document Nvidia support.
 * **22.04.24:** - Rebase Ubuntu to Noble.
 * **16.04.24:** - Add docs on PRoot Apps.
