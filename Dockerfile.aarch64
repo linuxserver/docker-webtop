@@ -17,13 +17,13 @@ RUN \
     https://raw.githubusercontent.com/linuxserver/docker-templates/master/linuxserver.io/img/webtop-logo.png && \
   echo "**** install packages ****" && \
   apk add --no-cache \
+    chromium \
     dolphin \
     konsole \
     kwrite \
     breeze \
     breeze-gtk \
     breeze-icons \
-    firefox \
     kde-gtk-config \
     kmenuedit \
     plasma-browser-integration \
@@ -36,6 +36,9 @@ RUN \
   sed -i \
     's/applications:org.kde.discover.desktop,/applications:org.kde.konsole.desktop,/g' \
     /usr/share/plasma/plasmoids/org.kde.plasma.taskmanager/contents/config/main.xml && \
+  sed -i \
+    's:/usr/bin/chromium-browser:/usr/bin/chromium:g' \
+    /usr/share/applications/chromium.desktop && \
   echo "**** cleanup ****" && \
   rm -rf \
     /config/.cache \
