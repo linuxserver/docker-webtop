@@ -4,7 +4,7 @@ NAME                                                                          VE
 @socket.io/component-emitter                                                  3.1.2                                   npm                            
 @types/cookie                                                                 0.4.1                                   npm                            
 @types/cors                                                                   2.8.17                                  npm                            
-@types/node                                                                   22.5.5                                  npm                            
+@types/node                                                                   22.7.4                                  npm                            
 abseil-cpp                                                                    20240722.0-1                            alpm                           
 accepts                                                                       1.3.8                                   npm                            
 accountsservice                                                               23.13.9-2                               alpm                           
@@ -51,13 +51,13 @@ c-ares                                                                        1.
 ca-certificates                                                               20240618-1                              alpm                           
 ca-certificates-mozilla                                                       3.104-1                                 alpm                           
 ca-certificates-utils                                                         20240618-1                              alpm                           
-cairo                                                                         1.18.2-1                                alpm                           
+cairo                                                                         1.18.2-2                                alpm                           
 caja                                                                          1.28.0-2                                alpm                           
 call-bind                                                                     1.0.7                                   npm                            
 cantarell-fonts                                                               1:0.303.1-2                             alpm                           
 catatonit                                                                     0.2.0-3                                 alpm                           
 chalk                                                                         4.1.2                                   npm                            
-chromium                                                                      129.0.6668.58-1                         alpm                           
+chromium                                                                      129.0.6668.70-1                         alpm                           
 cloud.google.com/go/compute/metadata                                          v0.3.0                                  go-module                      
 cloud.google.com/go/logging                                                   v1.9.0                                  go-module                      
 cloud.google.com/go/longrunning                                               v0.5.4                                  go-module                      
@@ -101,7 +101,7 @@ desktop-file-utils                                                            0.
 destroy                                                                       1.2.0                                   npm                            
 device-mapper                                                                 2.03.26-1                               alpm                           
 diffutils                                                                     3.10-1                                  alpm                           
-docker                                                                        1:27.2.1-1                              alpm                           
+docker                                                                        1:27.3.1-1                              alpm                           
 docker-compose                                                                2.29.7-1                                alpm                           
 duktape                                                                       2.7.0-7                                 alpm                           
 dunst                                                                         1.11.0-1                                alpm                           
@@ -135,7 +135,7 @@ fontconfig                                                                    2:
 forwarded                                                                     0.2.0                                   npm                            
 freetype2                                                                     2.13.3-1                                alpm                           
 fresh                                                                         0.5.2                                   npm                            
-fribidi                                                                       1.0.15-1                                alpm                           
+fribidi                                                                       1.0.16-1                                alpm                           
 function-bind                                                                 1.1.2                                   npm                            
 fuse-common                                                                   3.16.2-1                                alpm                           
 fuse-overlayfs                                                                1.14-1                                  alpm                           
@@ -199,8 +199,7 @@ github.com/containerd/cgroups/v3                                              v3
 github.com/containerd/console                                                 v1.0.3                                  go-module     (+5 duplicates)  
 github.com/containerd/console                                                 v1.0.4                                  go-module     (+1 duplicate)   
 github.com/containerd/containerd                                              v0.0.0-20240909200931-7f7fdf5fed64      go-module     (+2 duplicates)  
-github.com/containerd/containerd                                              v1.7.21                                 go-module                      
-github.com/containerd/containerd                                              v1.7.22                                 go-module     (+3 duplicates)  
+github.com/containerd/containerd                                              v1.7.22                                 go-module     (+4 duplicates)  
 github.com/containerd/containerd/api                                          v1.7.19                                 go-module     (+7 duplicates)  
 github.com/containerd/continuity                                              v0.4.2                                  go-module     (+5 duplicates)  
 github.com/containerd/continuity                                              v0.4.3                                  go-module     (+1 duplicate)   
@@ -217,8 +216,8 @@ github.com/containerd/platforms                                               v0
 github.com/containerd/stargz-snapshotter/estargz                              v0.15.1                                 go-module                      
 github.com/containerd/ttrpc                                                   v1.2.5                                  go-module     (+7 duplicates)  
 github.com/containerd/typeurl                                                 v1.0.2                                  go-module                      
-github.com/containerd/typeurl/v2                                              v2.1.1                                  go-module     (+6 duplicates)  
-github.com/containerd/typeurl/v2                                              v2.2.0                                  go-module                      
+github.com/containerd/typeurl/v2                                              v2.1.1                                  go-module     (+5 duplicates)  
+github.com/containerd/typeurl/v2                                              v2.2.0                                  go-module     (+1 duplicate)   
 github.com/containerd/zfs                                                     v1.1.0                                  go-module                      
 github.com/containernetworking/cni                                            v1.1.2                                  go-module     (+1 duplicate)   
 github.com/containernetworking/cni                                            v1.2.2                                  go-module                      
@@ -236,12 +235,12 @@ github.com/distribution/reference                                             v0
 github.com/docker/buildx                                                      v0.17.1                                 go-module                      
 github.com/docker/cli                                                         v27.3.0-rc.2+incompatible               go-module                      
 github.com/docker/cli-docs-tool                                               v0.8.0                                  go-module                      
-github.com/docker/cli/cmd/docker                                              v27.2.1                                 go-module                      
+github.com/docker/cli/cmd/docker                                              v27.3.1                                 go-module                      
 github.com/docker/compose/v2                                                  v2.29.7                                 go-module                      
 github.com/docker/distribution                                                v2.8.3+incompatible                     go-module     (+1 duplicate)   
-github.com/docker/docker                                                      v0.0.0-20240906095740-8b539b8df240      go-module                      
-github.com/docker/docker                                                      v27.2.1                                 go-module                      
+github.com/docker/docker                                                      v0.0.0-20240918102538-41ca978a0a54      go-module                      
 github.com/docker/docker                                                      v27.3.0-rc.2+incompatible               go-module                      
+github.com/docker/docker                                                      v27.3.1                                 go-module                      
 github.com/docker/docker-credential-helpers                                   v0.8.2                                  go-module                      
 github.com/docker/go                                                          v1.5.1-1.0.20160303222718-d30aec9fd63c  go-module                      
 github.com/docker/go-connections                                              v0.5.0                                  go-module     (+1 duplicate)   
@@ -333,8 +332,7 @@ github.com/mitchellh/copystructure                                            v1
 github.com/mitchellh/hashstructure/v2                                         v2.0.2                                  go-module     (+1 duplicate)   
 github.com/mitchellh/mapstructure                                             v1.5.0                                  go-module                      
 github.com/mitchellh/reflectwalk                                              v1.0.2                                  go-module                      
-github.com/moby/buildkit                                                      v0.15.2                                 go-module                      
-github.com/moby/buildkit                                                      v0.16.0                                 go-module                      
+github.com/moby/buildkit                                                      v0.16.0                                 go-module     (+1 duplicate)   
 github.com/moby/docker-image-spec                                             v1.3.1                                  go-module     (+1 duplicate)   
 github.com/moby/ipvs                                                          v1.1.0                                  go-module                      
 github.com/moby/locker                                                        v1.0.1                                  go-module     (+4 duplicates)  
@@ -342,17 +340,15 @@ github.com/moby/patternmatcher                                                v0
 github.com/moby/pubsub                                                        v1.0.0                                  go-module                      
 github.com/moby/spdystream                                                    v0.2.0                                  go-module     (+1 duplicate)   
 github.com/moby/swarmkit/v2                                                   v2.0.0-20240611172349-ea1a7cec35cb      go-module                      
-github.com/moby/sys/mount                                                     v0.3.3                                  go-module                      
+github.com/moby/sys/mount                                                     v0.3.4                                  go-module                      
 github.com/moby/sys/mountinfo                                                 v0.5.0                                  go-module                      
 github.com/moby/sys/mountinfo                                                 v0.6.2                                  go-module     (+5 duplicates)  
-github.com/moby/sys/mountinfo                                                 v0.7.1                                  go-module                      
-github.com/moby/sys/mountinfo                                                 v0.7.2                                  go-module                      
-github.com/moby/sys/sequential                                                v0.5.0                                  go-module                      
-github.com/moby/sys/sequential                                                v0.6.0                                  go-module                      
-github.com/moby/sys/signal                                                    v0.7.0                                  go-module     (+3 duplicates)  
-github.com/moby/sys/signal                                                    v0.7.1                                  go-module                      
-github.com/moby/sys/symlink                                                   v0.2.0                                  go-module     (+1 duplicate)   
-github.com/moby/sys/symlink                                                   v0.3.0                                  go-module                      
+github.com/moby/sys/mountinfo                                                 v0.7.2                                  go-module     (+1 duplicate)   
+github.com/moby/sys/sequential                                                v0.6.0                                  go-module     (+1 duplicate)   
+github.com/moby/sys/signal                                                    v0.7.0                                  go-module     (+2 duplicates)  
+github.com/moby/sys/signal                                                    v0.7.1                                  go-module     (+1 duplicate)   
+github.com/moby/sys/symlink                                                   v0.2.0                                  go-module                      
+github.com/moby/sys/symlink                                                   v0.3.0                                  go-module     (+1 duplicate)   
 github.com/moby/sys/user                                                      v0.3.0                                  go-module     (+6 duplicates)  
 github.com/moby/sys/userns                                                    v0.1.0                                  go-module     (+7 duplicates)  
 github.com/moby/term                                                          v0.5.0                                  go-module     (+1 duplicate)   
@@ -448,11 +444,8 @@ go.opentelemetry.io/contrib/instrumentation/net/http/httptrace/otelhttptrace  v0
 go.opentelemetry.io/contrib/instrumentation/net/http/otelhttp                 v0.45.0                                 go-module     (+2 duplicates)  
 go.opentelemetry.io/contrib/instrumentation/net/http/otelhttp                 v0.46.1                                 go-module     (+1 duplicate)   
 go.opentelemetry.io/otel                                                      v1.21.0                                 go-module     (+4 duplicates)  
-go.opentelemetry.io/otel/exporters/otlp/otlpmetric                            v0.42.0                                 go-module                      
-go.opentelemetry.io/otel/exporters/otlp/otlpmetric/otlpmetricgrpc             v0.42.0                                 go-module                      
-go.opentelemetry.io/otel/exporters/otlp/otlpmetric/otlpmetricgrpc             v0.44.0                                 go-module                      
-go.opentelemetry.io/otel/exporters/otlp/otlpmetric/otlpmetrichttp             v0.42.0                                 go-module                      
-go.opentelemetry.io/otel/exporters/otlp/otlpmetric/otlpmetrichttp             v0.44.0                                 go-module                      
+go.opentelemetry.io/otel/exporters/otlp/otlpmetric/otlpmetricgrpc             v0.44.0                                 go-module     (+1 duplicate)   
+go.opentelemetry.io/otel/exporters/otlp/otlpmetric/otlpmetrichttp             v0.44.0                                 go-module     (+1 duplicate)   
 go.opentelemetry.io/otel/exporters/otlp/otlptrace                             v1.19.0                                 go-module                      
 go.opentelemetry.io/otel/exporters/otlp/otlptrace                             v1.21.0                                 go-module     (+1 duplicate)   
 go.opentelemetry.io/otel/exporters/otlp/otlptrace/otlptracegrpc               v1.19.0                                 go-module                      
@@ -470,43 +463,36 @@ go.uber.org/multierr                                                          v1
 go.uber.org/zap                                                               v1.21.0                                 go-module                      
 gobject-introspection-runtime                                                 1.82.0-1                                alpm                           
 golang.org/x/crypto                                                           v0.21.0                                 go-module                      
-golang.org/x/crypto                                                           v0.23.0                                 go-module                      
-golang.org/x/crypto                                                           v0.26.0                                 go-module                      
-golang.org/x/exp                                                              v0.0.0-20231006140011-7918f672742d      go-module                      
-golang.org/x/exp                                                              v0.0.0-20240823005443-9b4947da3948      go-module                      
+golang.org/x/crypto                                                           v0.26.0                                 go-module     (+1 duplicate)   
+golang.org/x/exp                                                              v0.0.0-20240823005443-9b4947da3948      go-module     (+1 duplicate)   
 golang.org/x/mod                                                              v0.12.0                                 go-module                      
-golang.org/x/mod                                                              v0.17.0                                 go-module                      
+golang.org/x/mod                                                              v0.20.0                                 go-module                      
 golang.org/x/net                                                              v0.23.0                                 go-module     (+3 duplicates)  
 golang.org/x/net                                                              v0.24.0                                 go-module                      
-golang.org/x/net                                                              v0.25.0                                 go-module                      
-golang.org/x/net                                                              v0.28.0                                 go-module                      
+golang.org/x/net                                                              v0.28.0                                 go-module     (+1 duplicate)   
 golang.org/x/oauth2                                                           v0.11.0                                 go-module                      
-golang.org/x/oauth2                                                           v0.21.0                                 go-module                      
-golang.org/x/oauth2                                                           v0.22.0                                 go-module                      
+golang.org/x/oauth2                                                           v0.22.0                                 go-module     (+1 duplicate)   
 golang.org/x/sync                                                             v0.5.0                                  go-module     (+5 duplicates)  
-golang.org/x/sync                                                             v0.7.0                                  go-module                      
-golang.org/x/sync                                                             v0.8.0                                  go-module                      
+golang.org/x/sync                                                             v0.8.0                                  go-module     (+1 duplicate)   
 golang.org/x/sys                                                              v0.18.0                                 go-module     (+5 duplicates)  
 golang.org/x/sys                                                              v0.19.0                                 go-module                      
-golang.org/x/sys                                                              v0.22.0                                 go-module     (+1 duplicate)   
+golang.org/x/sys                                                              v0.24.0                                 go-module     (+1 duplicate)   
 golang.org/x/sys                                                              v0.25.0                                 go-module                      
 golang.org/x/term                                                             v0.18.0                                 go-module                      
 golang.org/x/term                                                             v0.23.0                                 go-module                      
 golang.org/x/text                                                             v0.14.0                                 go-module     (+3 duplicates)  
-golang.org/x/text                                                             v0.15.0                                 go-module                      
-golang.org/x/text                                                             v0.17.0                                 go-module                      
+golang.org/x/text                                                             v0.17.0                                 go-module     (+1 duplicate)   
 golang.org/x/time                                                             v0.0.0-20220210224613-90d013bbcef8      go-module                      
-golang.org/x/time                                                             v0.3.0                                  go-module                      
-golang.org/x/time                                                             v0.6.0                                  go-module                      
-google.golang.org/api                                                         v0.149.0                                go-module                      
-google.golang.org/genproto                                                    v0.0.0-20231211222908-989df2bf70f3      go-module     (+6 duplicates)  
-google.golang.org/genproto                                                    v0.0.0-20240123012728-ef4313101c80      go-module                      
-google.golang.org/genproto/googleapis/api                                     v0.0.0-20231120223509-83a465c0220f      go-module     (+1 duplicate)   
-google.golang.org/genproto/googleapis/api                                     v0.0.0-20240123012728-ef4313101c80      go-module                      
-google.golang.org/genproto/googleapis/rpc                                     v0.0.0-20231212172506-995d672761c0      go-module     (+6 duplicates)  
-google.golang.org/genproto/googleapis/rpc                                     v0.0.0-20240123012728-ef4313101c80      go-module                      
-google.golang.org/grpc                                                        v1.59.0                                 go-module     (+6 duplicates)  
-google.golang.org/grpc                                                        v1.62.0                                 go-module                      
+golang.org/x/time                                                             v0.6.0                                  go-module     (+1 duplicate)   
+google.golang.org/api                                                         v0.155.0                                go-module                      
+google.golang.org/genproto                                                    v0.0.0-20231211222908-989df2bf70f3      go-module     (+5 duplicates)  
+google.golang.org/genproto                                                    v0.0.0-20240123012728-ef4313101c80      go-module     (+1 duplicate)   
+google.golang.org/genproto/googleapis/api                                     v0.0.0-20231120223509-83a465c0220f      go-module                      
+google.golang.org/genproto/googleapis/api                                     v0.0.0-20240123012728-ef4313101c80      go-module     (+1 duplicate)   
+google.golang.org/genproto/googleapis/rpc                                     v0.0.0-20231212172506-995d672761c0      go-module     (+5 duplicates)  
+google.golang.org/genproto/googleapis/rpc                                     v0.0.0-20240123012728-ef4313101c80      go-module     (+1 duplicate)   
+google.golang.org/grpc                                                        v1.59.0                                 go-module     (+5 duplicates)  
+google.golang.org/grpc                                                        v1.62.0                                 go-module     (+1 duplicate)   
 google.golang.org/protobuf                                                    v1.33.0                                 go-module     (+8 duplicates)  
 gopd                                                                          1.0.1                                   npm                            
 gopkg.in/cenkalti/backoff.v1                                                  v1.1.0                                  go-module                      
@@ -522,18 +508,18 @@ groff                                                                         1.
 gsettings-desktop-schemas                                                     47.1-1                                  alpm                           
 gsettings-system-schemas                                                      47.1-1                                  alpm                           
 gsm                                                                           1.0.22-2                                alpm                           
-gssdp                                                                         1.6.3-1                                 alpm                           
+gssdp                                                                         1.6.3-2                                 alpm                           
 gst-plugins-bad-libs                                                          1.24.8-1                                alpm                           
 gst-plugins-base-libs                                                         1.24.8-1                                alpm                           
 gstreamer                                                                     1.24.8-1                                alpm                           
 gtest                                                                         1.15.2-1                                alpm                           
 gtk-layer-shell                                                               0.9.0-1                                 alpm                           
-gtk-update-icon-cache                                                         1:4.16.1-1                              alpm                           
+gtk-update-icon-cache                                                         1:4.16.2-1                              alpm                           
 gtk3                                                                          1:3.24.43-3                             alpm                           
-gtk4                                                                          1:4.16.1-1                              alpm                           
+gtk4                                                                          1:4.16.2-1                              alpm                           
 gtksourceview4                                                                4.8.4-1                                 alpm                           
 guile                                                                         3.0.10-1                                alpm                           
-gupnp                                                                         1:1.6.6-1                               alpm                           
+gupnp                                                                         1:1.6.7-1                               alpm                           
 gupnp-igd                                                                     1.6.0-1                                 alpm                           
 gvfs                                                                          1.56.0-1                                alpm                           
 gzip                                                                          1.13-4                                  alpm                           
@@ -569,7 +555,7 @@ jake                                                                          10
 jansson                                                                       2.14-4                                  alpm                           
 jbig2dec                                                                      0.20-1                                  alpm                           
 jbigkit                                                                       2.1-8                                   alpm                           
-jpegxl                                                                                                                java-archive                   
+jpegxl                                                                        UNKNOWN                                 java-archive                   
 jq                                                                            1.7.1-2                                 alpm                           
 json-c                                                                        0.18-1                                  alpm                           
 json-glib                                                                     1.10.0-1                                alpm                           
@@ -599,7 +585,7 @@ lame                                                                          3.
 lcms2                                                                         2.16-1                                  alpm                           
 less                                                                          1:661-1                                 alpm                           
 libadwaita                                                                    1:1.6.0-1                               alpm                           
-libarchive                                                                    3.7.5-1                                 alpm                           
+libarchive                                                                    3.7.6-1                                 alpm                           
 libass                                                                        0.17.3-1                                alpm                           
 libassuan                                                                     3.0.0-1                                 alpm                           
 libasyncns                                                                    1:0.8+r3+g68cd5af-3                     alpm                           
@@ -631,7 +617,7 @@ libcdio-paranoia                                                              10
 libcloudproviders                                                             0.3.6-1                                 alpm                           
 libcolord                                                                     1.4.7-2                                 alpm                           
 libcups                                                                       2:2.4.10-1                              alpm                           
-libcupsfilters                                                                2.0.0-2                                 alpm                           
+libcupsfilters                                                                2.0.0-3                                 alpm                           
 libdaemon                                                                     0.14-6                                  alpm                           
 libdatrie                                                                     0.2.13-4                                alpm                           
 libdbusmenu-glib                                                              16.04.0.r498-2                          alpm                           
@@ -684,7 +670,7 @@ libnsl                                                                        2.
 libnvme                                                                       1.10-1                                  alpm                           
 libogg                                                                        1.3.5-2                                 alpm                           
 libomxil-bellagio                                                             0.9.3-5                                 alpm                           
-libopenmpt                                                                    0.7.9-1                                 alpm                           
+libopenmpt                                                                    0.7.10-1                                alpm                           
 libp11-kit                                                                    0.25.5-1                                alpm                           
 libpaper                                                                      2.2.5-1                                 alpm                           
 libpcap                                                                       1.10.5-2                                alpm                           
@@ -724,7 +710,7 @@ libunistring                                                                  1.
 libunwind                                                                     1.8.1-3                                 alpm                           
 libusb                                                                        1.0.27-1                                alpm                           
 libutempter                                                                   1.2.1-4                                 alpm                           
-libuv                                                                         1.48.0-2                                alpm                           
+libuv                                                                         1.49.0-1                                alpm                           
 libva                                                                         2.22.0-1                                alpm                           
 libva-mesa-driver                                                             1:24.2.3-1                              alpm                           
 libvdpau                                                                      1.5-3                                   alpm                           
@@ -970,7 +956,7 @@ tinysparql                                                                    3.
 toidentifier                                                                  1.0.1                                   npm                            
 tpm2-tss                                                                      4.0.1-1                                 alpm                           
 ttf-liberation                                                                2.1.5-2                                 alpm                           
-turbojpeg                                                                                                             java-archive                   
+turbojpeg                                                                     UNKNOWN                                 java-archive                   
 type-is                                                                       1.6.18                                  npm                            
 tzdata                                                                        2024b-2                                 alpm                           
 udisks2                                                                       2.10.1-5                                alpm                           
