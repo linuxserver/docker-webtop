@@ -11,15 +11,17 @@ jobs:
 
       - name: External Trigger
         if: github.ref == 'refs/heads/arch-openbox'
+        env:
+          SKIP_EXTERNAL_TRIGGER: ${{ vars.SKIP_EXTERNAL_TRIGGER }}
         run: |
           printf "# External trigger for docker-webtop\n\n" >> $GITHUB_STEP_SUMMARY
-          if [ -n "${{ secrets.PAUSE_EXTERNAL_TRIGGER_WEBTOP_ARCH_OPENBOX }}" ]; then
+          if grep -wq "^webtop_arch-openbox$" <<< "${SKIP_EXTERNAL_TRIGGER}"; then
             echo "> [!WARNING]" >> $GITHUB_STEP_SUMMARY
-            echo "> Github secret \`PAUSE_EXTERNAL_TRIGGER_WEBTOP_ARCH_OPENBOX\` is set; skipping trigger." >> $GITHUB_STEP_SUMMARY
+            echo "> Github organizational variable \`SKIP_EXTERNAL_TRIGGER\` contains \`webtop_arch-openbox\`; skipping trigger." >> $GITHUB_STEP_SUMMARY
             exit 0
           fi
           echo "> [!NOTE]" >> $GITHUB_STEP_SUMMARY
-          echo "> External trigger running off of arch-openbox branch. To disable this trigger, set a Github secret named \`PAUSE_EXTERNAL_TRIGGER_WEBTOP_ARCH_OPENBOX\`" >> $GITHUB_STEP_SUMMARY
+          echo "> External trigger running off of arch-openbox branch. To disable this trigger, add \`webtop_arch-openbox\` into the Github organizational variable \`SKIP_EXTERNAL_TRIGGER\`." >> $GITHUB_STEP_SUMMARY
           printf "\n## Retrieving external version\n\n" >> $GITHUB_STEP_SUMMARY
           EXT_RELEASE=$(curl -u ${{ secrets.CR_USER }}:${{ secrets.CR_PAT }} -sX GET https://api.github.com/repos/linuxserver/docker-baseimage-kasmvnc/releases | jq -r 'first(.[] | select(.tag_name | startswith("arch-"))) | .tag_name' | sed 's|arch-||' | sed 's|-ls.*||')
           echo "Type is \`custom_version_command\`" >> $GITHUB_STEP_SUMMARY
@@ -78,26 +80,38 @@ jobs:
             echo "New version \`${EXT_RELEASE}\` found; but there already seems to be an active build on Jenkins; exiting" >> $GITHUB_STEP_SUMMARY
             exit 0
           else
-            printf "\n## Trigger new build\n\n" >> $GITHUB_STEP_SUMMARY
-            echo "New version \`${EXT_RELEASE}\` found; old version was \`${IMAGE_VERSION}\`. Triggering new build" >> $GITHUB_STEP_SUMMARY
-            response=$(curl -iX POST \
-              https://ci.linuxserver.io/job/Docker-Pipeline-Builders/job/docker-webtop/job/arch-openbox/buildWithParameters?PACKAGE_CHECK=false \
-              --user ${{ secrets.JENKINS_USER }}:${{ secrets.JENKINS_TOKEN }} | grep -i location | sed "s|^[L|l]ocation: \(.*\)|\1|")
-            echo "Jenkins [job queue url](${response%$'\r'})" >> $GITHUB_STEP_SUMMARY
-            echo "Sleeping 10 seconds until job starts" >> $GITHUB_STEP_SUMMARY
-            sleep 10
-            buildurl=$(curl -s "${response%$'\r'}api/json" | jq -r '.executable.url')
-            buildurl="${buildurl%$'\r'}"
-            echo "Jenkins job [build url](${buildurl})" >> $GITHUB_STEP_SUMMARY
-            echo "Attempting to change the Jenkins job description" >> $GITHUB_STEP_SUMMARY
-            curl -iX POST \
-              "${buildurl}submitDescription" \
-              --user ${{ secrets.JENKINS_USER }}:${{ secrets.JENKINS_TOKEN }} \
-              --data-urlencode "description=GHA external trigger https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}" \
-              --data-urlencode "Submit=Submit"
-            echo "**** Notifying Discord ****"
-            TRIGGER_REASON="A version change was detected for webtop tag arch-openbox. Old version:${IMAGE_VERSION} New version:${EXT_RELEASE}"
-            curl -X POST -H "Content-Type: application/json" --data '{"avatar_url": "https://cdn.discordapp.com/avatars/354986384542662657/df91181b3f1cf0ef1592fbe18e0962d7.png","embeds": [{"color": 9802903,
-              "description": "**Build Triggered** \n**Reason:** '"${TRIGGER_REASON}"' \n**Build URL:** '"${buildurl}display/redirect"' \n"}],
-              "username": "Github Actions"}' ${{ secrets.DISCORD_WEBHOOK }}
+            if [[ "${artifacts_found}" == "false" ]]; then
+              echo "> [!WARNING]" >> $GITHUB_STEP_SUMMARY
+              echo "> New version detected, but not all artifacts are published yet; skipping trigger" >> $GITHUB_STEP_SUMMARY
+              FAILURE_REASON="New version ${EXT_RELEASE} for webtop tag arch-openbox is detected, however not all artifacts are uploaded to upstream release yet. Will try again later."
+              curl -X POST -H "Content-Type: application/json" --data '{"avatar_url": "https://cdn.discordapp.com/avatars/354986384542662657/df91181b3f1cf0ef1592fbe18e0962d7.png","embeds": [{"color": 9802903,
+                "description": "**Trigger Failed** \n**Reason:** '"${FAILURE_REASON}"' \n"}],
+                "username": "Github Actions"}' ${{ secrets.DISCORD_WEBHOOK }}
+            else
+              printf "\n## Trigger new build\n\n" >> $GITHUB_STEP_SUMMARY
+              echo "New version \`${EXT_RELEASE}\` found; old version was \`${IMAGE_VERSION}\`. Triggering new build" >> $GITHUB_STEP_SUMMARY
+              if "${artifacts_found}" == "true" ]]; then
+                echo "All artifacts seem to be uploaded." >> $GITHUB_STEP_SUMMARY
+              fi
+              response=$(curl -iX POST \
+                https://ci.linuxserver.io/job/Docker-Pipeline-Builders/job/docker-webtop/job/arch-openbox/buildWithParameters?PACKAGE_CHECK=false \
+                --user ${{ secrets.JENKINS_USER }}:${{ secrets.JENKINS_TOKEN }} | grep -i location | sed "s|^[L|l]ocation: \(.*\)|\1|")
+              echo "Jenkins [job queue url](${response%$'\r'})" >> $GITHUB_STEP_SUMMARY
+              echo "Sleeping 10 seconds until job starts" >> $GITHUB_STEP_SUMMARY
+              sleep 10
+              buildurl=$(curl -s "${response%$'\r'}api/json" | jq -r '.executable.url')
+              buildurl="${buildurl%$'\r'}"
+              echo "Jenkins job [build url](${buildurl})" >> $GITHUB_STEP_SUMMARY
+              echo "Attempting to change the Jenkins job description" >> $GITHUB_STEP_SUMMARY
+              curl -iX POST \
+                "${buildurl}submitDescription" \
+                --user ${{ secrets.JENKINS_USER }}:${{ secrets.JENKINS_TOKEN }} \
+                --data-urlencode "description=GHA external trigger https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}" \
+                --data-urlencode "Submit=Submit"
+              echo "**** Notifying Discord ****"
+              TRIGGER_REASON="A version change was detected for webtop tag arch-openbox. Old version:${IMAGE_VERSION} New version:${EXT_RELEASE}"
+              curl -X POST -H "Content-Type: application/json" --data '{"avatar_url": "https://cdn.discordapp.com/avatars/354986384542662657/df91181b3f1cf0ef1592fbe18e0962d7.png","embeds": [{"color": 9802903,
+                "description": "**Build Triggered** \n**Reason:** '"${TRIGGER_REASON}"' \n**Build URL:** '"${buildurl}display/redirect"' \n"}],
+                "username": "Github Actions"}' ${{ secrets.DISCORD_WEBHOOK }}
+            fi
           fi
