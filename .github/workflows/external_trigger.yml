@@ -15,7 +15,7 @@ jobs:
           SKIP_EXTERNAL_TRIGGER: ${{ vars.SKIP_EXTERNAL_TRIGGER }}
         run: |
           printf "# External trigger for docker-webtop\n\n" >> $GITHUB_STEP_SUMMARY
-          if grep -wq "^webtop_arch-kde$" <<< "${SKIP_EXTERNAL_TRIGGER}"; then
+          if grep -q "^webtop_arch-kde" <<< "${SKIP_EXTERNAL_TRIGGER}"; then
             echo "> [!WARNING]" >> $GITHUB_STEP_SUMMARY
             echo "> Github organizational variable \`SKIP_EXTERNAL_TRIGGER\` contains \`webtop_arch-kde\`; skipping trigger." >> $GITHUB_STEP_SUMMARY
             exit 0
