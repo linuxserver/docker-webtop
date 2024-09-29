@@ -33,7 +33,7 @@ jobs:
                 echo "> [!WARNING]" >> $GITHUB_STEP_SUMMARY
                 echo "> Skipping branch ${br} due to \`skip_package_check\` being set in \`jenkins-vars.yml\`." >> $GITHUB_STEP_SUMMARY
                 skipped_branches="${skipped_branches}${br} "
-              elif grep -wq "^webtop_${br}$" <<< "${SKIP_PACKAGE_TRIGGER}"; then
+              elif grep -q "^webtop_${br}" <<< "${SKIP_PACKAGE_TRIGGER}"; then
                 echo "> [!WARNING]" >> $GITHUB_STEP_SUMMARY
                 echo "> Github organizational variable \`SKIP_PACKAGE_TRIGGER\` contains \`webtop_${br}\`; skipping trigger." >> $GITHUB_STEP_SUMMARY
                 skipped_branches="${skipped_branches}${br} "
