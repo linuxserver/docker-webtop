@@ -11,6 +11,8 @@ jobs:
 
       - name: External Trigger
         if: github.ref == 'refs/heads/debian-kde'
+        env:
+          SKIP_EXTERNAL_TRIGGER: ${{ vars.SKIP_EXTERNAL_TRIGGER }}
         run: |
           printf "# External trigger for docker-webtop\n\n" >> $GITHUB_STEP_SUMMARY
           echo "Type is \`os\`" >> $GITHUB_STEP_SUMMARY
