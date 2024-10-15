@@ -5,7 +5,7 @@ NAME                                                                          VE
 @socket.io/component-emitter                                                  UNKNOWN                                             npm        (+1 duplicate)    
 @types/cookie                                                                 0.4.1                                               npm                          
 @types/cors                                                                   2.8.17                                              npm                          
-@types/node                                                                   22.7.4                                              npm                          
+@types/node                                                                   22.7.5                                              npm                          
 SDL2                                                                          2.30.3-1.fc40                                       rpm                          
 abattis-cantarell-vf-fonts                                                    0.301-12.fc40                                       rpm                          
 accepts                                                                       1.3.8                                               npm                          
@@ -21,7 +21,7 @@ alternatives                                                                  1.
 annobin-docs                                                                  12.60-1.fc40                                        rpm                          
 annobin-plugin-gcc                                                            12.60-1.fc40                                        rpm                          
 ansi-styles                                                                   4.3.0                                               npm                          
-ansible-srpm-macros                                                           1-14.fc40                                           rpm                          
+ansible-srpm-macros                                                           1-16.fc40                                           rpm                          
 array-flatten                                                                 1.1.1                                               npm                          
 async                                                                         3.2.6                                               npm                          
 at-spi2-atk                                                                   2.52.0-1.fc40                                       rpm                          
@@ -56,8 +56,8 @@ catatonit                                                                     0.
 cdparanoia-libs                                                               10.2-44.fc40                                        rpm                          
 chalk                                                                         4.1.2                                               npm                          
 checkpolicy                                                                   3.7-2.fc40                                          rpm                          
-chromium                                                                      129.0.6668.89-1.fc40                                rpm                          
-chromium-common                                                               129.0.6668.89-1.fc40                                rpm                          
+chromium                                                                      129.0.6668.100-1.fc40                               rpm                          
+chromium-common                                                               129.0.6668.100-1.fc40                               rpm                          
 cloud.google.com/go/compute/metadata                                          v0.3.0                                              go-module                    
 cloud.google.com/go/logging                                                   v1.9.0                                              go-module                    
 cloud.google.com/go/longrunning                                               v0.5.4                                              go-module                    
@@ -73,8 +73,8 @@ container-selinux                                                             2:
 containerd.io                                                                 1.7.22-3.1.fc40                                     rpm                          
 content-disposition                                                           0.5.4                                               npm                          
 content-type                                                                  1.0.5                                               npm                          
-cookie                                                                        0.4.2                                               npm                          
-cookie                                                                        0.6.0                                               npm                          
+cookie                                                                        0.7.1                                               npm                          
+cookie                                                                        0.7.2                                               npm                          
 cookie-signature                                                              1.0.6                                               npm                          
 coreutils                                                                     9.4-8.fc40                                          rpm                          
 coreutils-common                                                              9.4-8.fc40                                          rpm                          
@@ -135,7 +135,7 @@ elfutils-libs                                                                 0.
 emacs-filesystem                                                              1:29.4-9.fc40                                       rpm                          
 encodeurl                                                                     1.0.2                                               npm                          
 encodeurl                                                                     2.0.0                                               npm                          
-engine.io                                                                     6.6.1                                               npm                          
+engine.io                                                                     6.6.2                                               npm                          
 engine.io-parser                                                              5.2.3                                               npm                          
 engine.io-parser                                                              UNKNOWN                                             npm        (+1 duplicate)    
 es-define-property                                                            1.0.0                                               npm                          
@@ -143,7 +143,7 @@ es-errors                                                                     1.
 escape-html                                                                   1.0.3                                               npm                          
 etag                                                                          1.8.1                                               npm                          
 expat                                                                         2.6.0-1.fc40                                        rpm                          
-express                                                                       4.21.0                                              npm                          
+express                                                                       4.21.1                                              npm                          
 fdk-aac                                                                       2.0.3-2.fc40                                        rpm                          
 fedora-gpg-keys                                                               40-1                                                rpm                          
 fedora-logos-httpd                                                            38.1.0-5.fc40                                       rpm                          
@@ -600,7 +600,7 @@ hicolor-icon-theme                                                            0.
 highway                                                                       1.2.0-2.fc40                                        rpm                          
 hostname                                                                      3.23-12.fc40                                        rpm                          
 http-errors                                                                   2.0.0                                               npm                          
-hwdata                                                                        0.387-1.fc40                                        rpm                          
+hwdata                                                                        0.388-1.fc40                                        rpm                          
 icewm                                                                         3.6.0-1.fc40                                        rpm                          
 icewm-data                                                                    3.6.0-1.fc40                                        rpm                          
 iconv-lite                                                                    0.4.24                                              npm                          
@@ -884,7 +884,7 @@ mpg123-libs                                                                   1.
 ms                                                                            2.0.0                                               npm                          
 ms                                                                            2.1.3                                               npm        (+4 duplicates)   
 mtdev                                                                         1.1.6-8.fc40                                        rpm                          
-nan                                                                           2.20.0                                              npm                          
+nan                                                                           2.22.0                                              npm                          
 ncurses                                                                       6.4-12.20240127.fc40                                rpm                          
 ncurses-base                                                                  6.4-12.20240127.fc40                                rpm                          
 ncurses-libs                                                                  6.4-12.20240127.fc40                                rpm                          
@@ -1069,8 +1069,8 @@ perl-Math-BigInt-FastCalc                                                     0.
 perl-Math-Complex                                                             0:1.62-506.fc40                                     rpm                          
 perl-Memoize                                                                  0:1.16-506.fc40                                     rpm                          
 perl-Module-Build                                                             2:0.42.34-5.fc40                                    rpm                          
-perl-Module-CoreList                                                          1:5.20240829-1.fc40                                 rpm                          
-perl-Module-CoreList-tools                                                    1:5.20240829-1.fc40                                 rpm                          
+perl-Module-CoreList                                                          1:5.20240920-1.fc40                                 rpm                          
+perl-Module-CoreList-tools                                                    1:5.20240920-1.fc40                                 rpm                          
 perl-Module-Implementation                                                    0.09-39.fc40                                        rpm                          
 perl-Module-Load                                                              1:0.36-503.fc40                                     rpm                          
 perl-Module-Load-Conditional                                                  0.74-503.fc40                                       rpm                          
@@ -1266,7 +1266,7 @@ qs                                                                            6.
 qt5-srpm-macros                                                               5.15.15-1.fc40                                      rpm                          
 qt6-srpm-macros                                                               6.7.2-2.fc40                                        rpm                          
 range-parser                                                                  1.2.1                                               npm                          
-rav1e-libs                                                                    0.7.1-2.fc40                                        rpm                          
+rav1e-libs                                                                    0.7.1-4.fc40                                        rpm                          
 raw-body                                                                      2.5.2                                               npm                          
 readline                                                                      8.2-8.fc40                                          rpm                          
 redhat-menus                                                                  12.0.2-26.fc40                                      rpm                          
@@ -1293,8 +1293,8 @@ samba-common                                                                  2:
 samba-common-libs                                                             2:4.20.5-1.fc40                                     rpm                          
 sed                                                                           4.9-1.fc40                                          rpm                          
 selinux                                                                       3.6                                                 python                       
-selinux-policy                                                                40.27-1.fc40                                        rpm                          
-selinux-policy-targeted                                                       40.27-1.fc40                                        rpm                          
+selinux-policy                                                                40.28-1.fc40                                        rpm                          
+selinux-policy-targeted                                                       40.28-1.fc40                                        rpm                          
 send                                                                          0.19.0                                              npm                          
 sepolicy                                                                      3.6                                                 python                       
 serd                                                                          0.30.16-3.fc40                                      rpm                          
