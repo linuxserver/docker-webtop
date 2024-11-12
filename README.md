@@ -148,7 +148,8 @@ To install cjk fonts on startup as an example pass the environment variables (Al
 
 ```
 -e DOCKER_MODS=linuxserver/mods:universal-package-install 
--e INSTALL_PACKAGES=font-noto-cjk-e LC_ALL=zh_CN.UTF-8
+-e INSTALL_PACKAGES=font-noto-cjk
+-e LC_ALL=zh_CN.UTF-8
 ```
 
 The web interface has the option for "IME Input Mode" in Settings which will allow non english characters to be used from a non en_US keyboard on the client. Once enabled it will perform the same as a local Linux installation set to your locale.
@@ -224,10 +225,6 @@ It is possible to install extra packages during container start using [universal
     - DOCKER_MODS=linuxserver/mods:universal-package-install
     - INSTALL_PACKAGES=libfuse2|git|gdb
 ```
-
-### Lossless mode
-
-This container is capable of delivering a true lossless image at a high framerate to your web browser by changing the Stream Quality preset to "Lossless", more information [here](https://www.kasmweb.com/docs/latest/how_to/lossless.html#technical-background). In order to use this mode from a non localhost endpoint the HTTPS port on 3001 needs to be used. If using a reverse proxy to port 3000 specific headers will need to be set as outlined [here](https://github.com/linuxserver/docker-baseimage-kasmvnc#lossless).
 
  
 ## Usage
