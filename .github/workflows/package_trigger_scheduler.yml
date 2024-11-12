@@ -70,13 +70,14 @@ jobs:
           if [[ -n "${triggered_branches}" ]] || [[ -n "${skipped_branches}" ]]; then
             if [[ -n "${triggered_branches}" ]]; then
               NOTIFY_BRANCHES="**Triggered:** ${triggered_branches} \n"
+              NOTIFY_BUILD_URL="**Build URL:** https://ci.linuxserver.io/blue/organizations/jenkins/Docker-Pipeline-Builders%2Fdocker-webtop/activity/ \n"
+              echo "**** Package check build(s) triggered for branch(es): ${triggered_branches} ****"
             fi
             if [[ -n "${skipped_branches}" ]]; then
               NOTIFY_BRANCHES="${NOTIFY_BRANCHES}**Skipped:** ${skipped_branches} \n"
             fi
-            echo "**** Package check build(s) triggered for branch(es): ${triggered_branches} ****"
             echo "**** Notifying Discord ****"
             curl -X POST -H "Content-Type: application/json" --data '{"avatar_url": "https://cdn.discordapp.com/avatars/354986384542662657/df91181b3f1cf0ef1592fbe18e0962d7.png","embeds": [{"color": 9802903,
-              "description": "**Package Check Build(s) Triggered for webtop** \n'"${NOTIFY_BRANCHES}"'**Build URL:** '"https://ci.linuxserver.io/blue/organizations/jenkins/Docker-Pipeline-Builders%2Fdocker-webtop/activity/"' \n"}],
+              "description": "**Package Check Build(s) for webtop** \n'"${NOTIFY_BRANCHES}"''"${NOTIFY_BUILD_URL}"'"}],
               "username": "Github Actions"}' ${{ secrets.DISCORD_WEBHOOK }}
           fi
