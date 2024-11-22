@@ -5,7 +5,7 @@ NAME                                                                          VE
 @socket.io/component-emitter                                                  UNKNOWN                                             npm           (+1 duplicate)   
 @types/cookie                                                                 0.4.1                                               npm                            
 @types/cors                                                                   2.8.17                                              npm                            
-@types/node                                                                   22.9.0                                              npm                            
+@types/node                                                                   22.9.1                                              npm                            
 a52dec                                                                        0.8.0-2                                             alpm                           
 abseil-cpp                                                                    20240722.0-1                                        alpm                           
 accepts                                                                       1.3.8                                               npm                            
@@ -20,7 +20,7 @@ alsa-topology-conf                                                            1.
 alsa-ucm-conf                                                                 1.2.12-1                                            alpm                           
 amdvlk                                                                        2024.Q3.3-1                                         alpm                           
 ansi-styles                                                                   4.3.0                                               npm                            
-aom                                                                           3.10.0-1                                            alpm                           
+aom                                                                           3.11.0-1                                            alpm                           
 appstream                                                                     1.0.3-1                                             alpm                           
 appstream-qt                                                                  1.0.3-1                                             alpm                           
 archlinux-keyring                                                             20241015-1                                          alpm                           
@@ -63,7 +63,7 @@ call-bind                                                                     1.
 cantarell-fonts                                                               1:0.303.1-2                                         alpm                           
 catatonit                                                                     0.2.0-3                                             alpm                           
 chalk                                                                         4.1.2                                               npm                            
-chromium                                                                      131.0.6778.69-1                                     alpm                           
+chromium                                                                      131.0.6778.85-1                                     alpm                           
 cifs-utils                                                                    7.1-1                                               alpm                           
 cloud.google.com/go/compute/metadata                                          v0.3.0                                              go-module                      
 cloud.google.com/go/logging                                                   v1.9.0                                              go-module                      
@@ -162,7 +162,7 @@ gdbm                                                                          1.
 gdk-pixbuf2                                                                   2.42.12-2                                           alpm                           
 geoclue                                                                       2.7.2-1                                             alpm                           
 geoip                                                                         1.6.12-3                                            alpm                           
-geoip-database                                                                20240720-1                                          alpm                           
+geoip-database                                                                20241116-1                                          alpm                           
 get-intrinsic                                                                 1.2.4                                               npm                            
 gettext                                                                       0.22.5-2                                            alpm                           
 ghostscript                                                                   10.04.0-1                                           alpm                           
@@ -530,7 +530,7 @@ gsettings-desktop-schemas                                                     47
 gsettings-system-schemas                                                      47.1-1                                              alpm                           
 gsm                                                                           1.0.22-2                                            alpm                           
 gtest                                                                         1.15.2-1                                            alpm                           
-gtk-update-icon-cache                                                         1:4.16.5-1                                          alpm                           
+gtk-update-icon-cache                                                         1:4.16.6-1                                          alpm                           
 gtk3                                                                          1:3.24.43-4                                         alpm                           
 guile                                                                         3.0.10-1                                            alpm                           
 gzip                                                                          1.13-4                                              alpm                           
@@ -557,7 +557,7 @@ inherits                                                                      2.
 intel-gmmlib                                                                  22.5.2-1                                            alpm                           
 intel-media-driver                                                            24.4.2-1                                            alpm                           
 ipaddr.js                                                                     1.9.1                                               npm                            
-iproute2                                                                      6.11.0-1                                            alpm                           
+iproute2                                                                      6.12.0-1                                            alpm                           
 iptables                                                                      1:1.8.10-2                                          alpm                           
 iso-codes                                                                     4.17.0-1                                            alpm                           
 jack2                                                                         1.9.22-1                                            alpm                           
@@ -669,14 +669,14 @@ libasyncns                                                                    1:
 libatasmart                                                                   0.19-6                                              alpm                           
 libavc1394                                                                    0.5.4-6                                             alpm                           
 libb2                                                                         0.98.1-3                                            alpm                           
-libblockdev                                                                   3.2.1-1                                             alpm                           
-libblockdev-crypto                                                            3.2.1-1                                             alpm                           
-libblockdev-fs                                                                3.2.1-1                                             alpm                           
-libblockdev-loop                                                              3.2.1-1                                             alpm                           
-libblockdev-mdraid                                                            3.2.1-1                                             alpm                           
-libblockdev-nvme                                                              3.2.1-1                                             alpm                           
-libblockdev-part                                                              3.2.1-1                                             alpm                           
-libblockdev-swap                                                              3.2.1-1                                             alpm                           
+libblockdev                                                                   3.2.1-2                                             alpm                           
+libblockdev-crypto                                                            3.2.1-2                                             alpm                           
+libblockdev-fs                                                                3.2.1-2                                             alpm                           
+libblockdev-loop                                                              3.2.1-2                                             alpm                           
+libblockdev-mdraid                                                            3.2.1-2                                             alpm                           
+libblockdev-nvme                                                              3.2.1-2                                             alpm                           
+libblockdev-part                                                              3.2.1-2                                             alpm                           
+libblockdev-swap                                                              3.2.1-2                                             alpm                           
 libbluray                                                                     1.3.4-2                                             alpm                           
 libbluray-awt-j2se                                                            1.3.4                                               java-archive                   
 libbluray-j2se                                                                1.3.4                                               java-archive                   
@@ -724,7 +724,7 @@ libiec61883                                                                   1.
 libimobiledevice                                                              1.3.0-14                                            alpm                           
 libimobiledevice-glue                                                         1.3.1-1                                             alpm                           
 libinih                                                                       58-1                                                alpm                           
-libinput                                                                      1.26.2-1                                            alpm                           
+libinput                                                                      1.27.0-1                                            alpm                           
 libisl                                                                        0.27-1                                              alpm                           
 libjpeg-turbo                                                                 3.0.4-1                                             alpm                           
 libjxl                                                                        0.11.0-2                                            alpm                           
@@ -743,7 +743,7 @@ libmodplug                                                                    0.
 libmpc                                                                        1.3.1-2                                             alpm                           
 libmpcdec                                                                     1:0.1+r475-6                                        alpm                           
 libmpeg2                                                                      0.5.1-10                                            alpm                           
-libmtp                                                                        1.1.21-2                                            alpm                           
+libmtp                                                                        1.1.22-1                                            alpm                           
 libnetfilter_conntrack                                                        1.0.9-2                                             alpm                           
 libnfnetlink                                                                  1.0.2-2                                             alpm                           
 libnftnl                                                                      1.2.8-1                                             alpm                           
@@ -752,7 +752,7 @@ libnghttp3                                                                    1.
 libnl                                                                         3.11.0-1                                            alpm                           
 libnotify                                                                     0.8.3-1                                             alpm                           
 libnsl                                                                        2.0.1-1                                             alpm                           
-libnvme                                                                       1.10-1                                              alpm                           
+libnvme                                                                       1.11.1-1                                            alpm                           
 libogg                                                                        1.3.5-2                                             alpm                           
 libomxil-bellagio                                                             0.9.3-5                                             alpm                           
 libopenmpt                                                                    0.7.11-1                                            alpm                           
@@ -842,7 +842,7 @@ libxrender                                                                    0.
 libxshmfence                                                                  1.3.2-2                                             alpm                           
 libxslt                                                                       1.1.42-1                                            alpm                           
 libxss                                                                        1.2.4-2                                             alpm                           
-libxt                                                                         1.3.0-2                                             alpm                           
+libxt                                                                         1.3.1-1                                             alpm                           
 libxtst                                                                       1.2.5-1                                             alpm                           
 libxv                                                                         1.0.12-2                                            alpm                           
 libxvmc                                                                       1.0.14-1                                            alpm                           
@@ -854,7 +854,7 @@ llvm-libs                                                                     18
 lm_sensors                                                                    1:3.6.0.r41.g31d1f125-3                             alpm                           
 lmdb                                                                          0.9.33-1                                            alpm                           
 lua                                                                           5.4.7-1                                             alpm                           
-luit                                                                          20240102-2                                          alpm                           
+luit                                                                          20240910-1                                          alpm                           
 lz4                                                                           1:1.10.0-2                                          alpm                           
 lzo                                                                           2.10-5                                              alpm                           
 m4                                                                            1.4.19-3                                            alpm                           
@@ -1025,7 +1025,7 @@ readline                                                                      8.
 resenje.org/singleflight                                                      v0.4.1                                              go-module                      
 rtkit                                                                         0.13-3                                              alpm                           
 rubberband                                                                    4.0.0-1                                             alpm                           
-runc                                                                          1.2.1-1                                             alpm                           
+runc                                                                          1.2.2-1                                             alpm                           
 safe-buffer                                                                   5.2.1                                               npm                            
 safer-buffer                                                                  2.1.2                                               npm                            
 sdl2                                                                          2.30.9-1                                            alpm                           
@@ -1061,8 +1061,9 @@ srt                                                                           1.
 startup-notification                                                          0.12-8                                              alpm                           
 statuses                                                                      2.0.1                                               npm                            
 stdlib                                                                        go1.23.1                                            go-module     (+2 duplicates)  
-stdlib                                                                        go1.23.2                                            go-module     (+6 duplicates)  
-sudo                                                                          1.9.16-1                                            alpm                           
+stdlib                                                                        go1.23.2                                            go-module     (+5 duplicates)  
+stdlib                                                                        go1.23.3                                            go-module                      
+sudo                                                                          1.9.16.p1-1                                         alpm                           
 supports-color                                                                7.2.0                                               npm                            
 svt-av1                                                                       2.2.1-1                                             alpm                           
 syndication                                                                   6.8.0-1                                             alpm                           
@@ -1080,7 +1081,7 @@ tar                                                                           1.
 tdb                                                                           1.4.12-1                                            alpm                           
 tevent                                                                        1:0.16.1-3                                          alpm                           
 texinfo                                                                       7.1.1-1                                             alpm                           
-tinysparql                                                                    3.8.0-1                                             alpm                           
+tinysparql                                                                    3.8.1-1                                             alpm                           
 toidentifier                                                                  1.0.1                                               npm                            
 tpm2-tss                                                                      4.1.3-1                                             alpm                           
 tslib                                                                         1.23-1                                              alpm                           
