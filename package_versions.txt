@@ -8,7 +8,7 @@ NAME                                                                          VE
 @types/cookie                                                                 0.4.1                                   npm                         
 @types/cors                                                                   2.8.17                                  npm                         
 @types/node                                                                   18.18.14                                npm                         
-@types/node                                                                   22.9.0                                  npm                         
+@types/node                                                                   22.9.1                                  npm                         
 accepts                                                                       1.3.8                                   npm                         
 acorn                                                                         8.8.1                                   npm                         
 acorn-bigint                                                                  1.0.0                                   npm                         
@@ -64,7 +64,7 @@ color-name                                                                    1.
 concat-map                                                                    0.0.1                                   npm                         
 console-setup                                                                 1.226ubuntu1                            deb                         
 console-setup-linux                                                           1.226ubuntu1                            deb                         
-containerd.io                                                                 1.7.22-1                                deb                         
+containerd.io                                                                 1.7.23-1                                deb                         
 content-disposition                                                           0.5.4                                   npm                         
 content-type                                                                  1.0.5                                   npm                         
 cookie                                                                        0.7.1                                   npm                         
@@ -89,7 +89,7 @@ cups-filters-core-drivers                                                     2.
 cups-ipp-utils                                                                2.4.7-1.2ubuntu7.3                      deb                         
 cups-ppdc                                                                     2.4.7-1.2ubuntu7.3                      deb                         
 cups-server-common                                                            2.4.7-1.2ubuntu7.3                      deb                         
-curl                                                                          8.5.0-2ubuntu10.4                       deb                         
+curl                                                                          8.5.0-2ubuntu10.5                       deb                         
 dario.cat/mergo                                                               v1.0.0                                  go-module  (+1 duplicate)   
 dario.cat/mergo                                                               v1.0.1                                  go-module                   
 dash                                                                          0.5.12-6ubuntu5                         deb                         
@@ -154,9 +154,9 @@ fuse3                                                                         3.
 gcc-13-base                                                                   13.2.0-23ubuntu4                        deb                         
 gcc-14-base                                                                   14.2.0-4ubuntu2~24.04                   deb                         
 get-intrinsic                                                                 1.2.4                                   npm                         
-ghostscript                                                                   10.02.1~dfsg1-0ubuntu7.3                deb                         
+ghostscript                                                                   10.02.1~dfsg1-0ubuntu7.4                deb                         
 gir1.2-girepository-2.0                                                       1.80.1-1                                deb                         
-gir1.2-glib-2.0                                                               2.80.0-6ubuntu3.1                       deb                         
+gir1.2-glib-2.0                                                               2.80.0-6ubuntu3.2                       deb                         
 gir1.2-packagekitglib-1.0                                                     1.2.8-2build3                           deb                         
 github.com/AlecAivazis/survey/v2                                              v2.3.7                                  go-module                   
 github.com/Graylog2/go-gelf                                                   v0.0.0-20191017102106-1550ee647df0      go-module                   
@@ -203,11 +203,13 @@ github.com/containerd/cgroups/v3                                              v3
 github.com/containerd/cgroups/v3                                              v3.0.3                                  go-module                   
 github.com/containerd/console                                                 v1.0.3                                  go-module  (+5 duplicates)  
 github.com/containerd/console                                                 v1.0.4                                  go-module  (+1 duplicate)   
-github.com/containerd/containerd                                              v1.7.22                                 go-module  (+6 duplicates)  
+github.com/containerd/containerd                                              v1.7.22                                 go-module  (+1 duplicate)   
+github.com/containerd/containerd                                              v1.7.23                                 go-module  (+4 duplicates)  
 github.com/containerd/containerd/api                                          v1.7.19                                 go-module  (+6 duplicates)  
 github.com/containerd/continuity                                              v0.4.2                                  go-module  (+4 duplicates)  
 github.com/containerd/continuity                                              v0.4.3                                  go-module  (+1 duplicate)   
-github.com/containerd/errdefs                                                 v0.1.0                                  go-module  (+6 duplicates)  
+github.com/containerd/errdefs                                                 v0.1.0                                  go-module  (+1 duplicate)   
+github.com/containerd/errdefs                                                 v0.3.0                                  go-module  (+4 duplicates)  
 github.com/containerd/fifo                                                    v1.1.0                                  go-module  (+5 duplicates)  
 github.com/containerd/go-cni                                                  v1.1.10                                 go-module                   
 github.com/containerd/go-cni                                                  v1.1.9                                  go-module  (+1 duplicate)   
@@ -623,8 +625,8 @@ libcryptsetup12                                                               2:
 libcups2t64                                                                   2.4.7-1.2ubuntu7.3                      deb                         
 libcupsfilters2-common                                                        2.0.0-0ubuntu7.1                        deb                         
 libcupsfilters2t64                                                            2.0.0-0ubuntu7.1                        deb                         
-libcurl3t64-gnutls                                                            8.5.0-2ubuntu10.4                       deb                         
-libcurl4t64                                                                   8.5.0-2ubuntu10.4                       deb                         
+libcurl3t64-gnutls                                                            8.5.0-2ubuntu10.5                       deb                         
+libcurl4t64                                                                   8.5.0-2ubuntu10.5                       deb                         
 libdata-optlist-perl                                                          0.114-1                                 deb                         
 libdatetime-locale-perl                                                       1:1.37-1                                deb                         
 libdatetime-perl                                                              2:1.65-1build2                          deb                         
@@ -688,9 +690,9 @@ libgirepository-1.0-1                                                         1.
 libgl1                                                                        1.7.0-1build1                           deb                         
 libgl1-mesa-dri                                                               24.0.9-0ubuntu0.2                       deb                         
 libglapi-mesa                                                                 24.0.9-0ubuntu0.2                       deb                         
-libglib2.0-0t64                                                               2.80.0-6ubuntu3.1                       deb                         
-libglib2.0-bin                                                                2.80.0-6ubuntu3.1                       deb                         
-libglib2.0-data                                                               2.80.0-6ubuntu3.1                       deb                         
+libglib2.0-0t64                                                               2.80.0-6ubuntu3.2                       deb                         
+libglib2.0-bin                                                                2.80.0-6ubuntu3.2                       deb                         
+libglib2.0-data                                                               2.80.0-6ubuntu3.2                       deb                         
 libglu1-mesa                                                                  9.0.2-1.1build1                         deb                         
 libglvnd0                                                                     1.7.0-1build1                           deb                         
 libglx-mesa0                                                                  24.0.9-0ubuntu0.2                       deb                         
@@ -701,9 +703,9 @@ libgnutls30t64                                                                3.
 libgomp1                                                                      14.2.0-4ubuntu2~24.04                   deb                         
 libgpg-error0                                                                 1.47-3build2                            deb                         
 libgraphite2-3                                                                1.3.14-2build1                          deb                         
-libgs-common                                                                  10.02.1~dfsg1-0ubuntu7.3                deb                         
-libgs10                                                                       10.02.1~dfsg1-0ubuntu7.3                deb                         
-libgs10-common                                                                10.02.1~dfsg1-0ubuntu7.3                deb                         
+libgs-common                                                                  10.02.1~dfsg1-0ubuntu7.4                deb                         
+libgs10                                                                       10.02.1~dfsg1-0ubuntu7.4                deb                         
+libgs10-common                                                                10.02.1~dfsg1-0ubuntu7.4                deb                         
 libgsm1                                                                       1.0.22-1build1                          deb                         
 libgssapi-krb5-2                                                              1.20.1-6ubuntu2.1                       deb                         
 libgstreamer-plugins-base1.0-0                                                1.24.2-1ubuntu0.1                       deb                         
@@ -838,8 +840,8 @@ libproxy1v5                                                                   0.
 libpsl5t64                                                                    0.21.2-1.1build1                        deb                         
 libpulse0                                                                     1:16.1+dfsg1-2ubuntu10                  deb                         
 libpython3-stdlib                                                             3.12.3-0ubuntu2                         deb                         
-libpython3.12-minimal                                                         3.12.3-1ubuntu0.2                       deb                         
-libpython3.12-stdlib                                                          3.12.3-1ubuntu0.2                       deb                         
+libpython3.12-minimal                                                         3.12.3-1ubuntu0.3                       deb                         
+libpython3.12-stdlib                                                          3.12.3-1ubuntu0.3                       deb                         
 libqpdf29t64                                                                  11.9.0-1.1build1                        deb                         
 librabbitmq4                                                                  0.11.0-1build2                          deb                         
 librav1e0                                                                     0.7.1-2                                 deb                         
@@ -1094,10 +1096,10 @@ python3-oauthlib                                                              3.
 python3-pkg-resources                                                         68.1.2-2ubuntu1.1                       deb                         
 python3-pyparsing                                                             3.1.1-1                                 deb                         
 python3-six                                                                   1.16.0-4                                deb                         
-python3-software-properties                                                   0.99.48                                 deb                         
+python3-software-properties                                                   0.99.49.1                               deb                         
 python3-wadllib                                                               1.3.6-5                                 deb                         
-python3.12                                                                    3.12.3-1ubuntu0.2                       deb                         
-python3.12-minimal                                                            3.12.3-1ubuntu0.2                       deb                         
+python3.12                                                                    3.12.3-1ubuntu0.3                       deb                         
+python3.12-minimal                                                            3.12.3-1ubuntu0.3                       deb                         
 qs                                                                            6.13.0                                  npm                         
 range-parser                                                                  1.2.1                                   npm                         
 raw-body                                                                      2.5.2                                   npm                         
@@ -1124,10 +1126,11 @@ six                                                                           1.
 socket.io                                                                     4.8.1                                   npm                         
 socket.io-adapter                                                             2.5.5                                   npm                         
 socket.io-parser                                                              4.2.4                                   npm                         
-software-properties-common                                                    0.99.48                                 deb                         
+software-properties-common                                                    0.99.49.1                               deb                         
 ssl-cert                                                                      1.1.2ubuntu1                            deb                         
 statuses                                                                      2.0.1                                   npm                         
-stdlib                                                                        go1.22.7                                go-module  (+9 duplicates)  
+stdlib                                                                        go1.22.7                                go-module  (+3 duplicates)  
+stdlib                                                                        go1.22.9                                go-module  (+5 duplicates)  
 streamsearch                                                                  1.1.0                                   npm                         
 stterm                                                                        0.9-1                                   deb                         
 sudo                                                                          1.9.15p5-3ubuntu5                       deb                         
