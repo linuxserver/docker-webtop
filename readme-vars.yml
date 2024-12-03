@@ -7,82 +7,77 @@ project_logo: "https://raw.githubusercontent.com/linuxserver/docker-templates/ma
 project_blurb: |
   [{{ project_name|capitalize }}]({{ project_url }}) - Alpine, Ubuntu, Fedora, and Arch based containers containing full desktop environments in officially supported flavors accessible via any modern web browser.
 project_lsio_github_repo_url: "https://github.com/linuxserver/docker-{{ project_name }}"
-
 # supported architectures
 available_architectures:
-  - { arch: "{{ arch_x86_64 }}", tag: "amd64-latest"}
-  - { arch: "{{ arch_arm64 }}", tag: "arm64v8-latest"}
-
+  - {arch: "{{ arch_x86_64 }}", tag: "amd64-latest"}
+  - {arch: "{{ arch_arm64 }}", tag: "arm64v8-latest"}
 # development version
 development_versions: true
 development_versions_items:
-  - { tag: "latest", desc: "XFCE Alpine" }
-  - { tag: "ubuntu-xfce", desc: "XFCE Ubuntu" }
-  - { tag: "fedora-xfce", desc: "XFCE Fedora" }
-  - { tag: "arch-xfce", desc: "XFCE Arch" }
-  - { tag: "debian-xfce", desc: "XFCE Debian" }
-  - { tag: "alpine-kde", desc: "KDE Alpine" }
-  - { tag: "ubuntu-kde", desc: "KDE Ubuntu" }
-  - { tag: "fedora-kde", desc: "KDE Fedora" }
-  - { tag: "arch-kde", desc: "KDE Arch" }
-  - { tag: "debian-kde", desc: "KDE Debian" }
-  - { tag: "alpine-mate", desc: "MATE Alpine" }
-  - { tag: "ubuntu-mate", desc: "MATE Ubuntu" }
-  - { tag: "fedora-mate", desc: "MATE Fedora" }
-  - { tag: "arch-mate", desc: "MATE Arch" }
-  - { tag: "debian-mate", desc: "MATE Debian" }
-  - { tag: "alpine-i3", desc: "i3 Alpine" }
-  - { tag: "ubuntu-i3", desc: "i3 Ubuntu" }
-  - { tag: "fedora-i3", desc: "i3 Fedora" }
-  - { tag: "arch-i3", desc: "i3 Arch" }
-  - { tag: "debian-i3", desc: "i3 Debian" }
-  - { tag: "alpine-openbox", desc: "Openbox Alpine" }
-  - { tag: "ubuntu-openbox", desc: "Openbox Ubuntu" }
-  - { tag: "fedora-openbox", desc: "Openbox Fedora" }
-  - { tag: "arch-openbox", desc: "Openbox Arch" }
-  - { tag: "debian-openbox", desc: "Openbox Debian" }
-  - { tag: "alpine-icewm", desc: "IceWM Alpine" }
-  - { tag: "ubuntu-icewm", desc: "IceWM Ubuntu" }
-  - { tag: "fedora-icewm", desc: "IceWM Fedora" }
-  - { tag: "arch-icewm", desc: "IceWM Arch" }
-  - { tag: "debian-icewm", desc: "IceWM Debian" }
-
+  - {tag: "latest", desc: "XFCE Alpine"}
+  - {tag: "ubuntu-xfce", desc: "XFCE Ubuntu"}
+  - {tag: "fedora-xfce", desc: "XFCE Fedora"}
+  - {tag: "arch-xfce", desc: "XFCE Arch"}
+  - {tag: "debian-xfce", desc: "XFCE Debian"}
+  - {tag: "alpine-kde", desc: "KDE Alpine"}
+  - {tag: "ubuntu-kde", desc: "KDE Ubuntu"}
+  - {tag: "fedora-kde", desc: "KDE Fedora"}
+  - {tag: "arch-kde", desc: "KDE Arch"}
+  - {tag: "debian-kde", desc: "KDE Debian"}
+  - {tag: "alpine-mate", desc: "MATE Alpine"}
+  - {tag: "ubuntu-mate", desc: "MATE Ubuntu"}
+  - {tag: "fedora-mate", desc: "MATE Fedora"}
+  - {tag: "arch-mate", desc: "MATE Arch"}
+  - {tag: "debian-mate", desc: "MATE Debian"}
+  - {tag: "alpine-i3", desc: "i3 Alpine"}
+  - {tag: "ubuntu-i3", desc: "i3 Ubuntu"}
+  - {tag: "fedora-i3", desc: "i3 Fedora"}
+  - {tag: "arch-i3", desc: "i3 Arch"}
+  - {tag: "debian-i3", desc: "i3 Debian"}
+  - {tag: "alpine-openbox", desc: "Openbox Alpine"}
+  - {tag: "ubuntu-openbox", desc: "Openbox Ubuntu"}
+  - {tag: "fedora-openbox", desc: "Openbox Fedora"}
+  - {tag: "arch-openbox", desc: "Openbox Arch"}
+  - {tag: "debian-openbox", desc: "Openbox Debian"}
+  - {tag: "alpine-icewm", desc: "IceWM Alpine"}
+  - {tag: "ubuntu-icewm", desc: "IceWM Ubuntu"}
+  - {tag: "fedora-icewm", desc: "IceWM Fedora"}
+  - {tag: "arch-icewm", desc: "IceWM Arch"}
+  - {tag: "debian-icewm", desc: "IceWM Debian"}
 # container parameters
 param_container_name: "{{ project_name }}"
 param_usage_include_vols: true
 param_volumes:
-  - { vol_path: "/config", vol_host_path: "/path/to/data", desc: "abc users home directory" }
+  - {vol_path: "/config", vol_host_path: "/path/to/data", desc: "abc users home directory"}
 param_usage_include_ports: true
 param_ports:
-  - { external_port: "3000", internal_port: "3000", port_desc: "Web Desktop GUI" }
-  - { external_port: "3001", internal_port: "3001", port_desc: "Web Desktop GUI HTTPS" }
+  - {external_port: "3000", internal_port: "3000", port_desc: "Web Desktop GUI"}
+  - {external_port: "3001", internal_port: "3001", port_desc: "Web Desktop GUI HTTPS"}
 param_usage_include_env: true
 param_env_vars:
-  - { env_var: "TZ", env_value: "Europe/London", desc: "Specify a timezone to use EG Europe/London"}
+  - {env_var: "TZ", env_value: "Europe/London", desc: "Specify a timezone to use EG Europe/London"}
 # optional variables
 opt_param_usage_include_env: true
 opt_param_env_vars:
-  - { env_var: "SUBFOLDER", env_value: "/", desc: "Specify a subfolder to use with reverse proxies, IE `/subfolder/`"}
-  - { env_var: "TITLE", env_value: "Webtop", desc: "String which will be used as page/tab title in the web browser." }
+  - {env_var: "SUBFOLDER", env_value: "/", desc: "Specify a subfolder to use with reverse proxies, IE `/subfolder/`"}
+  - {env_var: "TITLE", env_value: "Webtop", desc: "String which will be used as page/tab title in the web browser."}
 opt_param_usage_include_vols: true
 opt_param_volumes:
-  - { vol_path: "/var/run/docker.sock", vol_host_path: "/var/run/docker.sock", desc: "Docker Socket on the system, if you want to use Docker in the container" }
+  - {vol_path: "/var/run/docker.sock", vol_host_path: "/var/run/docker.sock", desc: "Docker Socket on the system, if you want to use Docker in the container"}
 opt_custom_params:
-  - { name: "shm-size", name_compose: "shm_size", value: "1gb",desc: "We set this to 1 gig to prevent modern web browsers from crashing" }
+  - {name: "shm-size", name_compose: "shm_size", value: "1gb", desc: "We set this to 1 gig to prevent modern web browsers from crashing"}
 opt_security_opt_param: true
 opt_security_opt_param_vars:
-  - { run_var: "seccomp=unconfined", compose_var: "seccomp:unconfined", desc: "For Docker Engine only, many modern gui apps need this to function on older hosts as syscalls are unknown to Docker." }
+  - {run_var: "seccomp=unconfined", compose_var: "seccomp:unconfined", desc: "For Docker Engine only, many modern gui apps need this to function on older hosts as syscalls are unknown to Docker."}
 opt_param_device_map: true
 opt_param_devices:
-  - { device_path: "/dev/dri", device_host_path: "/dev/dri", desc: "Add this for GL support (Linux hosts only)" }
-
+  - {device_path: "/dev/dri", device_host_path: "/dev/dri", desc: "Add this for GL support (Linux hosts only)"}
 # Kasm blurb settings
 kasm_blurb: true
 show_nvidia: true
 external_http_port: "3000"
 external_https_port: "3001"
 noto_fonts: "font-noto-cjk"
-
 # application setup block
 app_setup_block_enabled: true
 app_setup_block: |
@@ -90,24 +85,85 @@ app_setup_block: |
 
   * http://yourhost:3000/
   * https://yourhost:3001/
-
+# init diagram
+init_diagram: |
+  "webtop:latest": {
+    docker-mods
+    base {
+      fix-attr +\nlegacy cont-init
+    }
+    docker-mods -> base
+    legacy-services
+    custom services
+    init-services -> legacy-services
+    init-services -> custom services
+    custom services -> legacy-services
+    legacy-services -> ci-service-check
+    init-migrations -> init-adduser
+    init-kasmvnc-end -> init-config
+    init-os-end -> init-config
+    init-config -> init-config-end
+    init-os-end -> init-crontab-config
+    init-mods-end -> init-custom-files
+    base -> init-envfile
+    init-os-end -> init-kasmvnc
+    init-nginx -> init-kasmvnc-config
+    init-video -> init-kasmvnc-end
+    base -> init-migrations
+    base -> init-mods
+    init-config-end -> init-mods
+    init-mods -> init-mods-end
+    init-mods-package-install -> init-mods-end
+    init-mods -> init-mods-package-install
+    init-kasmvnc -> init-nginx
+    base -> init-os-end
+    init-adduser -> init-os-end
+    init-envfile -> init-os-end
+    init-migrations -> init-os-end
+    init-custom-files -> init-services
+    init-mods-end -> init-services
+    init-kasmvnc-config -> init-video
+    init-services -> svc-cron
+    svc-cron -> legacy-services
+    init-services -> svc-de
+    svc-nginx -> svc-de
+    svc-de -> legacy-services
+    init-services -> svc-docker
+    svc-de -> svc-docker
+    svc-docker -> legacy-services
+    init-services -> svc-kasmvnc
+    svc-pulseaudio -> svc-kasmvnc
+    svc-kasmvnc -> legacy-services
+    init-services -> svc-kclient
+    svc-kasmvnc -> svc-kclient
+    svc-kclient -> legacy-services
+    init-services -> svc-nginx
+    svc-kclient -> svc-nginx
+    svc-nginx -> legacy-services
+    init-services -> svc-pulseaudio
+    svc-pulseaudio -> legacy-services
+  }
+  Base Images: {
+    "baseimage-kasmvnc:alpine320" <- "baseimage-alpine:3.20"
+  }
+  "webtop:latest" <- Base Images
 # changelog
 changelogs:
-  - { date: "26.09.24:", desc: "Swap from firefox to chromium on Alpine images." }
-  - { date: "23.05.24:", desc: "Rebase Alpine to 3.20, document Nvidia support." }
-  - { date: "22.04.24:", desc: "Rebase Ubuntu to Noble." }
-  - { date: "16.04.24:", desc: "Add docs on PRoot Apps." }
-  - { date: "14.04.24:", desc: "Rebase Fedora to 40." }
-  - { date: "11.02.24:", desc: "Add PWA icons and title variants properly." }
-  - { date: "06.02.24:", desc: "Update Readme about native language support." }
-  - { date: "29.12.23:", desc: "Rebase Alpine to 3.19 and swap back to Firefox." }
-  - { date: "07.11.23:", desc: "Rebase Fedora to 39." }
-  - { date: "14.06.23:", desc: "Rebase to Debian Bookworm." }
-  - { date: "13.05.23:", desc: "Rebase to Alpine 3.18 and Fedora 38." }
-  - { date: "23.03.23:", desc: "Rebase all Webtops to KasmVNC base image." }
-  - { date: "21.10.22:", desc: "Rebase xfce to Alpine 3.16, migrate to s6v3." }
-  - { date: "12.03.22:", desc: "Add documentation for mounting in a GPU." }
-  - { date: "05.02.22:", desc: "Rebase KDE Ubuntu to Jammy, add new documentation for updated gclient, stop recommending priv mode." }
-  - { date: "21.09.21:", desc: "Add Fedora and Arch images, show seccomp settings in readme." }
-  - { date: "26.09.21:", desc: "Rebase to Alpine versions to 3.14." }
-  - { date: "20.04.21:", desc: "Initial release." }
+  - {date: "26.09.24:", desc: "Swap from firefox to chromium on Alpine images."}
+  - {date: "23.05.24:", desc: "Rebase Alpine to 3.20, document Nvidia support."}
+  - {date: "22.04.24:", desc: "Rebase Ubuntu to Noble."}
+  - {date: "16.04.24:", desc: "Add docs on PRoot Apps."}
+  - {date: "14.04.24:", desc: "Rebase Fedora to 40."}
+  - {date: "11.02.24:", desc: "Add PWA icons and title variants properly."}
+  - {date: "06.02.24:", desc: "Update Readme about native language support."}
+  - {date: "29.12.23:", desc: "Rebase Alpine to 3.19 and swap back to Firefox."}
+  - {date: "07.11.23:", desc: "Rebase Fedora to 39."}
+  - {date: "14.06.23:", desc: "Rebase to Debian Bookworm."}
+  - {date: "13.05.23:", desc: "Rebase to Alpine 3.18 and Fedora 38."}
+  - {date: "23.03.23:", desc: "Rebase all Webtops to KasmVNC base image."}
+  - {date: "21.10.22:", desc: "Rebase xfce to Alpine 3.16, migrate to s6v3."}
+  - {date: "12.03.22:", desc: "Add documentation for mounting in a GPU."}
+  - {date: "05.02.22:", desc: "Rebase KDE Ubuntu to Jammy, add new documentation for updated gclient, stop recommending priv mode."}
+  - {date: "21.09.21:", desc: "Add Fedora and Arch images, show seccomp settings in readme."}
+  - {date: "26.09.21:", desc: "Rebase to Alpine versions to 3.14."}
+  - {date: "20.04.21:", desc: "Initial release."}
