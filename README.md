@@ -226,10 +226,12 @@ It is possible to install extra packages during container start using [universal
     - INSTALL_PACKAGES=libfuse2|git|gdb
 ```
 
- 
 ## Usage
 
 To help you get started creating a container from this image you can either use docker-compose or the docker cli.
+
+>[!NOTE]
+>Unless a parameter is flaged as 'optional', it is *mandatory* and a value must be provided.
 
 ### docker-compose (recommended, [click here for more info](https://docs.linuxserver.io/general/docker-compose))
 
@@ -286,8 +288,8 @@ Containers are configured using parameters passed at runtime (such as those abov
 
 | Parameter | Function |
 | :----: | --- |
-| `-p 3000` | Web Desktop GUI |
-| `-p 3001` | Web Desktop GUI HTTPS |
+| `-p 3000:3000` | Web Desktop GUI |
+| `-p 3001:3001` | Web Desktop GUI HTTPS |
 | `-e PUID=1000` | for UserID - see below for explanation |
 | `-e PGID=1000` | for GroupID - see below for explanation |
 | `-e TZ=Etc/UTC` | specify a timezone to use, see this [list](https://en.wikipedia.org/wiki/List_of_tz_database_time_zones#List). |
