@@ -1,4 +1,4 @@
-FROM ghcr.io/linuxserver/baseimage-kasmvnc:arm64v8-alpine320
+FROM ghcr.io/linuxserver/baseimage-kasmvnc:arm64v8-alpine321
 
 # set version label
 ARG BUILD_DATE
@@ -30,6 +30,7 @@ RUN \
     plasma-desktop \
     plasma-systemmonitor \
     plasma-workspace-wallpapers \
+    plasma-workspace-x11 \
     systemsettings \
     util-linux-misc && \
   echo "**** kde tweaks ****" && \
