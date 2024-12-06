@@ -103,25 +103,21 @@ init_diagram: |
     init-kasmvnc-end -> init-config
     init-os-end -> init-config
     init-config -> init-config-end
-    init-os-end -> init-crontab-config
+    init-crontab-config -> init-config-end
+    init-config -> init-crontab-config
     init-mods-end -> init-custom-files
     base -> init-envfile
     init-os-end -> init-kasmvnc
     init-nginx -> init-kasmvnc-config
     init-video -> init-kasmvnc-end
     base -> init-migrations
-    base -> init-mods
     init-config-end -> init-mods
-    init-mods -> init-mods-end
     init-mods-package-install -> init-mods-end
     init-mods -> init-mods-package-install
     init-kasmvnc -> init-nginx
-    base -> init-os-end
     init-adduser -> init-os-end
     init-envfile -> init-os-end
-    init-migrations -> init-os-end
     init-custom-files -> init-services
-    init-mods-end -> init-services
     init-kasmvnc-config -> init-video
     init-services -> svc-cron
     svc-cron -> legacy-services
@@ -144,7 +140,7 @@ init_diagram: |
     svc-pulseaudio -> legacy-services
   }
   Base Images: {
-    "baseimage-kasmvnc:alpine320" <- "baseimage-alpine:3.20"
+    "baseimage-kasmvnc:alpine321" <- "baseimage-alpine:3.21"
   }
   "webtop:latest" <- Base Images
 # changelog
