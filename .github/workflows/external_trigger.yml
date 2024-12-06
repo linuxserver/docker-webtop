@@ -43,16 +43,18 @@ jobs:
           token=$(curl -sX GET \
             "https://ghcr.io/token?scope=repository%3Alinuxserver%2Fwebtop%3Apull" \
             | jq -r '.token')
-            multidigest=$(curl -s \
-              --header "Accept: application/vnd.docker.distribution.manifest.v2+json" \
-              --header "Authorization: Bearer ${token}" \
-              "https://ghcr.io/v2/${image}/manifests/${tag}" \
-              | jq -r 'first(.manifests[].digest)')
-            digest=$(curl -s \
-              --header "Accept: application/vnd.docker.distribution.manifest.v2+json" \
-              --header "Authorization: Bearer ${token}" \
-              "https://ghcr.io/v2/${image}/manifests/${multidigest}" \
-              | jq -r '.config.digest')
+          multidigest=$(curl -s \
+            --header "Accept: application/vnd.docker.distribution.manifest.v2+json" \
+            --header "Accept: application/vnd.oci.image.index.v1+json" \
+            --header "Authorization: Bearer ${token}" \
+            "https://ghcr.io/v2/${image}/manifests/${tag}")
+          multidigest=$(jq -r ".manifests[] | select(.platform.architecture == \"amd64\").digest?" <<< "${multidigest}")
+          digest=$(curl -s \
+            --header "Accept: application/vnd.docker.distribution.manifest.v2+json" \
+            --header "Accept: application/vnd.oci.image.manifest.v1+json" \
+            --header "Authorization: Bearer ${token}" \
+            "https://ghcr.io/v2/${image}/manifests/${multidigest}" \
+            | jq -r '.config.digest')
           image_info=$(curl -sL \
             --header "Authorization: Bearer ${token}" \
             "https://ghcr.io/v2/${image}/blobs/${digest}")
