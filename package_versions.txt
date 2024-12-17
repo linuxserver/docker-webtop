@@ -5,7 +5,7 @@ NAME                                                                          VE
 @socket.io/component-emitter                                                  UNKNOWN                                 npm        (+1 duplicate)   
 @types/cookie                                                                 0.4.1                                   npm                         
 @types/cors                                                                   2.8.17                                  npm                         
-@types/node                                                                   22.10.1                                 npm                         
+@types/node                                                                   22.10.2                                 npm                         
 accepts                                                                       1.3.8                                   npm                         
 acl-libs                                                                      2.3.2-r1                                apk                         
 ada-libs                                                                      2.9.2-r1                                apk                         
@@ -32,8 +32,8 @@ body-parser                                                                   1.
 brace-expansion                                                               1.1.11                                  npm                         
 brace-expansion                                                               2.0.1                                   npm                         
 brotli-libs                                                                   1.1.0-r2                                apk                         
-busybox                                                                       1.37.0-r8                               apk                         
-busybox-binsh                                                                 1.37.0-r8                               apk                         
+busybox                                                                       1.37.0-r9                               apk                         
+busybox-binsh                                                                 1.37.0-r9                               apk                         
 bytes                                                                         3.1.2                                   npm                         
 c-ares                                                                        1.34.3-r0                               apk                         
 ca-certificates                                                               20241010-r0                             apk                         
@@ -41,13 +41,14 @@ ca-certificates-bundle                                                        20
 cairo                                                                         1.18.2-r1                               apk                         
 cairo-gobject                                                                 1.18.2-r1                               apk                         
 call-bind                                                                     1.0.8                                   npm                         
-call-bind-apply-helpers                                                       1.0.0                                   npm                         
+call-bind-apply-helpers                                                       1.0.1                                   npm                         
+call-bound                                                                    1.0.2                                   npm                         
 catatonit                                                                     0.2.0-r0                                apk                         
 cdparanoia-libs                                                               10.2-r14                                apk                         
 cfdisk                                                                        2.40.2-r4                               apk                         
 chalk                                                                         4.1.2                                   npm                         
-chromium                                                                      131.0.6778.108-r0                       apk                         
-chromium-lang                                                                 131.0.6778.108-r0                       apk                         
+chromium                                                                      131.0.6778.139-r0                       apk                         
+chromium-lang                                                                 131.0.6778.139-r0                       apk                         
 cjson                                                                         1.7.18-r0                               apk                         
 cloud.google.com/go/compute/metadata                                          v0.3.0                                  go-module                   
 cloud.google.com/go/logging                                                   v1.9.0                                  go-module                   
@@ -74,7 +75,7 @@ cups-client                                                                   2.
 cups-lang                                                                     2.4.11-r0                               apk                         
 cups-libs                                                                     2.4.11-r0                               apk                         
 cups-pdf                                                                      3.0.1-r2                                apk                         
-curl                                                                          8.11.0-r2                               apk                         
+curl                                                                          8.11.1-r0                               apk                         
 dario.cat/mergo                                                               v1.0.0                                  go-module                   
 dario.cat/mergo                                                               v1.0.1                                  go-module  (+1 duplicate)   
 dbus                                                                          1.14.10-r4                              apk                         
@@ -93,6 +94,7 @@ docker-cli-buildx                                                             0.
 docker-cli-compose                                                            2.31.0-r0                               apk                         
 docker-engine                                                                 27.3.1-r0                               apk                         
 double-conversion                                                             3.3.0-r0                                apk                         
+dunder-proto                                                                  1.0.0                                   npm                         
 dunst                                                                         1.11.0-r0                               apk                         
 dunstify                                                                      1.11.0-r0                               apk                         
 ee-first                                                                      1.1.1                                   npm                         
@@ -102,21 +104,22 @@ encodeurl                                                                     2.
 engine.io                                                                     6.6.2                                   npm                         
 engine.io-parser                                                              5.2.3                                   npm                         
 engine.io-parser                                                              UNKNOWN                                 npm        (+1 duplicate)   
-es-define-property                                                            1.0.0                                   npm                         
+es-define-property                                                            1.0.1                                   npm                         
 es-errors                                                                     1.3.0                                   npm                         
+es-object-atoms                                                               1.0.0                                   npm                         
 escape-html                                                                   1.0.3                                   npm                         
 etag                                                                          1.8.1                                   npm                         
 eudev-libs                                                                    3.2.14-r5                               apk                         
 express                                                                       4.21.2                                  npm                         
-ffmpeg                                                                        6.1.2-r0                                apk                         
-ffmpeg-libavcodec                                                             6.1.2-r0                                apk                         
-ffmpeg-libavdevice                                                            6.1.2-r0                                apk                         
-ffmpeg-libavfilter                                                            6.1.2-r0                                apk                         
-ffmpeg-libavformat                                                            6.1.2-r0                                apk                         
-ffmpeg-libavutil                                                              6.1.2-r0                                apk                         
-ffmpeg-libpostproc                                                            6.1.2-r0                                apk                         
-ffmpeg-libswresample                                                          6.1.2-r0                                apk                         
-ffmpeg-libswscale                                                             6.1.2-r0                                apk                         
+ffmpeg                                                                        6.1.2-r1                                apk                         
+ffmpeg-libavcodec                                                             6.1.2-r1                                apk                         
+ffmpeg-libavdevice                                                            6.1.2-r1                                apk                         
+ffmpeg-libavfilter                                                            6.1.2-r1                                apk                         
+ffmpeg-libavformat                                                            6.1.2-r1                                apk                         
+ffmpeg-libavutil                                                              6.1.2-r1                                apk                         
+ffmpeg-libpostproc                                                            6.1.2-r1                                apk                         
+ffmpeg-libswresample                                                          6.1.2-r1                                apk                         
+ffmpeg-libswscale                                                             6.1.2-r1                                apk                         
 fftw-single-libs                                                              3.3.10-r6                               apk                         
 file                                                                          5.46-r0                                 apk                         
 file-uri-to-path                                                              1.0.0                                   npm                         
@@ -147,7 +150,7 @@ gcompat                                                                       1.
 gdbm                                                                          1.24-r0                                 apk                         
 gdk-pixbuf                                                                    2.42.12-r1                              apk                         
 gdk-pixbuf-lang                                                               2.42.12-r1                              apk                         
-get-intrinsic                                                                 1.2.4                                   npm                         
+get-intrinsic                                                                 1.2.6                                   npm                         
 giflib                                                                        5.2.2-r0                                apk                         
 github.com/AlecAivazis/survey/v2                                              v2.3.7                                  go-module                   
 github.com/Graylog2/go-gelf                                                   v0.0.0-20191017102106-1550ee647df0      go-module                   
@@ -442,8 +445,8 @@ github.com/xrash/smetrics                                                     v0
 github.com/zclconf/go-cty                                                     v1.14.4                                 go-module                   
 github.com/zmap/zcrypto                                                       v0.0.0-20210511125630-18f1e0152cfc      go-module                   
 github.com/zmap/zlint/v3                                                      v3.1.0                                  go-module                   
-glib                                                                          2.82.2-r0                               apk                         
-glib-lang                                                                     2.82.2-r0                               apk                         
+glib                                                                          2.82.4-r0                               apk                         
+glib-lang                                                                     2.82.4-r0                               apk                         
 glslang-libs                                                                  1.3.296.0-r0                            apk                         
 gmp                                                                           6.3.0-r2                                apk                         
 gnutls                                                                        3.8.8-r0                                apk                         
@@ -556,7 +559,6 @@ harfbuzz                                                                      9.
 harfbuzz-subset                                                               9.0.0-r1                                apk                         
 has-flag                                                                      4.0.0                                   npm                         
 has-property-descriptors                                                      1.0.2                                   npm                         
-has-proto                                                                     1.1.0                                   npm                         
 has-symbols                                                                   1.1.0                                   npm                         
 hasown                                                                        2.0.2                                   npm                         
 hexdump                                                                       2.40.2-r4                               apk                         
@@ -612,7 +614,7 @@ libcamera-ipa                                                                 0.
 libcap-ng                                                                     0.8.5-r0                                apk                         
 libcap2                                                                       2.71-r0                                 apk                         
 libcrypto3                                                                    3.3.2-r4                                apk                         
-libcurl                                                                       8.11.0-r2                               apk                         
+libcurl                                                                       8.11.1-r0                               apk                         
 libdav1d                                                                      1.5.0-r0                                apk                         
 libdeflate                                                                    1.22-r0                                 apk                         
 libdovi                                                                       3.3.1-r0                                apk                         
@@ -726,6 +728,7 @@ logger                                                                        2.
 losetup                                                                       2.40.2-r4                               apk                         
 lsblk                                                                         2.40.2-r4                               apk                         
 lscpu                                                                         2.40.2-r4                               apk                         
+math-intrinsics                                                               1.0.0                                   npm                         
 mbedtls                                                                       3.6.2-r0                                apk                         
 mcookie                                                                       2.40.2-r4                               apk                         
 media-typer                                                                   0.3.0                                   npm                         
@@ -849,10 +852,10 @@ pulseaudio-utils                                                              17
 pulseaudio2                                                                   0.5.5                                   npm                         
 py3-xdg                                                                       0.28-r4                                 apk                         
 py3-xdg-pyc                                                                   0.28-r4                                 apk                         
-pyc                                                                           3.12.8-r0                               apk                         
-python3                                                                       3.12.8-r0                               apk                         
-python3-pyc                                                                   3.12.8-r0                               apk                         
-python3-pycache-pyc0                                                          3.12.8-r0                               apk                         
+pyc                                                                           3.12.8-r1                               apk                         
+python3                                                                       3.12.8-r1                               apk                         
+python3-pyc                                                                   3.12.8-r1                               apk                         
+python3-pycache-pyc0                                                          3.12.8-r1                               apk                         
 pyxdg                                                                         0.28                                    python                      
 qs                                                                            6.13.0                                  npm                         
 range-parser                                                                  1.2.1                                   npm                         
@@ -880,7 +883,10 @@ shaderc                                                                       20
 shadow                                                                        4.16.0-r1                               apk                         
 shared-mime-info                                                              2.4-r1                                  apk                         
 shared-mime-info-lang                                                         2.4-r1                                  apk                         
-side-channel                                                                  1.0.6                                   npm                         
+side-channel                                                                  1.1.0                                   npm                         
+side-channel-list                                                             1.0.0                                   npm                         
+side-channel-map                                                              1.0.1                                   npm                         
+side-channel-weakmap                                                          1.0.2                                   npm                         
 sigs.k8s.io/json                                                              v0.0.0-20221116044647-bc3834ca7abd      go-module  (+2 duplicates)  
 sigs.k8s.io/structured-merge-diff/v4                                          v4.4.1                                  go-module  (+2 duplicates)  
 sigs.k8s.io/yaml                                                              v1.3.0                                  go-module  (+2 duplicates)  
@@ -897,7 +903,7 @@ speexdsp                                                                      1.
 spirv-tools                                                                   1.3.290.0-r0                            apk                         
 sqlite-libs                                                                   3.47.1-r0                               apk                         
 sratom                                                                        0.6.16-r0                               apk                         
-ssl_client                                                                    1.37.0-r8                               apk                         
+ssl_client                                                                    1.37.0-r9                               apk                         
 st                                                                            0.9.2-r0                                apk                         
 startup-notification                                                          0.12-r8                                 apk                         
 statuses                                                                      2.0.1                                   npm                         
