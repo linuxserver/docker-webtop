@@ -154,7 +154,7 @@ To install cjk fonts on startup as an example pass the environment variables (Al
 
 The web interface has the option for "IME Input Mode" in Settings which will allow non english characters to be used from a non en_US keyboard on the client. Once enabled it will perform the same as a local Linux installation set to your locale.
 
-### DRI3 GPU Acceleration
+### DRI3 GPU Acceleration (KasmVNC interface)
 
 For accelerated apps or games, render devices can be mounted into the container and leveraged by applications using:
 
@@ -171,7 +171,7 @@ This feature only supports **Open Source** GPU drivers:
 The `DRINODE` environment variable can be used to point to a specific GPU.
 Up to date information can be found [here](https://www.kasmweb.com/kasmvnc/docs/master/gpu_acceleration.html)
 
-### Nvidia GPU Support
+### Nvidia GPU Support (KasmVNC interface)
 
 **Nvidia support is not compatible with Alpine based images as Alpine lacks Nvidia drivers**
 
