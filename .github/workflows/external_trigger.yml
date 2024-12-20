@@ -48,13 +48,30 @@ jobs:
             --header "Accept: application/vnd.oci.image.index.v1+json" \
             --header "Authorization: Bearer ${token}" \
             "https://ghcr.io/v2/${image}/manifests/${tag}")
-          multidigest=$(jq -r ".manifests[] | select(.platform.architecture == \"amd64\").digest?" <<< "${multidigest}")
-          digest=$(curl -s \
-            --header "Accept: application/vnd.docker.distribution.manifest.v2+json" \
-            --header "Accept: application/vnd.oci.image.manifest.v1+json" \
-            --header "Authorization: Bearer ${token}" \
-            "https://ghcr.io/v2/${image}/manifests/${multidigest}" \
-            | jq -r '.config.digest')
+          if jq -e '.layers // empty' <<< "${multidigest}" >/dev/null 2>&1; then
+            # If there's a layer element it's a single-arch manifest so just get that digest
+            digest=$(jq -r '.config.digest' <<< "${multidigest}")
+          else
+            # Otherwise it's multi-arch or has manifest annotations
+            if jq -e '.manifests[]?.annotations // empty' <<< "${multidigest}" >/dev/null 2>&1; then
+              # Check for manifest annotations and delete if found
+              multidigest=$(jq 'del(.manifests[] | select(.annotations))' <<< "${multidigest}")
+            fi
+            if [[ $(jq '.manifests | length' <<< "${multidigest}") -gt 1 ]]; then
+              # If there's still more than one digest, it's multi-arch
+              multidigest=$(jq -r ".manifests[] | select(.platform.architecture == \"amd64\").digest?" <<< "${multidigest}")
+            else
+              # Otherwise it's single arch
+              multidigest=$(jq -r ".manifests[].digest?" <<< "${multidigest}")
+            fi
+            if digest=$(curl -s \
+              --header "Accept: application/vnd.docker.distribution.manifest.v2+json" \
+              --header "Accept: application/vnd.oci.image.manifest.v1+json" \
+              --header "Authorization: Bearer ${token}" \
+              "https://ghcr.io/v2/${image}/manifests/${multidigest}"); then
+              digest=$(jq -r '.config.digest' <<< "${digest}");
+            fi
+          fi
           image_info=$(curl -sL \
             --header "Authorization: Bearer ${token}" \
             "https://ghcr.io/v2/${image}/blobs/${digest}")
@@ -92,7 +109,7 @@ jobs:
             else
               printf "\n## Trigger new build\n\n" >> $GITHUB_STEP_SUMMARY
               echo "New version \`${EXT_RELEASE}\` found; old version was \`${IMAGE_VERSION}\`. Triggering new build" >> $GITHUB_STEP_SUMMARY
-              if "${artifacts_found}" == "true" ]]; then
+              if [[ "${artifacts_found}" == "true" ]]; then
                 echo "All artifacts seem to be uploaded." >> $GITHUB_STEP_SUMMARY
               fi
               response=$(curl -iX POST \
