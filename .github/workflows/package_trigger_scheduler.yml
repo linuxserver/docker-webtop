@@ -27,9 +27,18 @@ jobs:
             fi
             printf "\n## Evaluating \`%s\`\n\n" ${br} >> $GITHUB_STEP_SUMMARY
             JENKINS_VARS=$(curl -sX GET https://raw.githubusercontent.com/linuxserver/docker-webtop/${br}/jenkins-vars.yml)
-            if [[ "${br}" == $(yq -r '.ls_branch' <<< "${JENKINS_VARS}") ]]; then
+            if ! curl -sfX GET https://raw.githubusercontent.com/linuxserver/docker-webtop/${br}/Jenkinsfile >/dev/null 2>&1; then
+              echo "> [!WARNING]" >> $GITHUB_STEP_SUMMARY
+              echo "> No Jenkinsfile found. Branch is either deprecated or is an early dev branch." >> $GITHUB_STEP_SUMMARY
+              skipped_branches="${skipped_branches}${br} "
+            elif [[ "${br}" == $(yq -r '.ls_branch' <<< "${JENKINS_VARS}") ]]; then
               echo "Branch appears to be live; checking workflow." >> $GITHUB_STEP_SUMMARY
-              if [[ $(yq -r '.skip_package_check' <<< "${JENKINS_VARS}") == "true" ]]; then
+              README_VARS=$(curl -sX GET https://raw.githubusercontent.com/linuxserver/docker-webtop/${br}/readme-vars.yml)
+              if [[ $(yq -r '.project_deprecation_status' <<< "${README_VARS}") == "true" ]]; then
+                echo "> [!WARNING]" >> $GITHUB_STEP_SUMMARY
+                echo "> Branch appears to be deprecated; skipping trigger." >> $GITHUB_STEP_SUMMARY
+                skipped_branches="${skipped_branches}${br} "
+              elif [[ $(yq -r '.skip_package_check' <<< "${JENKINS_VARS}") == "true" ]]; then
                 echo "> [!WARNING]" >> $GITHUB_STEP_SUMMARY
                 echo "> Skipping branch ${br} due to \`skip_package_check\` being set in \`jenkins-vars.yml\`." >> $GITHUB_STEP_SUMMARY
                 skipped_branches="${skipped_branches}${br} "
@@ -37,7 +46,7 @@ jobs:
                 echo "> [!WARNING]" >> $GITHUB_STEP_SUMMARY
                 echo "> Github organizational variable \`SKIP_PACKAGE_TRIGGER\` contains \`webtop_${br}\`; skipping trigger." >> $GITHUB_STEP_SUMMARY
                 skipped_branches="${skipped_branches}${br} "
-              elif [ $(curl -s https://ci.linuxserver.io/job/Docker-Pipeline-Builders/job/docker-webtop/job/${br}/lastBuild/api/json | jq -r '.building') == "true" ]; then
+              elif [ $(curl -s https://ci.linuxserver.io/job/Docker-Pipeline-Builders/job/docker-webtop/job/${br}/lastBuild/api/json | jq -r '.building' 2>/dev/null) == "true" ]; then
                 echo "> [!WARNING]" >> $GITHUB_STEP_SUMMARY
                 echo "> There already seems to be an active build on Jenkins; skipping package trigger for ${br}" >> $GITHUB_STEP_SUMMARY
                 skipped_branches="${skipped_branches}${br} "
@@ -49,6 +58,11 @@ jobs:
                 response=$(curl -iX POST \
                   https://ci.linuxserver.io/job/Docker-Pipeline-Builders/job/docker-webtop/job/${br}/buildWithParameters?PACKAGE_CHECK=true \
                   --user ${{ secrets.JENKINS_USER }}:${{ secrets.JENKINS_TOKEN }} | grep -i location | sed "s|^[L|l]ocation: \(.*\)|\1|")
+                if [[ -z "${response}" ]]; then
+                  echo "> [!WARNING]" >> $GITHUB_STEP_SUMMARY
+                  echo "> Jenkins build could not be triggered. Skipping branch."
+                  continue
+                fi
                 echo "Jenkins [job queue url](${response%$'\r'})" >> $GITHUB_STEP_SUMMARY
                 echo "Sleeping 10 seconds until job starts" >> $GITHUB_STEP_SUMMARY
                 sleep 10
@@ -56,11 +70,14 @@ jobs:
                 buildurl="${buildurl%$'\r'}"
                 echo "Jenkins job [build url](${buildurl})" >> $GITHUB_STEP_SUMMARY
                 echo "Attempting to change the Jenkins job description" >> $GITHUB_STEP_SUMMARY
-                curl -iX POST \
+                if ! curl -ifX POST \
                   "${buildurl}submitDescription" \
                   --user ${{ secrets.JENKINS_USER }}:${{ secrets.JENKINS_TOKEN }} \
                   --data-urlencode "description=GHA package trigger https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}" \
-                  --data-urlencode "Submit=Submit"
+                  --data-urlencode "Submit=Submit"; then
+                  echo "> [!WARNING]" >> $GITHUB_STEP_SUMMARY
+                  echo "> Unable to change the Jenkins job description."
+                fi
                 sleep 20
               fi
             else
