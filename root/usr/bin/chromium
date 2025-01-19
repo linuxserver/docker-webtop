@@ -11,5 +11,5 @@ fi
 if grep -q 'Seccomp:.0' /proc/1/status; then
   ${BIN} --no-first-run --password-store=basic "$@"
 else
-  ${BIN} --no-first-run --password-store=basic --no-sandbox --test-type "$@"
+  ${BIN} --no-first-run --password-store=basic "$@"
 fi
