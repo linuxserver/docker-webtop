@@ -56,11 +56,21 @@ pipeline {
       steps{
         echo "Running on node: ${NODE_NAME}"
         sh '''#! /bin/bash
-              containers=$(docker ps -aq)
+              echo "Pruning builder"
+              docker builder prune -f --builder container || :
+              containers=$(docker ps -q)
               if [[ -n "${containers}" ]]; then
-                docker stop ${containers}
+                BUILDX_CONTAINER_ID=$(docker ps -qf 'name=buildx_buildkit')
+                for container in ${containers}; do
+                  if [[ "${container}" == "${BUILDX_CONTAINER_ID}" ]]; then
+                    echo "skipping buildx container in docker stop"
+                  else
+                    echo "Stopping container ${container}"
+                    docker stop ${container}
+                  fi
+                done
               fi
-              docker system prune -af --volumes || : '''
+              docker system prune -f --volumes || : '''
         script{
           env.EXIT_STATUS = ''
           env.LS_RELEASE = sh(
@@ -1087,12 +1097,21 @@ EOF
     }
     cleanup {
       sh '''#! /bin/bash
-            echo "Performing docker system prune!!"
-            containers=$(docker ps -aq)
+            echo "Pruning builder!!"
+            docker builder prune -f --builder container || :
+            containers=$(docker ps -q)
             if [[ -n "${containers}" ]]; then
-              docker stop ${containers}
+              BUILDX_CONTAINER_ID=$(docker ps -qf 'name=buildx_buildkit')
+              for container in ${containers}; do
+                if [[ "${container}" == "${BUILDX_CONTAINER_ID}" ]]; then
+                  echo "skipping buildx container in docker stop"
+                else
+                  echo "Stopping container ${container}"
+                  docker stop ${container}
+                fi
+              done
             fi
-            docker system prune -af --volumes || :
+            docker system prune -f --volumes || :
          '''
       cleanWs()
     }
