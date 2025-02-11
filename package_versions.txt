@@ -7,7 +7,7 @@ NAME                                                                          VE
 @types/busboy                                                                 1.5.0                                     npm                            
 @types/cors                                                                   2.8.17                                    npm                            
 @types/node                                                                   18.18.14                                  npm                            
-@types/node                                                                   22.13.0                                   npm                            
+@types/node                                                                   22.13.1                                   npm                            
 accepts                                                                       1.3.8                                     npm                            
 accountsservice                                                               23.13.9-2ubuntu6                          deb                            
 acorn                                                                         8.8.1                                     npm                            
@@ -164,7 +164,7 @@ file-uri-to-path                                                              1.
 filelist                                                                      1.0.4                                     npm                            
 finalhandler                                                                  1.3.1                                     npm                            
 findutils                                                                     4.9.0-5build1                             deb                            
-firefox                                                                       134.0.2+build1-0ubuntu0.24.04.1~mt1       deb                            
+firefox                                                                       135.0+build2-0ubuntu0.24.04.1~mt2         deb                            
 fontconfig                                                                    2.15.0-1.1ubuntu2                         deb                            
 fontconfig-config                                                             2.15.0-1.1ubuntu2                         deb                            
 fonts-dejavu-core                                                             2.37-8                                    deb                            
@@ -700,8 +700,8 @@ libbsd0                                                                       0.
 libbytesize-common                                                            2.10-1ubuntu2                             deb                            
 libbytesize1                                                                  2.10-1ubuntu2                             deb                            
 libbz2-1.0                                                                    1.0.8-5.1build0.1                         deb                            
-libc-bin                                                                      2.39-0ubuntu8.3                           deb                            
-libc6                                                                         2.39-0ubuntu8.3                           deb                            
+libc-bin                                                                      2.39-0ubuntu8.4                           deb                            
+libc6                                                                         2.39-0ubuntu8.4                           deb                            
 libcaca0                                                                      0.99.beta20-4build2                       deb                            
 libcairo-gobject-perl                                                         1.005-4build3                             deb                            
 libcairo-gobject2                                                             1.18.0-3build1                            deb                            
@@ -1155,7 +1155,7 @@ libudfread0                                                                   1.
 libudisks2-0                                                                  2.10.1-6ubuntu1                           deb                            
 libunibreak5                                                                  5.1-2build1                               deb                            
 libunistring5                                                                 1.1-2build1.1                             deb                            
-libunwind8                                                                    1.6.2-3build1                             deb                            
+libunwind8                                                                    1.6.2-3build1.1                           deb                            
 libupower-glib3                                                               1.90.3-1                                  deb                            
 libusb-1.0-0                                                                  2:1.0.27-1                                deb                            
 libusbmuxd6                                                                   2.0.2-4build3                             deb                            
@@ -1264,8 +1264,8 @@ libzstd1                                                                      1.
 libzvbi-common                                                                0.2.42-2                                  deb                            
 libzvbi0t64                                                                   0.2.42-2                                  deb                            
 linux-sound-base                                                              1.0.25+dfsg-0ubuntu7                      deb                            
-locales                                                                       2.39-0ubuntu8.3                           deb                            
-locales-all                                                                   2.39-0ubuntu8.3                           deb                            
+locales                                                                       2.39-0ubuntu8.4                           deb                            
+locales-all                                                                   2.39-0ubuntu8.4                           deb                            
 login                                                                         1:4.13+dfsg1-4ubuntu3.2                   deb                            
 logsave                                                                       1.47.0-2.4~exp1ubuntu4.1                  deb                            
 lsb-release                                                                   12.0-2                                    deb                            
@@ -1337,7 +1337,7 @@ node-xtend                                                                    4.
 nodejs                                                                        18.19.1+dfsg-6ubuntu5                     deb                            
 oauthlib                                                                      3.2.2                                     python                         
 object-assign                                                                 4.1.1                                     npm                            
-object-inspect                                                                1.13.3                                    npm                            
+object-inspect                                                                1.13.4                                    npm                            
 ocl-icd-libopencl1                                                            2.3.2-1build1                             deb                            
 on-finished                                                                   2.4.1                                     npm                            
 openbox                                                                       3.6.1-12build5                            deb                            
@@ -1377,13 +1377,13 @@ pulseaudio2                                                                   0.
 pygobject                                                                     3.48.2                                    python                         
 pyjwt                                                                         2.7.0                                     python                         
 pyparsing                                                                     3.1.1                                     python                         
-python-apt                                                                    2.7.7+ubuntu3                             python                         
-python-apt-common                                                             2.7.7ubuntu3                              deb                            
+python-apt                                                                    2.7.7+ubuntu4                             python                         
+python-apt-common                                                             2.7.7ubuntu4                              deb                            
 python-dateutil                                                               2.8.2                                     python                         
 python-debian                                                                 0.1.49+ubuntu2                            python                         
 python3                                                                       3.12.3-0ubuntu2                           deb                            
 python3-apport                                                                2.28.1-0ubuntu3.3                         deb                            
-python3-apt                                                                   2.7.7ubuntu3                              deb                            
+python3-apt                                                                   2.7.7ubuntu4                              deb                            
 python3-aptdaemon                                                             1.1.1+bzr982-0ubuntu44                    deb                            
 python3-aptdaemon.gtk3widgets                                                 1.1.1+bzr982-0ubuntu44                    deb                            
 python3-blinker                                                               1.7.0-1                                   deb                            
@@ -1400,7 +1400,7 @@ python3-debian                                                                0.
 python3-defer                                                                 1.0.6-2.1ubuntu1                          deb                            
 python3-distro                                                                1.9.0-1                                   deb                            
 python3-distro-info                                                           1.7build1                                 deb                            
-python3-distupgrade                                                           1:24.04.23                                deb                            
+python3-distupgrade                                                           1:24.04.26                                deb                            
 python3-gi                                                                    3.48.2-1                                  deb                            
 python3-httplib2                                                              0.20.4-3                                  deb                            
 python3-idna                                                                  3.6-2ubuntu0.1                            deb                            
@@ -1478,7 +1478,7 @@ tags.cncf.io/container-device-interface/specs-go                              v0
 tar                                                                           1.35+dfsg-3build1                         deb                            
 toidentifier                                                                  1.0.1                                     npm                            
 type-is                                                                       1.6.18                                    npm                            
-tzdata                                                                        2024a-3ubuntu1.1                          deb                            
+tzdata                                                                        2024b-0ubuntu0.24.04                      deb                            
 ubuntu-advantage-desktop-daemon                                               1.11ubuntu0.1                             deb                            
 ubuntu-drivers-common                                                         0.0.0                                     python                         
 ubuntu-drivers-common                                                         1:0.9.7.6ubuntu3.1                        deb                            
@@ -1496,8 +1496,8 @@ ubuntu-mate-wallpapers-photos                                                 24
 ubuntu-mono                                                                   24.04-0ubuntu1                            deb                            
 ubuntu-pro-client                                                             34~24.04                                  deb                            
 ubuntu-pro-client                                                             8001                                      python                         
-ubuntu-release-upgrader-core                                                  1:24.04.23                                deb                            
-ubuntu-release-upgrader-gtk                                                   1:24.04.23                                deb                            
+ubuntu-release-upgrader-core                                                  1:24.04.26                                deb                            
+ubuntu-release-upgrader-gtk                                                   1:24.04.26                                deb                            
 ucf                                                                           3.0043+nmu1                               deb                            
 udev                                                                          255.4-1ubuntu8.5                          deb                            
 udisks2                                                                       2.10.1-6ubuntu1                           deb                            
@@ -1566,6 +1566,6 @@ yelp                                                                          42
 yelp-xsl                                                                      42.1-2                                    deb                            
 zenity                                                                        4.0.1-1build3                             deb                            
 zenity-common                                                                 4.0.1-1build3                             deb                            
-zip                                                                           3.0-13ubuntu0.1                           deb                            
+zip                                                                           3.0-13ubuntu0.2                           deb                            
 zlib1g                                                                        1:1.3.dfsg-3.1ubuntu2.1                   deb                            
 zstd                                                                          1.5.5+dfsg2-2build1.1                     deb                            
