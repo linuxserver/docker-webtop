@@ -130,7 +130,7 @@ This container is based on [Docker Baseimage KasmVNC](https://github.com/linuxse
 | DISABLE_IPV6 | If set to true or any value this will disable IPv6 | 
 | LC_ALL | Set the Language for the container to run as IE `fr_FR.UTF-8` `ar_AE.UTF-8` |
 | NO_DECOR | If set the application will run without window borders in openbox for use as a PWA. |
-| NO_FULL | Do not autmatically fullscreen applications when using openbox. |
+| NO_FULL | Do not automatically fullscreen applications when using openbox. |
 
 #### Optional run configurations
 
