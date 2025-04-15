@@ -4,7 +4,7 @@ NAME                                                                          VE
 @socket.io/component-emitter                                                  3.1.2                                   npm                          
 @socket.io/component-emitter                                                  UNKNOWN                                 npm        (+1 duplicate)    
 @types/cors                                                                   2.8.17                                  npm                          
-@types/node                                                                   22.14.0                                 npm                          
+@types/node                                                                   22.14.1                                 npm                          
 OpenCL-ICD-Loader                                                             3.0.6-1.20241023git5907ac1.fc41         rpm                          
 SDL2                                                                          2.30.11-1.fc41                          rpm                          
 abattis-cantarell-vf-fonts                                                    0.301-13.fc41                           rpm                          
@@ -41,7 +41,7 @@ basesystem                                                                    11
 bash                                                                          5.2.32-1.fc41                           rpm                          
 bindings                                                                      1.5.0                                   npm                          
 binutils                                                                      2.43.1-5.fc41                           rpm                          
-bluez-libs                                                                    5.79-1.fc41                             rpm                          
+bluez-libs                                                                    5.81-2.fc41                             rpm                          
 body-parser                                                                   1.20.3                                  npm                          
 brace-expansion                                                               1.1.11                                  npm                          
 brace-expansion                                                               2.0.1                                   npm                          
@@ -59,8 +59,8 @@ catatonit                                                                     0.
 cdparanoia-libs                                                               10.2-45.fc41                            rpm                          
 chalk                                                                         4.1.2                                   npm                          
 checkpolicy                                                                   3.7-2.fc41                              rpm                          
-chromium                                                                      135.0.7049.52-1.fc41                    rpm                          
-chromium-common                                                               135.0.7049.52-1.fc41                    rpm                          
+chromium                                                                      135.0.7049.84-1.fc41                    rpm                          
+chromium-common                                                               135.0.7049.84-1.fc41                    rpm                          
 cloud.google.com/go/compute/metadata                                          v0.5.2                                  go-module                    
 cloud.google.com/go/logging                                                   v1.9.0                                  go-module                    
 cloud.google.com/go/longrunning                                               v0.5.4                                  go-module                    
@@ -641,9 +641,9 @@ highway                                                                       1.
 hiredis                                                                       1.2.0-3.fc41                            rpm                          
 hostname                                                                      3.23-13.fc41                            rpm                          
 http-errors                                                                   2.0.0                                   npm                          
-hwdata                                                                        0.393-1.fc41                            rpm                          
-icewm                                                                         3.7.1-1.fc41                            rpm                          
-icewm-data                                                                    3.7.1-1.fc41                            rpm                          
+hwdata                                                                        0.394-1.fc41                            rpm                          
+icewm                                                                         3.7.3-1.fc41                            rpm                          
+icewm-data                                                                    3.7.3-1.fc41                            rpm                          
 iconv-lite                                                                    0.4.24                                  npm                          
 ilbc                                                                          3.0.4-12.fc41                           rpm                          
 ima-evm-utils-libs                                                            1.6.2-2.fc41                            rpm                          
@@ -801,7 +801,7 @@ libjxl                                                                        1:
 libksba                                                                       1.6.7-2.fc41                            rpm                          
 liblc3                                                                        1.1.3-1.fc41                            rpm                          
 libldac                                                                       2.0.2.3-16.fc41                         rpm                          
-libldb                                                                        2:4.21.4-1.fc41                         rpm                          
+libldb                                                                        2:4.21.5-1.fc41                         rpm                          
 liblerc                                                                       4.0.0-7.fc41                            rpm                          
 libmd                                                                         1.1.0-5.fc41                            rpm                          
 libmnl                                                                        1.0.5-6.fc41                            rpm                          
@@ -841,7 +841,7 @@ libsepol                                                                      3.
 libshaderc                                                                    2024.4-1.fc41                           rpm                          
 libsigc++20                                                                   2.12.1-3.fc41                           rpm                          
 libsmartcols                                                                  2.40.4-1.fc41                           rpm                          
-libsmbclient                                                                  2:4.21.4-1.fc41                         rpm                          
+libsmbclient                                                                  2:4.21.5-1.fc41                         rpm                          
 libsndfile                                                                    1.2.2-5.fc41                            rpm                          
 libsodium                                                                     1.0.20-2.fc41                           rpm                          
 libsolv                                                                       0.7.31-1.fc41                           rpm                          
@@ -884,11 +884,11 @@ libwayland-client                                                             1.
 libwayland-cursor                                                             1.23.0-2.fc41                           rpm                          
 libwayland-egl                                                                1.23.0-2.fc41                           rpm                          
 libwayland-server                                                             1.23.0-2.fc41                           rpm                          
-libwbclient                                                                   2:4.21.4-1.fc41                         rpm                          
+libwbclient                                                                   2:4.21.5-1.fc41                         rpm                          
 libwebp                                                                       1.5.0-1.fc41                            rpm                          
 libxcb                                                                        1.17.0-3.fc41                           rpm                          
-libxcrypt                                                                     4.4.38-6.fc41                           rpm                          
-libxcrypt-devel                                                               4.4.38-6.fc41                           rpm                          
+libxcrypt                                                                     4.4.38-7.fc41                           rpm                          
+libxcrypt-devel                                                               4.4.38-7.fc41                           rpm                          
 libxcvt                                                                       0.1.2-8.fc41                            rpm                          
 libxkbcommon                                                                  1.7.0-4.fc41                            rpm                          
 libxkbfile                                                                    1.1.3-2.fc41                            rpm                          
@@ -1285,7 +1285,7 @@ pulseaudio-libs                                                               17
 pulseaudio-utils                                                              17.0-2.fc41                             rpm                          
 pulseaudio2                                                                   0.5.5                                   npm                          
 pyparsing                                                                     3.1.2                                   python                       
-pyproject-srpm-macros                                                         1.17.0-1.fc41                           rpm                          
+pyproject-srpm-macros                                                         1.18.1-1.fc41                           rpm                          
 python-dateutil                                                               2.8.2                                   python                       
 python-pip-wheel                                                              24.2-1.fc41                             rpm                          
 python-srpm-macros                                                            3.13-3.fc41                             rpm                          
@@ -1342,9 +1342,9 @@ rubberband                                                                    3.
 rust-srpm-macros                                                              26.3-3.fc41                             rpm                          
 safe-buffer                                                                   5.2.1                                   npm                          
 safer-buffer                                                                  2.1.2                                   npm                          
-samba-client-libs                                                             2:4.21.4-1.fc41                         rpm                          
-samba-common                                                                  2:4.21.4-1.fc41                         rpm                          
-samba-common-libs                                                             2:4.21.4-1.fc41                         rpm                          
+samba-client-libs                                                             2:4.21.5-1.fc41                         rpm                          
+samba-common                                                                  2:4.21.5-1.fc41                         rpm                          
+samba-common-libs                                                             2:4.21.5-1.fc41                         rpm                          
 sdbus-cpp                                                                     1.5.0-3.fc41                            rpm                          
 sed                                                                           4.9-3.fc41                              rpm                          
 selinux                                                                       3.7                                     python                       
@@ -1380,7 +1380,7 @@ sound-theme-freedesktop                                                       0.
 soxr                                                                          0.1.3-16.fc41                           rpm                          
 speex                                                                         1.2.0-18.fc41                           rpm                          
 speexdsp                                                                      1.2.1-7.fc41                            rpm                          
-spirv-tools-libs                                                              2024.4-1.fc41                           rpm                          
+spirv-tools-libs                                                              2025.1-1.fc41                           rpm                          
 sqlite-libs                                                                   3.46.1-2.fc41                           rpm                          
 sratom                                                                        0.6.16-2.fc41                           rpm                          
 srt-libs                                                                      1.5.4-1.fc41                            rpm                          
@@ -1436,7 +1436,7 @@ vid.stab                                                                      1.
 vim-data                                                                      2:9.1.1227-1.fc41                       rpm                          
 vim-minimal                                                                   2:9.1.1227-1.fc41                       rpm                          
 vo-amrwbenc                                                                   0.1.3-21.fc41                           rpm                          
-vulkan-loader                                                                 1.4.304.0-1.fc41                        rpm                          
+vulkan-loader                                                                 1.4.309.0-1.fc41                        rpm                          
 webrtc-audio-processing                                                       1.3-3.fc41                              rpm                          
 which                                                                         2.21-42.fc41                            rpm                          
 ws                                                                            8.17.1                                  npm                          
