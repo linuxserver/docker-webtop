@@ -3,8 +3,8 @@ NAME                                                                          VE
 @kasmtech/novnc                                                               1.3.0                                   npm                          
 @socket.io/component-emitter                                                  3.1.2                                   npm                          
 @socket.io/component-emitter                                                  UNKNOWN                                 npm        (+1 duplicate)    
-@types/cors                                                                   2.8.17                                  npm                          
-@types/node                                                                   22.15.2                                 npm                          
+@types/cors                                                                   2.8.18                                  npm                          
+@types/node                                                                   22.15.17                                npm                          
 OpenCL-ICD-Loader                                                             3.0.6-1.20241023git5907ac1.fc41         rpm                          
 SDL2                                                                          2.30.11-1.fc41                          rpm                          
 abattis-cantarell-vf-fonts                                                    0.301-13.fc41                           rpm                          
@@ -59,8 +59,8 @@ catatonit                                                                     0.
 cdparanoia-libs                                                               10.2-45.fc41                            rpm                          
 chalk                                                                         4.1.2                                   npm                          
 checkpolicy                                                                   3.7-2.fc41                              rpm                          
-chromium                                                                      135.0.7049.114-1.fc41                   rpm                          
-chromium-common                                                               135.0.7049.114-1.fc41                   rpm                          
+chromium                                                                      136.0.7103.59-1.fc41                    rpm                          
+chromium-common                                                               136.0.7103.59-1.fc41                    rpm                          
 cloud.google.com/go/compute/metadata                                          v0.5.2                                  go-module                    
 cloud.google.com/go/logging                                                   v1.9.0                                  go-module                    
 cloud.google.com/go/longrunning                                               v0.5.4                                  go-module                    
@@ -72,7 +72,7 @@ color-name                                                                    1.
 colord                                                                        1.4.7-5.fc41                            rpm                          
 colord-libs                                                                   1.4.7-5.fc41                            rpm                          
 concat-map                                                                    0.0.1                                   npm                          
-container-selinux                                                             4:2.236.0-1.fc41                        rpm                          
+container-selinux                                                             4:2.237.0-1.fc41                        rpm                          
 containerd.io                                                                 1.7.27-3.1.fc41                         rpm                          
 content-disposition                                                           0.5.4                                   npm                          
 content-type                                                                  1.0.5                                   npm                          
@@ -133,10 +133,10 @@ dwz                                                                           0.
 ee-first                                                                      1.1.1                                   npm                          
 efi-srpm-macros                                                               5-13.fc41                               rpm                          
 ejs                                                                           3.1.10                                  npm                          
-elfutils-debuginfod-client                                                    0.192-9.fc41                            rpm                          
+elfutils-debuginfod-client                                                    0.193-2.fc41                            rpm                          
 elfutils-default-yama-scope                                                   0.192-9.fc41                            rpm                          
-elfutils-libelf                                                               0.192-9.fc41                            rpm                          
-elfutils-libs                                                                 0.192-9.fc41                            rpm                          
+elfutils-libelf                                                               0.193-2.fc41                            rpm                          
+elfutils-libs                                                                 0.193-2.fc41                            rpm                          
 emacs-filesystem                                                              1:30.0-3.fc41                           rpm                          
 encodeurl                                                                     1.0.2                                   npm                          
 encodeurl                                                                     2.0.0                                   npm                          
@@ -157,8 +157,8 @@ fedora-release-common                                                         41
 fedora-release-container                                                      41-31                                   rpm                          
 fedora-release-identity-container                                             41-31                                   rpm                          
 fedora-repos                                                                  41-1                                    rpm                          
-ffmpeg                                                                        7.1.1-5.fc41                            rpm                          
-ffmpeg-libs                                                                   7.1.1-5.fc41                            rpm                          
+ffmpeg                                                                        7.1.1-6.fc41                            rpm                          
+ffmpeg-libs                                                                   7.1.1-6.fc41                            rpm                          
 fftw-libs-double                                                              3.3.10-13.fc41                          rpm                          
 fftw-libs-single                                                              3.3.10-13.fc41                          rpm                          
 file                                                                          5.45-7.fc41                             rpm                          
@@ -506,13 +506,13 @@ github.com/zclconf/go-cty                                                     v1
 github.com/zmap/zcrypto                                                       v0.0.0-20210511125630-18f1e0152cfc      go-module                    
 github.com/zmap/zlint/v3                                                      v3.1.0                                  go-module                    
 glib2                                                                         2.82.5-1.fc41                           rpm                          
-glibc                                                                         2.40-24.fc41                            rpm                          
-glibc-all-langpacks                                                           2.40-24.fc41                            rpm                          
-glibc-common                                                                  2.40-24.fc41                            rpm                          
-glibc-devel                                                                   2.40-24.fc41                            rpm                          
-glibc-gconv-extra                                                             2.40-24.fc41                            rpm                          
-glibc-locale-source                                                           2.40-24.fc41                            rpm                          
-glibc-minimal-langpack                                                        2.40-24.fc41                            rpm                          
+glibc                                                                         2.40-25.fc41                            rpm                          
+glibc-all-langpacks                                                           2.40-25.fc41                            rpm                          
+glibc-common                                                                  2.40-25.fc41                            rpm                          
+glibc-devel                                                                   2.40-25.fc41                            rpm                          
+glibc-gconv-extra                                                             2.40-25.fc41                            rpm                          
+glibc-locale-source                                                           2.40-25.fc41                            rpm                          
+glibc-minimal-langpack                                                        2.40-25.fc41                            rpm                          
 glibmm2.4                                                                     2.66.8-1.fc41                           rpm                          
 gmp                                                                           1:6.3.0-2.fc41                          rpm                          
 gnat-srpm-macros                                                              6-6.fc41                                rpm                          
@@ -638,7 +638,7 @@ highway                                                                       1.
 hiredis                                                                       1.2.0-3.fc41                            rpm                          
 hostname                                                                      3.23-13.fc41                            rpm                          
 http-errors                                                                   2.0.0                                   npm                          
-hwdata                                                                        0.394-1.fc41                            rpm                          
+hwdata                                                                        0.395-1.fc41                            rpm                          
 icewm                                                                         3.7.3-1.fc41                            rpm                          
 icewm-data                                                                    3.7.3-1.fc41                            rpm                          
 iconv-lite                                                                    0.4.24                                  npm                          
@@ -690,7 +690,7 @@ krb5-libs                                                                     1.
 ladspa                                                                        1.17-5.fc41                             rpm                          
 lame-libs                                                                     3.100-18.fc41                           rpm                          
 lcms2                                                                         2.16-4.fc41                             rpm                          
-leptonica                                                                     1.84.1-4.fc41                           rpm                          
+leptonica                                                                     1.84.1-5.fc41                           rpm                          
 libICE                                                                        1.1.2-1.fc41                            rpm                          
 libSM                                                                         1.2.5-1.fc41                            rpm                          
 libX11                                                                        1.8.11-1.fc41                           rpm                          
@@ -728,7 +728,7 @@ libass                                                                        0.
 libassuan                                                                     2.5.7-2.fc41                            rpm                          
 libasyncns                                                                    0.8-29.fc41                             rpm                          
 libattr                                                                       2.5.2-4.fc41                            rpm                          
-libavdevice                                                                   7.1.1-5.fc41                            rpm                          
+libavdevice                                                                   7.1.1-6.fc41                            rpm                          
 libb2                                                                         0.98.1-12.fc41                          rpm                          
 libblkid                                                                      2.40.4-1.fc41                           rpm                          
 libbluray                                                                     1.3.4-7.fc41                            rpm                          
@@ -787,7 +787,7 @@ libgpg-error                                                                  1.
 libgs                                                                         10.03.1-5.fc41                          rpm                          
 libgudev                                                                      238-6.fc41                              rpm                          
 libgusb                                                                       0.4.9-2.fc41                            rpm                          
-libheif                                                                       1.19.7-1.fc41                           rpm                          
+libheif                                                                       1.19.8-1.fc41                           rpm                          
 libicu                                                                        74.2-2.fc41                             rpm                          
 libidn2                                                                       2.3.8-1.fc41                            rpm                          
 libiec61883                                                                   1.2.0-35.fc41                           rpm                          
@@ -799,7 +799,7 @@ libksba                                                                       1.
 liblc3                                                                        1.1.3-1.fc41                            rpm                          
 libldac                                                                       2.0.2.3-16.fc41                         rpm                          
 libldb                                                                        2:4.21.5-1.fc41                         rpm                          
-liblerc                                                                       4.0.0-7.fc41                            rpm                          
+liblerc                                                                       4.0.0-8.fc41                            rpm                          
 libmd                                                                         1.1.0-5.fc41                            rpm                          
 libmnl                                                                        1.0.5-6.fc41                            rpm                          
 libmodplug                                                                    1:0.8.9.0-25.fc41                       rpm                          
@@ -813,7 +813,7 @@ libnghttp2                                                                    1.
 libnotify                                                                     0.8.6-1.fc41                            rpm                          
 libnsl2                                                                       2.0.1-2.fc41                            rpm                          
 libogg                                                                        2:1.3.5-9.fc41                          rpm                          
-libopenjph                                                                    0.21.2-1.fc41                           rpm                          
+libopenjph                                                                    0.21.2-2.fc41                           rpm                          
 libopenmpt                                                                    0.7.13-3.fc41                           rpm                          
 libpaper                                                                      1:2.1.1-7.fc41                          rpm                          
 libpciaccess                                                                  0.16-13.fc41                            rpm                          
@@ -840,7 +840,7 @@ libsigc++20                                                                   2.
 libsmartcols                                                                  2.40.4-1.fc41                           rpm                          
 libsmbclient                                                                  2:4.21.5-1.fc41                         rpm                          
 libsndfile                                                                    1.2.2-5.fc41                            rpm                          
-libsodium                                                                     1.0.20-2.fc41                           rpm                          
+libsodium                                                                     1.0.20-3.fc41                           rpm                          
 libsolv                                                                       0.7.31-1.fc41                           rpm                          
 libsoup3                                                                      3.6.5-1.fc41                            rpm                          
 libspectre                                                                    0.2.12-7.fc41                           rpm                          
@@ -865,7 +865,7 @@ libunwind                                                                     1.
 libusb1                                                                       1.0.28-2.fc41                           rpm                          
 libutempter                                                                   1.2.1-15.fc41                           rpm                          
 libuuid                                                                       2.40.4-1.fc41                           rpm                          
-libuv                                                                         1:1.50.0-1.fc41                         rpm                          
+libuv                                                                         1:1.51.0-1.fc41                         rpm                          
 libv4l                                                                        1.28.1-1.fc41                           rpm                          
 libva                                                                         2.22.0-3.fc41                           rpm                          
 libvdpau                                                                      1.5-8.fc41                              rpm                          
@@ -942,13 +942,13 @@ nginx-mimetypes                                                               2.
 nodejs                                                                        1:22.14.0-2.fc41                        rpm                          
 nodejs-libs                                                                   1:22.14.0-2.fc41                        rpm                          
 npth                                                                          1.7-2.fc41                              rpm                          
-nspr                                                                          4.36.0-4.fc41                           rpm                          
-nss                                                                           3.109.0-1.fc41                          rpm                          
+nspr                                                                          4.36.0-6.fc41                           rpm                          
+nss                                                                           3.110.0-2.fc41                          rpm                          
 nss-mdns                                                                      0.15.1-12.fc41                          rpm                          
-nss-softokn                                                                   3.109.0-1.fc41                          rpm                          
-nss-softokn-freebl                                                            3.109.0-1.fc41                          rpm                          
-nss-sysinit                                                                   3.109.0-1.fc41                          rpm                          
-nss-util                                                                      3.109.0-1.fc41                          rpm                          
+nss-softokn                                                                   3.110.0-2.fc41                          rpm                          
+nss-softokn-freebl                                                            3.110.0-2.fc41                          rpm                          
+nss-sysinit                                                                   3.110.0-2.fc41                          rpm                          
+nss-util                                                                      3.110.0-2.fc41                          rpm                          
 numactl-libs                                                                  2.0.19-1.fc41                           rpm                          
 object-assign                                                                 4.1.1                                   npm                          
 object-inspect                                                                1.13.4                                  npm                          
@@ -969,7 +969,7 @@ openssh                                                                       9.
 openssh-clients                                                               9.9p1-3.fc41                            rpm                          
 openssl                                                                       1:3.2.4-1.fc41                          rpm                          
 openssl-libs                                                                  1:3.2.4-1.fc41                          rpm                          
-opus                                                                          1.5.2-1.fc41                            rpm                          
+opus                                                                          1.5.2-2.fc41                            rpm                          
 orc                                                                           0.4.39-1.fc41                           rpm                          
 p11-kit                                                                       0.25.5-3.fc41                           rpm                          
 p11-kit-trust                                                                 0.25.5-3.fc41                           rpm                          
@@ -1008,7 +1008,7 @@ perl-Class-Struct                                                             0:
 perl-Clone                                                                    0.47-1.fc41                             rpm                          
 perl-Compress-Bzip2                                                           2.28-20.fc41                            rpm                          
 perl-Compress-Raw-Bzip2                                                       2.212-512.fc41                          rpm                          
-perl-Compress-Raw-Lzma                                                        2.212-5.fc41                            rpm                          
+perl-Compress-Raw-Lzma                                                        2.212-6.fc41                            rpm                          
 perl-Compress-Raw-Zlib                                                        2.212-512.fc41                          rpm                          
 perl-Config-Extensions                                                        0:0.03-515.fc41                         rpm                          
 perl-Config-Perl-V                                                            0.36-512.fc41                           rpm                          
@@ -1116,8 +1116,8 @@ perl-Math-BigInt-FastCalc                                                     0.
 perl-Math-Complex                                                             0:1.62-515.fc41                         rpm                          
 perl-Memoize                                                                  0:1.16-515.fc41                         rpm                          
 perl-Module-Build                                                             2:0.42.34-7.fc41                        rpm                          
-perl-Module-CoreList                                                          1:5.20250321-1.fc41                     rpm                          
-perl-Module-CoreList-tools                                                    1:5.20250321-1.fc41                     rpm                          
+perl-Module-CoreList                                                          1:5.20250421-1.fc41                     rpm                          
+perl-Module-CoreList-tools                                                    1:5.20250421-1.fc41                     rpm                          
 perl-Module-Implementation                                                    0.09-40.fc41                            rpm                          
 perl-Module-Load                                                              1:0.36-511.fc41                         rpm                          
 perl-Module-Load-Conditional                                                  0.74-511.fc41                           rpm                          
@@ -1286,8 +1286,8 @@ pyproject-srpm-macros                                                         1.
 python-dateutil                                                               2.8.2                                   python                       
 python-pip-wheel                                                              24.2-1.fc41                             rpm                          
 python-srpm-macros                                                            3.13-3.fc41                             rpm                          
-python-unversioned-command                                                    3.13.2-1.fc41                           rpm                          
-python3                                                                       3.13.2-1.fc41                           rpm                          
+python-unversioned-command                                                    3.13.3-2.fc41                           rpm                          
+python3                                                                       3.13.3-2.fc41                           rpm                          
 python3-audit                                                                 4.0.3-1.fc41                            rpm                          
 python3-dateutil                                                              1:2.8.2-16.fc41                         rpm                          
 python3-dbus                                                                  1.3.2-8.fc41                            rpm                          
@@ -1297,7 +1297,7 @@ python3-dnf-plugins-core                                                      4.
 python3-hawkey                                                                0.74.0-1.fc41                           rpm                          
 python3-libcomps                                                              0.1.21-4.fc41                           rpm                          
 python3-libdnf                                                                0.74.0-1.fc41                           rpm                          
-python3-libs                                                                  3.13.2-1.fc41                           rpm                          
+python3-libs                                                                  3.13.3-2.fc41                           rpm                          
 python3-libselinux                                                            3.7-5.fc41                              rpm                          
 python3-libsemanage                                                           3.7-2.fc41                              rpm                          
 python3-policycoreutils                                                       3.7-8.fc41                              rpm                          
@@ -1436,6 +1436,7 @@ vim-data                                                                      2:
 vim-minimal                                                                   2:9.1.1227-1.fc41                       rpm                          
 vo-amrwbenc                                                                   0.1.3-21.fc41                           rpm                          
 vulkan-loader                                                                 1.4.309.0-1.fc41                        rpm                          
+vvenc-libs                                                                    1.13.1-3.fc41                           rpm                          
 webrtc-audio-processing                                                       1.3-3.fc41                              rpm                          
 which                                                                         2.21-42.fc41                            rpm                          
 ws                                                                            8.17.1                                  npm                          
@@ -1458,8 +1459,8 @@ xorg-x11-xauth                                                                1:
 xprop                                                                         1.2.7-2.fc41                            rpm                          
 xterm                                                                         397-1.fc41                              rpm                          
 xvidcore                                                                      1.3.7-12.fc41                           rpm                          
-xz                                                                            1:5.6.2-2.fc41                          rpm                          
-xz-libs                                                                       1:5.6.2-2.fc41                          rpm                          
+xz                                                                            1:5.8.1-2.fc41                          rpm                          
+xz-libs                                                                       1:5.8.1-2.fc41                          rpm                          
 zchunk-libs                                                                   1.5.1-1.fc41                            rpm                          
 zeromq                                                                        4.3.5-17.fc41                           rpm                          
 zig-srpm-macros                                                               1-3.fc41                                rpm                          
