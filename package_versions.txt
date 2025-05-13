@@ -5,9 +5,9 @@ NAME                                                                          VE
 @socket.io/component-emitter                                                  3.1.2                                     npm                            
 @socket.io/component-emitter                                                  UNKNOWN                                   npm           (+1 duplicate)   
 @types/busboy                                                                 1.5.0                                     npm                            
-@types/cors                                                                   2.8.17                                    npm                            
+@types/cors                                                                   2.8.18                                    npm                            
 @types/node                                                                   18.18.14                                  npm                            
-@types/node                                                                   22.15.2                                   npm                            
+@types/node                                                                   22.15.17                                  npm                            
 accepts                                                                       1.3.8                                     npm                            
 accountsservice                                                               23.13.9-2ubuntu6                          deb                            
 acorn                                                                         8.8.1                                     npm                            
@@ -135,7 +135,7 @@ dirmngr                                                                       2.
 distro                                                                        1.9.0                                     python                         
 distro-info                                                                   1.7+build1                                python                         
 distro-info                                                                   1.7build1                                 deb                            
-distro-info-data                                                              0.60ubuntu0.2                             deb                            
+distro-info-data                                                              0.60ubuntu0.3                             deb                            
 dmidecode                                                                     3.5-3ubuntu0.1                            deb                            
 docker-ce                                                                     5:28.1.1-1~ubuntu.24.04~noble             deb                            
 docker-ce-cli                                                                 5:28.1.1-1~ubuntu.24.04~noble             deb                            
@@ -164,7 +164,7 @@ file-uri-to-path                                                              1.
 filelist                                                                      1.0.4                                     npm                            
 finalhandler                                                                  1.3.1                                     npm                            
 findutils                                                                     4.9.0-5build1                             deb                            
-firefox                                                                       138.0+build1-0ubuntu0.24.04.1~mt2         deb                            
+firefox                                                                       138.0.1+build1-0ubuntu0.24.04.1~mt1       deb                            
 fontconfig                                                                    2.15.0-1.1ubuntu2                         deb                            
 fontconfig-config                                                             2.15.0-1.1ubuntu2                         deb                            
 fonts-dejavu-core                                                             2.37-8                                    deb                            
@@ -186,7 +186,7 @@ gcc-14-base                                                                   14
 get-intrinsic                                                                 1.3.0                                     npm                            
 get-proto                                                                     1.0.1                                     npm                            
 gettext-base                                                                  0.21-14ubuntu2                            deb                            
-ghostscript                                                                   10.02.1~dfsg1-0ubuntu7.5                  deb                            
+ghostscript                                                                   10.02.1~dfsg1-0ubuntu7.6                  deb                            
 gir1.2-atk-1.0                                                                2.52.0-1build1                            deb                            
 gir1.2-freedesktop                                                            1.80.1-1                                  deb                            
 gir1.2-gdkpixbuf-2.0                                                          2.42.10+dfsg-3ubuntu3.1                   deb                            
@@ -203,7 +203,7 @@ gir1.2-pango-1.0                                                              1.
 gir1.2-peas-1.0                                                               1.36.0-3build4                            deb                            
 gir1.2-pluma-1.0                                                              1.26.1-2build3                            deb                            
 gir1.2-snapd-2                                                                1.64-0ubuntu5                             deb                            
-gir1.2-soup-3.0                                                               3.4.4-5ubuntu0.2                          deb                            
+gir1.2-soup-3.0                                                               3.4.4-5ubuntu0.3                          deb                            
 gir1.2-vte-2.91                                                               0.76.0-1ubuntu0.1                         deb                            
 gir1.2-webkit2-4.1                                                            2.48.1-0ubuntu0.24.04.1                   deb                            
 github.com/AlecAivazis/survey/v2                                              v2.3.7                                    go-module                      
@@ -671,7 +671,7 @@ libacl1                                                                       2.
 libadwaita-1-0                                                                1.5.0-1ubuntu2                            deb                            
 libalgorithm-c3-perl                                                          0.11-2                                    deb                            
 libaom3                                                                       3.8.2-2ubuntu0.1                          deb                            
-libapparmor1                                                                  4.0.1really4.0.1-0ubuntu0.24.04.3         deb                            
+libapparmor1                                                                  4.0.1really4.0.1-0ubuntu0.24.04.4         deb                            
 libappstream5                                                                 1.0.2-1build6                             deb                            
 libapt-pkg6.0t64                                                              2.7.14build2                              deb                            
 libarchive13t64                                                               3.7.2-2ubuntu0.4                          deb                            
@@ -871,9 +871,9 @@ libgphoto2-port12t64                                                          2.
 libgpm2                                                                       1.20.7-11                                 deb                            
 libgraphene-1.0-0                                                             1.10.8-3build2                            deb                            
 libgraphite2-3                                                                1.3.14-2build1                            deb                            
-libgs-common                                                                  10.02.1~dfsg1-0ubuntu7.5                  deb                            
-libgs10                                                                       10.02.1~dfsg1-0ubuntu7.5                  deb                            
-libgs10-common                                                                10.02.1~dfsg1-0ubuntu7.5                  deb                            
+libgs-common                                                                  10.02.1~dfsg1-0ubuntu7.6                  deb                            
+libgs10                                                                       10.02.1~dfsg1-0ubuntu7.6                  deb                            
+libgs10-common                                                                10.02.1~dfsg1-0ubuntu7.6                  deb                            
 libgsm1                                                                       1.0.22-1build1                            deb                            
 libgssapi-krb5-2                                                              1.20.1-6ubuntu2.5                         deb                            
 libgstreamer-gl1.0-0                                                          1.24.2-1ubuntu0.2                         deb                            
@@ -1064,8 +1064,8 @@ libpng16-16t64                                                                1.
 libpocketsphinx3                                                              0.8.0+real5prealpha+1-15ubuntu5           deb                            
 libpolkit-agent-1-0                                                           124-2ubuntu1.24.04.2                      deb                            
 libpolkit-gobject-1-0                                                         124-2ubuntu1.24.04.2                      deb                            
-libpoppler-cpp0t64                                                            24.02.0-1ubuntu9.3                        deb                            
-libpoppler134                                                                 24.02.0-1ubuntu9.3                        deb                            
+libpoppler-cpp0t64                                                            24.02.0-1ubuntu9.4                        deb                            
+libpoppler134                                                                 24.02.0-1ubuntu9.4                        deb                            
 libpopt0                                                                      1.19+dfsg-1build1                         deb                            
 libpostproc57                                                                 7:6.1.1-3ubuntu5                          deb                            
 libppd2                                                                       2:2.0.0-0ubuntu4.1                        deb                            
@@ -1100,7 +1100,7 @@ libsasl2-modules                                                              2.
 libsasl2-modules-db                                                           2.1.28+dfsg1-5ubuntu3.1                   deb                            
 libsbc1                                                                       2.0-1build1                               deb                            
 libscalar-list-utils-perl                                                     1:1.63-1build3                            deb                            
-libsdl2-2.0-0                                                                 2.30.0+dfsg-1build3                       deb                            
+libsdl2-2.0-0                                                                 2.30.0+dfsg-1ubuntu3.1                    deb                            
 libseccomp2                                                                   2.5.5-1ubuntu3.1                          deb                            
 libsecret-1-0                                                                 0.21.4-1build3                            deb                            
 libsecret-common                                                              0.21.4-1build3                            deb                            
@@ -1124,10 +1124,10 @@ libsndfile1                                                                   1.
 libsndio7.0                                                                   1.9.0-0.3build3                           deb                            
 libsodium23                                                                   1.0.18-1build3                            deb                            
 libsord-0-0                                                                   0.16.16-2build1                           deb                            
-libsoup-2.4-1                                                                 2.74.3-6ubuntu1.2                         deb                            
-libsoup-3.0-0                                                                 3.4.4-5ubuntu0.2                          deb                            
-libsoup-3.0-common                                                            3.4.4-5ubuntu0.2                          deb                            
-libsoup2.4-common                                                             2.74.3-6ubuntu1.2                         deb                            
+libsoup-2.4-1                                                                 2.74.3-6ubuntu1.4                         deb                            
+libsoup-3.0-0                                                                 3.4.4-5ubuntu0.3                          deb                            
+libsoup-3.0-common                                                            3.4.4-5ubuntu0.3                          deb                            
+libsoup2.4-common                                                             2.74.3-6ubuntu1.4                         deb                            
 libsoxr0                                                                      0.1.3-4build3                             deb                            
 libspa-0.2-bluetooth                                                          1.0.5-1ubuntu3                            deb                            
 libspa-0.2-jack                                                               1.0.5-1ubuntu3                            deb                            
@@ -1259,7 +1259,7 @@ libxinerama1                                                                  2:
 libxkbcommon0                                                                 1.6.0-1build1                             deb                            
 libxkbfile1                                                                   1:1.1.0-1build4                           deb                            
 libxklavier16                                                                 5.4-5build2                               deb                            
-libxml2                                                                       2.9.14+dfsg-1.3ubuntu3.2                  deb                            
+libxml2                                                                       2.9.14+dfsg-1.3ubuntu3.3                  deb                            
 libxmlb2                                                                      0.3.18-1                                  deb                            
 libxmu6                                                                       2:1.1.3-3build2                           deb                            
 libxmuu1                                                                      2:1.1.3-3build2                           deb                            
@@ -1391,7 +1391,7 @@ pluma-common                                                                  1.
 policykit-1                                                                   124-2ubuntu1.24.04.2                      deb                            
 polkitd                                                                       124-2ubuntu1.24.04.2                      deb                            
 poppler-data                                                                  0.4.12-1                                  deb                            
-poppler-utils                                                                 24.02.0-1ubuntu9.3                        deb                            
+poppler-utils                                                                 24.02.0-1ubuntu9.4                        deb                            
 printer-driver-cups-pdf                                                       3.0.1-14build2                            deb                            
 printer-driver-pnm2ppa                                                        1.13+nondbs-0ubuntu10                     deb                            
 procps                                                                        2:4.0.4-4ubuntu3.2                        deb                            
