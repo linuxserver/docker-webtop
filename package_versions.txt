@@ -79,9 +79,9 @@ catatonit                                                                     0.
 chalk                                                                         4.1.2                                   npm                         
 chalk                                                                         5.3.0                                   npm                         
 chownr                                                                        2.0.0                                   npm                         
-chromium                                                                      136.0.7103.92-1~deb12u1                 deb                         
-chromium-common                                                               136.0.7103.92-1~deb12u1                 deb                         
-chromium-l10n                                                                 136.0.7103.92-1~deb12u1                 deb                         
+chromium                                                                      136.0.7103.113-1~deb12u1                deb                         
+chromium-common                                                               136.0.7103.113-1~deb12u1                deb                         
+chromium-l10n                                                                 136.0.7103.113-1~deb12u1                deb                         
 ci-info                                                                       4.0.0                                   npm                         
 cidr-regex                                                                    4.1.1                                   npm                         
 clean-stack                                                                   2.2.0                                   npm                         
@@ -305,12 +305,13 @@ github.com/davecgh/go-spew                                                    v1
 github.com/deckarep/golang-set/v2                                             v2.3.0                                  go-module                   
 github.com/dimchansky/utfbom                                                  v1.1.1                                  go-module                   
 github.com/distribution/reference                                             v0.6.0                                  go-module  (+4 duplicates)  
-github.com/docker/buildx                                                      v0.23.0                                 go-module  (+1 duplicate)   
+github.com/docker/buildx                                                      UNKNOWN                                 go-module                   
+github.com/docker/buildx                                                      v0.23.0                                 go-module                   
 github.com/docker/cli                                                         v28.0.4+incompatible                    go-module                   
 github.com/docker/cli                                                         v28.1.0+incompatible                    go-module                   
 github.com/docker/cli-docs-tool                                               v0.9.0                                  go-module  (+1 duplicate)   
-github.com/docker/cli/cmd/docker                                              v28.1.1                                 go-module                   
-github.com/docker/compose/v2                                                  v2.35.1                                 go-module                   
+github.com/docker/cli/cmd/docker                                              UNKNOWN                                 go-module                   
+github.com/docker/compose/v2                                                  UNKNOWN                                 go-module                   
 github.com/docker/distribution                                                v2.8.3+incompatible                     go-module  (+2 duplicates)  
 github.com/docker/docker                                                      v28.0.4+incompatible                    go-module                   
 github.com/docker/docker                                                      v28.1.0+incompatible                    go-module                   
@@ -447,7 +448,7 @@ github.com/opencontainers/cgroups                                             v0
 github.com/opencontainers/go-digest                                           v1.0.0                                  go-module  (+7 duplicates)  
 github.com/opencontainers/image-spec                                          v1.1.0                                  go-module  (+4 duplicates)  
 github.com/opencontainers/image-spec                                          v1.1.1                                  go-module  (+2 duplicates)  
-github.com/opencontainers/runc                                                v1.2.5-0-g59923ef                       go-module                   
+github.com/opencontainers/runc                                                v0.0.0-20250213225849-59923ef18c98      go-module                   
 github.com/opencontainers/runtime-spec                                        v1.1.0                                  go-module  (+4 duplicates)  
 github.com/opencontainers/runtime-spec                                        v1.2.0                                  go-module  (+1 duplicate)   
 github.com/opencontainers/runtime-tools                                       v0.9.1-0.20221107090550-2e043c6bd626    go-module  (+1 duplicate)   
@@ -1240,9 +1241,9 @@ libpocketsphinx3                                                              0.
 libpolkit-agent-1-0                                                           122-3                                   deb                         
 libpolkit-gobject-1-0                                                         122-3                                   deb                         
 libpolkit-qt5-1-1                                                             0.114.0-2                               deb                         
-libpoppler-cpp0v5                                                             22.12.0-2+b1                            deb                         
-libpoppler-qt5-1                                                              22.12.0-2+b1                            deb                         
-libpoppler126                                                                 22.12.0-2+b1                            deb                         
+libpoppler-cpp0v5                                                             22.12.0-2+deb12u1                       deb                         
+libpoppler-qt5-1                                                              22.12.0-2+deb12u1                       deb                         
+libpoppler126                                                                 22.12.0-2+deb12u1                       deb                         
 libpopt0                                                                      1.19+dfsg-1                             deb                         
 libpostproc56                                                                 7:5.1.6-0+deb12u1                       deb                         
 libproc2-0                                                                    2:4.0.2-3                               deb                         
@@ -1263,15 +1264,15 @@ libqca-qt5-2                                                                  2.
 libqmobipocket2                                                               4:22.12.3-1                             deb                         
 libqpdf29                                                                     11.3.0-1+deb12u1                        deb                         
 libqrencode4                                                                  4.1.1-1                                 deb                         
-libqt5concurrent5                                                             5.15.8+dfsg-11+deb12u2                  deb                         
-libqt5core5a                                                                  5.15.8+dfsg-11+deb12u2                  deb                         
-libqt5dbus5                                                                   5.15.8+dfsg-11+deb12u2                  deb                         
-libqt5gui5                                                                    5.15.8+dfsg-11+deb12u2                  deb                         
+libqt5concurrent5                                                             5.15.8+dfsg-11+deb12u3                  deb                         
+libqt5core5a                                                                  5.15.8+dfsg-11+deb12u3                  deb                         
+libqt5dbus5                                                                   5.15.8+dfsg-11+deb12u3                  deb                         
+libqt5gui5                                                                    5.15.8+dfsg-11+deb12u3                  deb                         
 libqt5multimedia5                                                             5.15.8-2                                deb                         
 libqt5multimediaquick5                                                        5.15.8-2                                deb                         
-libqt5network5                                                                5.15.8+dfsg-11+deb12u2                  deb                         
+libqt5network5                                                                5.15.8+dfsg-11+deb12u3                  deb                         
 libqt5positioning5                                                            5.15.8+dfsg-3+deb12u1                   deb                         
-libqt5printsupport5                                                           5.15.8+dfsg-11+deb12u2                  deb                         
+libqt5printsupport5                                                           5.15.8+dfsg-11+deb12u3                  deb                         
 libqt5qml5                                                                    5.15.8+dfsg-3                           deb                         
 libqt5qmlmodels5                                                              5.15.8+dfsg-3                           deb                         
 libqt5qmlworkerscript5                                                        5.15.8+dfsg-3                           deb                         
@@ -1280,8 +1281,8 @@ libqt5quickcontrols2-5                                                        5.
 libqt5quickshapes5                                                            5.15.8+dfsg-3                           deb                         
 libqt5quicktemplates2-5                                                       5.15.8+dfsg-2                           deb                         
 libqt5quickwidgets5                                                           5.15.8+dfsg-3                           deb                         
-libqt5sql5                                                                    5.15.8+dfsg-11+deb12u2                  deb                         
-libqt5sql5-sqlite                                                             5.15.8+dfsg-11+deb12u2                  deb                         
+libqt5sql5                                                                    5.15.8+dfsg-11+deb12u3                  deb                         
+libqt5sql5-sqlite                                                             5.15.8+dfsg-11+deb12u3                  deb                         
 libqt5svg5                                                                    5.15.8-3                                deb                         
 libqt5texttospeech5                                                           5.15.8-2                                deb                         
 libqt5waylandclient5                                                          5.15.8-2                                deb                         
@@ -1289,9 +1290,9 @@ libqt5webchannel5                                                             5.
 libqt5webengine-data                                                          5.15.13+dfsg-1~deb12u1                  deb                         
 libqt5webenginecore5                                                          5.15.13+dfsg-1~deb12u1                  deb                         
 libqt5webenginewidgets5                                                       5.15.13+dfsg-1~deb12u1                  deb                         
-libqt5widgets5                                                                5.15.8+dfsg-11+deb12u2                  deb                         
+libqt5widgets5                                                                5.15.8+dfsg-11+deb12u3                  deb                         
 libqt5x11extras5                                                              5.15.8-2                                deb                         
-libqt5xml5                                                                    5.15.8+dfsg-11+deb12u2                  deb                         
+libqt5xml5                                                                    5.15.8+dfsg-11+deb12u3                  deb                         
 libquadmath0                                                                  12.2.0-14                               deb                         
 librabbitmq4                                                                  0.11.0-1+deb12u1                        deb                         
 librav1e0                                                                     0.5.1-6                                 deb                         
@@ -1603,7 +1604,7 @@ plasma-workspace-data                                                         4:
 polkit-kde-agent-1                                                            4:5.27.5-2                              deb                         
 polkitd                                                                       122-3                                   deb                         
 poppler-data                                                                  0.4.12-1                                deb                         
-poppler-utils                                                                 22.12.0-2+b1                            deb                         
+poppler-utils                                                                 22.12.0-2+deb12u1                       deb                         
 postcss-selector-parser                                                       6.1.0                                   npm                         
 printer-driver-cups-pdf                                                       3.0.1-14                                deb                         
 proc-log                                                                      3.0.0                                   npm                         
