@@ -4,7 +4,7 @@ NAME                                                                          VE
 @socket.io/component-emitter                                                  3.1.2                                   npm                          
 @socket.io/component-emitter                                                  UNKNOWN                                 npm        (+1 duplicate)    
 @types/cors                                                                   2.8.18                                  npm                          
-@types/node                                                                   22.15.17                                npm                          
+@types/node                                                                   22.15.18                                npm                          
 OpenCL-ICD-Loader                                                             3.0.6-1.20241023git5907ac1.fc41         rpm                          
 SDL2                                                                          2.30.11-1.fc41                          rpm                          
 abattis-cantarell-vf-fonts                                                    0.301-13.fc41                           rpm                          
@@ -59,8 +59,8 @@ catatonit                                                                     0.
 cdparanoia-libs                                                               10.2-45.fc41                            rpm                          
 chalk                                                                         4.1.2                                   npm                          
 checkpolicy                                                                   3.7-2.fc41                              rpm                          
-chromium                                                                      136.0.7103.59-1.fc41                    rpm                          
-chromium-common                                                               136.0.7103.59-1.fc41                    rpm                          
+chromium                                                                      136.0.7103.113-1.fc41                   rpm                          
+chromium-common                                                               136.0.7103.113-1.fc41                   rpm                          
 cloud.google.com/go/compute/metadata                                          v0.5.2                                  go-module                    
 cloud.google.com/go/logging                                                   v1.9.0                                  go-module                    
 cloud.google.com/go/longrunning                                               v0.5.4                                  go-module                    
@@ -292,12 +292,13 @@ github.com/davecgh/go-spew                                                    v1
 github.com/deckarep/golang-set/v2                                             v2.3.0                                  go-module                    
 github.com/dimchansky/utfbom                                                  v1.1.1                                  go-module                    
 github.com/distribution/reference                                             v0.6.0                                  go-module  (+5 duplicates)   
-github.com/docker/buildx                                                      v0.23.0                                 go-module  (+1 duplicate)    
+github.com/docker/buildx                                                      UNKNOWN                                 go-module                    
+github.com/docker/buildx                                                      v0.23.0                                 go-module                    
 github.com/docker/cli                                                         v28.0.4+incompatible                    go-module                    
 github.com/docker/cli                                                         v28.1.0+incompatible                    go-module                    
 github.com/docker/cli-docs-tool                                               v0.9.0                                  go-module  (+1 duplicate)    
-github.com/docker/cli/cmd/docker                                              v28.1.1                                 go-module                    
-github.com/docker/compose/v2                                                  v2.35.1                                 go-module                    
+github.com/docker/cli/cmd/docker                                              UNKNOWN                                 go-module                    
+github.com/docker/compose/v2                                                  UNKNOWN                                 go-module                    
 github.com/docker/distribution                                                v2.8.3+incompatible                     go-module  (+2 duplicates)   
 github.com/docker/docker                                                      v28.0.4+incompatible                    go-module                    
 github.com/docker/docker                                                      v28.1.0+incompatible                    go-module                    
@@ -434,7 +435,7 @@ github.com/opencontainers/cgroups                                             v0
 github.com/opencontainers/go-digest                                           v1.0.0                                  go-module  (+8 duplicates)   
 github.com/opencontainers/image-spec                                          v1.1.0                                  go-module  (+5 duplicates)   
 github.com/opencontainers/image-spec                                          v1.1.1                                  go-module  (+2 duplicates)   
-github.com/opencontainers/runc                                                v1.2.5-0-g59923ef                       go-module                    
+github.com/opencontainers/runc                                                v0.0.0-20250213225849-59923ef18c98      go-module                    
 github.com/opencontainers/runtime-spec                                        v1.1.0                                  go-module  (+5 duplicates)   
 github.com/opencontainers/runtime-spec                                        v1.2.0                                  go-module  (+1 duplicate)    
 github.com/opencontainers/runtime-tools                                       v0.9.1-0.20221107090550-2e043c6bd626    go-module  (+1 duplicate)    
@@ -939,8 +940,8 @@ nginx                                                                         2:
 nginx-core                                                                    2:1.26.3-1.fc41                         rpm                          
 nginx-filesystem                                                              2:1.26.3-1.fc41                         rpm                          
 nginx-mimetypes                                                               2.1.54-7.fc41                           rpm                          
-nodejs                                                                        1:22.14.0-2.fc41                        rpm                          
-nodejs-libs                                                                   1:22.14.0-2.fc41                        rpm                          
+nodejs                                                                        1:22.15.0-2.fc41                        rpm                          
+nodejs-libs                                                                   1:22.15.0-2.fc41                        rpm                          
 npth                                                                          1.7-2.fc41                              rpm                          
 nspr                                                                          4.36.0-6.fc41                           rpm                          
 nss                                                                           3.110.0-2.fc41                          rpm                          
@@ -1345,8 +1346,8 @@ samba-common-libs                                                             2:
 sdbus-cpp                                                                     1.5.0-3.fc41                            rpm                          
 sed                                                                           4.9-3.fc41                              rpm                          
 selinux                                                                       3.7                                     python                       
-selinux-policy                                                                41.38-1.fc41                            rpm                          
-selinux-policy-targeted                                                       41.38-1.fc41                            rpm                          
+selinux-policy                                                                41.39-1.fc41                            rpm                          
+selinux-policy-targeted                                                       41.39-1.fc41                            rpm                          
 send                                                                          0.19.0                                  npm                          
 sepolicy                                                                      3.7                                     python                       
 serd                                                                          0.32.4-1.fc41                           rpm                          
@@ -1367,6 +1368,7 @@ sigs.k8s.io/structured-merge-diff/v4                                          v4
 sigs.k8s.io/structured-merge-diff/v4                                          v4.4.1                                  go-module  (+1 duplicate)    
 sigs.k8s.io/yaml                                                              v1.3.0                                  go-module  (+2 duplicates)   
 sigs.k8s.io/yaml                                                              v1.4.0                                  go-module  (+2 duplicates)   
+simdutf                                                                       6.5.0-1.fc41                            rpm                          
 six                                                                           1.16.0                                  python                       
 snappy                                                                        1.2.1-2.fc41                            rpm                          
 socket.io                                                                     4.8.1                                   npm                          
