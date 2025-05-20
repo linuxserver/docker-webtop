@@ -4,7 +4,7 @@ NAME                                                                          VE
 @socket.io/component-emitter                                                  3.1.2                                   npm                          
 @socket.io/component-emitter                                                  UNKNOWN                                 npm        (+1 duplicate)    
 @types/cors                                                                   2.8.18                                  npm                          
-@types/node                                                                   22.15.17                                npm                          
+@types/node                                                                   22.15.18                                npm                          
 ModemManager-glib                                                             1.22.0-4.fc41                           rpm                          
 OpenCL-ICD-Loader                                                             3.0.6-1.20241023git5907ac1.fc41         rpm                          
 PackageKit-Qt6                                                                1.1.1-6.fc41                            rpm                          
@@ -56,7 +56,7 @@ brace-expansion                                                               1.
 brace-expansion                                                               2.0.1                                   npm                          
 breeze-cursor-theme                                                           6.3.5-1.fc41                            rpm                          
 breeze-gtk-common                                                             6.3.5-1.fc41                            rpm                          
-breeze-icon-theme                                                             6.13.0-2.fc41                           rpm                          
+breeze-icon-theme                                                             6.14.0-1.fc41                           rpm                          
 build-reproducibility-srpm-macros                                             0.3.6-3.fc41                            rpm                          
 busybox                                                                       1:1.36.1-8.fc41                         rpm                          
 bytes                                                                         3.1.2                                   npm                          
@@ -71,8 +71,8 @@ catatonit                                                                     0.
 cdparanoia-libs                                                               10.2-45.fc41                            rpm                          
 chalk                                                                         4.1.2                                   npm                          
 checkpolicy                                                                   3.7-2.fc41                              rpm                          
-chromium                                                                      136.0.7103.59-1.fc41                    rpm                          
-chromium-common                                                               136.0.7103.59-1.fc41                    rpm                          
+chromium                                                                      136.0.7103.113-1.fc41                   rpm                          
+chromium-common                                                               136.0.7103.113-1.fc41                   rpm                          
 cloud.google.com/go/compute/metadata                                          v0.5.2                                  go-module                    
 cloud.google.com/go/logging                                                   v1.9.0                                  go-module                    
 cloud.google.com/go/longrunning                                               v0.5.4                                  go-module                    
@@ -319,12 +319,13 @@ github.com/davecgh/go-spew                                                    v1
 github.com/deckarep/golang-set/v2                                             v2.3.0                                  go-module                    
 github.com/dimchansky/utfbom                                                  v1.1.1                                  go-module                    
 github.com/distribution/reference                                             v0.6.0                                  go-module  (+5 duplicates)   
-github.com/docker/buildx                                                      v0.23.0                                 go-module  (+1 duplicate)    
+github.com/docker/buildx                                                      UNKNOWN                                 go-module                    
+github.com/docker/buildx                                                      v0.23.0                                 go-module                    
 github.com/docker/cli                                                         v28.0.4+incompatible                    go-module                    
 github.com/docker/cli                                                         v28.1.0+incompatible                    go-module                    
 github.com/docker/cli-docs-tool                                               v0.9.0                                  go-module  (+1 duplicate)    
-github.com/docker/cli/cmd/docker                                              v28.1.1                                 go-module                    
-github.com/docker/compose/v2                                                  v2.35.1                                 go-module                    
+github.com/docker/cli/cmd/docker                                              UNKNOWN                                 go-module                    
+github.com/docker/compose/v2                                                  UNKNOWN                                 go-module                    
 github.com/docker/distribution                                                v2.8.3+incompatible                     go-module  (+2 duplicates)   
 github.com/docker/docker                                                      v28.0.4+incompatible                    go-module                    
 github.com/docker/docker                                                      v28.1.0+incompatible                    go-module                    
@@ -461,7 +462,7 @@ github.com/opencontainers/cgroups                                             v0
 github.com/opencontainers/go-digest                                           v1.0.0                                  go-module  (+8 duplicates)   
 github.com/opencontainers/image-spec                                          v1.1.0                                  go-module  (+5 duplicates)   
 github.com/opencontainers/image-spec                                          v1.1.1                                  go-module  (+2 duplicates)   
-github.com/opencontainers/runc                                                v1.2.5-0-g59923ef                       go-module                    
+github.com/opencontainers/runc                                                v0.0.0-20250213225849-59923ef18c98      go-module                    
 github.com/opencontainers/runtime-spec                                        v1.1.0                                  go-module  (+5 duplicates)   
 github.com/opencontainers/runtime-spec                                        v1.2.0                                  go-module  (+1 duplicate)    
 github.com/opencontainers/runtime-tools                                       v0.9.1-0.20221107090550-2e043c6bd626    go-module  (+1 duplicate)    
@@ -794,77 +795,77 @@ kf5-sonnet                                                                    5.
 kf5-sonnet-core                                                               5.116.0-2.fc41                          rpm                          
 kf5-sonnet-ui                                                                 5.116.0-2.fc41                          rpm                          
 kf5-syndication                                                               1:5.116.0-2.fc41                        rpm                          
-kf6-attica                                                                    6.13.0-1.fc41                           rpm                          
-kf6-baloo                                                                     6.13.0-1.fc41                           rpm                          
-kf6-baloo-libs                                                                6.13.0-1.fc41                           rpm                          
-kf6-breeze-icons                                                              6.13.0-2.fc41                           rpm                          
-kf6-filesystem                                                                6.13.0-1.fc41                           rpm                          
-kf6-frameworkintegration                                                      6.13.0-1.fc41                           rpm                          
-kf6-frameworkintegration-libs                                                 6.13.0-1.fc41                           rpm                          
-kf6-karchive                                                                  6.13.0-1.fc41                           rpm                          
-kf6-kauth                                                                     6.13.0-1.fc41                           rpm                          
-kf6-kbookmarks                                                                6.13.0-1.fc41                           rpm                          
-kf6-kcmutils                                                                  6.13.0-1.fc41                           rpm                          
-kf6-kcodecs                                                                   6.13.0-1.fc41                           rpm                          
-kf6-kcolorscheme                                                              6.13.0-1.fc41                           rpm                          
-kf6-kcompletion                                                               6.13.0-1.fc41                           rpm                          
-kf6-kconfig                                                                   6.13.0-1.fc41                           rpm                          
-kf6-kconfigwidgets                                                            6.13.0-1.fc41                           rpm                          
-kf6-kcoreaddons                                                               6.13.0-1.fc41                           rpm                          
-kf6-kcrash                                                                    6.13.0-1.fc41                           rpm                          
-kf6-kdbusaddons                                                               6.13.0-1.fc41                           rpm                          
-kf6-kdeclarative                                                              6.13.0-1.fc41                           rpm                          
-kf6-kded                                                                      6.13.0-1.fc41                           rpm                          
-kf6-kdesu                                                                     6.13.0-1.fc41                           rpm                          
-kf6-kdnssd                                                                    6.13.0-1.fc41                           rpm                          
-kf6-kdoctools                                                                 6.13.0-1.fc41                           rpm                          
-kf6-kfilemetadata                                                             6.13.0-1.fc41                           rpm                          
-kf6-kglobalaccel                                                              6.13.0-1.fc41                           rpm                          
-kf6-kguiaddons                                                                6.13.0-1.fc41                           rpm                          
-kf6-kholidays                                                                 6.13.0-1.fc41                           rpm                          
-kf6-ki18n                                                                     6.13.0-1.fc41                           rpm                          
-kf6-kiconthemes                                                               6.13.0-1.fc41                           rpm                          
-kf6-kidletime                                                                 6.13.0-1.fc41                           rpm                          
-kf6-kidletime-x11                                                             6.13.0-1.fc41                           rpm                          
-kf6-kio-core                                                                  6.13.0-1.fc41                           rpm                          
-kf6-kio-core-libs                                                             6.13.0-1.fc41                           rpm                          
-kf6-kio-doc                                                                   6.13.0-1.fc41                           rpm                          
-kf6-kio-file-widgets                                                          6.13.0-1.fc41                           rpm                          
-kf6-kio-gui                                                                   6.13.0-1.fc41                           rpm                          
-kf6-kio-widgets                                                               6.13.0-1.fc41                           rpm                          
-kf6-kio-widgets-libs                                                          6.13.0-1.fc41                           rpm                          
-kf6-kirigami                                                                  6.13.0-2.fc41                           rpm                          
+kf6-attica                                                                    6.14.0-1.fc41                           rpm                          
+kf6-baloo                                                                     6.14.0-1.fc41                           rpm                          
+kf6-baloo-libs                                                                6.14.0-1.fc41                           rpm                          
+kf6-breeze-icons                                                              6.14.0-1.fc41                           rpm                          
+kf6-filesystem                                                                6.14.0-1.fc41                           rpm                          
+kf6-frameworkintegration                                                      6.14.0-1.fc41                           rpm                          
+kf6-frameworkintegration-libs                                                 6.14.0-1.fc41                           rpm                          
+kf6-karchive                                                                  6.14.0-2.fc41                           rpm                          
+kf6-kauth                                                                     6.14.0-1.fc41                           rpm                          
+kf6-kbookmarks                                                                6.14.0-1.fc41                           rpm                          
+kf6-kcmutils                                                                  6.14.0-1.fc41                           rpm                          
+kf6-kcodecs                                                                   6.14.0-1.fc41                           rpm                          
+kf6-kcolorscheme                                                              6.14.0-1.fc41                           rpm                          
+kf6-kcompletion                                                               6.14.0-1.fc41                           rpm                          
+kf6-kconfig                                                                   6.14.0-1.fc41                           rpm                          
+kf6-kconfigwidgets                                                            6.14.0-1.fc41                           rpm                          
+kf6-kcoreaddons                                                               6.14.0-1.fc41                           rpm                          
+kf6-kcrash                                                                    6.14.0-1.fc41                           rpm                          
+kf6-kdbusaddons                                                               6.14.0-1.fc41                           rpm                          
+kf6-kdeclarative                                                              6.14.0-1.fc41                           rpm                          
+kf6-kded                                                                      6.14.0-1.fc41                           rpm                          
+kf6-kdesu                                                                     6.14.0-1.fc41                           rpm                          
+kf6-kdnssd                                                                    6.14.0-1.fc41                           rpm                          
+kf6-kdoctools                                                                 6.14.0-1.fc41                           rpm                          
+kf6-kfilemetadata                                                             6.14.0-1.fc41                           rpm                          
+kf6-kglobalaccel                                                              6.14.0-1.fc41                           rpm                          
+kf6-kguiaddons                                                                6.14.0-1.fc41                           rpm                          
+kf6-kholidays                                                                 6.14.0-1.fc41                           rpm                          
+kf6-ki18n                                                                     6.14.0-1.fc41                           rpm                          
+kf6-kiconthemes                                                               6.14.0-1.fc41                           rpm                          
+kf6-kidletime                                                                 6.14.0-1.fc41                           rpm                          
+kf6-kidletime-x11                                                             6.14.0-1.fc41                           rpm                          
+kf6-kio-core                                                                  6.14.0-3.fc41                           rpm                          
+kf6-kio-core-libs                                                             6.14.0-3.fc41                           rpm                          
+kf6-kio-doc                                                                   6.14.0-3.fc41                           rpm                          
+kf6-kio-file-widgets                                                          6.14.0-3.fc41                           rpm                          
+kf6-kio-gui                                                                   6.14.0-3.fc41                           rpm                          
+kf6-kio-widgets                                                               6.14.0-3.fc41                           rpm                          
+kf6-kio-widgets-libs                                                          6.14.0-3.fc41                           rpm                          
+kf6-kirigami                                                                  6.14.1-1.fc41                           rpm                          
 kf6-kirigami-addons                                                           1.7.0-1.fc41                            rpm                          
-kf6-kitemmodels                                                               6.13.0-1.fc41                           rpm                          
-kf6-kitemviews                                                                6.13.0-1.fc41                           rpm                          
-kf6-kjobwidgets                                                               6.13.0-1.fc41                           rpm                          
-kf6-knewstuff                                                                 6.13.0-1.fc41                           rpm                          
-kf6-knotifications                                                            6.13.0-1.fc41                           rpm                          
-kf6-knotifyconfig                                                             6.13.0-1.fc41                           rpm                          
-kf6-kpackage                                                                  6.13.0-1.fc41                           rpm                          
-kf6-kparts                                                                    6.13.0-1.fc41                           rpm                          
-kf6-kpty                                                                      6.13.0-1.fc41                           rpm                          
-kf6-kquickcharts                                                              6.13.0-1.fc41                           rpm                          
-kf6-krunner                                                                   6.13.0-1.fc41                           rpm                          
-kf6-kservice                                                                  6.13.0-1.fc41                           rpm                          
-kf6-kstatusnotifieritem                                                       6.13.0-1.fc41                           rpm                          
-kf6-ksvg                                                                      6.13.0-1.fc41                           rpm                          
-kf6-ktexteditor                                                               6.13.0-1.fc41                           rpm                          
-kf6-ktextwidgets                                                              6.13.0-1.fc41                           rpm                          
-kf6-kunitconversion                                                           6.13.0-1.fc41                           rpm                          
-kf6-kuserfeedback                                                             6.13.0-1.fc41                           rpm                          
-kf6-kwallet                                                                   6.13.0-1.fc41                           rpm                          
-kf6-kwallet-libs                                                              6.13.0-1.fc41                           rpm                          
-kf6-kwidgetsaddons                                                            6.13.0-1.fc41                           rpm                          
-kf6-kwindowsystem                                                             6.13.0-1.fc41                           rpm                          
-kf6-kxmlgui                                                                   6.13.0-1.fc41                           rpm                          
-kf6-networkmanager-qt                                                         6.13.0-1.fc41                           rpm                          
-kf6-prison                                                                    6.13.0-1.fc41                           rpm                          
-kf6-qqc2-desktop-style                                                        6.13.0-1.fc41                           rpm                          
-kf6-solid                                                                     6.13.0-1.fc41                           rpm                          
-kf6-sonnet                                                                    6.13.0-1.fc41                           rpm                          
-kf6-syndication                                                               6.13.0-1.fc41                           rpm                          
-kf6-syntax-highlighting                                                       6.13.0-1.fc41                           rpm                          
+kf6-kitemmodels                                                               6.14.0-1.fc41                           rpm                          
+kf6-kitemviews                                                                6.14.0-1.fc41                           rpm                          
+kf6-kjobwidgets                                                               6.14.0-1.fc41                           rpm                          
+kf6-knewstuff                                                                 6.14.0-1.fc41                           rpm                          
+kf6-knotifications                                                            6.14.0-1.fc41                           rpm                          
+kf6-knotifyconfig                                                             6.14.0-1.fc41                           rpm                          
+kf6-kpackage                                                                  6.14.0-1.fc41                           rpm                          
+kf6-kparts                                                                    6.14.0-1.fc41                           rpm                          
+kf6-kpty                                                                      6.14.0-1.fc41                           rpm                          
+kf6-kquickcharts                                                              6.14.0-1.fc41                           rpm                          
+kf6-krunner                                                                   6.14.0-1.fc41                           rpm                          
+kf6-kservice                                                                  6.14.0-1.fc41                           rpm                          
+kf6-kstatusnotifieritem                                                       6.14.0-1.fc41                           rpm                          
+kf6-ksvg                                                                      6.14.0-1.fc41                           rpm                          
+kf6-ktexteditor                                                               6.14.0-1.fc41                           rpm                          
+kf6-ktextwidgets                                                              6.14.0-1.fc41                           rpm                          
+kf6-kunitconversion                                                           6.14.0-1.fc41                           rpm                          
+kf6-kuserfeedback                                                             6.14.0-1.fc41                           rpm                          
+kf6-kwallet                                                                   6.14.1-1.fc41                           rpm                          
+kf6-kwallet-libs                                                              6.14.1-1.fc41                           rpm                          
+kf6-kwidgetsaddons                                                            6.14.0-1.fc41                           rpm                          
+kf6-kwindowsystem                                                             6.14.0-1.fc41                           rpm                          
+kf6-kxmlgui                                                                   6.14.0-1.fc41                           rpm                          
+kf6-networkmanager-qt                                                         6.14.0-1.fc41                           rpm                          
+kf6-prison                                                                    6.14.0-1.fc41                           rpm                          
+kf6-qqc2-desktop-style                                                        6.14.0-1.fc41                           rpm                          
+kf6-solid                                                                     6.14.0-1.fc41                           rpm                          
+kf6-sonnet                                                                    6.14.0-1.fc41                           rpm                          
+kf6-syndication                                                               6.14.0-1.fc41                           rpm                          
+kf6-syntax-highlighting                                                       6.14.0-1.fc41                           rpm                          
 kfind                                                                         25.04.0-1.fc41                          rpm                          
 kglobalacceld                                                                 6.3.5-1.fc41                            rpm                          
 kio-extras                                                                    25.04.0-1.fc41                          rpm                          
@@ -879,10 +880,10 @@ krb5-libs                                                                     1.
 kscreenlocker                                                                 6.3.5-1.fc41                            rpm                          
 ksystemstats                                                                  6.3.5-1.fc41                            rpm                          
 kwayland                                                                      6.3.5-1.fc41                            rpm                          
-kwin                                                                          6.3.5-1.fc41                            rpm                          
-kwin-common                                                                   6.3.5-1.fc41                            rpm                          
-kwin-libs                                                                     6.3.5-1.fc41                            rpm                          
-kwin-wayland                                                                  6.3.5-1.fc41                            rpm                          
+kwin                                                                          6.3.5-2.fc41                            rpm                          
+kwin-common                                                                   6.3.5-2.fc41                            rpm                          
+kwin-libs                                                                     6.3.5-2.fc41                            rpm                          
+kwin-wayland                                                                  6.3.5-2.fc41                            rpm                          
 kwin-x11                                                                      6.3.5-1.fc41                            rpm                          
 kwrite                                                                        25.04.0-1.fc41                          rpm                          
 kwrited                                                                       6.3.5-1.fc41                            rpm                          
@@ -1177,8 +1178,8 @@ nginx                                                                         2:
 nginx-core                                                                    2:1.26.3-1.fc41                         rpm                          
 nginx-filesystem                                                              2:1.26.3-1.fc41                         rpm                          
 nginx-mimetypes                                                               2.1.54-7.fc41                           rpm                          
-nodejs                                                                        1:22.14.0-2.fc41                        rpm                          
-nodejs-libs                                                                   1:22.14.0-2.fc41                        rpm                          
+nodejs                                                                        1:22.15.0-2.fc41                        rpm                          
+nodejs-libs                                                                   1:22.15.0-2.fc41                        rpm                          
 npth                                                                          1.7-2.fc41                              rpm                          
 nspr                                                                          4.36.0-6.fc41                           rpm                          
 nss                                                                           3.110.0-2.fc41                          rpm                          
@@ -1660,8 +1661,8 @@ samba-common-libs                                                             2:
 sdbus-cpp                                                                     1.5.0-3.fc41                            rpm                          
 sed                                                                           4.9-3.fc41                              rpm                          
 selinux                                                                       3.7                                     python                       
-selinux-policy                                                                41.38-1.fc41                            rpm                          
-selinux-policy-targeted                                                       41.38-1.fc41                            rpm                          
+selinux-policy                                                                41.39-1.fc41                            rpm                          
+selinux-policy-targeted                                                       41.39-1.fc41                            rpm                          
 send                                                                          0.19.0                                  npm                          
 sepolicy                                                                      3.7                                     python                       
 serd                                                                          0.32.4-1.fc41                           rpm                          
@@ -1686,6 +1687,7 @@ sigs.k8s.io/structured-merge-diff/v4                                          v4
 sigs.k8s.io/structured-merge-diff/v4                                          v4.4.1                                  go-module  (+1 duplicate)    
 sigs.k8s.io/yaml                                                              v1.3.0                                  go-module  (+2 duplicates)   
 sigs.k8s.io/yaml                                                              v1.4.0                                  go-module  (+2 duplicates)   
+simdutf                                                                       6.5.0-1.fc41                            rpm                          
 six                                                                           1.16.0                                  python                       
 snappy                                                                        1.2.1-2.fc41                            rpm                          
 socat                                                                         1.8.0.0-4.fc41                          rpm                          
