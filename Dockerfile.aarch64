@@ -10,6 +10,10 @@ LABEL maintainer="thelamer"
 ENV TITLE="Debian KDE"
 
 RUN \
+   echo "**** add icon ****" && \
+   curl -o \
+     /usr/share/selkies/www/icon.png \
+     https://raw.githubusercontent.com/linuxserver/docker-templates/master/linuxserver.io/img/webtop-logo.png && \
   echo "**** install packages ****" && \
   apt-get update && \
   DEBIAN_FRONTEND=noninteractive \
