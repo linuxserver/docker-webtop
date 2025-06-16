@@ -1,4 +1,4 @@
-FROM ghcr.io/linuxserver/baseimage-kasmvnc:fedora41
+FROM ghcr.io/linuxserver/baseimage-selkies:fedora42
 
 # set version label
 ARG BUILD_DATE
@@ -12,7 +12,7 @@ ENV TITLE="Fedora i3"
 RUN \
   echo "**** add icon ****" && \
   curl -o \
-    /kclient/public/icon.png \
+    /usr/share/selkies/www/icon.png \
     https://raw.githubusercontent.com/linuxserver/docker-templates/master/linuxserver.io/img/webtop-logo.png && \
   echo "**** install packages ****" && \
   dnf install -y --setopt=install_weak_deps=False --best \
