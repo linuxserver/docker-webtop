@@ -1,4 +1,4 @@
-FROM ghcr.io/linuxserver/baseimage-kasmvnc:ubuntunoble
+FROM ghcr.io/linuxserver/baseimage-selkies:ubuntunoble
 
 # set version label
 ARG BUILD_DATE
@@ -9,20 +9,22 @@ LABEL maintainer="thelamer"
 # title
 ENV TITLE="Ubuntu i3"
 
-# prevent Ubuntu's firefox stub from being installed
-COPY /root/etc/apt/preferences.d/firefox-no-snap /etc/apt/preferences.d/firefox-no-snap
-
 RUN \
   echo "**** add icon ****" && \
   curl -o \
-    /kclient/public/icon.png \
+    /usr/share/selkies/www/icon.png \
     https://raw.githubusercontent.com/linuxserver/docker-templates/master/linuxserver.io/img/webtop-logo.png && \
   echo "**** install packages ****" && \
-  add-apt-repository -y ppa:mozillateam/ppa && \
+  apt-key adv \
+    --keyserver hkp://keyserver.ubuntu.com:80 \
+    --recv-keys 5301FA4FD93244FBC6F6149982BB6851C64F6880 && \
+  echo \
+    "deb https://ppa.launchpadcontent.net/xtradeb/apps/ubuntu noble main" > \
+    /etc/apt/sources.list.d/xtradeb.list && \
   apt-get update && \
   DEBIAN_FRONTEND=noninteractive \
   apt-get install -y --no-install-recommends \
-    firefox \
+    chromium \
     i3 \
     i3-wm \
     stterm && \
@@ -30,6 +32,9 @@ RUN \
   update-alternatives --set \
     x-terminal-emulator \
     /usr/bin/st && \
+  mv \
+    /usr/bin/chromium \
+    /usr/bin/chromium-browser && \
   echo "**** cleanup ****" && \
   apt-get autoclean && \
   rm -rf \
