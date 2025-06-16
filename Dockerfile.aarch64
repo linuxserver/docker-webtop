@@ -1,4 +1,4 @@
-FROM ghcr.io/linuxserver/baseimage-kasmvnc:arm64v8-debianbookworm
+FROM ghcr.io/linuxserver/baseimage-selkies:arm64v8-debianbookworm
 
 # set version label
 ARG BUILD_DATE
@@ -12,7 +12,7 @@ ENV TITLE="Debian XFCE"
 RUN \
   echo "**** add icon ****" && \
   curl -o \
-    /kclient/public/icon.png \
+    /usr/share/selkies/www/icon.png \
     https://raw.githubusercontent.com/linuxserver/docker-templates/master/linuxserver.io/img/webtop-logo.png && \
   echo "**** install packages ****" && \
   apt-get update && \
@@ -20,9 +20,10 @@ RUN \
   apt-get install -y --no-install-recommends \
     chromium \
     chromium-l10n \
+    elementary-xfce-icon-theme \
+    greybird-gtk-theme \
     libxfce4ui-utils \
     mousepad \
-    tango-icon-theme \
     thunar \
     xfce4-appfinder \
     xfce4-panel \
@@ -33,12 +34,16 @@ RUN \
     xfconf \
     xfdesktop4 \
     xfwm4 && \
-  echo "**** application tweaks ****" && \
+  echo "**** xfce tweaks ****" && \
   sed -i \
     's#^Exec=.*#Exec=/usr/local/bin/wrapped-chromium#g' \
     /usr/share/applications/chromium.desktop && \
-  mv /usr/bin/exo-open /usr/bin/exo-open-real && \
-  echo "**** xfce tweaks ****" && \
+  mv \
+    /usr/bin/exo-open \
+    /usr/bin/exo-open-real && \
+  mv \
+    /usr/bin/thunar \
+    /usr/bin/thunar-real && \
   rm -f \
     /etc/xdg/autostart/xscreensaver.desktop && \
   echo "**** cleanup ****" && \
