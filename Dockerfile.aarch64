@@ -1,4 +1,4 @@
-FROM ghcr.io/linuxserver/baseimage-kasmvnc:arm64v8-ubuntunoble
+FROM ghcr.io/linuxserver/baseimage-selkies:arm64v8-ubuntunoble
 
 # set version label
 ARG BUILD_DATE
@@ -10,21 +10,23 @@ ARG DEBIAN_FRONTEND="noninteractive"
 # title
 ENV TITLE="Ubuntu KDE"
 
-# prevent Ubuntu's firefox stub from being installed
-COPY /root/etc/apt/preferences.d/firefox-no-snap /etc/apt/preferences.d/firefox-no-snap
-
 RUN \
   echo "**** add icon ****" && \
   curl -o \
-    /kclient/public/icon.png \
+    /usr/share/selkies/www/icon.png \
     https://raw.githubusercontent.com/linuxserver/docker-templates/master/linuxserver.io/img/webtop-logo.png && \
   echo "**** install packages ****" && \
-  add-apt-repository -y ppa:mozillateam/ppa && \
+  apt-key adv \
+    --keyserver hkp://keyserver.ubuntu.com:80 \
+    --recv-keys 5301FA4FD93244FBC6F6149982BB6851C64F6880 && \
+  echo \
+    "deb https://ppa.launchpadcontent.net/xtradeb/apps/ubuntu noble main" > \
+    /etc/apt/sources.list.d/xtradeb.list && \
   apt-get update && \
   DEBIAN_FRONTEND=noninteractive \
   apt-get install --no-install-recommends -y \
+    chromium \
     dolphin \
-    firefox \
     gwenview \
     kde-config-gtk-style \
     kdialog \
@@ -42,9 +44,12 @@ RUN \
     kwrite \
     plasma-desktop \
     plasma-workspace \
-    plymouth-theme-kubuntu-logo \
     qml-module-qt-labs-platform \
     systemsettings && \
+  echo "**** application tweaks ****" && \
+  sed -i \
+    's#^Exec=.*#Exec=/usr/local/bin/wrapped-chromium#g' \
+    /usr/share/applications/chromium.desktop && \
   echo "**** kde tweaks ****" && \
   sed -i \
     's/applications:org.kde.discover.desktop,/applications:org.kde.konsole.desktop,/g' \
