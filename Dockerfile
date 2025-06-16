@@ -1,4 +1,4 @@
-FROM ghcr.io/linuxserver/baseimage-selkies:alpine322
+FROM ghcr.io/linuxserver/baseimage-kasmvnc:alpine321
 
 # set version label
 ARG BUILD_DATE
@@ -13,7 +13,7 @@ ENV TITLE="Alpine MATE"
 RUN \
   echo "**** add icon ****" && \
   curl -o \
-    /usr/share/selkies/www/icon.png \
+    /kclient/public/icon.png \
     https://raw.githubusercontent.com/linuxserver/docker-templates/master/linuxserver.io/img/webtop-logo.png && \
   echo "**** install packages ****" && \
   apk add --no-cache \
