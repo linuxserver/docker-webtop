@@ -70,7 +70,8 @@ app_setup_block: |
 
   ### Security
 
-  {{ "Do not put this on the Internet if you do not know what you are doing." | admonition(flavour=markdown, severity="warning") }}
+  >[!WARNING]
+  >Do not put this on the Internet if you do not know what you are doing.
 
   By default this container has no authentication and the optional environment variables `CUSTOM_USER` and `PASSWORD` to enable basic http auth via the embedded NGINX server should only be used to locally secure the container from unwanted access on a local network. If exposing this to the Internet we recommend putting it behind a reverse proxy, such as [SWAG](https://github.com/linuxserver/docker-swag), and ensuring a secure authentication solution is in place. From the web interface a terminal can be launched and it is configured for passwordless sudo, so anyone with access to it can install and run whatever they want along with probing your local network.
 
@@ -82,8 +83,8 @@ app_setup_block: |
 
   | Variable | Description |
   | :----: | --- |
-  | CUSTOM_PORT | Internal port the container listens on for http if it needs to be swapped from the default {% if external_http_port is defined %}{{ external_http_port }}{% else %}3000{% endif %}. |
-  | CUSTOM_HTTPS_PORT | Internal port the container listens on for https if it needs to be swapped from the default {% if external_https_port is defined %}{{ external_https_port }}{% else %}3001{% endif %}. |
+  | CUSTOM_PORT | Internal port the container listens on for http if it needs to be swapped from the default 3000. |
+  | CUSTOM_HTTPS_PORT | Internal port the container listens on for https if it needs to be swapped from the default 3001. |
   | CUSTOM_USER | HTTP Basic auth username, abc is default. |
   | PASSWORD | HTTP Basic auth password, abc is default. If unset there will be no auth |
   | SUBFOLDER | Subfolder for the application if running a subfolder reverse proxy, need both slashes IE `/subfolder/` |
@@ -138,8 +139,8 @@ app_setup_block: |
 
   ```
   services:
-    {{ project_name }}:
-      image: lscr.io/{{ lsio_project_name_short }}/{{ project_name }}:{{ release_tag }}
+    webtop:
+      image: lscr.io/linuxserver/webtop:ubuntu-xfce
       deploy:
         resources:
           reservations:

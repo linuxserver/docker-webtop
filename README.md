@@ -85,6 +85,116 @@ This image provides various versions that are available via tags. Please read th
 
 ## Application Setup
 
+The Webtop can be accessed at:
+
+* https://yourhost:3001/
+
+**Modern GUI desktop apps have issues with the latest Docker and syscall compatibility, you can use Docker with the `--security-opt seccomp=unconfined` setting to allow these syscalls on hosts with older Kernels or libseccomp**
+
+### Security
+
+>[!WARNING]
+>Do not put this on the Internet if you do not know what you are doing.
+
+By default this container has no authentication and the optional environment variables `CUSTOM_USER` and `PASSWORD` to enable basic http auth via the embedded NGINX server should only be used to locally secure the container from unwanted access on a local network. If exposing this to the Internet we recommend putting it behind a reverse proxy, such as [SWAG](https://github.com/linuxserver/docker-swag), and ensuring a secure authentication solution is in place. From the web interface a terminal can be launched and it is configured for passwordless sudo, so anyone with access to it can install and run whatever they want along with probing your local network.
+
+### Options in all Selkies based GUI containers
+
+This container is based on [Docker Baseimage Selkies](https://github.com/linuxserver/docker-baseimage-selkies) which means there are additional environment variables and run configurations to enable or disable specific functionality.
+
+#### Optional environment variables
+
+| Variable | Description |
+| :----: | --- |
+| CUSTOM_PORT | Internal port the container listens on for http if it needs to be swapped from the default 3000. |
+| CUSTOM_HTTPS_PORT | Internal port the container listens on for https if it needs to be swapped from the default 3001. |
+| CUSTOM_USER | HTTP Basic auth username, abc is default. |
+| PASSWORD | HTTP Basic auth password, abc is default. If unset there will be no auth |
+| SUBFOLDER | Subfolder for the application if running a subfolder reverse proxy, need both slashes IE `/subfolder/` |
+| TITLE | The page title displayed on the web browser, default "Selkies". |
+| START_DOCKER | If set to false a container with privilege will not automatically start the DinD Docker setup. |
+| DISABLE_IPV6 | If set to true or any value this will disable IPv6 | 
+| LC_ALL | Set the Language for the container to run as IE `fr_FR.UTF-8` `ar_AE.UTF-8` |
+| NO_DECOR | If set the application will run without window borders in openbox for use as a PWA. |
+| NO_FULL | Do not automatically fullscreen applications when using openbox. |
+
+#### Optional run configurations
+
+| Variable | Description |
+| :----: | --- |
+| `--privileged` | Will start a Docker in Docker (DinD) setup inside the container to use docker in an isolated environment. For increased performance mount the Docker directory inside the container to the host IE `-v /home/user/docker-data:/var/lib/docker`. |
+| `-v /var/run/docker.sock:/var/run/docker.sock` | Mount in the host level Docker socket to either interact with it via CLI or use Docker enabled applications. |
+
+### Language Support - Internationalization
+
+The environment variable `LC_ALL` can be used to start this container in a different language than English simply pass for example to launch the Desktop session in French `LC_ALL=fr_FR.UTF-8`. Some supported languages: 
+
+* `-e LC_ALL=zh_CN.UTF-8` - Chinese
+* `-e LC_ALL=ja_JP.UTF-8` - Japanese
+* `-e LC_ALL=ko_KR.UTF-8` - Korean
+* `-e LC_ALL=ar_AE.UTF-8` - Arabic
+* `-e LC_ALL=ru_RU.UTF-8` - Russian
+* `-e LC_ALL=es_MX.UTF-8` - Spanish (Latin America)
+* `-e LC_ALL=de_DE.UTF-8` - German
+* `-e LC_ALL=fr_FR.UTF-8` - French
+* `-e LC_ALL=nl_NL.UTF-8` - Netherlands
+* `-e LC_ALL=it_IT.UTF-8` - Italian
+
+### Nvidia GPU Support
+
+**Nvidia support is not compatible with Alpine based images as Alpine lacks Nvidia drivers**
+
+Nvidia support is available by leveraging Zink for OpenGL support. This can be enabled with the following run flags:
+
+| Variable | Description |
+| :----: | --- |
+| --gpus all | This can be filtered down but for most setups this will pass the one Nvidia GPU on the system |
+| --runtime nvidia | Specify the Nvidia runtime which mounts drivers and tools in from the host |
+
+The compose syntax is slightly different for this as you will need to set nvidia as the default runtime:
+
+```
+sudo nvidia-ctk runtime configure --runtime=docker --set-as-default
+sudo service docker restart
+```
+
+And to assign the GPU in compose:
+
+```
+services:
+  webtop:
+    image: lscr.io/linuxserver/webtop:ubuntu-xfce
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: 1
+              capabilities: [compute,video,graphics,utility]
+```
+
+### Application management
+
+#### PRoot Apps
+
+If you run system native installations of software IE `sudo apt-get install filezilla` and then upgrade or destroy/re-create the container that software will be removed and the container will be at a clean state. For some users that will be acceptable and they can update their system packages as well using system native commands like `apt-get upgrade`. If you want Docker to handle upgrading the container and retain your applications and settings we have created [proot-apps](https://github.com/linuxserver/proot-apps) which allow portable applications to be installed to persistent storage in the user's `$HOME` directory and they will work in a confined Docker environment out of the box. These applications and their settings will persist upgrades of the base container and can be mounted into different flavors ofSelkiess based containers on the fly. This can be achieved from the command line with:
+
+```
+proot-apps install filezilla
+```
+
+PRoot Apps is included in all Selkies based containers, a list of linuxserver.io supported applications is located [HERE](https://github.com/linuxserver/proot-apps?tab=readme-ov-file#supported-apps).
+
+#### Native Apps
+
+It is possible to install extra packages during container start using [universal-package-install](https://github.com/linuxserver/docker-mods/tree/universal-package-install). It might increase starting time significantly. PRoot is preferred.
+
+```yaml
+  environment:
+    - DOCKER_MODS=linuxserver/mods:universal-package-install
+    - INSTALL_PACKAGES=libfuse2|git|gdb
+```
+
 ### Strict reverse proxies
 
 This image uses a self-signed certificate by default. This naturally means the scheme is `https`.
