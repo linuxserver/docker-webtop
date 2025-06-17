@@ -2,6 +2,6 @@
 
 if [ "${2}" == "WebBrowser" ]; then
   /usr/bin/xdg-open /usr/share/applications/chromium.desktop
-else 
+else
   /usr/bin/exo-open-real "$@"
 fi
