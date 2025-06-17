@@ -20,7 +20,6 @@ development_versions_items:
   - {tag: "fedora-xfce", desc: "XFCE Fedora"}
   - {tag: "arch-xfce", desc: "XFCE Arch"}
   - {tag: "debian-xfce", desc: "XFCE Debian"}
-  - {tag: "alpine-kde", desc: "KDE Alpine"}
   - {tag: "ubuntu-kde", desc: "KDE Ubuntu"}
   - {tag: "fedora-kde", desc: "KDE Fedora"}
   - {tag: "arch-kde", desc: "KDE Arch"}
@@ -35,16 +34,6 @@ development_versions_items:
   - {tag: "fedora-i3", desc: "i3 Fedora"}
   - {tag: "arch-i3", desc: "i3 Arch"}
   - {tag: "debian-i3", desc: "i3 Debian"}
-  - {tag: "alpine-openbox", desc: "Openbox Alpine"}
-  - {tag: "ubuntu-openbox", desc: "Openbox Ubuntu"}
-  - {tag: "fedora-openbox", desc: "Openbox Fedora"}
-  - {tag: "arch-openbox", desc: "Openbox Arch"}
-  - {tag: "debian-openbox", desc: "Openbox Debian"}
-  - {tag: "alpine-icewm", desc: "IceWM Alpine"}
-  - {tag: "ubuntu-icewm", desc: "IceWM Ubuntu"}
-  - {tag: "fedora-icewm", desc: "IceWM Fedora"}
-  - {tag: "arch-icewm", desc: "IceWM Arch"}
-  - {tag: "debian-icewm", desc: "IceWM Debian"}
 # container parameters
 param_container_name: "{{ project_name }}"
 param_usage_include_vols: true
@@ -52,7 +41,7 @@ param_volumes:
   - {vol_path: "/config", vol_host_path: "/path/to/data", desc: "abc users home directory"}
 param_usage_include_ports: true
 param_ports:
-  - {external_port: "3000", internal_port: "3000", port_desc: "Web Desktop GUI"}
+  - {external_port: "3000", internal_port: "3000", port_desc: "Web Desktop GUI HTTP, must be proxied"}
   - {external_port: "3001", internal_port: "3001", port_desc: "Web Desktop GUI HTTPS"}
 param_usage_include_env: true
 param_env_vars:
@@ -70,84 +59,120 @@ opt_custom_params:
 opt_security_opt_param: true
 opt_security_opt_param_vars:
   - {run_var: "seccomp=unconfined", compose_var: "seccomp:unconfined", desc: "For Docker Engine only, many modern gui apps need this to function on older hosts as syscalls are unknown to Docker."}
-opt_param_device_map: true
-opt_param_devices:
-  - {device_path: "/dev/dri", device_host_path: "/dev/dri", desc: "Add this for GL support (Linux hosts only)"}
-# Kasm blurb settings
-kasm_blurb: true
-show_nvidia: true
-external_http_port: "3000"
-external_https_port: "3001"
-noto_fonts: "font-noto-cjk"
 # application setup block
 app_setup_block_enabled: true
 app_setup_block: |
   The Webtop can be accessed at:
 
-  * http://yourhost:3000/
   * https://yourhost:3001/
-# init diagram
-init_diagram: |
-  "webtop:latest": {
-    docker-mods
-    base {
-      fix-attr +\nlegacy cont-init
-    }
-    docker-mods -> base
-    legacy-services
-    custom services
-    init-services -> legacy-services
-    init-services -> custom services
-    custom services -> legacy-services
-    legacy-services -> ci-service-check
-    init-migrations -> init-adduser
-    init-kasmvnc-end -> init-config
-    init-os-end -> init-config
-    init-config -> init-config-end
-    init-crontab-config -> init-config-end
-    init-config -> init-crontab-config
-    init-mods-end -> init-custom-files
-    init-adduser -> init-device-perms
-    base -> init-envfile
-    init-os-end -> init-kasmvnc
-    init-nginx -> init-kasmvnc-config
-    init-video -> init-kasmvnc-end
-    base -> init-migrations
-    init-config-end -> init-mods
-    init-mods-package-install -> init-mods-end
-    init-mods -> init-mods-package-install
-    init-kasmvnc -> init-nginx
-    init-adduser -> init-os-end
-    init-device-perms -> init-os-end
-    init-envfile -> init-os-end
-    init-custom-files -> init-services
-    init-kasmvnc-config -> init-video
-    init-services -> svc-cron
-    svc-cron -> legacy-services
-    init-services -> svc-de
-    svc-nginx -> svc-de
-    svc-de -> legacy-services
-    init-services -> svc-docker
-    svc-de -> svc-docker
-    svc-docker -> legacy-services
-    init-services -> svc-kasmvnc
-    svc-pulseaudio -> svc-kasmvnc
-    svc-kasmvnc -> legacy-services
-    init-services -> svc-kclient
-    svc-kasmvnc -> svc-kclient
-    svc-kclient -> legacy-services
-    init-services -> svc-nginx
-    svc-kclient -> svc-nginx
-    svc-nginx -> legacy-services
-    init-services -> svc-pulseaudio
-    svc-pulseaudio -> legacy-services
-  }
-  Base Images: {
-    "baseimage-kasmvnc:alpine321" <- "baseimage-alpine:3.21"
-  }
-  "webtop:latest" <- Base Images
+
+  **Modern GUI desktop apps have issues with the latest Docker and syscall compatibility, you can use Docker with the `--security-opt seccomp=unconfined` setting to allow these syscalls on hosts with older Kernels or libseccomp**
+
+  ### Security
+
+  {{ "Do not put this on the Internet if you do not know what you are doing." | admonition(flavour=markdown, severity="warning") }}
+
+  By default this container has no authentication and the optional environment variables `CUSTOM_USER` and `PASSWORD` to enable basic http auth via the embedded NGINX server should only be used to locally secure the container from unwanted access on a local network. If exposing this to the Internet we recommend putting it behind a reverse proxy, such as [SWAG](https://github.com/linuxserver/docker-swag), and ensuring a secure authentication solution is in place. From the web interface a terminal can be launched and it is configured for passwordless sudo, so anyone with access to it can install and run whatever they want along with probing your local network.
+
+  ### Options in all Selkies based GUI containers
+
+  This container is based on [Docker Baseimage Selkies](https://github.com/linuxserver/docker-baseimage-selkies) which means there are additional environment variables and run configurations to enable or disable specific functionality.
+
+  #### Optional environment variables
+
+  | Variable | Description |
+  | :----: | --- |
+  | CUSTOM_PORT | Internal port the container listens on for http if it needs to be swapped from the default {% if external_http_port is defined %}{{ external_http_port }}{% else %}3000{% endif %}. |
+  | CUSTOM_HTTPS_PORT | Internal port the container listens on for https if it needs to be swapped from the default {% if external_https_port is defined %}{{ external_https_port }}{% else %}3001{% endif %}. |
+  | CUSTOM_USER | HTTP Basic auth username, abc is default. |
+  | PASSWORD | HTTP Basic auth password, abc is default. If unset there will be no auth |
+  | SUBFOLDER | Subfolder for the application if running a subfolder reverse proxy, need both slashes IE `/subfolder/` |
+  | TITLE | The page title displayed on the web browser, default "Selkies". |
+  | START_DOCKER | If set to false a container with privilege will not automatically start the DinD Docker setup. |
+  | DISABLE_IPV6 | If set to true or any value this will disable IPv6 | 
+  | LC_ALL | Set the Language for the container to run as IE `fr_FR.UTF-8` `ar_AE.UTF-8` |
+  | NO_DECOR | If set the application will run without window borders in openbox for use as a PWA. |
+  | NO_FULL | Do not automatically fullscreen applications when using openbox. |
+
+  #### Optional run configurations
+
+  | Variable | Description |
+  | :----: | --- |
+  | `--privileged` | Will start a Docker in Docker (DinD) setup inside the container to use docker in an isolated environment. For increased performance mount the Docker directory inside the container to the host IE `-v /home/user/docker-data:/var/lib/docker`. |
+  | `-v /var/run/docker.sock:/var/run/docker.sock` | Mount in the host level Docker socket to either interact with it via CLI or use Docker enabled applications. |
+
+  ### Language Support - Internationalization
+
+  The environment variable `LC_ALL` can be used to start this container in a different language than English simply pass for example to launch the Desktop session in French `LC_ALL=fr_FR.UTF-8`. Some supported languages: 
+
+  * `-e LC_ALL=zh_CN.UTF-8` - Chinese
+  * `-e LC_ALL=ja_JP.UTF-8` - Japanese
+  * `-e LC_ALL=ko_KR.UTF-8` - Korean
+  * `-e LC_ALL=ar_AE.UTF-8` - Arabic
+  * `-e LC_ALL=ru_RU.UTF-8` - Russian
+  * `-e LC_ALL=es_MX.UTF-8` - Spanish (Latin America)
+  * `-e LC_ALL=de_DE.UTF-8` - German
+  * `-e LC_ALL=fr_FR.UTF-8` - French
+  * `-e LC_ALL=nl_NL.UTF-8` - Netherlands
+  * `-e LC_ALL=it_IT.UTF-8` - Italian
+
+  ### Nvidia GPU Support
+
+  **Nvidia support is not compatible with Alpine based images as Alpine lacks Nvidia drivers**
+
+  Nvidia support is available by leveraging Zink for OpenGL support. This can be enabled with the following run flags:
+
+  | Variable | Description |
+  | :----: | --- |
+  | --gpus all | This can be filtered down but for most setups this will pass the one Nvidia GPU on the system |
+  | --runtime nvidia | Specify the Nvidia runtime which mounts drivers and tools in from the host |
+
+  The compose syntax is slightly different for this as you will need to set nvidia as the default runtime:
+
+  ```
+  sudo nvidia-ctk runtime configure --runtime=docker --set-as-default
+  sudo service docker restart
+  ```
+
+  And to assign the GPU in compose:
+
+  ```
+  services:
+    {{ project_name }}:
+      image: lscr.io/{{ lsio_project_name_short }}/{{ project_name }}:{{ release_tag }}
+      deploy:
+        resources:
+          reservations:
+            devices:
+              - driver: nvidia
+                count: 1
+                capabilities: [compute,video,graphics,utility]
+  ```
+  
+  ### Application management
+
+  #### PRoot Apps
+
+  If you run system native installations of software IE `sudo apt-get install filezilla` and then upgrade or destroy/re-create the container that software will be removed and the container will be at a clean state. For some users that will be acceptable and they can update their system packages as well using system native commands like `apt-get upgrade`. If you want Docker to handle upgrading the container and retain your applications and settings we have created [proot-apps](https://github.com/linuxserver/proot-apps) which allow portable applications to be installed to persistent storage in the user's `$HOME` directory and they will work in a confined Docker environment out of the box. These applications and their settings will persist upgrades of the base container and can be mounted into different flavors ofSelkiess based containers on the fly. This can be achieved from the command line with:
+
+  ```
+  proot-apps install filezilla
+  ```
+
+  PRoot Apps is included in all Selkies based containers, a list of linuxserver.io supported applications is located [HERE](https://github.com/linuxserver/proot-apps?tab=readme-ov-file#supported-apps).
+
+  #### Native Apps
+
+  It is possible to install extra packages during container start using [universal-package-install](https://github.com/linuxserver/docker-mods/tree/universal-package-install). It might increase starting time significantly. PRoot is preferred.
+
+  ```yaml
+    environment:
+      - DOCKER_MODS=linuxserver/mods:universal-package-install
+      - INSTALL_PACKAGES=libfuse2|git|gdb
+  ```
 # changelog
 changelogs:
+  - {date: "17.06.25:", desc: "Rebase all images to Selkies, drop openbox and icewm, bump Alpine to 3.22, bump Fedora to 42."}
   - {date: "10.01.25:", desc: "Rebase Fedora to 41."}
   - {date: "06.12.24:", desc: "Rebase Alpine to 3.21."}
   - {date: "26.09.24:", desc: "Swap from firefox to chromium on Alpine images."}
