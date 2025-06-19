@@ -1,4 +1,4 @@
-FROM ghcr.io/linuxserver/baseimage-selkies:fedora42
+FROM ghcr.io/linuxserver/baseimage-selkies:el9
 
 # set version label
 ARG BUILD_DATE
@@ -7,7 +7,7 @@ LABEL build_version="Linuxserver.io version:- ${VERSION} Build-date:- ${BUILD_DA
 LABEL maintainer="thelamer"
 
 # title
-ENV TITLE="Fedora MATE"
+ENV TITLE="Enterprise Linux MATE"
 
 RUN \
   echo "**** add icon ****" && \
