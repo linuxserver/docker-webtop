@@ -1,7 +1,7 @@
 #! /bin/bash
 
 if [ "${2}" == "WebBrowser" ]; then
-  /usr/bin/dex-autostart /usr/share/applications/chromium-browser.desktop
+  /usr/local/bin/wrapped-chromium 
 else
   /usr/bin/exo-open-real "$@"
 fi
