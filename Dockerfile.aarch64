@@ -1,4 +1,4 @@
-FROM ghcr.io/linuxserver/baseimage-selkies:arm64v8-fedora42
+FROM ghcr.io/linuxserver/baseimage-selkies:arm64v8-el9
 
 # set version label
 ARG BUILD_DATE
@@ -7,7 +7,7 @@ LABEL build_version="Linuxserver.io version:- ${VERSION} Build-date:- ${BUILD_DA
 LABEL maintainer="thelamer"
 
 # title
-ENV TITLE="Fedora i3"
+ENV TITLE="Enterprise Linux i3"
 
 RUN \
   echo "**** add icon ****" && \
@@ -18,7 +18,6 @@ RUN \
   dnf install -y --setopt=install_weak_deps=False --best \
     chromium \
     dmenu \
-    feh \
     i3 \
     i3status \
     st && \
