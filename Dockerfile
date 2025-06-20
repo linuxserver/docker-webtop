@@ -40,7 +40,8 @@ RUN \
     /usr/share/applications/chromium.desktop && \
   rm -f \
     /etc/xdg/autostart/mate-power-manager.desktop \
-    /etc/xdg/autostart/mate-screensaver.desktop && \
+    /etc/xdg/autostart/mate-screensaver.desktop \
+    /usr/bin/mate-screensaver && \
   echo "**** cleanup ****" && \
   apt-get autoclean && \
   rm -rf \
