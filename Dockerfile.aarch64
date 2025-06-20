@@ -37,6 +37,7 @@ RUN \
   rm -rf \
     /config/.cache \
     /tmp/* \
+    /usr/bin/mate-screensaver \
     /var/cache/pacman/pkg/* \
     /var/lib/pacman/sync/*
 
