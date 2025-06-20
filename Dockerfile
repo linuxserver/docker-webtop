@@ -35,6 +35,7 @@ RUN \
   apt-get autoclean && \
   rm -rf \
     /config/.cache \
+    /usr/bin/mate-screensaver \
     /usr/share/gvfs/remote-volume-monitors/* \
     /var/lib/apt/lists/* \
     /var/tmp/* \
