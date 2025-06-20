@@ -33,7 +33,8 @@ RUN \
     /usr/share/applications/chromium.desktop && \
   echo "**** cleanup ****" && \
   rm -rf \
-    /tmp/*
+    /tmp/* \
+    /usr/bin/mate-screensaver
 
 # add local files
 COPY /root /
