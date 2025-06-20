@@ -53,7 +53,8 @@ RUN \
   dnf clean all && \
   rm -rf \
     /config/.cache \
-    /tmp/*
+    /tmp/* \
+    /usr/bin/mate-screensaver
 
 # add local files
 COPY /root /
