@@ -63,25 +63,28 @@ This image provides various versions that are available via tags. Please read th
 
 | Tag | Available | Description |
 | :----: | :----: |--- |
-| latest | ✅ | XFCE Alpine |
-| ubuntu-xfce | ✅ | XFCE Ubuntu |
-| fedora-xfce | ✅ | XFCE Fedora |
-| arch-xfce | ✅ | XFCE Arch |
-| debian-xfce | ✅ | XFCE Debian |
-| ubuntu-kde | ✅ | KDE Ubuntu |
-| fedora-kde | ✅ | KDE Fedora |
-| arch-kde | ✅ | KDE Arch |
-| debian-kde | ✅ | KDE Debian |
-| alpine-mate | ✅ | MATE Alpine |
-| ubuntu-mate | ✅ | MATE Ubuntu |
-| fedora-mate | ✅ | MATE Fedora |
-| arch-mate | ✅ | MATE Arch |
-| debian-mate | ✅ | MATE Debian |
+| latest | ✅ | i3 Alpine |
 | alpine-i3 | ✅ | i3 Alpine |
-| ubuntu-i3 | ✅ | i3 Ubuntu |
-| fedora-i3 | ✅ | i3 Fedora |
+| alpine-mate | ✅ | MATE Alpine |
 | arch-i3 | ✅ | i3 Arch |
+| arch-kde | ✅ | KDE Arch |
+| arch-mate | ✅ | MATE Arch |
+| arch-xfce | ✅ | XFCE Arch |
 | debian-i3 | ✅ | i3 Debian |
+| debian-kde | ✅ | KDE Debian |
+| debian-mate | ✅ | MATE Debian |
+| debian-xfce | ✅ | XFCE Debian |
+| el-i3 | ✅ | i3 Enterprise Linux |
+| el-mate | ✅ | MATE Enterprise Linux |
+| el-xfce | ✅ | XFCE Enterprise Linux |
+| fedora-i3 | ✅ | i3 Fedora |
+| fedora-kde | ✅ | KDE Fedora |
+| fedora-mate | ✅ | MATE Fedora |
+| fedora-xfce | ✅ | XFCE Fedora |
+| ubuntu-i3 | ✅ | i3 Ubuntu |
+| ubuntu-kde | ✅ | KDE Ubuntu |
+| ubuntu-mate | ✅ | MATE Ubuntu |
+| ubuntu-xfce | ✅ | XFCE Ubuntu |
 
 ## Application Setup
 
