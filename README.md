@@ -63,7 +63,7 @@ This image provides various versions that are available via tags. Please read th
 
 | Tag | Available | Description |
 | :----: | :----: |--- |
-| latest | ✅ | i3 Alpine |
+| latest | ✅ | XFCE Alpine |
 | alpine-i3 | ✅ | i3 Alpine |
 | alpine-mate | ✅ | MATE Alpine |
 | arch-i3 | ✅ | i3 Arch |
