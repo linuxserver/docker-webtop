@@ -20,7 +20,9 @@ RUN \
     dolphin \
     kate \
     konsole \
-    plasma-desktop && \
+    plasma-desktop \
+    kwin-x11 \ 
+    plasma-x11-session && \
   echo "**** application tweaks ****" && \
   sed -i \
     's#^Exec=.*#Exec=/usr/local/bin/wrapped-chromium#g' \
