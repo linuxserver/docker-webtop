@@ -20,8 +20,8 @@ RUN \
     dolphin \
     kate \
     konsole \
+    kwin-x11 \
     plasma-desktop \
-    kwin-x11 \ 
     plasma-x11-session && \
   echo "**** application tweaks ****" && \
   sed -i \
