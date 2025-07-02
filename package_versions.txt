@@ -584,6 +584,7 @@ libblockdev-smart                                                             3.
 libblockdev-swap                                                              3.3.1-2.fc42                                        rpm                         
 libblockdev-utils                                                             3.3.1-2.fc42                                        rpm                         
 libbluray                                                                     1.3.4-9.fc42                                        rpm                         
+libbpf                                                                        2:1.5.0-2.fc42                                      rpm                         
 libbrotli                                                                     1.1.0-6.fc42                                        rpm                         
 libbs2b                                                                       3.1.0-35.fc42                                       rpm                         
 libbsd                                                                        0.12.2-5.fc42                                       rpm                         
@@ -695,8 +696,8 @@ libsodium                                                                     1.
 libsolv                                                                       0.7.33-1.fc42                                       rpm                         
 libsoup3                                                                      3.6.5-1.fc42                                        rpm                         
 libspectre                                                                    0.2.12-9.fc42                                       rpm                         
-libssh                                                                        0.11.1-4.fc42                                       rpm                         
-libssh-config                                                                 0.11.1-4.fc42                                       rpm                         
+libssh                                                                        0.11.2-1.fc42                                       rpm                         
+libssh-config                                                                 0.11.2-1.fc42                                       rpm                         
 libstdc++                                                                     15.1.1-2.fc42                                       rpm                         
 libtalloc                                                                     2.4.3-2.fc42                                        rpm                         
 libtasn1                                                                      4.20.0-1.fc42                                       rpm                         
@@ -826,6 +827,9 @@ pciutils-libs                                                                 3.
 pcmflux                                                                       1.0.3                                               python                      
 pcre2                                                                         10.45-1.fc42                                        rpm                         
 pcre2-syntax                                                                  10.45-1.fc42                                        rpm                         
+pcsc-lite                                                                     2.3.1-2.fc42                                        rpm                         
+pcsc-lite-ccid                                                                1.6.1-3.fc42                                        rpm                         
+pcsc-lite-libs                                                                2.3.1-2.fc42                                        rpm                         
 perl-AutoLoader                                                               0:5.74-517.fc42                                     rpm                         
 perl-B                                                                        0:1.89-517.fc42                                     rpm                         
 perl-Carp                                                                     1.54-512.fc42                                       rpm                         
@@ -895,7 +899,7 @@ perl-threads                                                                  1:
 perl-threads-shared                                                           1.69-512.fc42                                       rpm                         
 perl-vars                                                                     0:1.05-517.fc42                                     rpm                         
 pigz                                                                          2.8-6.fc42                                          rpm                         
-pillow                                                                        11.2.1                                              python                      
+pillow                                                                        11.3.0                                              python                      
 pinentry                                                                      1.3.1-3.fc42                                        rpm                         
 pip                                                                           24.3.1                                              python                      
 pipewire-libs                                                                 1.4.6-1.fc42                                        rpm                         
@@ -909,6 +913,7 @@ policycoreutils                                                               3.
 policycoreutils-python-utils                                                  3.8-1.fc42                                          rpm                         
 polkit                                                                        126-3.fc42.1                                        rpm                         
 polkit-libs                                                                   126-3.fc42.1                                        rpm                         
+polkit-pkla-compat                                                            0.1-30.fc42                                         rpm                         
 poppler                                                                       25.02.0-1.fc42                                      rpm                         
 poppler-data                                                                  0.4.11-9.fc42                                       rpm                         
 poppler-glib                                                                  25.02.0-1.fc42                                      rpm                         
@@ -958,6 +963,7 @@ rpm                                                                           4.
 rpm-build-libs                                                                4.20.1-1.fc42                                       rpm                         
 rpm-libs                                                                      4.20.1-1.fc42                                       rpm                         
 rpm-plugin-selinux                                                            4.20.1-1.fc42                                       rpm                         
+rpm-plugin-systemd-inhibit                                                    4.20.1-1.fc42                                       rpm                         
 rpm-sequoia                                                                   1.7.0-5.fc42                                        rpm                         
 rpm-sign-libs                                                                 4.20.1-1.fc42                                       rpm                         
 rpmfusion-free-release                                                        42-1                                                rpm                         
@@ -1005,9 +1011,11 @@ sudo                                                                          1.
 svt-av1-libs                                                                  2.3.0-1.fc42                                        rpm                         
 systemd                                                                       257.7-1.fc42                                        rpm                         
 systemd-libs                                                                  257.7-1.fc42                                        rpm                         
+systemd-networkd                                                              257.7-1.fc42                                        rpm                         
 systemd-pam                                                                   257.7-1.fc42                                        rpm                         
+systemd-resolved                                                              257.7-1.fc42                                        rpm                         
 systemd-shared                                                                257.7-1.fc42                                        rpm                         
-systemd-standalone-sysusers                                                   257.6-1.fc42                                        rpm                         
+systemd-standalone-sysusers                                                   257.7-1.fc42                                        rpm                         
 systemd-udev                                                                  257.7-1.fc42                                        rpm                         
 tags.cncf.io/container-device-interface                                       v0.8.0                                              go-module                   
 tags.cncf.io/container-device-interface                                       v1.0.0                                              go-module  (+1 duplicate)   
@@ -1041,9 +1049,9 @@ urw-base35-z003-fonts                                                         20
 util-linux                                                                    2.40.4-7.fc42                                       rpm                         
 util-linux-core                                                               2.40.4-7.fc42                                       rpm                         
 vid.stab                                                                      1.1.1-5.fc42                                        rpm                         
-vim-data                                                                      2:9.1.1435-1.fc42                                   rpm                         
+vim-data                                                                      2:9.1.1484-1.fc42                                   rpm                         
 vim-filesystem                                                                2:9.1.1484-1.fc42                                   rpm                         
-vim-minimal                                                                   2:9.1.1435-1.fc42                                   rpm                         
+vim-minimal                                                                   2:9.1.1484-1.fc42                                   rpm                         
 vo-amrwbenc                                                                   0.1.3-22.fc42                                       rpm                         
 volume_key-libs                                                               0.3.12-24.fc42                                      rpm                         
 vte-profile                                                                   0.80.2-2.fc42                                       rpm                         
