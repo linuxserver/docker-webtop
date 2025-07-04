@@ -3,6 +3,9 @@ name: External Trigger Main
 on:
   workflow_dispatch:
 
+permissions:
+  contents: read
+
 jobs:
   external-trigger-arch-kde:
     runs-on: ubuntu-latest
@@ -43,8 +46,8 @@ jobs:
               "username": "Github Actions"}' ${{ secrets.DISCORD_WEBHOOK }}
             exit 1
           fi
-          EXT_RELEASE=$(echo ${EXT_RELEASE} | sed 's/[~,%@+;:/]//g')
-          echo "External version: \`${EXT_RELEASE}\`" >> $GITHUB_STEP_SUMMARY
+          EXT_RELEASE_SANITIZED=$(echo ${EXT_RELEASE} | sed 's/[~,%@+;:/]//g')
+          echo "Sanitized external version: \`${EXT_RELEASE_SANITIZED}\`" >> $GITHUB_STEP_SUMMARY
           echo "Retrieving last pushed version" >> $GITHUB_STEP_SUMMARY
           image="linuxserver/webtop"
           tag="arch-kde"
@@ -100,8 +103,8 @@ jobs:
             exit 1
           fi
           echo "Last pushed version: \`${IMAGE_VERSION}\`" >> $GITHUB_STEP_SUMMARY
-          if [ "${EXT_RELEASE}" == "${IMAGE_VERSION}" ]; then
-            echo "Version \`${EXT_RELEASE}\` already pushed, exiting" >> $GITHUB_STEP_SUMMARY
+          if [ "${EXT_RELEASE_SANITIZED}" == "${IMAGE_VERSION}" ]; then
+            echo "Sanitized version \`${EXT_RELEASE_SANITIZED}\` already pushed, exiting" >> $GITHUB_STEP_SUMMARY
             exit 0
           elif [ $(curl -s https://ci.linuxserver.io/job/Docker-Pipeline-Builders/job/docker-webtop/job/arch-kde/lastBuild/api/json | jq -r '.building') == "true" ]; then
             echo "New version \`${EXT_RELEASE}\` found; but there already seems to be an active build on Jenkins; exiting" >> $GITHUB_STEP_SUMMARY
@@ -116,7 +119,7 @@ jobs:
                 "username": "Github Actions"}' ${{ secrets.DISCORD_WEBHOOK }}
             else
               printf "\n## Trigger new build\n\n" >> $GITHUB_STEP_SUMMARY
-              echo "New version \`${EXT_RELEASE}\` found; old version was \`${IMAGE_VERSION}\`. Triggering new build" >> $GITHUB_STEP_SUMMARY
+              echo "New sanitized version \`${EXT_RELEASE_SANITIZED}\` found; old version was \`${IMAGE_VERSION}\`. Triggering new build" >> $GITHUB_STEP_SUMMARY
               if [[ "${artifacts_found}" == "true" ]]; then
                 echo "All artifacts seem to be uploaded." >> $GITHUB_STEP_SUMMARY
               fi
@@ -136,7 +139,7 @@ jobs:
                 --data-urlencode "description=GHA external trigger https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}" \
                 --data-urlencode "Submit=Submit"
               echo "**** Notifying Discord ****"
-              TRIGGER_REASON="A version change was detected for webtop tag arch-kde. Old version:${IMAGE_VERSION} New version:${EXT_RELEASE}"
+              TRIGGER_REASON="A version change was detected for webtop tag arch-kde. Old version:${IMAGE_VERSION} New version:${EXT_RELEASE_SANITIZED}"
               curl -X POST -H "Content-Type: application/json" --data '{"avatar_url": "https://cdn.discordapp.com/avatars/354986384542662657/df91181b3f1cf0ef1592fbe18e0962d7.png","embeds": [{"color": 9802903,
                 "description": "**Build Triggered** \n**Reason:** '"${TRIGGER_REASON}"' \n**Build URL:** '"${buildurl}display/redirect"' \n"}],
                 "username": "Github Actions"}' ${{ secrets.DISCORD_WEBHOOK }}
