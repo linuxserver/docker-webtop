@@ -2,8 +2,14 @@ name: Greetings
 
 on: [pull_request_target, issues]
 
+permissions:
+  contents: read
+
 jobs:
   greeting:
+    permissions:
+      issues: write
+      pull-requests: write
     runs-on: ubuntu-latest
     steps:
     - uses: actions/first-interaction@v1
