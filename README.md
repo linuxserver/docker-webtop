@@ -5,7 +5,6 @@
 [![Blog](https://img.shields.io/static/v1.svg?color=94398d&labelColor=555555&logoColor=ffffff&style=for-the-badge&label=linuxserver.io&message=Blog)](https://blog.linuxserver.io "all the things you can do with our containers including How-To guides, opinions and much more!")
 [![Discord](https://img.shields.io/discord/354974912613449730.svg?color=94398d&labelColor=555555&logoColor=ffffff&style=for-the-badge&label=Discord&logo=discord)](https://linuxserver.io/discord "realtime support / chat with the community and the team.")
 [![Discourse](https://img.shields.io/discourse/https/discourse.linuxserver.io/topics.svg?color=94398d&labelColor=555555&logoColor=ffffff&style=for-the-badge&logo=discourse)](https://discourse.linuxserver.io "post on our community forum.")
-[![Fleet](https://img.shields.io/static/v1.svg?color=94398d&labelColor=555555&logoColor=ffffff&style=for-the-badge&label=linuxserver.io&message=Fleet)](https://fleet.linuxserver.io "an online web interface which displays all of our maintained images.")
 [![GitHub](https://img.shields.io/static/v1.svg?color=94398d&labelColor=555555&logoColor=ffffff&style=for-the-badge&label=linuxserver.io&message=GitHub&logo=github)](https://github.com/linuxserver "view the source for all of our repositories.")
 [![Open Collective](https://img.shields.io/opencollective/all/linuxserver.svg?color=94398d&labelColor=555555&logoColor=ffffff&style=for-the-badge&label=Supporters&logo=open%20collective)](https://opencollective.com/linuxserver "please consider helping us by either donating or contributing to our budget")
 
@@ -22,7 +21,6 @@ Find us at:
 * [Blog](https://blog.linuxserver.io) - all the things you can do with our containers including How-To guides, opinions and much more!
 * [Discord](https://linuxserver.io/discord) - realtime support / chat with the community and the team.
 * [Discourse](https://discourse.linuxserver.io) - post on our community forum.
-* [Fleet](https://fleet.linuxserver.io) - an online web interface which displays all of our maintained images.
 * [GitHub](https://github.com/linuxserver) - view the source for all of our repositories.
 * [Open Collective](https://opencollective.com/linuxserver) - please consider helping us by either donating or contributing to our budget
 
@@ -55,7 +53,6 @@ The architectures supported by this image are:
 | :----: | :----: | ---- |
 | x86-64 | ✅ | amd64-\<version tag\> |
 | arm64 | ✅ | arm64v8-\<version tag\> |
-| armhf | ❌ | |
 
 ## Version Tags
 
@@ -88,85 +85,119 @@ This image provides various versions that are available via tags. Please read th
 
 ## Application Setup
 
-The Webtop can be accessed at:
+The application can be accessed at:
 
 * https://yourhost:3001/
 
-**Modern GUI desktop apps have issues with the latest Docker and syscall compatibility, you can use Docker with the `--security-opt seccomp=unconfined` setting to allow these syscalls on hosts with older Kernels or libseccomp**
+### Strict reverse proxies
+
+This image uses a self-signed certificate by default. This naturally means the scheme is `https`.
+If you are using a reverse proxy which validates certificates, you need to [disable this check for the container](https://docs.linuxserver.io/faq#strict-proxy).
+
+**Modern GUI desktop apps may have compatibility issues with the latest Docker syscall restrictions. You can use Docker with the `--security-opt seccomp=unconfined` setting to allow these syscalls on hosts with older Kernels or libseccomp versions.**
 
 ### Security
 
 >[!WARNING]
->Do not put this on the Internet if you do not know what you are doing.
+>This container provides privileged access to the host system. Do not expose it to the Internet unless you have secured it properly.
 
-By default this container has no authentication and the optional environment variables `CUSTOM_USER` and `PASSWORD` to enable basic http auth via the embedded NGINX server should only be used to locally secure the container from unwanted access on a local network. If exposing this to the Internet we recommend putting it behind a reverse proxy, such as [SWAG](https://github.com/linuxserver/docker-swag), and ensuring a secure authentication solution is in place. From the web interface a terminal can be launched and it is configured for passwordless sudo, so anyone with access to it can install and run whatever they want along with probing your local network.
+**HTTPS is required for full functionality.** Modern browser features such as WebCodecs, used for video and audio, will not function over an insecure HTTP connection.
 
-### Options in all Selkies based GUI containers
+By default, this container has no authentication. The optional `CUSTOM_USER` and `PASSWORD` environment variables enable basic HTTP auth, which is suitable only for securing the container on a trusted local network. For internet exposure, we strongly recommend placing the container behind a reverse proxy, such as [SWAG](https://github.com/linuxserver/docker-swag), with a robust authentication mechanism.
 
-This container is based on [Docker Baseimage Selkies](https://github.com/linuxserver/docker-baseimage-selkies) which means there are additional environment variables and run configurations to enable or disable specific functionality.
+The web interface includes a terminal with passwordless `sudo` access. Any user with access to the GUI can gain root control within the container, install arbitrary software, and probe your local network.
 
-#### Optional environment variables
+### Options in all Selkies-based GUI containers
 
-| Variable | Description |
-| :----: | --- |
-| CUSTOM_PORT | Internal port the container listens on for http if it needs to be swapped from the default 3000. |
-| CUSTOM_HTTPS_PORT | Internal port the container listens on for https if it needs to be swapped from the default 3001. |
-| CUSTOM_USER | HTTP Basic auth username, abc is default. |
-| PASSWORD | HTTP Basic auth password, abc is default. If unset there will be no auth |
-| SUBFOLDER | Subfolder for the application if running a subfolder reverse proxy, need both slashes IE `/subfolder/` |
-| TITLE | The page title displayed on the web browser, default "Selkies". |
-| START_DOCKER | If set to false a container with privilege will not automatically start the DinD Docker setup. |
-| DISABLE_IPV6 | If set to true or any value this will disable IPv6 | 
-| LC_ALL | Set the Language for the container to run as IE `fr_FR.UTF-8` `ar_AE.UTF-8` |
-| NO_DECOR | If set the application will run without window borders in openbox for use as a PWA. |
-| NO_FULL | Do not automatically fullscreen applications when using openbox. |
+This container is based on [Docker Baseimage Selkies](https://github.com/linuxserver/docker-baseimage-selkies), which provides the following environment variables and run configurations to customize its functionality.
 
-#### Optional run configurations
+#### Optional Environment Variables
 
 | Variable | Description |
 | :----: | --- |
-| `--privileged` | Will start a Docker in Docker (DinD) setup inside the container to use docker in an isolated environment. For increased performance mount the Docker directory inside the container to the host IE `-v /home/user/docker-data:/var/lib/docker`. |
-| `-v /var/run/docker.sock:/var/run/docker.sock` | Mount in the host level Docker socket to either interact with it via CLI or use Docker enabled applications. |
+| `CUSTOM_PORT` | Internal HTTP port. Defaults to `3000`. |
+| `CUSTOM_HTTPS_PORT` | Internal HTTPS port. Defaults to `3001`. |
+| `CUSTOM_USER` | Username for HTTP Basic Auth. Defaults to `abc`. |
+| `PASSWORD` | Password for HTTP Basic Auth. If unset, authentication is disabled. |
+| `SUBFOLDER` | Application subfolder for reverse proxy configurations. Must include leading and trailing slashes, e.g., `/subfolder/`. |
+| `TITLE` | Page title displayed in the web browser. Defaults to "Selkies". |
+| `START_DOCKER` | If set to `false`, the privileged Docker-in-Docker setup will not start automatically. |
+| `DISABLE_IPV6` | Set to `true` to disable IPv6 support in the container. | 
+| `LC_ALL` | Sets the container's locale, e.g., `fr_FR.UTF-8`. |
+| `DRINODE` | If mounting in /dev/dri for DRI3 GPU Acceleration allows you to specify the device to use IE `/dev/dri/renderD128` |
+| `NO_DECOR` | If set, applications will run without window borders, suitable for PWA usage. |
+| `NO_FULL` | If set, applications will not be automatically fullscreened. |
+| `DISABLE_ZINK` | If set, Zink-related environment variables will not be configured when a video card is detected. |
+| `WATERMARK_PNG` | Full path to a watermark PNG file inside the container, e.g., `/usr/share/selkies/www/icon.png`. |
+| `WATERMARK_LOCATION` | Integer specifying the watermark location: `1` (Top Left), `2` (Top Right), `3` (Bottom Left), `4` (Bottom Right), `5` (Centered), `6` (Animated). |
+
+#### Optional Run Configurations
+
+| Argument | Description |
+| :----: | --- |
+| `--privileged` | Starts a Docker-in-Docker (DinD) environment. For better performance, mount the Docker data directory from the host, e.g., `-v /path/to/docker-data:/var/lib/docker`. |
+| `-v /var/run/docker.sock:/var/run/docker.sock` | Mounts the host's Docker socket to manage host containers from within this container. |
+| `--device /dev/dri:/dev/dri` | Mount a GPU into the container, this can be used in conjunction with the `DRINODE` environment variable to leverage a host video card for GPU accelerated applications. Only **Open Source** drivers are supported IE (Intel,AMDGPU,Radeon,ATI,Nouveau) |
 
 ### Language Support - Internationalization
 
-The environment variable `LC_ALL` can be used to start this container in a different language than English simply pass for example to launch the Desktop session in French `LC_ALL=fr_FR.UTF-8`. Some supported languages: 
+To launch the desktop session in a different language, set the `LC_ALL` environment variable. For example:
 
-* `-e LC_ALL=zh_CN.UTF-8` - Chinese
-* `-e LC_ALL=ja_JP.UTF-8` - Japanese
-* `-e LC_ALL=ko_KR.UTF-8` - Korean
-* `-e LC_ALL=ar_AE.UTF-8` - Arabic
-* `-e LC_ALL=ru_RU.UTF-8` - Russian
-* `-e LC_ALL=es_MX.UTF-8` - Spanish (Latin America)
-* `-e LC_ALL=de_DE.UTF-8` - German
-* `-e LC_ALL=fr_FR.UTF-8` - French
-* `-e LC_ALL=nl_NL.UTF-8` - Netherlands
-* `-e LC_ALL=it_IT.UTF-8` - Italian
+*   `-e LC_ALL=zh_CN.UTF-8` - Chinese
+*   `-e LC_ALL=ja_JP.UTF-8` - Japanese
+*   `-e LC_ALL=ko_KR.UTF-8` - Korean
+*   `-e LC_ALL=ar_AE.UTF-8` - Arabic
+*   `-e LC_ALL=ru_RU.UTF-8` - Russian
+*   `-e LC_ALL=es_MX.UTF-8` - Spanish (Latin America)
+*   `-e LC_ALL=de_DE.UTF-8` - German
+*   `-e LC_ALL=fr_FR.UTF-8` - French
+*   `-e LC_ALL=nl_NL.UTF-8` - Netherlands
+*   `-e LC_ALL=it_IT.UTF-8` - Italian
+
+### DRI3 GPU Acceleration
+
+For accelerated apps or games, render devices can be mounted into the container and leveraged by applications using:
+
+`--device /dev/dri:/dev/dri`
+
+This feature only supports **Open Source** GPU drivers:
+
+| Driver | Description |
+| :----: | --- |
+| Intel | i965 and i915 drivers for Intel iGPU chipsets |
+| AMD | AMDGPU, Radeon, and ATI drivers for AMD dedicated or APU chipsets |
+| NVIDIA | nouveau2 drivers only, closed source NVIDIA drivers lack DRI3 support |
+
+The `DRINODE` environment variable can be used to point to a specific GPU.
+
+DRI3 will work on aarch64 given the correct drivers are installed inside the container for your chipset.
 
 ### Nvidia GPU Support
 
-**Nvidia support is not compatible with Alpine based images as Alpine lacks Nvidia drivers**
+**Note: Nvidia support is not available for Alpine-based images.**
 
-Nvidia support is available by leveraging Zink for OpenGL support. This can be enabled with the following run flags:
+Nvidia GPU support is available by leveraging Zink for OpenGL. When a compatible Nvidia GPU is passed through, it will also be **automatically utilized for hardware-accelerated video stream encoding** (using the `x264enc` full-frame profile), significantly reducing CPU load.
 
-| Variable | Description |
+Enable Nvidia support with the following runtime flags:
+
+| Flag | Description |
 | :----: | --- |
-| --gpus all | This can be filtered down but for most setups this will pass the one Nvidia GPU on the system |
-| --runtime nvidia | Specify the Nvidia runtime which mounts drivers and tools in from the host |
+| `--gpus all` | Passes all available host GPUs to the container. This can be filtered to specific GPUs. |
+| `--runtime nvidia` | Specifies the Nvidia runtime, which provides the necessary drivers and tools from the host. |
 
-The compose syntax is slightly different for this as you will need to set nvidia as the default runtime:
+For Docker Compose, you must first configure the Nvidia runtime as the default on the host:
 
 ```
 sudo nvidia-ctk runtime configure --runtime=docker --set-as-default
-sudo service docker restart
+sudo systemctl restart docker
 ```
 
-And to assign the GPU in compose:
+Then, assign the GPU to the service in your `compose.yaml`:
 
 ```
 services:
   webtop:
-    image: lscr.io/linuxserver/webtop:ubuntu-xfce
+    image: lscr.io/linuxserver/webtop:latest
     deploy:
       resources:
         reservations:
@@ -176,32 +207,31 @@ services:
               capabilities: [compute,video,graphics,utility]
 ```
 
-### Application management
+### Application Management
 
-#### PRoot Apps
+There are two methods for installing applications inside the container: PRoot Apps (recommended for persistence) and Native Apps.
 
-If you run system native installations of software IE `sudo apt-get install filezilla` and then upgrade or destroy/re-create the container that software will be removed and the container will be at a clean state. For some users that will be acceptable and they can update their system packages as well using system native commands like `apt-get upgrade`. If you want Docker to handle upgrading the container and retain your applications and settings we have created [proot-apps](https://github.com/linuxserver/proot-apps) which allow portable applications to be installed to persistent storage in the user's `$HOME` directory and they will work in a confined Docker environment out of the box. These applications and their settings will persist upgrades of the base container and can be mounted into different flavors ofSelkiess based containers on the fly. This can be achieved from the command line with:
+#### PRoot Apps (Persistent)
+
+Natively installed packages (e.g., via `apt-get install`) will not persist if the container is recreated. To retain applications and their settings across container updates, we recommend using [proot-apps](https://github.com/linuxserver/proot-apps). These are portable applications installed to the user's persistent `$HOME` directory.
+
+To install an application, use the command line inside the container:
 
 ```
 proot-apps install filezilla
 ```
 
-PRoot Apps is included in all Selkies based containers, a list of linuxserver.io supported applications is located [HERE](https://github.com/linuxserver/proot-apps?tab=readme-ov-file#supported-apps).
+A list of supported applications is available [here](https://github.com/linuxserver/proot-apps?tab=readme-ov-file#supported-apps).
 
-#### Native Apps
+#### Native Apps (Non-Persistent)
 
-It is possible to install extra packages during container start using [universal-package-install](https://github.com/linuxserver/docker-mods/tree/universal-package-install). It might increase starting time significantly. PRoot is preferred.
+You can install packages from the system's native repository using the [universal-package-install](https://github.com/linuxserver/docker-mods/tree/universal-package-install) mod. This method will increase the container's start time and is not persistent. Add the following to your `compose.yaml`:
 
 ```yaml
   environment:
     - DOCKER_MODS=linuxserver/mods:universal-package-install
     - INSTALL_PACKAGES=libfuse2|git|gdb
 ```
-
-### Strict reverse proxies
-
-This image uses a self-signed certificate by default. This naturally means the scheme is `https`.
-If you are using a reverse proxy which validates certificates, you need to [disable this check for the container](https://docs.linuxserver.io/faq#strict-proxy).
 
 ## Usage
 
