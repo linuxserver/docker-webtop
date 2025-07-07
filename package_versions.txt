@@ -15,12 +15,13 @@ binutils                                                                      2.
 binutils-common                                                               2.42-4ubuntu2.5                           deb                            
 binutils-x86-64-linux-gnu                                                     2.42-4ubuntu2.5                           deb                            
 blinker                                                                       1.7.0                                     python                         
+breeze-cursor-theme                                                           4:5.27.12-0ubuntu0.1                      deb                            
 bsdextrautils                                                                 2.39.3-9ubuntu6.2                         deb                            
 bsdutils                                                                      1:2.39.3-9ubuntu6.2                       deb                            
 ca-certificates                                                               20240203                                  deb                            
 catatonit                                                                     0.1.7-1                                   deb                            
-chromium                                                                      138.0.7204.49-1xtradeb1.2404.1            deb                            
-chromium-common                                                               138.0.7204.49-1xtradeb1.2404.1            deb                            
+chromium                                                                      138.0.7204.92-1xtradeb1.2404.1            deb                            
+chromium-common                                                               138.0.7204.92-1xtradeb1.2404.1            deb                            
 cloud.google.com/go/compute/metadata                                          v0.6.0                                    go-module                      
 cloud.google.com/go/logging                                                   v1.9.0                                    go-module                      
 cloud.google.com/go/longrunning                                               v0.5.5                                    go-module                      
@@ -62,9 +63,9 @@ dirmngr                                                                       2.
 distro                                                                        1.9.0                                     python                         
 distro-info-data                                                              0.60ubuntu0.3                             deb                            
 docker-buildx-plugin                                                          0.25.0-1~ubuntu.24.04~noble               deb                            
-docker-ce                                                                     5:28.3.0-1~ubuntu.24.04~noble             deb                            
-docker-ce-cli                                                                 5:28.3.0-1~ubuntu.24.04~noble             deb                            
-docker-compose-plugin                                                         2.37.3-1~ubuntu.24.04~noble               deb                            
+docker-ce                                                                     5:28.3.1-1~ubuntu.24.04~noble             deb                            
+docker-ce-cli                                                                 5:28.3.1-1~ubuntu.24.04~noble             deb                            
+docker-compose-plugin                                                         2.38.1-1~ubuntu.24.04~noble               deb                            
 dpkg                                                                          1.22.6ubuntu6.1                           deb                            
 dunst                                                                         1.9.2-1build2                             deb                            
 e2fsprogs                                                                     1.47.0-2.4~exp1ubuntu4.1                  deb                            
@@ -147,7 +148,7 @@ github.com/cilium/ebpf                                                        v0
 github.com/cilium/ebpf                                                        v0.9.1                                    go-module     (+3 duplicates)  
 github.com/cloudflare/cfssl                                                   v1.6.4                                    go-module                      
 github.com/compose-spec/compose-go/v2                                         v2.6.3                                    go-module                      
-github.com/compose-spec/compose-go/v2                                         v2.6.5                                    go-module                      
+github.com/compose-spec/compose-go/v2                                         v2.7.1                                    go-module                      
 github.com/container-storage-interface/spec                                   v1.5.0                                    go-module                      
 github.com/containerd/accelerated-container-image                             v1.3.0                                    go-module                      
 github.com/containerd/aufs                                                    v1.0.0                                    go-module                      
@@ -198,13 +199,15 @@ github.com/dimchansky/utfbom                                                  v1
 github.com/distribution/reference                                             v0.6.0                                    go-module     (+4 duplicates)  
 github.com/docker/buildx                                                      UNKNOWN                                   go-module                      
 github.com/docker/buildx                                                      v0.25.0                                   go-module                      
-github.com/docker/cli                                                         v28.2.2+incompatible                      go-module     (+1 duplicate)   
+github.com/docker/cli                                                         v28.2.2+incompatible                      go-module                      
+github.com/docker/cli                                                         v28.3.0+incompatible                      go-module                      
 github.com/docker/cli-docs-tool                                               v0.10.0                                   go-module     (+1 duplicate)   
 github.com/docker/cli/cmd/docker                                              UNKNOWN                                   go-module                      
 github.com/docker/compose/v2                                                  UNKNOWN                                   go-module                      
 github.com/docker/distribution                                                v2.8.3+incompatible                       go-module     (+1 duplicate)   
-github.com/docker/docker                                                      v28.2.2+incompatible                      go-module     (+1 duplicate)   
-github.com/docker/docker                                                      v28.3.0                                   go-module     (+1 duplicate)   
+github.com/docker/docker                                                      v28.2.2+incompatible                      go-module                      
+github.com/docker/docker                                                      v28.3.0+incompatible                      go-module                      
+github.com/docker/docker                                                      v28.3.1                                   go-module     (+1 duplicate)   
 github.com/docker/docker-credential-helpers                                   v0.9.3                                    go-module     (+1 duplicate)   
 github.com/docker/go                                                          v1.5.1-1.0.20160303222718-d30aec9fd63c    go-module                      
 github.com/docker/go-connections                                              v0.5.0                                    go-module     (+2 duplicates)  
@@ -301,7 +304,8 @@ github.com/mitchellh/hashstructure/v2                                         v2
 github.com/mitchellh/mapstructure                                             v1.5.0                                    go-module                      
 github.com/mitchellh/reflectwalk                                              v1.0.2                                    go-module                      
 github.com/moby/buildkit                                                      v0.23.0                                   go-module                      
-github.com/moby/buildkit                                                      v0.23.1                                   go-module     (+1 duplicate)   
+github.com/moby/buildkit                                                      v0.23.1                                   go-module                      
+github.com/moby/buildkit                                                      v0.23.2                                   go-module                      
 github.com/moby/docker-image-spec                                             v1.3.1                                    go-module     (+2 duplicates)  
 github.com/moby/go-archive                                                    v0.1.0                                    go-module     (+2 duplicates)  
 github.com/moby/ipvs                                                          v1.1.0                                    go-module                      
@@ -383,7 +387,7 @@ github.com/tilt-dev/fsnotify                                                  v1
 github.com/tinylib/msgp                                                       v1.1.8                                    go-module                      
 github.com/tonistiigi/dchapes-mode                                            v0.0.0-20250318174251-73d941a28323        go-module     (+2 duplicates)  
 github.com/tonistiigi/fsutil                                                  v0.0.0-20250605211040-586307ad452f        go-module     (+2 duplicates)  
-github.com/tonistiigi/go-actions-cache                                        v0.0.0-20250611155157-388a2ec8cdf8        go-module                      
+github.com/tonistiigi/go-actions-cache                                        v0.0.0-20250626083717-378c5ed1ddd9        go-module                      
 github.com/tonistiigi/go-archvariant                                          v1.0.0                                    go-module                      
 github.com/tonistiigi/go-csvvalue                                             v0.0.0-20240814133006-030d3b2625d0        go-module     (+2 duplicates)  
 github.com/tonistiigi/jaeger-ui-rest                                          v0.0.0-20250408171107-3dd17559e117        go-module                      
