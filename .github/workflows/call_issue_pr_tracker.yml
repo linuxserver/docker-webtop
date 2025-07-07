@@ -8,6 +8,9 @@ on:
   pull_request_review:
     types: [submitted,edited,dismissed]
 
+permissions:
+  contents: read
+
 jobs:
   manage-project:
     permissions:
