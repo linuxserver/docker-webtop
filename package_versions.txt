@@ -14,6 +14,7 @@ binutils                                                                      2.
 binutils-common                                                               2.40-2                                  deb                         
 binutils-x86-64-linux-gnu                                                     2.40-2                                  deb                         
 blinker                                                                       1.5                                     python                      
+breeze-cursor-theme                                                           4:5.27.5-2                              deb                         
 bsd-mailx                                                                     8.1.2-0.20220412cvs-1                   deb                         
 bsdextrautils                                                                 2.38.1-5+deb12u3                        deb                         
 bsdutils                                                                      1:2.38.1-5+deb12u3                      deb                         
@@ -65,9 +66,9 @@ distro-info-data                                                              0.
 dmidecode                                                                     3.4-1                                   deb                         
 dmsetup                                                                       2:1.02.185-2                            deb                         
 docker-buildx-plugin                                                          0.25.0-1~debian.12~bookworm             deb                         
-docker-ce                                                                     5:28.3.0-1~debian.12~bookworm           deb                         
-docker-ce-cli                                                                 5:28.3.0-1~debian.12~bookworm           deb                         
-docker-compose-plugin                                                         2.37.3-1~debian.12~bookworm             deb                         
+docker-ce                                                                     5:28.3.1-1~debian.12~bookworm           deb                         
+docker-ce-cli                                                                 5:28.3.1-1~debian.12~bookworm           deb                         
+docker-compose-plugin                                                         2.38.1-1~debian.12~bookworm             deb                         
 dpkg                                                                          1.21.22                                 deb                         
 dunst                                                                         1.9.0-0.1                               deb                         
 e2fsprogs                                                                     1.47.0-2                                deb                         
@@ -160,7 +161,7 @@ github.com/cilium/ebpf                                                        v0
 github.com/cilium/ebpf                                                        v0.9.1                                  go-module  (+3 duplicates)  
 github.com/cloudflare/cfssl                                                   v1.6.4                                  go-module                   
 github.com/compose-spec/compose-go/v2                                         v2.6.3                                  go-module                   
-github.com/compose-spec/compose-go/v2                                         v2.6.5                                  go-module                   
+github.com/compose-spec/compose-go/v2                                         v2.7.1                                  go-module                   
 github.com/container-storage-interface/spec                                   v1.5.0                                  go-module                   
 github.com/containerd/accelerated-container-image                             v1.3.0                                  go-module                   
 github.com/containerd/aufs                                                    v1.0.0                                  go-module                   
@@ -211,13 +212,15 @@ github.com/dimchansky/utfbom                                                  v1
 github.com/distribution/reference                                             v0.6.0                                  go-module  (+4 duplicates)  
 github.com/docker/buildx                                                      UNKNOWN                                 go-module                   
 github.com/docker/buildx                                                      v0.25.0                                 go-module                   
-github.com/docker/cli                                                         v28.2.2+incompatible                    go-module  (+1 duplicate)   
+github.com/docker/cli                                                         v28.2.2+incompatible                    go-module                   
+github.com/docker/cli                                                         v28.3.0+incompatible                    go-module                   
 github.com/docker/cli-docs-tool                                               v0.10.0                                 go-module  (+1 duplicate)   
 github.com/docker/cli/cmd/docker                                              UNKNOWN                                 go-module                   
 github.com/docker/compose/v2                                                  UNKNOWN                                 go-module                   
 github.com/docker/distribution                                                v2.8.3+incompatible                     go-module  (+1 duplicate)   
-github.com/docker/docker                                                      v28.2.2+incompatible                    go-module  (+1 duplicate)   
-github.com/docker/docker                                                      v28.3.0                                 go-module  (+1 duplicate)   
+github.com/docker/docker                                                      v28.2.2+incompatible                    go-module                   
+github.com/docker/docker                                                      v28.3.0+incompatible                    go-module                   
+github.com/docker/docker                                                      v28.3.1                                 go-module  (+1 duplicate)   
 github.com/docker/docker-credential-helpers                                   v0.9.3                                  go-module  (+1 duplicate)   
 github.com/docker/go                                                          v1.5.1-1.0.20160303222718-d30aec9fd63c  go-module                   
 github.com/docker/go-connections                                              v0.5.0                                  go-module  (+2 duplicates)  
@@ -314,7 +317,8 @@ github.com/mitchellh/hashstructure/v2                                         v2
 github.com/mitchellh/mapstructure                                             v1.5.0                                  go-module                   
 github.com/mitchellh/reflectwalk                                              v1.0.2                                  go-module                   
 github.com/moby/buildkit                                                      v0.23.0                                 go-module                   
-github.com/moby/buildkit                                                      v0.23.1                                 go-module  (+1 duplicate)   
+github.com/moby/buildkit                                                      v0.23.1                                 go-module                   
+github.com/moby/buildkit                                                      v0.23.2                                 go-module                   
 github.com/moby/docker-image-spec                                             v1.3.1                                  go-module  (+2 duplicates)  
 github.com/moby/go-archive                                                    v0.1.0                                  go-module  (+2 duplicates)  
 github.com/moby/ipvs                                                          v1.1.0                                  go-module                   
@@ -396,7 +400,7 @@ github.com/tilt-dev/fsnotify                                                  v1
 github.com/tinylib/msgp                                                       v1.1.8                                  go-module                   
 github.com/tonistiigi/dchapes-mode                                            v0.0.0-20250318174251-73d941a28323      go-module  (+2 duplicates)  
 github.com/tonistiigi/fsutil                                                  v0.0.0-20250605211040-586307ad452f      go-module  (+2 duplicates)  
-github.com/tonistiigi/go-actions-cache                                        v0.0.0-20250611155157-388a2ec8cdf8      go-module                   
+github.com/tonistiigi/go-actions-cache                                        v0.0.0-20250626083717-378c5ed1ddd9      go-module                   
 github.com/tonistiigi/go-archvariant                                          v1.0.0                                  go-module                   
 github.com/tonistiigi/go-csvvalue                                             v0.0.0-20240814133006-030d3b2625d0      go-module  (+2 duplicates)  
 github.com/tonistiigi/jaeger-ui-rest                                          v0.0.0-20250408171107-3dd17559e117      go-module                   
@@ -782,7 +786,7 @@ libjson-c5                                                                    0.
 libjson-glib-1.0-0                                                            1.6.6-1                                 deb                         
 libjson-glib-1.0-common                                                       1.6.6-1                                 deb                         
 libjsoncpp25                                                                  1.9.5-4                                 deb                         
-libjxl0.7                                                                     0.7.0-10                                deb                         
+libjxl0.7                                                                     0.7.0-10+deb12u1                        deb                         
 libk5crypto3                                                                  1.20.1-2+deb12u3                        deb                         
 libkeyutils1                                                                  1.6.3-2                                 deb                         
 libkmod2                                                                      30+20221128-1                           deb                         
