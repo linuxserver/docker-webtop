@@ -3,6 +3,9 @@ name: External Trigger Main
 on:
   workflow_dispatch:
 
+permissions:
+  contents: read
+
 jobs:
   external-trigger-debian-xfce:
     runs-on: ubuntu-latest
