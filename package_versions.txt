@@ -9,7 +9,7 @@ alsa-lib                                                                      1.
 alsa-topology-conf                                                            1.2.5.1-4                               alpm                           
 alsa-ucm-conf                                                                 1.2.14-2                                alpm                           
 amdvlk                                                                        2025.Q2.1-1                             alpm                           
-archlinux-keyring                                                             20250430.1-1                            alpm                           
+archlinux-keyring                                                             20250707-1                              alpm                           
 at-spi2-core                                                                  2.56.3-1                                alpm                           
 attr                                                                          2.5.2-1                                 alpm                           
 attrs                                                                         25.3.0                                  python                         
@@ -43,7 +43,7 @@ command-line-arguments                                                        UN
 containerd                                                                    2.1.3-1                                 alpm                           
 coreutils                                                                     9.7-1                                   alpm                           
 cppdap                                                                        1.58.0-2                                alpm                           
-cryptography                                                                  45.0.4                                  python                         
+cryptography                                                                  45.0.5                                  python                         
 cryptsetup                                                                    2.8.0-1                                 alpm                           
 curl                                                                          8.14.1-1                                alpm                           
 dario.cat/mergo                                                               v1.0.1                                  go-module     (+2 duplicates)  
@@ -54,16 +54,16 @@ dbus-broker                                                                   37
 dbus-broker-units                                                             37-2                                    alpm                           
 dbus-units                                                                    37-2                                    alpm                           
 dconf                                                                         0.40.0-3                                alpm                           
-debugedit                                                                     5.1-1                                   alpm                           
+debugedit                                                                     5.2-1                                   alpm                           
 default-cursors                                                               3-1                                     alpm                           
 desktop-file-utils                                                            0.28-1                                  alpm                           
 device-mapper                                                                 2.03.33-1                               alpm                           
 diffutils                                                                     3.12-2                                  alpm                           
 docker                                                                        1:28.3.0-1                              alpm                           
-docker-compose                                                                2.38.1-1                                alpm                           
+docker-compose                                                                2.38.2-1                                alpm                           
 duktape                                                                       2.7.0-7                                 alpm                           
 dunst                                                                         1.12.2-1                                alpm                           
-e2fsprogs                                                                     1.47.2-2                                alpm                           
+e2fsprogs                                                                     1.47.3-1                                alpm                           
 elementary-icon-theme                                                         8.1.0-1                                 alpm                           
 evdev                                                                         1.9.2                                   python                         
 exo                                                                           4.20.0-2                                alpm                           
@@ -86,7 +86,7 @@ gcc                                                                           15
 gcc-libs                                                                      15.1.1+r7+gf36ec88aa85a-1               alpm                           
 gdbm                                                                          1.25-1                                  alpm                           
 gdk-pixbuf2                                                                   2.42.12-2                               alpm                           
-gettext                                                                       0.25-1                                  alpm                           
+gettext                                                                       0.25.1-1                                alpm                           
 giflib                                                                        5.2.2-2                                 alpm                           
 github.com/AlecAivazis/survey/v2                                              v2.3.7                                  go-module                      
 github.com/Azure/azure-sdk-for-go/sdk/azcore                                  v1.16.0                                 go-module                      
@@ -165,13 +165,13 @@ github.com/deckarep/golang-set/v2                                             v2
 github.com/dimchansky/utfbom                                                  v1.1.1                                  go-module                      
 github.com/distribution/reference                                             v0.6.0                                  go-module     (+4 duplicates)  
 github.com/docker/buildx                                                      v0.25.0                                 go-module                      
-github.com/docker/cli                                                         v28.3.0+incompatible                    go-module                      
+github.com/docker/cli                                                         v28.3.1+incompatible                    go-module                      
 github.com/docker/cli-docs-tool                                               v0.10.0                                 go-module                      
 github.com/docker/cli/cmd/docker                                              UNKNOWN                                 go-module                      
 github.com/docker/compose/v2                                                  UNKNOWN                                 go-module                      
 github.com/docker/distribution                                                v2.8.3+incompatible                     go-module     (+1 duplicate)   
-github.com/docker/docker                                                      v28.3.0+incompatible                    go-module                      
 github.com/docker/docker                                                      v28.3.0+incompatible.dirty              go-module     (+1 duplicate)   
+github.com/docker/docker                                                      v28.3.1+incompatible                    go-module                      
 github.com/docker/docker-credential-helpers                                   v0.9.3                                  go-module                      
 github.com/docker/go                                                          v1.5.1-1.0.20160303222718-d30aec9fd63c  go-module                      
 github.com/docker/go-connections                                              v0.5.0                                  go-module     (+1 duplicate)   
@@ -194,7 +194,7 @@ github.com/go-logr/stdr                                                       v1
 github.com/go-openapi/jsonpointer                                             v0.21.0                                 go-module                      
 github.com/go-openapi/jsonreference                                           v0.20.2                                 go-module                      
 github.com/go-openapi/swag                                                    v0.23.0                                 go-module                      
-github.com/go-viper/mapstructure/v2                                           v2.0.0                                  go-module                      
+github.com/go-viper/mapstructure/v2                                           v2.3.0                                  go-module                      
 github.com/godbus/dbus/v5                                                     v5.1.0                                  go-module     (+4 duplicates)  
 github.com/gofrs/flock                                                        v0.12.1                                 go-module     (+1 duplicate)   
 github.com/gogo/protobuf                                                      v1.3.2                                  go-module     (+5 duplicates)  
@@ -256,7 +256,8 @@ github.com/mitchellh/copystructure                                            v1
 github.com/mitchellh/hashstructure/v2                                         v2.0.2                                  go-module     (+1 duplicate)   
 github.com/mitchellh/mapstructure                                             v1.5.0                                  go-module                      
 github.com/mitchellh/reflectwalk                                              v1.0.2                                  go-module                      
-github.com/moby/buildkit                                                      v0.23.1                                 go-module     (+1 duplicate)   
+github.com/moby/buildkit                                                      v0.23.1                                 go-module                      
+github.com/moby/buildkit                                                      v0.23.2                                 go-module                      
 github.com/moby/docker-image-spec                                             v1.3.1                                  go-module     (+1 duplicate)   
 github.com/moby/go-archive                                                    v0.1.0                                  go-module     (+1 duplicate)   
 github.com/moby/ipvs                                                          v1.1.0                                  go-module                      
@@ -423,7 +424,7 @@ gopkg.in/yaml.v3                                                              v3
 gpgme                                                                         2.0.0-1                                 alpm                           
 gputil                                                                        1.4.0                                   python                         
 graphene                                                                      1.10.8-2                                alpm                           
-graphite                                                                      1:1.3.14-4                              alpm                           
+graphite                                                                      1:1.3.14-5                              alpm                           
 grep                                                                          3.12-2                                  alpm                           
 groff                                                                         1.23.0-7                                alpm                           
 gsettings-desktop-schemas                                                     48.0-1                                  alpm                           
@@ -606,7 +607,7 @@ libxvmc                                                                       1.
 libxxf86vm                                                                    1.1.6-1                                 alpm                           
 libyaml                                                                       0.2.5-3                                 alpm                           
 linux-api-headers                                                             6.15-1                                  alpm                           
-linux-headers                                                                 6.15.5.arch1-1                          alpm                           
+linux-headers                                                                 6.15.6.arch1-1                          alpm                           
 llvm-libs                                                                     20.1.7-1                                alpm                           
 lm_sensors                                                                    1:3.6.2-1                               alpm                           
 lmdb                                                                          0.9.33-1                                alpm                           
@@ -661,7 +662,7 @@ perl                                                                          5.
 pillow                                                                        11.3.0                                  python                         
 pinentry                                                                      1.3.1-5                                 alpm                           
 pip                                                                           25.1.1                                  python                         
-pixelflux                                                                     1.2.0                                   python                         
+pixelflux                                                                     1.2.6                                   python                         
 pixman                                                                        0.46.2-1                                alpm                           
 pkgconf                                                                       2.5.1-1                                 alpm                           
 platformdirs                                                                  4.3.6                                   python                         
@@ -679,7 +680,7 @@ python                                                                        3.
 python-attrs                                                                  25.3.0-1                                alpm                           
 python-autocommand                                                            2.2.2-7                                 alpm                           
 python-cffi                                                                   1.17.1-2                                alpm                           
-python-cryptography                                                           45.0.4-1                                alpm                           
+python-cryptography                                                           45.0.5-1                                alpm                           
 python-filelock                                                               3.18.0-1                                alpm                           
 python-jaraco.collections                                                     5.1.0-1                                 alpm                           
 python-jaraco.context                                                         6.0.1-1                                 alpm                           
@@ -799,7 +800,7 @@ xorg-xrdb                                                                     1.
 xorg-xset                                                                     1.2.5-2                                 alpm                           
 xorgproto                                                                     2024.1-2                                alpm                           
 xsel                                                                          1.2.1-2                                 alpm                           
-xterm                                                                         400-1                                   alpm                           
+xterm                                                                         401-1                                   alpm                           
 xxhash                                                                        0.8.3-1                                 alpm                           
 xz                                                                            5.8.1-1                                 alpm                           
 zlib                                                                          1:1.3.1-2                               alpm                           
