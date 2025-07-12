@@ -56,7 +56,7 @@ app_setup_block: |
   * https://yourhost:3001/
 # init diagram
 init_diagram: |
-  "webtop:latest": {
+  "webtop:ubuntu-xfce-kasm": {
     docker-mods
     base {
       fix-attr +\nlegacy cont-init
@@ -111,9 +111,9 @@ init_diagram: |
     svc-pulseaudio -> legacy-services
   }
   Base Images: {
-    "baseimage-kasmvnc:alpine321" <- "baseimage-alpine:3.21"
+    "baseimage-kasmvnc:ubuntunoble" <- "baseimage-ubuntu:noble"
   }
-  "webtop:latest" <- Base Images
+  "webtop:ubuntu-xfce-kasm" <- Base Images
 # changelog
 changelogs:
   - {date: "10.01.25:", desc: "Rebase Fedora to 41."}
