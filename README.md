@@ -432,23 +432,4 @@ Once registered you can define the dockerfile to use with `-f Dockerfile.aarch64
 
 ## Versions
 
-* **10.01.25:** - Rebase Fedora to 41.
-* **06.12.24:** - Rebase Alpine to 3.21.
-* **26.09.24:** - Swap from firefox to chromium on Alpine images.
-* **23.05.24:** - Rebase Alpine to 3.20, document Nvidia support.
-* **22.04.24:** - Rebase Ubuntu to Noble.
-* **16.04.24:** - Add docs on PRoot Apps.
-* **14.04.24:** - Rebase Fedora to 40.
-* **11.02.24:** - Add PWA icons and title variants properly.
-* **06.02.24:** - Update Readme about native language support.
-* **29.12.23:** - Rebase Alpine to 3.19 and swap back to Firefox.
-* **07.11.23:** - Rebase Fedora to 39.
-* **14.06.23:** - Rebase to Debian Bookworm.
-* **13.05.23:** - Rebase to Alpine 3.18 and Fedora 38.
-* **23.03.23:** - Rebase all Webtops to KasmVNC base image.
-* **21.10.22:** - Rebase xfce to Alpine 3.16, migrate to s6v3.
-* **12.03.22:** - Add documentation for mounting in a GPU.
-* **05.02.22:** - Rebase KDE Ubuntu to Jammy, add new documentation for updated gclient, stop recommending priv mode.
-* **21.09.21:** - Add Fedora and Arch images, show seccomp settings in readme.
-* **26.09.21:** - Rebase to Alpine versions to 3.14.
-* **20.04.21:** - Initial release.
+* **12.07.25:** - Provide KasmVNC-based image for Ubuntu-xfce.
