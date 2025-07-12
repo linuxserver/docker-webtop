@@ -3,14 +3,17 @@ name: External Trigger Main
 on:
   workflow_dispatch:
 
+permissions:
+  contents: read
+
 jobs:
-  external-trigger-ubuntu-xfce:
+  external-trigger-ubuntu-xfce-kasm:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4.1.1
 
       - name: External Trigger
-        if: github.ref == 'refs/heads/ubuntu-xfce'
+        if: github.ref == 'refs/heads/ubuntu-xfce-kasm'
         env:
           SKIP_EXTERNAL_TRIGGER: ${{ vars.SKIP_EXTERNAL_TRIGGER }}
         run: |
@@ -18,7 +21,7 @@ jobs:
           echo "Type is \`os\`" >> $GITHUB_STEP_SUMMARY
           echo "No external release, exiting" >> $GITHUB_STEP_SUMMARY
           exit 0
-          if grep -q "^webtop_ubuntu-xfce_${EXT_RELEASE}" <<< "${SKIP_EXTERNAL_TRIGGER}"; then
+          if grep -q "^webtop_ubuntu-xfce-kasm_${EXT_RELEASE}" <<< "${SKIP_EXTERNAL_TRIGGER}"; then
             echo "> [!WARNING]" >> $GITHUB_STEP_SUMMARY
             echo "> Github organizational variable \`SKIP_EXTERNAL_TRIGGER\` matches current external release; skipping trigger." >> $GITHUB_STEP_SUMMARY
             exit 0
