@@ -12,7 +12,7 @@ fi
 setterm blank 0
 setterm powerdown 0
 
-# Direcotries
+# Directories
 sudo rm -f /usr/share/dbus-1/system-services/org.freedesktop.UDisks2.service
 mkdir -p "${HOME}/.config/autostart" "${HOME}/.XDG" "${HOME}/.local/share/"
 chmod 700 "${HOME}/.XDG"
@@ -49,6 +49,10 @@ if which nvidia-smi && [ "${DISABLE_ZINK}" == "false" ]; then
   export GALLIUM_DRIVER=zink
 fi
 
-# Stat DE
-unset LD_PRELOAD
-dbus-launch /usr/bin/startplasma-x11 > /dev/null 2>&1
+# Dbus defaults
+export XDG_RUNTIME_DIR="/tmp/xdg-runtime-${PUID}"
+mkdir -p -m700 "${XDG_RUNTIME_DIR}"
+chown -R "${PUID}:${PGID}" "${XDG_RUNTIME_DIR}"
+
+# Start DE
+exec dbus-launch --exit-with-session /usr/bin/startplasma-x11 > /dev/null 2>&1

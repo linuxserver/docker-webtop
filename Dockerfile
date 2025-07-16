@@ -8,7 +8,8 @@ LABEL maintainer="thelamer"
 ARG DEBIAN_FRONTEND="noninteractive"
 
 # title
-ENV TITLE="Ubuntu KDE"
+ENV TITLE="Ubuntu KDE" \
+    NO_GAMEPAD=true
 
 RUN \
   echo "**** add icon ****" && \
