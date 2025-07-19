@@ -12,9 +12,5 @@ setterm blank 0
 setterm powerdown 0
 gsettings set org.mate.Marco.general compositing-manager false
 
-# Dbus defaults
-export XDG_RUNTIME_DIR="/tmp/xdg-runtime-abc"
-mkdir -p -m700 "${XDG_RUNTIME_DIR}"
-
 # Start DE
 exec dbus-launch --exit-with-session /usr/bin/mate-session > /dev/null 2>&1
