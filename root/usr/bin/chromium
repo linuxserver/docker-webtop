@@ -2,6 +2,9 @@
 
 BIN=/usr/bin/chromium-browser
 
+# Bugfix for Chromium in Alpine
+export GTK_THEME=Adwaita:light
+
 # Cleanup
 if ! pgrep chromium > /dev/null;then
   rm -f $HOME/.config/chromium/Singleton*
