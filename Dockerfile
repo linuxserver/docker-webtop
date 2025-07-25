@@ -1,4 +1,4 @@
-FROM ghcr.io/linuxserver/baseimage-selkies:debianbookworm
+FROM ghcr.io/linuxserver/baseimage-selkies:debiantrixie
 
 # set version label
 ARG BUILD_DATE
@@ -26,7 +26,6 @@ RUN \
     kde-config-gtk-style \
     kdialog \
     kfind \
-    khotkeys \
     kio-extras \
     knewstuff-dialog \
     konsole \
@@ -37,7 +36,8 @@ RUN \
     plasma-desktop \
     plasma-workspace \
     qml-module-qt-labs-platform \
-    systemsettings && \
+    systemsettings \
+    xserver-xorg-input-libinput && \
   echo "**** application tweaks ****" && \
   sed -i \
     's#^Exec=.*#Exec=/usr/local/bin/wrapped-chromium#g' \
