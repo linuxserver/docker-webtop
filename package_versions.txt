@@ -3,16 +3,23 @@ acl                                                                           2.
 adobe-source-code-pro-fonts                                                   2.030.1.050-12.el9.1                    rpm                          
 adwaita-cursor-theme                                                          40.1.1-3.el9                            rpm                          
 adwaita-icon-theme                                                            40.1.1-3.el9                            rpm                          
+aiohappyeyeballs                                                              2.6.1                                   python                       
+aiohttp                                                                       3.12.14                                 python                       
+aioice                                                                        0.10.1                                  python                       
+aiosignal                                                                     1.4.0                                   python                       
 alsa-lib                                                                      1.2.13-2.el9                            rpm                          
 alternatives                                                                  1.24-2.el9                              rpm                          
+async-timeout                                                                 5.0.1                                   python                       
 at-spi2-atk                                                                   2.38.0-4.el9                            rpm                          
 at-spi2-core                                                                  2.40.3-1.el9                            rpm                          
 atk                                                                           2.36.0-5.el9                            rpm                          
 atkmm                                                                         2.28.2-2.el9                            rpm                          
 attr                                                                          2.5.1-3.el9                             rpm                          
+attrs                                                                         25.3.0                                  python                       
 audit-libs                                                                    3.1.5-4.el9                             rpm                          
 autoconf                                                                      2.69-39.el9                             rpm                          
 automake                                                                      1.16.2-8.el9                            rpm                          
+av                                                                            14.4.0                                  python                       
 avahi                                                                         0.8-22.el9_6.1                          rpm                          
 avahi-glib                                                                    0.8-22.el9_6.1                          rpm                          
 avahi-libs                                                                    0.8-22.el9_6.1                          rpm                          
@@ -31,10 +38,11 @@ caja                                                                          1.
 caja-core-extensions                                                          1.26.3-1.el9                            rpm                          
 caja-schemas                                                                  1.26.3-1.el9                            rpm                          
 catatonit                                                                     3:0.2.1-1.el9                           rpm                          
+cffi                                                                          1.17.1                                  python                       
 chardet                                                                       4.0.0                                   python                       
 checkpolicy                                                                   3.6-1.el9                               rpm                          
-chromium                                                                      138.0.7204.100-1.el9                    rpm                          
-chromium-common                                                               138.0.7204.100-1.el9                    rpm                          
+chromium                                                                      138.0.7204.157-1.el9                    rpm                          
+chromium-common                                                               138.0.7204.157-1.el9                    rpm                          
 cloud.google.com/go/compute/metadata                                          v0.6.0                                  go-module                    
 cloud.google.com/go/logging                                                   v1.9.0                                  go-module                    
 cloud.google.com/go/longrunning                                               v0.5.5                                  go-module                    
@@ -53,6 +61,7 @@ cracklib                                                                      2.
 cracklib-dicts                                                                2.9.6-27.el9                            rpm                          
 crypto-policies                                                               20250128-1.git5269e22.el9               rpm                          
 crypto-policies-scripts                                                       20250128-1.git5269e22.el9               rpm                          
+cryptography                                                                  45.0.5                                  python                       
 cryptsetup-libs                                                               2.7.2-3.el9_5                           rpm                          
 cups-libs                                                                     1:2.3.3op2-33.el9                       rpm                          
 curl                                                                          7.76.1-31.el9                           rpm                          
@@ -81,6 +90,7 @@ dmidecode                                                                     1:
 dnf                                                                           4.14.0-25.el9                           rpm                          
 dnf-data                                                                      4.14.0-25.el9                           rpm                          
 dnf-plugins-core                                                              4.3.0-20.el9                            rpm                          
+dnspython                                                                     2.7.0                                   python                       
 docker-buildx-plugin                                                          0:0.25.0-1.el9                          rpm                          
 docker-ce                                                                     3:28.3.2-1.el9                          rpm                          
 docker-ce-cli                                                                 1:28.3.2-1.el9                          rpm                          
@@ -112,6 +122,7 @@ fontconfig                                                                    2.
 fonts-filesystem                                                              1:2.0.5-7.el9.1                         rpm                          
 freetype                                                                      2.10.4-10.el9_5                         rpm                          
 fribidi                                                                       1.0.10-6.el9.2                          rpm                          
+frozenlist                                                                    1.7.0                                   python                       
 fuse-common                                                                   3.10.2-9.el9                            rpm                          
 fuse-libs                                                                     2.9.9-17.el9                            rpm                          
 fuse-overlayfs                                                                1.14-1.el9                              rpm                          
@@ -126,9 +137,9 @@ gdisk                                                                         1.
 gdk-pixbuf2                                                                   2.42.6-4.el9_4                          rpm                          
 gdk-pixbuf2-modules                                                           2.42.6-4.el9_4                          rpm                          
 giflib                                                                        5.2.1-9.el9                             rpm                          
-git                                                                           2.47.1-2.el9_6                          rpm                          
-git-core                                                                      2.47.1-2.el9_6                          rpm                          
-git-core-doc                                                                  2.47.1-2.el9_6                          rpm                          
+git                                                                           2.47.3-1.el9_6                          rpm                          
+git-core                                                                      2.47.3-1.el9_6                          rpm                          
+git-core-doc                                                                  2.47.3-1.el9_6                          rpm                          
 github.com/AlecAivazis/survey/v2                                              v2.3.7                                  go-module                    
 github.com/Azure/azure-sdk-for-go/sdk/azcore                                  v1.16.0                                 go-module                    
 github.com/Azure/azure-sdk-for-go/sdk/internal                                v1.10.0                                 go-module                    
@@ -440,8 +451,8 @@ github.com/zclconf/go-cty                                                     v1
 github.com/zmap/zcrypto                                                       v0.0.0-20210511125630-18f1e0152cfc      go-module                    
 github.com/zmap/zlint/v3                                                      v3.1.0                                  go-module                    
 glib-networking                                                               2.68.3-3.el9                            rpm                          
-glib2                                                                         2.68.4-16.el9                           rpm                          
-glib2-devel                                                                   2.68.4-16.el9                           rpm                          
+glib2                                                                         2.68.4-16.el9_6.2                       rpm                          
+glib2-devel                                                                   2.68.4-16.el9_6.2                       rpm                          
 glibc                                                                         2.34-168.0.1.el9_6.20                   rpm                          
 glibc-all-langpacks                                                           2.34-168.0.1.el9_6.20                   rpm                          
 glibc-common                                                                  2.34-168.0.1.el9_6.20                   rpm                          
@@ -515,6 +526,7 @@ golang.org/x/text                                                             v0
 golang.org/x/text                                                             v0.24.0                                 go-module  (+2 duplicates)   
 golang.org/x/time                                                             v0.0.0-20220210224613-90d013bbcef8      go-module                    
 golang.org/x/time                                                             v0.11.0                                 go-module  (+2 duplicates)   
+google-crc32c                                                                 1.7.1                                   python                       
 google-noto-cjk-fonts-common                                                  20230817-2.el9                          rpm                          
 google-noto-emoji-fonts                                                       20211102-1.el9                          rpm                          
 google-noto-fonts-common                                                      20201206-5.el9                          rpm                          
@@ -575,6 +587,7 @@ hunspell-filesystem                                                           1.
 hwdata                                                                        0.348-9.18.el9                          rpm                          
 iceauth                                                                       1.0.8-4.el9                             rpm                          
 idna                                                                          2.10                                    python                       
+ifaddr                                                                        0.2.0                                   python                       
 ima-evm-utils                                                                 1.5-3.el9                               rpm                          
 imlib2                                                                        1.7.4-1.el9                             rpm                          
 inih                                                                          49-6.el9                                rpm                          
@@ -838,6 +851,7 @@ mpfr                                                                          4.
 mpg123-libs                                                                   1.32.9-1.el9_5                          rpm                          
 msgpack                                                                       1.1.1                                   python                       
 mtdev                                                                         1.1.5-22.el9                            rpm                          
+multidict                                                                     6.6.3                                   python                       
 ncurses                                                                       6.2-10.20210508.el9                     rpm                          
 ncurses-base                                                                  6.2-10.20210508.el9                     rpm                          
 ncurses-libs                                                                  6.2-10.20210508.el9                     rpm                          
@@ -888,7 +902,7 @@ passwd                                                                        0.
 pavucontrol                                                                   4.0-8.el9                               rpm                          
 pciutils                                                                      3.7.0-7.el9                             rpm                          
 pciutils-libs                                                                 3.7.0-7.el9                             rpm                          
-pcmflux                                                                       1.0.3                                   python                       
+pcmflux                                                                       1.0.4                                   python                       
 pcre                                                                          8.44-4.el9                              rpm                          
 pcre-cpp                                                                      8.44-4.el9                              rpm                          
 pcre-devel                                                                    8.44-4.el9                              rpm                          
@@ -922,7 +936,7 @@ perl-File-stat                                                                0:
 perl-FileHandle                                                               0:2.03-481.el9                          rpm                          
 perl-Getopt-Long                                                              1:2.52-4.el9                            rpm                          
 perl-Getopt-Std                                                               0:1.12-481.el9                          rpm                          
-perl-Git                                                                      2.47.1-2.el9_6                          rpm                          
+perl-Git                                                                      2.47.3-1.el9_6                          rpm                          
 perl-HTTP-Tiny                                                                0.076-462.el9                           rpm                          
 perl-IO                                                                       0:1.43-481.el9                          rpm                          
 perl-IO-Socket-IP                                                             0.41-5.el9                              rpm                          
@@ -982,6 +996,7 @@ polkit-libs                                                                   0.
 popt                                                                          1.18-8.el9                              rpm                          
 procps-ng                                                                     3.3.17-14.0.1.el9                       rpm                          
 prometheus-client                                                             0.22.1                                  python                       
+propcache                                                                     0.3.2                                   python                       
 psmisc                                                                        23.4-3.el9                              rpm                          
 psutil                                                                        7.0.0                                   python                       
 publicsuffix-list-dafsa                                                       20210518-3.el9                          rpm                          
@@ -992,9 +1007,13 @@ pulseaudio-libs-glib2                                                         15
 pulseaudio-utils                                                              15.0-3.el9                              rpm                          
 pulsectl                                                                      24.12.0                                 python                       
 pycairo                                                                       1.20.1                                  python                       
+pycparser                                                                     2.22                                    python                       
+pyee                                                                          13.0.0                                  python                       
 pygobject                                                                     3.40.1                                  python                       
 pyinotify                                                                     0.9.6                                   python                       
+pylibsrtp                                                                     0.12.0                                  python                       
 pynput                                                                        1.8.1                                   python                       
+pyopenssl                                                                     25.1.0                                  python                       
 pysocks                                                                       1.7.1                                   python                       
 python-dateutil                                                               2.8.1                                   python                       
 python-xlib                                                                   0.33                                    python                       
@@ -1106,6 +1125,7 @@ tags.cncf.io/container-device-interface/specs-go                              v0
 tags.cncf.io/container-device-interface/specs-go                              v1.0.0                                  go-module                    
 tar                                                                           2:1.34-7.el9                            rpm                          
 tpm2-tss                                                                      3.2.3-1.el9                             rpm                          
+typing-extensions                                                             4.14.1                                  python                       
 tzdata                                                                        2025b-1.el9                             rpm                          
 udisks2                                                                       2.9.4-11.0.1.el9                        rpm                          
 urllib3                                                                       1.26.5                                  python                       
@@ -1168,6 +1188,7 @@ xterm-resize                                                                  36
 xvidcore                                                                      1.3.7-9.el9                             rpm                          
 xz                                                                            5.2.5-8.el9_0                           rpm                          
 xz-libs                                                                       5.2.5-8.el9_0                           rpm                          
+yarl                                                                          1.20.1                                  python                       
 yum                                                                           4.14.0-25.el9                           rpm                          
 yum-utils                                                                     4.3.0-20.el9                            rpm                          
 zimg                                                                          3.0.5-1.el9                             rpm                          
