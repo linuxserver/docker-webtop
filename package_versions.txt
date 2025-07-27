@@ -12,6 +12,10 @@ adobe-mappings-pdf                                                            20
 adwaita-cursor-theme                                                          48.0-1.fc42                             rpm                         
 adwaita-icon-theme                                                            48.0-1.fc42                             rpm                         
 adwaita-icon-theme-legacy                                                     46.2-3.fc42                             rpm                         
+aiohappyeyeballs                                                              2.6.1                                   python                      
+aiohttp                                                                       3.12.14                                 python                      
+aioice                                                                        0.10.1                                  python                      
+aiosignal                                                                     1.4.0                                   python                      
 alsa-lib                                                                      1.2.14-3.fc42                           rpm                         
 alsa-plugins-pulseaudio                                                       1.2.12-4.fc42                           rpm                         
 alternatives                                                                  1.33-1.fc42                             rpm                         
@@ -23,12 +27,14 @@ assimp                                                                        5.
 at-spi2-atk                                                                   2.56.3-1.fc42                           rpm                         
 at-spi2-core                                                                  2.56.3-1.fc42                           rpm                         
 atk                                                                           2.56.3-1.fc42                           rpm                         
+attrs                                                                         25.3.0                                  python                      
 audit-libs                                                                    4.0.5-2.fc42                            rpm                         
 authselect                                                                    1.5.1-1.fc42                            rpm                         
 authselect-libs                                                               1.5.1-1.fc42                            rpm                         
 autocommand                                                                   2.2.2                                   python                      
 autoconf                                                                      2.72-5.fc42                             rpm                         
 automake                                                                      1.17-2.fc42                             rpm                         
+av                                                                            14.4.0                                  python                      
 avahi                                                                         0.9~rc2-2.fc42                          rpm                         
 avahi-glib                                                                    0.9~rc2-2.fc42                          rpm                         
 avahi-libs                                                                    0.9~rc2-2.fc42                          rpm                         
@@ -48,6 +54,7 @@ cairo                                                                         1.
 cairo-gobject                                                                 1.18.2-3.fc42                           rpm                         
 catatonit                                                                     0.2.1-1.fc42                            rpm                         
 cdparanoia-libs                                                               10.2-47.fc42                            rpm                         
+cffi                                                                          1.17.1                                  python                      
 checkpolicy                                                                   3.8-1.fc42                              rpm                         
 chromium                                                                      138.0.7204.157-1.fc42                   rpm                         
 chromium-common                                                               138.0.7204.157-1.fc42                   rpm                         
@@ -68,6 +75,7 @@ cpp                                                                           15
 cpuinfo                                                                       24.09.26-2.git1e83a2f.fc42.1            rpm                         
 cracklib                                                                      2.9.11-7.fc42                           rpm                         
 crypto-policies                                                               20250707-1.gitad370a8.fc42              rpm                         
+cryptography                                                                  45.0.5                                  python                      
 cryptsetup-libs                                                               2.8.0-1.fc42                            rpm                         
 cups-filesystem                                                               1:2.4.12-3.fc42                         rpm                         
 cups-libs                                                                     1:2.4.12-3.fc42                         rpm                         
@@ -94,6 +102,7 @@ dnf                                                                           4.
 dnf-data                                                                      4.23.0-1.fc42                           rpm                         
 dnf5                                                                          5.2.13.1-1.fc42                         rpm                         
 dnf5-plugins                                                                  5.2.13.1-1.fc42                         rpm                         
+dnspython                                                                     2.7.0                                   python                      
 docbook-dtds                                                                  1.0-88.fc42                             rpm                         
 docbook-style-xsl                                                             1.79.2-24.fc42                          rpm                         
 docker-cli                                                                    28.3.2-1.fc42                           rpm                         
@@ -136,6 +145,7 @@ fontconfig                                                                    2.
 fonts-filesystem                                                              1:2.0.5-22.fc42                         rpm                         
 freetype                                                                      2.13.3-2.fc42                           rpm                         
 fribidi                                                                       1.0.16-2.fc42                           rpm                         
+frozenlist                                                                    1.7.0                                   python                      
 fuse-common                                                                   3.16.2-5.fc42                           rpm                         
 fuse-overlayfs                                                                1.13-3.fc42                             rpm                         
 fuse3                                                                         3.16.2-5.fc42                           rpm                         
@@ -397,12 +407,12 @@ github.com/xrash/smetrics                                                     v0
 github.com/zmap/zcrypto                                                       v0.0.0-20210511125630-18f1e0152cfc      go-module                   
 github.com/zmap/zlint/v3                                                      v3.1.0                                  go-module                   
 glib2                                                                         2.84.3-1.fc42                           rpm                         
-glibc                                                                         2.41-8.fc42                             rpm                         
-glibc-all-langpacks                                                           2.41-8.fc42                             rpm                         
-glibc-common                                                                  2.41-8.fc42                             rpm                         
-glibc-gconv-extra                                                             2.41-8.fc42                             rpm                         
-glibc-locale-source                                                           2.41-8.fc42                             rpm                         
-glibc-minimal-langpack                                                        2.41-8.fc42                             rpm                         
+glibc                                                                         2.41-9.fc42                             rpm                         
+glibc-all-langpacks                                                           2.41-9.fc42                             rpm                         
+glibc-common                                                                  2.41-9.fc42                             rpm                         
+glibc-gconv-extra                                                             2.41-9.fc42                             rpm                         
+glibc-locale-source                                                           2.41-9.fc42                             rpm                         
+glibc-minimal-langpack                                                        2.41-9.fc42                             rpm                         
 glx-utils                                                                     9.0.0-9.fc42                            rpm                         
 gmp                                                                           1:6.3.0-4.fc42                          rpm                         
 gnupg2                                                                        2.4.7-2.fc42                            rpm                         
@@ -467,6 +477,7 @@ golang.org/x/text                                                             v0
 golang.org/x/time                                                             v0.11.0                                 go-module  (+1 duplicate)   
 golang.org/x/time                                                             v0.3.0                                  go-module                   
 google-crc32c                                                                 1.1.2-11.fc42                           rpm                         
+google-crc32c                                                                 1.7.1                                   python                      
 google-droid-sans-fonts                                                       20200215-22.fc42                        rpm                         
 google-noto-emoji-fonts                                                       20241008-2.fc42                         rpm                         
 google-noto-fonts-common                                                      20250301-1.fc42                         rpm                         
@@ -492,8 +503,8 @@ gperftools-libs                                                               2.
 gpg-pubkey                                                                    105ef944-65ca83d1                       rpm                         
 gpg-pubkey                                                                    94843c65-5dadbc64                       rpm                         
 gpg-pubkey                                                                    d651ff2e-5dadbbc1                       rpm                         
-gpgme                                                                         1.24.2-1.fc42                           rpm                         
-gpgmepp                                                                       1.24.2-1.fc42                           rpm                         
+gpgme                                                                         1.24.3-1.fc42                           rpm                         
+gpgmepp                                                                       1.24.3-1.fc42                           rpm                         
 gpsd-libs                                                                     1:3.25-16.fc42                          rpm                         
 gputil                                                                        1.4.0                                   python                      
 graphene                                                                      1.10.6-10.fc42                          rpm                         
@@ -522,6 +533,8 @@ hunspell-filesystem                                                           1.
 hwdata                                                                        0.397-1.fc42                            rpm                         
 i2c-tools                                                                     4.4-1.fc42                              rpm                         
 ibus-libs                                                                     1.5.32-1.fc42                           rpm                         
+idna                                                                          3.10                                    python                      
+ifaddr                                                                        0.2.0                                   python                      
 ilbc                                                                          3.0.4-13.fc42                           rpm                         
 ima-evm-utils-libs                                                            1.6.2-4.fc42                            rpm                         
 imath                                                                         3.1.12-2.fc42                           rpm                         
@@ -836,7 +849,7 @@ libidn2                                                                       2.
 libijs                                                                        0.35-24.fc42                            rpm                         
 libimobiledevice                                                              1.3.0^20240916gited9703d-5.fc42         rpm                         
 libimobiledevice-glue                                                         1.3.1-2.fc42                            rpm                         
-libinput                                                                      1.28.902-1.fc42                         rpm                         
+libinput                                                                      1.28.903-1.fc42                         rpm                         
 libjpeg-turbo                                                                 3.1.0-2.fc42                            rpm                         
 libjxl                                                                        1:0.11.1-2.fc42                         rpm                         
 libkexiv2-qt6                                                                 25.04.3-1.fc42                          rpm                         
@@ -899,7 +912,7 @@ libsmartcols                                                                  2.
 libsmbclient                                                                  2:4.22.3-2.fc42                         rpm                         
 libsndfile                                                                    1.2.2-8.fc42                            rpm                         
 libsodium                                                                     1.0.20-4.fc42                           rpm                         
-libsolv                                                                       0.7.33-1.fc42                           rpm                         
+libsolv                                                                       0.7.34-1.fc42                           rpm                         
 libsoup3                                                                      3.6.5-1.fc42                            rpm                         
 libspectre                                                                    0.2.12-9.fc42                           rpm                         
 libssh                                                                        0.11.2-1.fc42                           rpm                         
@@ -988,6 +1001,7 @@ mpfr                                                                          4.
 mpg123-libs                                                                   1.32.10-1.fc42                          rpm                         
 msgpack                                                                       1.1.1                                   python                      
 mtdev                                                                         1.1.6-10.fc42                           rpm                         
+multidict                                                                     6.6.3                                   python                      
 ncurses                                                                       6.5-5.20250125.fc42                     rpm                         
 ncurses-base                                                                  6.5-5.20250125.fc42                     rpm                         
 ncurses-libs                                                                  6.5-5.20250125.fc42                     rpm                         
@@ -1035,7 +1049,7 @@ pango                                                                         1.
 pasimple                                                                      0.0.3                                   python                      
 pciutils                                                                      3.14.0-1.fc42                           rpm                         
 pciutils-libs                                                                 3.14.0-1.fc42                           rpm                         
-pcmflux                                                                       1.0.3                                   python                      
+pcmflux                                                                       1.0.4                                   python                      
 pcre2                                                                         10.45-1.fc42                            rpm                         
 pcre2-syntax                                                                  10.45-1.fc42                            rpm                         
 pcre2-utf16                                                                   10.45-1.fc42                            rpm                         
@@ -1117,7 +1131,7 @@ pillow                                                                        11
 pinentry                                                                      1.3.1-3.fc42                            rpm                         
 pinentry-gnome3                                                               1.3.1-3.fc42                            rpm                         
 pip                                                                           24.3.1                                  python                      
-pipewire-libs                                                                 1.4.6-1.fc42                            rpm                         
+pipewire-libs                                                                 1.4.7-1.fc42                            rpm                         
 pixelflux                                                                     1.3.0                                   python                      
 pixman                                                                        0.46.2-1.fc42                           rpm                         
 pkgconf                                                                       2.3.0-2.fc42                            rpm                         
@@ -1157,6 +1171,7 @@ popt                                                                          1.
 powerdevil                                                                    6.4.3-1.fc42                            rpm                         
 procps-ng                                                                     4.0.4-6.fc42                            rpm                         
 prometheus-client                                                             0.22.1                                  python                      
+propcache                                                                     0.3.2                                   python                      
 protobuf-c                                                                    1.5.1-1.fc42                            rpm                         
 psutil                                                                        7.0.0                                   python                      
 publicsuffix-list-dafsa                                                       20250616-1.fc42                         rpm                         
@@ -1167,8 +1182,12 @@ pulseaudio-libs-glib2                                                         17
 pulseaudio-utils                                                              17.0-5.fc42                             rpm                         
 pulsectl                                                                      24.12.0                                 python                      
 pycairo                                                                       1.25.1                                  python                      
+pycparser                                                                     2.22                                    python                      
+pyee                                                                          13.0.0                                  python                      
 pygobject                                                                     3.50.0                                  python                      
+pylibsrtp                                                                     0.12.0                                  python                      
 pynput                                                                        1.8.1                                   python                      
+pyopenssl                                                                     25.1.0                                  python                      
 python-pip-wheel                                                              24.3.1-2.fc42                           rpm                         
 python-unversioned-command                                                    3.13.5-1.fc42                           rpm                         
 python-xlib                                                                   0.33                                    python                      
@@ -1265,8 +1284,8 @@ sdl12-compat                                                                  1.
 sdl2-compat                                                                   2.32.56-1.fc42                          rpm                         
 sed                                                                           4.9-4.fc42                              rpm                         
 selinux                                                                       3.8                                     python                      
-selinux-policy                                                                41.45-1.fc42                            rpm                         
-selinux-policy-targeted                                                       41.45-1.fc42                            rpm                         
+selinux-policy                                                                42.2-1.fc42                             rpm                         
+selinux-policy-targeted                                                       42.2-1.fc42                             rpm                         
 selkies                                                                       0.0.0                                   python                      
 sepolicy                                                                      3.8                                     python                      
 serd                                                                          0.32.4-1.fc42                           rpm                         
@@ -1322,6 +1341,7 @@ tslib                                                                         1.
 twolame-libs                                                                  0.4.0-6.fc42                            rpm                         
 typeguard                                                                     4.3.0                                   python                      
 typing-extensions                                                             4.12.2                                  python                      
+typing-extensions                                                             4.14.1                                  python                      
 tzdata                                                                        2025b-1.fc42                            rpm                         
 unbound-anchor                                                                1.23.1-1.fc42                           rpm                         
 unbound-libs                                                                  1.23.1-1.fc42                           rpm                         
@@ -1342,9 +1362,9 @@ urw-base35-z003-fonts                                                         20
 util-linux                                                                    2.40.4-7.fc42                           rpm                         
 util-linux-core                                                               2.40.4-7.fc42                           rpm                         
 vid.stab                                                                      1.1.1-5.fc42                            rpm                         
-vim-data                                                                      2:9.1.1537-1.fc42                       rpm                         
+vim-data                                                                      2:9.1.1552-1.fc42                       rpm                         
 vim-filesystem                                                                2:9.1.1552-1.fc42                       rpm                         
-vim-minimal                                                                   2:9.1.1537-1.fc42                       rpm                         
+vim-minimal                                                                   2:9.1.1552-1.fc42                       rpm                         
 vo-amrwbenc                                                                   0.1.3-22.fc42                           rpm                         
 vulkan-loader                                                                 1.4.313.0-1.fc42                        rpm                         
 vulkan-tools                                                                  1.4.313.0-1.fc42                        rpm                         
@@ -1398,6 +1418,7 @@ xterm                                                                         39
 xvidcore                                                                      1.3.7-13.fc42                           rpm                         
 xz                                                                            1:5.8.1-2.fc42                          rpm                         
 xz-libs                                                                       1:5.8.1-2.fc42                          rpm                         
+yarl                                                                          1.20.1                                  python                      
 zchunk-libs                                                                   1.5.1-2.fc42                            rpm                         
 zeromq                                                                        4.3.5-21.fc42                           rpm                         
 zimg                                                                          3.0.5-3.fc41                            rpm                         
