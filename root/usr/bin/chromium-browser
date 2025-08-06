@@ -1,0 +1,18 @@
+#! /bin/bash
+
+BIN=/usr/lib/chromium/chromium-launcher.sh
+
+# Bugfix for Chromium in Alpine
+export GTK_THEME=Adwaita:light
+
+# Cleanup
+if ! pgrep chromium > /dev/null;then
+  rm -f $HOME/.config/chromium/Singleton*
+fi
+
+# Run normally on privved containers or modified un non priv
+if grep -q 'Seccomp:.0' /proc/1/status; then
+  ${BIN} --no-first-run --password-store=basic "$@"
+else
+  ${BIN} --no-first-run --password-store=basic --no-sandbox --test-type "$@"
+fi
