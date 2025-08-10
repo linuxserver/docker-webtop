@@ -14,7 +14,7 @@ alsa-lib                                                                      1.
 alsa-topology-conf                                                            1.2.5.1-4                                  alpm                           
 alsa-ucm-conf                                                                 1.2.14-2                                   alpm                           
 amdvlk                                                                        2025.Q2.1-1                                alpm                           
-archlinux-keyring                                                             20250716-1                                 alpm                           
+archlinux-keyring                                                             20250807.1-1                               alpm                           
 at-spi2-core                                                                  2.56.4-1                                   alpm                           
 attr                                                                          2.5.2-1                                    alpm                           
 attrs                                                                         25.3.0                                     python                         
@@ -72,7 +72,7 @@ device-mapper                                                                 2.
 diffutils                                                                     3.12-2                                     alpm                           
 dnspython                                                                     2.7.0                                      python                         
 docker                                                                        1:28.3.3-1                                 alpm                           
-docker-compose                                                                2.39.1-1                                   alpm                           
+docker-compose                                                                2.39.2-1                                   alpm                           
 duktape                                                                       2.7.0-7                                    alpm                           
 dunst                                                                         1.12.2-1                                   alpm                           
 e2fsprogs                                                                     1.47.3-1                                   alpm                           
@@ -82,7 +82,7 @@ exo                                                                           4.
 expat                                                                         2.7.1-1                                    alpm                           
 fakeroot                                                                      1.37.1.2-1                                 alpm                           
 fftw                                                                          3.3.10-7                                   alpm                           
-file                                                                          5.46-4                                     alpm                           
+file                                                                          5.46-5                                     alpm                           
 filesystem                                                                    2025.05.03-1                               alpm                           
 findutils                                                                     4.10.0-3                                   alpm                           
 flac                                                                          1.5.0-1                                    alpm                           
@@ -153,7 +153,8 @@ github.com/containerd/console                                                 v1
 github.com/containerd/console                                                 v1.0.5                                     go-module     (+1 duplicate)   
 github.com/containerd/containerd/api                                          v1.9.0                                     go-module     (+5 duplicates)  
 github.com/containerd/containerd/v2                                           v0.0.0-20250730184543-75cb2b7193e4         go-module     (+3 duplicates)  
-github.com/containerd/containerd/v2                                           v2.1.3                                     go-module     (+1 duplicate)   
+github.com/containerd/containerd/v2                                           v2.1.3                                     go-module                      
+github.com/containerd/containerd/v2                                           v2.1.4                                     go-module                      
 github.com/containerd/continuity                                              v0.4.5                                     go-module     (+5 duplicates)  
 github.com/containerd/errdefs                                                 v1.0.0                                     go-module     (+5 duplicates)  
 github.com/containerd/errdefs/pkg                                             v0.3.0                                     go-module     (+5 duplicates)  
@@ -180,16 +181,17 @@ github.com/deckarep/golang-set/v2                                             v2
 github.com/dimchansky/utfbom                                                  v1.1.1                                     go-module                      
 github.com/distribution/reference                                             v0.6.0                                     go-module     (+4 duplicates)  
 github.com/docker/buildx                                                      v0.26.1                                    go-module                      
-github.com/docker/cli                                                         v28.3.2+incompatible                       go-module                      
+github.com/docker/cli                                                         v28.3.3+incompatible                       go-module                      
 github.com/docker/cli-docs-tool                                               v0.10.0                                    go-module                      
 github.com/docker/cli/cmd/docker                                              UNKNOWN                                    go-module                      
 github.com/docker/compose/v2                                                  UNKNOWN                                    go-module                      
 github.com/docker/distribution                                                v2.8.3+incompatible                        go-module     (+1 duplicate)   
-github.com/docker/docker                                                      v28.3.2+incompatible                       go-module                      
+github.com/docker/docker                                                      v28.3.3+incompatible                       go-module                      
 github.com/docker/docker                                                      v28.3.3+incompatible.dirty                 go-module     (+1 duplicate)   
 github.com/docker/docker-credential-helpers                                   v0.9.3                                     go-module                      
 github.com/docker/go                                                          v1.5.1-1.0.20160303222718-d30aec9fd63c     go-module                      
-github.com/docker/go-connections                                              v0.5.0                                     go-module     (+1 duplicate)   
+github.com/docker/go-connections                                              v0.5.0                                     go-module                      
+github.com/docker/go-connections                                              v0.6.0                                     go-module                      
 github.com/docker/go-events                                                   v0.0.0-20190806004212-e31b211e4f1c         go-module     (+1 duplicate)   
 github.com/docker/go-metrics                                                  v0.0.1                                     go-module     (+3 duplicates)  
 github.com/docker/go-units                                                    v0.5.0                                     go-module     (+5 duplicates)  
@@ -424,7 +426,7 @@ golang.org/x/sync                                                             v0
 golang.org/x/sync                                                             v0.16.0                                    go-module                      
 golang.org/x/sys                                                              v0.30.0                                    go-module                      
 golang.org/x/sys                                                              v0.33.0                                    go-module     (+5 duplicates)  
-golang.org/x/sys                                                              v0.34.0                                    go-module                      
+golang.org/x/sys                                                              v0.35.0                                    go-module                      
 golang.org/x/term                                                             v0.30.0                                    go-module                      
 golang.org/x/term                                                             v0.32.0                                    go-module                      
 golang.org/x/text                                                             v0.23.0                                    go-module     (+2 duplicates)  
@@ -559,7 +561,7 @@ libmnl                                                                        1.
 libmpc                                                                        1.3.1-2                                    alpm                           
 libnetfilter_conntrack                                                        1.0.9-2                                    alpm                           
 libnfnetlink                                                                  1.0.2-2                                    alpm                           
-libnftnl                                                                      1.2.9-1                                    alpm                           
+libnftnl                                                                      1.3.0-1                                    alpm                           
 libnghttp2                                                                    1.66.0-1                                   alpm                           
 libnghttp3                                                                    1.11.0-1                                   alpm                           
 libnl                                                                         3.11.0-1                                   alpm                           
@@ -695,7 +697,7 @@ pcre2                                                                         10
 pcsclite                                                                      2.3.3-1                                    alpm                           
 perl                                                                          5.42.0-1                                   alpm                           
 pillow                                                                        11.3.0                                     python                         
-pinentry                                                                      1.3.1-5                                    alpm                           
+pinentry                                                                      1.3.2-1                                    alpm                           
 pip                                                                           25.1.1                                     python                         
 pixelflux                                                                     1.3.1                                      python                         
 pixman                                                                        0.46.4-1                                   alpm                           
@@ -736,15 +738,16 @@ speexdsp                                                                      1.
 spice                                                                         0.16.0-2                                   alpm                           
 spice-protocol                                                                0.14.5-1                                   alpm                           
 spirv-tools                                                                   1:1.4.321.0-1                              alpm                           
-sqlite                                                                        3.50.3-1                                   alpm                           
+sqlite                                                                        3.50.4-1                                   alpm                           
 st                                                                            0.9.2-1                                    alpm                           
 st-debug                                                                      0.9.2-1                                    alpm                           
 startup-notification                                                          0.12-8                                     alpm                           
 stdlib                                                                        go1.24.2                                   go-module     (+1 duplicate)   
-stdlib                                                                        go1.24.5                                   go-module     (+7 duplicates)  
+stdlib                                                                        go1.24.5                                   go-module     (+6 duplicates)  
+stdlib                                                                        go1.24.6                                   go-module                      
 sudo                                                                          1.9.17.p1-1                                alpm                           
-systemd                                                                       257.7-2                                    alpm                           
-systemd-libs                                                                  257.7-2                                    alpm                           
+systemd                                                                       257.8-2                                    alpm                           
+systemd-libs                                                                  257.8-2                                    alpm                           
 tags.cncf.io/container-device-interface                                       v1.0.1                                     go-module     (+3 duplicates)  
 tags.cncf.io/container-device-interface/specs-go                              v1.0.0                                     go-module     (+2 duplicates)  
 tar                                                                           1.35-2                                     alpm                           
