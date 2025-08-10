@@ -32,7 +32,7 @@ backports-tarfile                                                             1.
 basesystem                                                                    11-22.fc42                              rpm                         
 bash                                                                          5.2.37-1.fc42                           rpm                         
 bluez-libs                                                                    5.83-2.fc42                             rpm                         
-breeze-cursor-theme                                                           6.4.3-1.fc42                            rpm                         
+breeze-cursor-theme                                                           6.4.4-1.fc42                            rpm                         
 busybox                                                                       1:1.37.0-2.fc42                         rpm                         
 bzip2                                                                         1.0.8-20.fc42                           rpm                         
 bzip2-libs                                                                    1.0.8-20.fc42                           rpm                         
@@ -44,8 +44,8 @@ catatonit                                                                     0.
 cdparanoia-libs                                                               10.2-47.fc42                            rpm                         
 cffi                                                                          1.17.1                                  python                      
 checkpolicy                                                                   3.8-1.fc42                              rpm                         
-chromium                                                                      138.0.7204.183-1.fc42                   rpm                         
-chromium-common                                                               138.0.7204.183-1.fc42                   rpm                         
+chromium                                                                      139.0.7258.66-1.fc42                    rpm                         
+chromium-common                                                               139.0.7258.66-1.fc42                    rpm                         
 cli                                                                           UNKNOWN                                 binary                      
 cli-32                                                                        UNKNOWN                                 binary                      
 cli-64                                                                        UNKNOWN                                 binary                      
@@ -59,8 +59,8 @@ cmake-filesystem                                                              3.
 code.cloudfoundry.org/clock                                                   v1.1.0                                  go-module                   
 codec2                                                                        1.2.0-6.fc42                            rpm                         
 colord-libs                                                                   1.4.7-6.fc42                            rpm                         
-container-selinux                                                             4:2.239.0-1.fc42                        rpm                         
-containerd                                                                    2.0.5-2.fc42                            rpm                         
+container-selinux                                                             4:2.240.0-1.fc42                        rpm                         
+containerd                                                                    2.0.6-1.fc42                            rpm                         
 coreutils                                                                     9.6-5.fc42                              rpm                         
 coreutils-common                                                              9.6-5.fc42                              rpm                         
 cpp                                                                           15.1.1-2.fc42                           rpm                         
@@ -97,7 +97,7 @@ dnf-data                                                                      4.
 dnf5                                                                          5.2.15.0-2.fc42                         rpm                         
 dnf5-plugins                                                                  5.2.15.0-2.fc42                         rpm                         
 dnspython                                                                     2.7.0                                   python                      
-docker-cli                                                                    28.3.2-1.fc42                           rpm                         
+docker-cli                                                                    28.3.3-1.fc42                           rpm                         
 docker-compose                                                                2.39.1-1.fc42                           rpm                         
 double-conversion                                                             3.3.1-1.fc42                            rpm                         
 duktape                                                                       2.7.0-9.fc42                            rpm                         
@@ -197,7 +197,7 @@ github.com/containerd/console                                                 v1
 github.com/containerd/console                                                 v1.0.5                                  go-module                   
 github.com/containerd/containerd/api                                          v1.8.0                                  go-module  (+3 duplicates)  
 github.com/containerd/containerd/api                                          v1.9.0                                  go-module                   
-github.com/containerd/containerd/v2                                           v2.0.5                                  go-module  (+3 duplicates)  
+github.com/containerd/containerd/v2                                           v2.0.6                                  go-module  (+3 duplicates)  
 github.com/containerd/containerd/v2                                           v2.1.3                                  go-module                   
 github.com/containerd/continuity                                              v0.4.4                                  go-module  (+3 duplicates)  
 github.com/containerd/continuity                                              v0.4.5                                  go-module                   
@@ -227,12 +227,12 @@ github.com/davecgh/go-spew                                                    v1
 github.com/deckarep/golang-set/v2                                             v2.3.0                                  go-module                   
 github.com/dimchansky/utfbom                                                  v1.1.1                                  go-module                   
 github.com/distribution/reference                                             v0.6.0                                  go-module  (+4 duplicates)  
-github.com/docker/cli                                                         v28.3.2                                 go-module                   
+github.com/docker/cli                                                         v28.3.3                                 go-module                   
 github.com/docker/cli-docs-tool                                               v0.10.0                                 go-module                   
 github.com/docker/compose/v2/cmd                                              UNKNOWN                                 go-module                   
 github.com/docker/distribution                                                v2.8.3+incompatible                     go-module  (+1 duplicate)   
 github.com/docker/docker                                                      v28.3.1+incompatible                    go-module                   
-github.com/docker/docker                                                      v28.3.2                                 go-module  (+1 duplicate)   
+github.com/docker/docker                                                      v28.3.3                                 go-module  (+1 duplicate)   
 github.com/docker/docker-credential-helpers                                   v0.9.3                                  go-module                   
 github.com/docker/go                                                          v1.5.1-1.0.20160303222718-d30aec9fd63c  go-module                   
 github.com/docker/go-connections                                              v0.5.0                                  go-module  (+1 duplicate)   
@@ -445,27 +445,27 @@ go.opentelemetry.io/proto/otlp                                                v1
 go.uber.org/atomic                                                            v1.9.0                                  go-module                   
 go.uber.org/multierr                                                          v1.8.0                                  go-module                   
 go.uber.org/zap                                                               v1.21.0                                 go-module                   
-golang.org/x/crypto                                                           v0.36.0                                 go-module                   
 golang.org/x/crypto                                                           v0.37.0                                 go-module  (+1 duplicate)   
-golang.org/x/exp                                                              v0.0.0-20231214170342-aacd6d4b4611      go-module  (+2 duplicates)  
-golang.org/x/mod                                                              v0.21.0                                 go-module  (+1 duplicate)   
+golang.org/x/crypto                                                           v0.40.0                                 go-module                   
+golang.org/x/exp                                                              v0.0.0-20250711185948-6ae5c78190dc      go-module  (+2 duplicates)  
 golang.org/x/mod                                                              v0.24.0                                 go-module                   
+golang.org/x/mod                                                              v0.26.0                                 go-module  (+1 duplicate)   
 golang.org/x/net                                                              v0.35.0                                 go-module                   
-golang.org/x/net                                                              v0.37.0                                 go-module  (+3 duplicates)  
 golang.org/x/net                                                              v0.39.0                                 go-module  (+2 duplicates)  
-golang.org/x/oauth2                                                           v0.28.0                                 go-module                   
+golang.org/x/net                                                              v0.42.0                                 go-module  (+3 duplicates)  
 golang.org/x/oauth2                                                           v0.29.0                                 go-module                   
-golang.org/x/sync                                                             v0.12.0                                 go-module  (+3 duplicates)  
+golang.org/x/oauth2                                                           v0.30.0                                 go-module                   
 golang.org/x/sync                                                             v0.14.0                                 go-module  (+1 duplicate)   
+golang.org/x/sync                                                             v0.16.0                                 go-module  (+3 duplicates)  
 golang.org/x/sys                                                              v0.30.0                                 go-module                   
-golang.org/x/sys                                                              v0.31.0                                 go-module  (+3 duplicates)  
 golang.org/x/sys                                                              v0.33.0                                 go-module  (+2 duplicates)  
-golang.org/x/term                                                             v0.30.0                                 go-module                   
+golang.org/x/sys                                                              v0.34.0                                 go-module  (+3 duplicates)  
 golang.org/x/term                                                             v0.31.0                                 go-module                   
-golang.org/x/text                                                             v0.23.0                                 go-module  (+2 duplicates)  
+golang.org/x/term                                                             v0.33.0                                 go-module                   
 golang.org/x/text                                                             v0.24.0                                 go-module  (+1 duplicate)   
+golang.org/x/text                                                             v0.27.0                                 go-module  (+2 duplicates)  
 golang.org/x/time                                                             v0.11.0                                 go-module  (+1 duplicate)   
-golang.org/x/time                                                             v0.3.0                                  go-module                   
+golang.org/x/time                                                             v0.12.0                                 go-module                   
 google-crc32c                                                                 1.1.2-11.fc42                           rpm                         
 google-crc32c                                                                 1.7.1                                   python                      
 google-droid-sans-fonts                                                       20200215-22.fc42                        rpm                         
@@ -507,7 +507,7 @@ gsm                                                                           1.
 gspell                                                                        1.14.0-3.fc42                           rpm                         
 gssdp                                                                         1.6.4-1.fc42                            rpm                         
 gstreamer1                                                                    1.26.3-1.fc42                           rpm                         
-gstreamer1-plugins-bad-free-libs                                              1.26.3-1.fc42                           rpm                         
+gstreamer1-plugins-bad-free-libs                                              1.26.5-1.fc42                           rpm                         
 gstreamer1-plugins-base                                                       1.26.3-1.fc42                           rpm                         
 gtk-layer-shell                                                               0.9.2-1.fc42                            rpm                         
 gtk-murrine-engine                                                            0.98.2-32.fc42                          rpm                         
@@ -535,7 +535,7 @@ hostname                                                                      3.
 hunspell                                                                      1.7.2-9.fc42                            rpm                         
 hunspell-en-US                                                                0.20201207-11.fc42                      rpm                         
 hunspell-filesystem                                                           1.7.2-9.fc42                            rpm                         
-hwdata                                                                        0.397-1.fc42                            rpm                         
+hwdata                                                                        0.398-1.fc42                            rpm                         
 iceauth                                                                       1.0.10-2.fc42                           rpm                         
 idna                                                                          3.10                                    python                      
 ifaddr                                                                        0.2.0                                   python                      
@@ -822,8 +822,8 @@ mesa-libgbm                                                                   25
 mesa-va-drivers                                                               25.1.4-2.fc42                           rpm                         
 mesa-vulkan-drivers                                                           25.1.4-2.fc42                           rpm                         
 mkfontscale                                                                   1.2.3-2.fc42                            rpm                         
-moby-engine                                                                   28.3.2-1.fc42                           rpm                         
-moby-filesystem                                                               28.3.2-1.fc42                           rpm                         
+moby-engine                                                                   28.3.3-1.fc42                           rpm                         
+moby-filesystem                                                               28.3.3-1.fc42                           rpm                         
 more-itertools                                                                10.3.0                                  python     (+1 duplicate)   
 mousepad                                                                      0.6.5-1.fc42                            rpm                         
 mpdecimal                                                                     4.0.1-1.fc42                            rpm                         
@@ -1064,9 +1064,8 @@ sratom                                                                        0.
 srt-libs                                                                      1.5.4-2.fc42                            rpm                         
 st                                                                            0.9.2-2.fc42                            rpm                         
 startup-notification                                                          0.12-31.fc42                            rpm                         
-stdlib                                                                        go1.24.2                                go-module  (+4 duplicates)  
-stdlib                                                                        go1.24.4                                go-module  (+2 duplicates)  
-stdlib                                                                        go1.24.5                                go-module                   
+stdlib                                                                        go1.24.2                                go-module                   
+stdlib                                                                        go1.24.5                                go-module  (+7 duplicates)  
 sudo                                                                          1.9.17-2.p1.fc42                        rpm                         
 svt-av1-libs                                                                  2.3.0-1.fc42                            rpm                         
 systemd                                                                       257.7-1.fc42                            rpm                         
