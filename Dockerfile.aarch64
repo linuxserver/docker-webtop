@@ -15,12 +15,7 @@ RUN \
     /usr/share/selkies/www/icon.png \
     https://raw.githubusercontent.com/linuxserver/docker-templates/master/linuxserver.io/img/webtop-logo.png && \
   echo "**** install packages ****" && \
-  apt-key adv \
-    --keyserver hkp://keyserver.ubuntu.com:80 \
-    --recv-keys 5301FA4FD93244FBC6F6149982BB6851C64F6880 && \
-  echo \
-    "deb https://ppa.launchpadcontent.net/xtradeb/apps/ubuntu noble main" > \
-    /etc/apt/sources.list.d/xtradeb.list && \
+  add-apt-repository ppa:xtradeb/apps && \
   apt-get update && \
   DEBIAN_FRONTEND=noninteractive \
   apt-get install --no-install-recommends -y \
