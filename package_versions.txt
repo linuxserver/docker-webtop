@@ -44,8 +44,8 @@ catatonit                                                                     0.
 cdparanoia-libs                                                               10.2-47.fc42                            rpm                         
 cffi                                                                          1.17.1                                  python                      
 checkpolicy                                                                   3.8-1.fc42                              rpm                         
-chromium                                                                      139.0.7258.66-1.fc42                    rpm                         
-chromium-common                                                               139.0.7258.66-1.fc42                    rpm                         
+chromium                                                                      139.0.7258.127-1.fc42                   rpm                         
+chromium-common                                                               139.0.7258.127-1.fc42                   rpm                         
 cli                                                                           UNKNOWN                                 binary                      
 cli-32                                                                        UNKNOWN                                 binary                      
 cli-64                                                                        UNKNOWN                                 binary                      
@@ -98,7 +98,7 @@ dnf5                                                                          5.
 dnf5-plugins                                                                  5.2.15.0-2.fc42                         rpm                         
 dnspython                                                                     2.7.0                                   python                      
 docker-cli                                                                    28.3.3-1.fc42                           rpm                         
-docker-compose                                                                2.39.1-1.fc42                           rpm                         
+docker-compose                                                                2.39.2-1.fc42                           rpm                         
 double-conversion                                                             3.3.1-1.fc42                            rpm                         
 duktape                                                                       2.7.0-9.fc42                            rpm                         
 dunst                                                                         1.12.2-1.fc42                           rpm                         
@@ -562,7 +562,7 @@ jq                                                                            1.
 json-c                                                                        0.18-2.fc42                             rpm                         
 json-glib                                                                     1.10.6-2.fc42                           rpm                         
 jsoncpp                                                                       1.9.6-1.fc42                            rpm                         
-jxl-pixbuf-loader                                                             1:0.11.1-2.fc42                         rpm                         
+jxl-pixbuf-loader                                                             1:0.11.1-4.fc42                         rpm                         
 k8s.io/api                                                                    v0.31.2                                 go-module                   
 k8s.io/apimachinery                                                           v0.31.2                                 go-module  (+2 duplicates)  
 k8s.io/apiserver                                                              v0.31.2                                 go-module                   
@@ -698,7 +698,7 @@ libidn2                                                                       2.
 libijs                                                                        0.35-24.fc42                            rpm                         
 libinput                                                                      1.29.0-1.fc42                           rpm                         
 libjpeg-turbo                                                                 3.1.0-2.fc42                            rpm                         
-libjxl                                                                        1:0.11.1-2.fc42                         rpm                         
+libjxl                                                                        1:0.11.1-4.fc42                         rpm                         
 libksba                                                                       1.6.7-3.fc42                            rpm                         
 liblc3                                                                        1.1.3-1.fc42                            rpm                         
 libldac                                                                       2.0.2.3-17.fc42                         rpm                         
@@ -759,7 +759,7 @@ libtdb                                                                        1.
 libtevent                                                                     0.16.2-2.fc42                           rpm                         
 libthai                                                                       0.1.29-10.fc42                          rpm                         
 libtheora                                                                     1:1.1.1-39.fc42                         rpm                         
-libtiff                                                                       4.7.0-6.fc42                            rpm                         
+libtiff                                                                       4.7.0-7.fc42                            rpm                         
 libtinysparql                                                                 3.9.2-1.fc42                            rpm                         
 libtirpc                                                                      1.3.6-1.rc3.fc42.2                      rpm                         
 libtool-ltdl                                                                  2.5.4-4.fc42                            rpm                         
@@ -768,7 +768,7 @@ libudisks2                                                                    2.
 libunibreak                                                                   6.1-3.fc42                              rpm                         
 libunistring                                                                  1.1-9.fc42                              rpm                         
 libunwind                                                                     1.8.1-2.fc42                            rpm                         
-libusb1                                                                       1.0.29-1.fc42                           rpm                         
+libusb1                                                                       1.0.29-3.fc42                           rpm                         
 libutempter                                                                   1.2.1-17.fc42                           rpm                         
 libuuid                                                                       2.40.4-7.fc42                           rpm                         
 libuv                                                                         1:1.51.0-1.fc42                         rpm                         
@@ -813,7 +813,7 @@ lpcnetfreedv                                                                  0.
 lua-libs                                                                      5.4.8-1.fc42                            rpm                         
 lz4-libs                                                                      1.10.0-2.fc42                           rpm                         
 make                                                                          1:4.4.1-10.fc42                         rpm                         
-mdadm                                                                         4.3-7.fc42                              rpm                         
+mdadm                                                                         4.3-8.fc42                              rpm                         
 mesa-dri-drivers                                                              25.1.7-1.fc42                           rpm                         
 mesa-filesystem                                                               25.1.7-1.fc42                           rpm                         
 mesa-libEGL                                                                   25.1.7-1.fc42                           rpm                         
@@ -844,13 +844,13 @@ nginx-filesystem                                                              2:
 nginx-mimetypes                                                               2.1.54-8.fc42                           rpm                         
 nginx-mod-fancyindex                                                          0.5.2-11.fc42                           rpm                         
 npth                                                                          1.8-2.fc42                              rpm                         
-nspr                                                                          4.36.0-10.fc42                          rpm                         
-nss                                                                           3.113.0-1.fc42                          rpm                         
+nspr                                                                          4.37.0-1.fc42                           rpm                         
+nss                                                                           3.114.0-1.fc42                          rpm                         
 nss-mdns                                                                      0.15.1-25.fc42                          rpm                         
-nss-softokn                                                                   3.113.0-1.fc42                          rpm                         
-nss-softokn-freebl                                                            3.113.0-1.fc42                          rpm                         
-nss-sysinit                                                                   3.113.0-1.fc42                          rpm                         
-nss-util                                                                      3.113.0-1.fc42                          rpm                         
+nss-softokn                                                                   3.114.0-1.fc42                          rpm                         
+nss-softokn-freebl                                                            3.114.0-1.fc42                          rpm                         
+nss-sysinit                                                                   3.114.0-1.fc42                          rpm                         
+nss-util                                                                      3.114.0-1.fc42                          rpm                         
 numactl-libs                                                                  2.0.19-2.fc42                           rpm                         
 oniguruma                                                                     6.9.10-2.fc42                           rpm                         
 openbox                                                                       3.6.1-28.fc42                           rpm                         
@@ -1168,6 +1168,7 @@ xrandr                                                                        1.
 xrdb                                                                          1.2.2-5.fc42                            rpm                         
 xsel                                                                          1.2.1-8.fc42                            rpm                         
 xset                                                                          1.2.5-7.fc42                            rpm                         
+xsettingsd                                                                    1.0.2-11.fc42                           rpm                         
 xterm                                                                         397-1.fc42                              rpm                         
 xvidcore                                                                      1.3.7-13.fc42                           rpm                         
 xz                                                                            1:5.8.1-2.fc42                          rpm                         
