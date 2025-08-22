@@ -117,6 +117,7 @@ This container is based on [Docker Baseimage Selkies](https://github.com/linuxse
 | :----: | --- |
 | `CUSTOM_PORT` | Internal HTTP port. Defaults to `3000`. |
 | `CUSTOM_HTTPS_PORT` | Internal HTTPS port. Defaults to `3001`. |
+| `CUSTOM_WS_PORT` | Internal port the container listens on for websockets if it needs to be swapped from the default 8082. |
 | `CUSTOM_USER` | Username for HTTP Basic Auth. Defaults to `abc`. |
 | `PASSWORD` | Password for HTTP Basic Auth. If unset, authentication is disabled. |
 | `SUBFOLDER` | Application subfolder for reverse proxy configurations. Must include leading and trailing slashes, e.g., `/subfolder/`. |
