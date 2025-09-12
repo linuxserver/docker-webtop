@@ -31,10 +31,10 @@ bsdextrautils                                                                 2.
 bsdutils                                                                      1:2.41-5                                   deb                         
 ca-certificates                                                               20250419                                   deb                         
 catatonit                                                                     0.2.1-2+b3                                 deb                         
-cffi                                                                          1.17.1                                     python                      
-chromium                                                                      140.0.7339.80-1~deb13u1                    deb                         
-chromium-common                                                               140.0.7339.80-1~deb13u1                    deb                         
-chromium-l10n                                                                 140.0.7339.80-1~deb13u1                    deb                         
+cffi                                                                          2.0.0                                      python                      
+chromium                                                                      140.0.7339.127-1~deb13u1                   deb                         
+chromium-common                                                               140.0.7339.127-1~deb13u1                   deb                         
+chromium-l10n                                                                 140.0.7339.127-1~deb13u1                   deb                         
 cli                                                                           UNKNOWN                                    binary                      
 cli-32                                                                        UNKNOWN                                    binary                      
 cli-64                                                                        UNKNOWN                                    binary                      
@@ -75,7 +75,7 @@ diffutils                                                                     1:
 dirmngr                                                                       2.4.7-21+b3                                deb                         
 dmidecode                                                                     3.6-2                                      deb                         
 dmsetup                                                                       2:1.02.205-2                               deb                         
-dnspython                                                                     2.7.0                                      python                      
+dnspython                                                                     2.8.0                                      python                      
 docker-buildx-plugin                                                          0.27.0-1~debian.13~trixie                  deb                         
 docker-ce                                                                     5:28.4.0-1~debian.13~trixie                deb                         
 docker-ce-cli                                                                 5:28.4.0-1~debian.13~trixie                deb                         
@@ -115,8 +115,8 @@ gcc-14-base                                                                   14
 gcc-14-x86-64-linux-gnu                                                       14.2.0-19                                  deb                         
 gcc-x86-64-linux-gnu                                                          4:14.2.0-1                                 deb                         
 gdb                                                                           16.3-1                                     deb                         
-git                                                                           1:2.47.2-0.2                               deb                         
-git-man                                                                       1:2.47.2-0.2                               deb                         
+git                                                                           1:2.47.3-0+deb13u1                         deb                         
+git-man                                                                       1:2.47.3-0+deb13u1                         deb                         
 github.com/AlecAivazis/survey/v2                                              v2.3.7                                     go-module                   
 github.com/Azure/azure-sdk-for-go/sdk/azcore                                  v1.16.0                                    go-module                   
 github.com/Azure/azure-sdk-for-go/sdk/internal                                v1.10.0                                    go-module                   
@@ -779,7 +779,7 @@ libgirepository-1.0-1                                                         1.
 libgl1                                                                        1.7.0-1+b2                                 deb                         
 libgl1-mesa-dri                                                               25.0.7-2                                   deb                         
 libgles2                                                                      1.7.0-1+b2                                 deb                         
-libglib2.0-0t64                                                               2.84.3-1                                   deb                         
+libglib2.0-0t64                                                               2.84.4-3~deb13u1                           deb                         
 libglu1-mesa                                                                  9.0.2-1.1+b3                               deb                         
 libglvnd0                                                                     1.7.0-1+b2                                 deb                         
 libglx-mesa0                                                                  25.0.7-2                                   deb                         
@@ -1151,7 +1151,7 @@ libonig5                                                                      6.
 libopenexr-3-1-30                                                             3.1.13-2                                   deb                         
 libopengl0                                                                    1.7.0-1+b2                                 deb                         
 libopenh264-8                                                                 2.6.0+dfsg-2                               deb                         
-libopenjp2-7                                                                  2.5.3-2                                    deb                         
+libopenjp2-7                                                                  2.5.3-2.1~deb13u1                          deb                         
 libopenmpt-modplug1                                                           0.8.9.0-openmpt1-2+b3                      deb                         
 libopenmpt0t64                                                                0.7.13-1+b1                                deb                         
 libopus0                                                                      1.5.2-2                                    deb                         
@@ -1161,7 +1161,7 @@ libpackagekitqt6-1                                                            1.
 libpam-modules                                                                1.7.0-5                                    deb                         
 libpam-modules-bin                                                            1.7.0-5                                    deb                         
 libpam-runtime                                                                1.7.0-5                                    deb                         
-libpam-systemd                                                                257.8-1~deb13u1                            deb                         
+libpam-systemd                                                                257.8-1~deb13u2                            deb                         
 libpam0g                                                                      1.7.0-5                                    deb                         
 libpango-1.0-0                                                                1.56.3-1                                   deb                         
 libpangocairo-1.0-0                                                           1.56.3-1                                   deb                         
@@ -1342,8 +1342,8 @@ libstemmer0d                                                                  2.
 libsvtav1enc2                                                                 2.3.0+dfsg-1                               deb                         
 libswresample5                                                                7:7.1.1-1+b1                               deb                         
 libswscale8                                                                   7:7.1.1-1+b1                               deb                         
-libsystemd-shared                                                             257.8-1~deb13u1                            deb                         
-libsystemd0                                                                   257.8-1~deb13u1                            deb                         
+libsystemd-shared                                                             257.8-1~deb13u2                            deb                         
+libsystemd0                                                                   257.8-1~deb13u2                            deb                         
 libtag2                                                                       2.0.2-2                                    deb                         
 libtalloc2                                                                    2:2.4.3+samba4.22.4+dfsg-1~deb13u1         deb                         
 libtaskmanager6                                                               4:6.3.6-2                                  deb                         
@@ -1366,7 +1366,7 @@ libtsan2                                                                      14
 libtwolame0                                                                   0.4.0-2+b2                                 deb                         
 libubsan1                                                                     14.2.0-19                                  deb                         
 libuchardet0                                                                  0.0.8-1+b2                                 deb                         
-libudev1                                                                      257.8-1~deb13u1                            deb                         
+libudev1                                                                      257.8-1~deb13u2                            deb                         
 libudfread0                                                                   1.1.2-1+b2                                 deb                         
 libudisks2-0                                                                  2.10.1-12.1+deb13u1                        deb                         
 libunbound8                                                                   1.22.0-2                                   deb                         
@@ -1492,7 +1492,7 @@ libzstd1                                                                      1.
 libzvbi-common                                                                0.2.44-1                                   deb                         
 libzvbi0t64                                                                   0.2.44-1                                   deb                         
 libzxing3                                                                     2.3.0-4                                    deb                         
-linux-libc-dev                                                                6.12.41-1                                  deb                         
+linux-libc-dev                                                                6.12.43-1                                  deb                         
 linux-sysctl-defaults                                                         4.12                                       deb                         
 locales                                                                       2.41-12                                    deb                         
 locales-all                                                                   2.41-12                                    deb                         
@@ -1516,8 +1516,8 @@ ncurses-bin                                                                   6.
 ncurses-term                                                                  6.5+20250216-2                             deb                         
 netbase                                                                       6.5                                        deb                         
 netcat-traditional                                                            1.10-50                                    deb                         
-nginx                                                                         1.26.3-3                                   deb                         
-nginx-common                                                                  1.26.3-3                                   deb                         
+nginx                                                                         1.26.3-3+deb13u1                           deb                         
+nginx-common                                                                  1.26.3-3+deb13u1                           deb                         
 ocean-sound-theme                                                             6.3.4-1                                    deb                         
 ocl-icd-libopencl1                                                            2.3.3-1                                    deb                         
 openbox                                                                       3.6.1-12+b2                                deb                         
@@ -1531,7 +1531,7 @@ pasimple                                                                      0.
 passwd                                                                        1:4.17.4-2                                 deb                         
 pci.ids                                                                       0.0~2025.06.09-1                           deb                         
 pciutils                                                                      1:3.13.0-2                                 deb                         
-pcmflux                                                                       1.0.4                                      python                      
+pcmflux                                                                       1.0.5                                      python                      
 perl                                                                          5.40.1-6                                   deb                         
 perl-base                                                                     5.40.1-6                                   deb                         
 perl-modules-5.40                                                             5.40.1-6                                   deb                         
@@ -1541,7 +1541,7 @@ phonon4qt6-backend-vlc                                                        0.
 pillow                                                                        11.3.0                                     python                      
 pinentry-curses                                                               1.3.1-2                                    deb                         
 pip                                                                           25.1.1                                     python                      
-pixelflux                                                                     1.3.2                                      python                      
+pixelflux                                                                     1.3.3                                      python                      
 plasma-desktop                                                                4:6.3.6-1                                  deb                         
 plasma-desktop-data                                                           4:6.3.6-1                                  deb                         
 plasma-desktoptheme                                                           6.3.5-1                                    deb                         
@@ -1562,7 +1562,7 @@ publicsuffix                                                                  20
 pulseaudio                                                                    17.0+dfsg1-2+b1                            deb                         
 pulseaudio-utils                                                              17.0+dfsg1-2+b1                            deb                         
 pulsectl                                                                      24.12.0                                    python                      
-pycparser                                                                     2.22                                       python                      
+pycparser                                                                     2.23                                       python                      
 pyee                                                                          13.0.0                                     python                      
 pylibsrtp                                                                     0.12.0                                     python                      
 pynput                                                                        1.8.1                                      python                      
@@ -1668,10 +1668,10 @@ stdlib                                                                        go
 stdlib                                                                        go1.24.7                                   go-module  (+4 duplicates)  
 stterm                                                                        0.9.2-1                                    deb                         
 sudo                                                                          1.9.16p2-3                                 deb                         
-systemd                                                                       257.8-1~deb13u1                            deb                         
-systemd-cryptsetup                                                            257.8-1~deb13u1                            deb                         
-systemd-sysv                                                                  257.8-1~deb13u1                            deb                         
-systemd-timesyncd                                                             257.8-1~deb13u1                            deb                         
+systemd                                                                       257.8-1~deb13u2                            deb                         
+systemd-cryptsetup                                                            257.8-1~deb13u2                            deb                         
+systemd-sysv                                                                  257.8-1~deb13u2                            deb                         
+systemd-timesyncd                                                             257.8-1~deb13u2                            deb                         
 systemsettings                                                                4:6.3.4-2                                  deb                         
 sysvinit-utils                                                                3.14-4                                     deb                         
 tags.cncf.io/container-device-interface                                       v0.8.1                                     go-module                   
@@ -1685,7 +1685,7 @@ typing-extensions                                                             4.
 typing-extensions                                                             4.15.0                                     python                      
 tzdata                                                                        2025b-4                                    deb                         
 ucf                                                                           3.0052                                     deb                         
-udev                                                                          257.8-1~deb13u1                            deb                         
+udev                                                                          257.8-1~deb13u2                            deb                         
 udisks2                                                                       2.10.1-12.1+deb13u1                        deb                         
 util-linux                                                                    2.41-5                                     deb                         
 vlc-data                                                                      3.0.21-10                                  deb                         
@@ -1703,6 +1703,7 @@ x11-xkb-utils                                                                 7.
 x11-xserver-utils                                                             7.7+11                                     deb                         
 xauth                                                                         1:1.1.2-1.1                                deb                         
 xbitmaps                                                                      1.1.1-2.2                                  deb                         
+xclip                                                                         0.13-4                                     deb                         
 xcvt                                                                          0.1.3-1                                    deb                         
 xdg-utils                                                                     1.2.1-2                                    deb                         
 xdotool                                                                       1:3.20160805.1-5.1                         deb                         
