@@ -46,22 +46,8 @@ param_usage_include_ports: true
 param_ports:
   - {external_port: "3000", internal_port: "3000", port_desc: "Web Desktop GUI HTTP, must be proxied"}
   - {external_port: "3001", internal_port: "3001", port_desc: "Web Desktop GUI HTTPS"}
-param_usage_include_env: true
-param_env_vars:
-  - {env_var: "TZ", env_value: "Europe/London", desc: "Specify a timezone to use EG Europe/London"}
-# optional variables
-opt_param_usage_include_env: true
-opt_param_env_vars:
-  - {env_var: "SUBFOLDER", env_value: "/", desc: "Specify a subfolder to use with reverse proxies, IE `/subfolder/`"}
-  - {env_var: "TITLE", env_value: "Webtop", desc: "String which will be used as page/tab title in the web browser."}
-opt_param_usage_include_vols: true
-opt_param_volumes:
-  - {vol_path: "/var/run/docker.sock", vol_host_path: "/var/run/docker.sock", desc: "Docker Socket on the system, if you want to use Docker in the container"}
-opt_custom_params:
-  - {name: "shm-size", name_compose: "shm_size", value: "1gb", desc: "We set this to 1 gig to prevent modern web browsers from crashing"}
-opt_security_opt_param: true
-opt_security_opt_param_vars:
-  - {run_var: "seccomp=unconfined", compose_var: "seccomp:unconfined", desc: "For Docker Engine only, many modern gui apps need this to function on older hosts as syscalls are unknown to Docker."}
+custom_params:
+  - {name: "shm-size", name_compose: "shm_size", value: "1gb", desc: "Recommended for all desktop images."}
 # Selkies blurb settings
 selkies_blurb: true
 show_nvidia: true

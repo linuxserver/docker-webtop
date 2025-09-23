@@ -251,21 +251,16 @@ services:
   webtop:
     image: lscr.io/linuxserver/webtop:latest
     container_name: webtop
-    security_opt:
-      - seccomp:unconfined #optional
     environment:
       - PUID=1000
       - PGID=1000
       - TZ=Etc/UTC
-      - SUBFOLDER=/ #optional
-      - TITLE=Webtop #optional
     volumes:
       - /path/to/data:/config
-      - /var/run/docker.sock:/var/run/docker.sock #optional
     ports:
       - 3000:3000
       - 3001:3001
-    shm_size: "1gb" #optional
+    shm_size: "1gb"
     restart: unless-stopped
 ```
 
@@ -274,17 +269,13 @@ services:
 ```bash
 docker run -d \
   --name=webtop \
-  --security-opt seccomp=unconfined `#optional` \
   -e PUID=1000 \
   -e PGID=1000 \
   -e TZ=Etc/UTC \
-  -e SUBFOLDER=/ `#optional` \
-  -e TITLE=Webtop `#optional` \
   -p 3000:3000 \
   -p 3001:3001 \
   -v /path/to/data:/config \
-  -v /var/run/docker.sock:/var/run/docker.sock `#optional` \
-  --shm-size="1gb" `#optional` \
+  --shm-size="1gb" \
   --restart unless-stopped \
   lscr.io/linuxserver/webtop:latest
 ```
@@ -300,12 +291,8 @@ Containers are configured using parameters passed at runtime (such as those abov
 | `-e PUID=1000` | for UserID - see below for explanation |
 | `-e PGID=1000` | for GroupID - see below for explanation |
 | `-e TZ=Etc/UTC` | specify a timezone to use, see this [list](https://en.wikipedia.org/wiki/List_of_tz_database_time_zones#List). |
-| `-e SUBFOLDER=/` | Specify a subfolder to use with reverse proxies, IE `/subfolder/` |
-| `-e TITLE=Webtop` | String which will be used as page/tab title in the web browser. |
 | `-v /config` | abc users home directory |
-| `-v /var/run/docker.sock` | Docker Socket on the system, if you want to use Docker in the container |
-| `--shm-size=` | We set this to 1 gig to prevent modern web browsers from crashing |
-| `--security-opt seccomp=unconfined` | For Docker Engine only, many modern gui apps need this to function on older hosts as syscalls are unknown to Docker. |
+| `--shm-size=` | Recommended for all desktop images. |
 
 ## Environment variables from files (Docker secrets)
 
