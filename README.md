@@ -117,22 +117,36 @@ This container is based on [Docker Baseimage Selkies](https://github.com/linuxse
 
 | Variable | Description |
 | :----: | --- |
-| `CUSTOM_PORT` | Internal HTTP port. Defaults to `3000`. |
-| `CUSTOM_HTTPS_PORT` | Internal HTTPS port. Defaults to `3001`. |
-| `CUSTOM_WS_PORT` | Internal port the container listens on for websockets if it needs to be swapped from the default 8082. |
-| `CUSTOM_USER` | Username for HTTP Basic Auth. Defaults to `abc`. |
-| `PASSWORD` | Password for HTTP Basic Auth. If unset, authentication is disabled. |
-| `SUBFOLDER` | Application subfolder for reverse proxy configurations. Must include leading and trailing slashes, e.g., `/subfolder/`. |
-| `TITLE` | Page title displayed in the web browser. Defaults to "Selkies". |
-| `START_DOCKER` | If set to `false`, the privileged Docker-in-Docker setup will not start automatically. |
-| `DISABLE_IPV6` | Set to `true` to disable IPv6 support in the container. | 
-| `LC_ALL` | Sets the container's locale, e.g., `fr_FR.UTF-8`. |
-| `DRINODE` | If mounting in /dev/dri for DRI3 GPU Acceleration allows you to specify the device to use IE `/dev/dri/renderD128` |
-| `NO_DECOR` | If set, applications will run without window borders, suitable for PWA usage. |
-| `NO_FULL` | If set, applications will not be automatically fullscreened. |
-| `DISABLE_ZINK` | If set, Zink-related environment variables will not be configured when a video card is detected. |
-| `WATERMARK_PNG` | Full path to a watermark PNG file inside the container, e.g., `/usr/share/selkies/www/icon.png`. |
-| `WATERMARK_LOCATION` | Integer specifying the watermark location: `1` (Top Left), `2` (Top Right), `3` (Bottom Left), `4` (Bottom Right), `5` (Centered), `6` (Animated). |
+| CUSTOM_PORT | Internal port the container listens on for http if it needs to be swapped from the default `3000` |
+| CUSTOM_HTTPS_PORT | Internal port the container listens on for https if it needs to be swapped from the default `3001` |
+| CUSTOM_WS_PORT | Internal port the container listens on for websockets if it needs to be swapped from the default 8082 |
+| CUSTOM_USER | HTTP Basic auth username, abc is default. |
+| DRI_NODE | Enable VAAPI stream encoding and use the specified device IE `/dev/dri/renderD128` |
+| DRINODE | Specify which GPU to use for DRI3 acceleration IE `/dev/dri/renderD129` |
+| PASSWORD | HTTP Basic auth password, abc is default. If unset there will be no auth |
+| SUBFOLDER | Subfolder for the application if running a subfolder reverse proxy, need both slashes IE `/subfolder/` |
+| TITLE | The page title displayed on the web browser, default "Selkies" |
+| DASHBOARD | Allows the user to set their dashboard. Options: `selkies-dashboard`, `selkies-dashboard-zinc`, `selkies-dashboard-wish` |
+| FILE_MANAGER_PATH | Modifies the default upload/download file path, path must have proper permissions for abc user |
+| START_DOCKER | If set to false a container with privilege will not automatically start the DinD Docker setup |
+| DISABLE_IPV6 | If set to true or any value this will disable IPv6 |
+| LC_ALL | Set the Language for the container to run as IE `fr_FR.UTF-8` `ar_AE.UTF-8` |
+| NO_DECOR | If set the application will run without window borders for use as a PWA. (Decor can be enabled and disabled with Ctrl+Shift+d) |
+| NO_FULL | Do not autmatically fullscreen applications when using openbox. |
+| NO_GAMEPAD | Disable userspace gamepad interposer injection. |
+| DISABLE_ZINK | Do not set the Zink environment variables if a video card is detected (userspace applications will use CPU rendering) |
+| DISABLE_DRI3 | Do not use DRI3 acceleration if a video card is detected (userspace applications will use CPU rendering) |
+| MAX_RES | Pass a larger maximum resolution for the container default is 16k `15360x8640` |
+| WATERMARK_PNG | Full path inside the container to a watermark png IE `/usr/share/selkies/www/icon.png` |
+| WATERMARK_LOCATION | Where to paint the image over the stream integer options below |
+
+**`WATERMARK_LOCATION` Options:**
+- **1**: Top Left
+- **2**: Top Right
+- **3**: Bottom Left
+- **4**: Bottom Right
+- **5**: Centered
+- **6**: Animated
 
 #### Optional Run Configurations
 
@@ -235,6 +249,131 @@ You can install packages from the system's native repository using the [universa
     - DOCKER_MODS=linuxserver/mods:universal-package-install
     - INSTALL_PACKAGES=libfuse2|git|gdb
 ```
+
+#### Hardening
+
+These variables can be used to lock down the desktop environment for single-application use cases or to restrict user capabilities.
+
+##### Meta Variables
+
+These variables act as presets, enabling multiple hardening options at once. Individual options can still be set to override the preset.
+
+| Variable | Description |
+| :----: | --- |
+| **`HARDEN_DESKTOP`** | Enables `DISABLE_OPEN_TOOLS`, `DISABLE_SUDO`, and `DISABLE_TERMINALS`. Also sets related Selkies UI settings (`SELKIES_FILE_TRANSFERS`, `SELKIES_COMMAND_ENABLED`, `SELKIES_UI_SIDEBAR_SHOW_FILES`, `SELKIES_UI_SIDEBAR_SHOW_APPS`) if they are not explicitly set by the user. |
+| **`HARDEN_OPENBOX`** | Enables `DISABLE_CLOSE_BUTTON`, `DISABLE_MOUSE_BUTTONS`, and `HARDEN_KEYBINDS`. It also flags `RESTART_APP` if not set by the user, ensuring the primary application is automatically restarted if closed. |
+
+##### Individual Hardening Variables
+
+| Variable | Description |
+| :--- | --- |
+| **`DISABLE_OPEN_TOOLS`** | If true, disables `xdg-open` and `exo-open` binaries by removing their execute permissions. |
+| **`DISABLE_SUDO`** | If true, disables the `sudo` command by removing its execute permissions and invalidating the passwordless sudo configuration. |
+| **`DISABLE_TERMINALS`** | If true, disables common terminal emulators by removing their execute permissions and hiding them from the Openbox right-click menu. |
+| **`DISABLE_CLOSE_BUTTON`** | If true, removes the close button from window title bars in the Openbox window manager. |
+| **`DISABLE_MOUSE_BUTTONS`** | If true, disables the right-click and middle-click context menus and actions within the Openbox window manager. |
+| **`HARDEN_KEYBINDS`** | If true, disables default Openbox keybinds that can bypass other hardening options (e.g., `Alt+F4` to close windows, `Alt+Escape` to show the root menu). |
+| **`RESTART_APP`** | If true, enables a watchdog service that automatically restarts the main application if it is closed. The user's autostart script is made read-only and root owned to prevent tampering. |
+
+#### Selkies application settings
+
+Using environment variables every facet of the application can be configured.
+
+##### Booleans and Locking
+Boolean settings accept `true` or `false`. You can also prevent the user from changing a boolean setting in the UI by appending `|locked`. The UI toggle for this setting will be hidden.
+
+*   **Example**: To force CPU encoding on and prevent the user from disabling it:
+    ```bash
+    -e SELKIES_USE_CPU="true|locked"
+    ```
+
+##### Enums and Lists
+These settings accept a comma-separated list of values. Their behavior depends on the number of items provided:
+
+*   **Multiple Values**: The first item in the list becomes the default selection, and all items in the list become the available options in the UI dropdown.
+*   **Single Value**: The provided value becomes the default, and the UI dropdown is hidden because the choice is locked.
+
+*   **Example**: Force the encoder to be `jpeg` with no other options available to the user:
+    ```bash
+    -e SELKIES_ENCODER="jpeg"
+    ```
+
+##### Ranges
+Range settings define a minimum and maximum for a value (e.g., framerate).
+
+*   **To set a range**: Use a hyphen-separated `min-max` format. The UI will show a slider.
+*   **To set a fixed value**: Provide a single number. This will lock the value and hide the UI slider.
+
+*   **Example**: Lock the framerate to exactly 60 FPS.
+    ```bash
+    -e SELKIES_FRAMERATE="60"
+    ```
+
+##### Manual Resolution Mode
+The server can be forced to use a single, fixed resolution for all connecting clients. This mode is automatically activated if `SELKIES_MANUAL_WIDTH`, `SELKIES_MANUAL_HEIGHT`, or `SELKIES_IS_MANUAL_RESOLUTION_MODE` is set.
+
+*   If `SELKIES_MANUAL_WIDTH` and/or `SELKIES_MANUAL_HEIGHT` are set, the resolution is locked to those values.
+*   If `SELKIES_IS_MANUAL_RESOLUTION_MODE` is set to `true` without specifying width or height, the resolution defaults to **1024x768**.
+*   When this mode is active, the client UI for changing resolution is disabled.
+
+| Environment Variable | Default Value | Description |
+| --- | --- | --- |
+| `SELKIES_UI_TITLE` | `'Selkies'` | Title in top left corner of sidebar. |
+| `SELKIES_UI_SHOW_LOGO` | `True` | Show the Selkies logo in the sidebar. |
+| `SELKIES_UI_SHOW_SIDEBAR` | `True` | Show the main sidebar UI. |
+| `SELKIES_UI_SHOW_CORE_BUTTONS` | `True` | Show the core components buttons display, audio, microphone, and gamepad. |
+| `SELKIES_UI_SIDEBAR_SHOW_VIDEO_SETTINGS` | `True` | Show the video settings section in the sidebar. |
+| `SELKIES_UI_SIDEBAR_SHOW_SCREEN_SETTINGS` | `True` | Show the screen settings section in the sidebar. |
+| `SELKIES_UI_SIDEBAR_SHOW_AUDIO_SETTINGS` | `True` | Show the audio settings section in the sidebar. |
+| `SELKIES_UI_SIDEBAR_SHOW_STATS` | `True` | Show the stats section in the sidebar. |
+| `SELKIES_UI_SIDEBAR_SHOW_CLIPBOARD` | `True` | Show the clipboard section in the sidebar. |
+| `SELKIES_UI_SIDEBAR_SHOW_FILES` | `True` | Show the file transfer section in the sidebar. |
+| `SELKIES_UI_SIDEBAR_SHOW_APPS` | `True` | Show the applications section in the sidebar. |
+| `SELKIES_UI_SIDEBAR_SHOW_SHARING` | `True` | Show the sharing section in the sidebar. |
+| `SELKIES_UI_SIDEBAR_SHOW_GAMEPADS` | `True` | Show the gamepads section in the sidebar. |
+| `SELKIES_UI_SIDEBAR_SHOW_FULLSCREEN` | `True` | Show the fullscreen button in the sidebar. |
+| `SELKIES_UI_SIDEBAR_SHOW_GAMING_MODE` | `True` | Show the gaming mode button in the sidebar. |
+| `SELKIES_UI_SIDEBAR_SHOW_TRACKPAD` | `True` | Show the virtual trackpad button in the sidebar. |
+| `SELKIES_UI_SIDEBAR_SHOW_KEYBOARD_BUTTON` | `True` | Show the on-screen keyboard button in the display area. |
+| `SELKIES_UI_SIDEBAR_SHOW_SOFT_BUTTONS` | `True` | Show the soft buttons section in the sidebar. |
+| `SELKIES_AUDIO_ENABLED` | `True` | Enable server-to-client audio streaming. |
+| `SELKIES_MICROPHONE_ENABLED` | `True` | Enable client-to-server microphone forwarding. |
+| `SELKIES_GAMEPAD_ENABLED` | `True` | Enable gamepad support. |
+| `SELKIES_CLIPBOARD_ENABLED` | `True` | Enable clipboard synchronization. |
+| `SELKIES_COMMAND_ENABLED` | `True` | Enable parsing of command websocket messages. |
+| `SELKIES_FILE_TRANSFERS` | `'upload,download'` | Allowed file transfer directions (comma-separated: "upload,download"). Set to "" or "none" to disable. |
+| `SELKIES_ENCODER` | `'x264enc,x264enc-striped,jpeg'` | The default video encoders. |
+| `SELKIES_FRAMERATE` | `'8-120'` | Allowed framerate range or a fixed value. |
+| `SELKIES_H264_CRF` | `'5-50'` | Allowed H.264 CRF range or a fixed value. |
+| `SELKIES_JPEG_QUALITY` | `'1-100'` | Allowed JPEG quality range or a fixed value. |
+| `SELKIES_H264_FULLCOLOR` | `False` | Enable H.264 full color range for pixelflux encoders. |
+| `SELKIES_H264_STREAMING_MODE` | `False` | Enable H.264 streaming mode for pixelflux encoders. |
+| `SELKIES_USE_CPU` | `False` | Force CPU-based encoding for pixelflux. |
+| `SELKIES_USE_PAINT_OVER_QUALITY` | `True` | Enable high-quality paint-over for static scenes. |
+| `SELKIES_PAINT_OVER_JPEG_QUALITY` | `'1-100'` | Allowed JPEG paint-over quality range or a fixed value. |
+| `SELKIES_H264_PAINTOVER_CRF` | `'5-50'` | Allowed H.264 paint-over CRF range or a fixed value. |
+| `SELKIES_H264_PAINTOVER_BURST_FRAMES` | `'1-30'` | Allowed H.264 paint-over burst frames range or a fixed value. |
+| `SELKIES_SECOND_SCREEN` | `True` | Enable support for a second monitor/display. |
+| `SELKIES_AUDIO_BITRATE` | `'320000'` | The default audio bitrate. |
+| `SELKIES_IS_MANUAL_RESOLUTION_MODE` | `False` | Lock the resolution to the manual width/height values. |
+| `SELKIES_MANUAL_WIDTH` | `0` | Lock width to a fixed value. Setting this forces manual resolution mode. |
+| `SELKIES_MANUAL_HEIGHT` | `0` | Lock height to a fixed value. Setting this forces manual resolution mode. |
+| `SELKIES_SCALING_DPI` | `'96'` | The default DPI for UI scaling. |
+| `SELKIES_ENABLE_BINARY_CLIPBOARD` | `False` | Allow binary data on the clipboard. |
+| `SELKIES_USE_BROWSER_CURSORS` | `False` | Use browser CSS cursors instead of rendering to canvas. |
+| `SELKIES_USE_CSS_SCALING` | `False` | HiDPI when false, if true a lower resolution is sent from the client and the canvas is stretched. |
+| `SELKIES_PORT` (or `CUSTOM_WS_PORT`) | `8082` | Port for the data websocket server. |
+| `SELKIES_DRI_NODE` (or `DRI_NODE`) | `''` | Path to the DRI render node for VA-API. |
+| `SELKIES_AUDIO_DEVICE_NAME` | `'output.monitor'` | Audio device name for pcmflux capture. |
+| `SELKIES_WATERMARK_PATH` (or `WATERMARK_PNG`) | `''` | Absolute path to the watermark PNG file. |
+| `SELKIES_WATERMARK_LOCATION` (or `WATERMARK_LOCATION`) | `-1` | Watermark location enum (0-6). |
+| `SELKIES_DEBUG` | `False` | Enable debug logging. |
+| `SELKIES_ENABLE_SHARING` | `True` | Master toggle for all sharing features. |
+| `SELKIES_ENABLE_COLLAB` | `True` | Enable collaborative (read-write) sharing link. |
+| `SELKIES_ENABLE_SHARED` | `True` | Enable view-only sharing links. |
+| `SELKIES_ENABLE_PLAYER2` | `True` | Enable sharing link for gamepad player 2. |
+| `SELKIES_ENABLE_PLAYER3` | `True` | Enable sharing link for gamepad player 3. |
+| `SELKIES_ENABLE_PLAYER4` | `True` | Enable sharing link for gamepad player 4. |
 
 ## Usage
 
