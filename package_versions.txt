@@ -4,7 +4,7 @@ adobe-source-code-pro-fonts                                                   2.
 adwaita-cursor-theme                                                          40.1.1-3.el9                            rpm                          
 adwaita-icon-theme                                                            40.1.1-3.el9                            rpm                          
 aiohappyeyeballs                                                              2.6.1                                   python                       
-aiohttp                                                                       3.13.0                                  python                       
+aiohttp                                                                       3.13.1                                  python                       
 aioice                                                                        0.10.1                                  python                       
 aiosignal                                                                     1.4.0                                   python                       
 alsa-lib                                                                      1.2.13-2.el9                            rpm                          
@@ -33,8 +33,8 @@ catatonit                                                                     3:
 cffi                                                                          2.0.0                                   python                       
 chardet                                                                       4.0.0                                   python                       
 checkpolicy                                                                   3.6-1.el9                               rpm                          
-chromium                                                                      141.0.7390.65-1.el9                     rpm                          
-chromium-common                                                               141.0.7390.65-1.el9                     rpm                          
+chromium                                                                      141.0.7390.76-1.el9                     rpm                          
+chromium-common                                                               141.0.7390.76-1.el9                     rpm                          
 cloud.google.com/go/compute/metadata                                          v0.6.0                                  go-module                    
 cloud.google.com/go/logging                                                   v1.9.0                                  go-module                    
 cloud.google.com/go/longrunning                                               v0.5.5                                  go-module                    
@@ -82,7 +82,7 @@ dnspython                                                                     2.
 docker-buildx-plugin                                                          0:0.29.1-1.el9                          rpm                          
 docker-ce                                                                     3:28.5.1-1.el9                          rpm                          
 docker-ce-cli                                                                 1:28.5.1-1.el9                          rpm                          
-docker-compose-plugin                                                         0:2.40.0-1.el9                          rpm                          
+docker-compose-plugin                                                         0:2.40.1-1.el9                          rpm                          
 double-conversion                                                             3.1.5-6.el9                             rpm                          
 elfutils-default-yama-scope                                                   0.192-6.el9_6                           rpm                          
 elfutils-libelf                                                               0.192-6.el9_6                           rpm                          
@@ -212,16 +212,16 @@ github.com/deckarep/golang-set/v2                                             v2
 github.com/dimchansky/utfbom                                                  v1.1.1                                  go-module                    
 github.com/distribution/reference                                             v0.6.0                                  go-module  (+5 duplicates)   
 github.com/docker/buildx                                                      UNKNOWN                                 go-module                    
-github.com/docker/buildx                                                      v0.28.0                                 go-module                    
+github.com/docker/buildx                                                      v0.29.1                                 go-module                    
 github.com/docker/cli                                                         v28.4.0+incompatible                    go-module                    
-github.com/docker/cli                                                         v28.5.0+incompatible                    go-module                    
+github.com/docker/cli                                                         v28.5.1+incompatible                    go-module                    
 github.com/docker/cli-docs-tool                                               v0.10.0                                 go-module  (+1 duplicate)    
 github.com/docker/cli/cmd/docker                                              UNKNOWN                                 go-module                    
 github.com/docker/compose/v2                                                  UNKNOWN                                 go-module                    
 github.com/docker/distribution                                                v2.8.3+incompatible                     go-module  (+1 duplicate)    
 github.com/docker/docker                                                      v28.4.0+incompatible                    go-module                    
-github.com/docker/docker                                                      v28.5.0+incompatible                    go-module                    
 github.com/docker/docker                                                      v28.5.1                                 go-module  (+1 duplicate)    
+github.com/docker/docker                                                      v28.5.1+incompatible                    go-module                    
 github.com/docker/docker-credential-helpers                                   v0.9.3                                  go-module  (+1 duplicate)    
 github.com/docker/go                                                          v1.5.1-1.0.20160303222718-d30aec9fd63c  go-module                    
 github.com/docker/go-connections                                              v0.5.0                                  go-module  (+1 duplicate)    
@@ -320,9 +320,8 @@ github.com/mitchellh/copystructure                                            v1
 github.com/mitchellh/go-wordwrap                                              v1.0.1                                  go-module                    
 github.com/mitchellh/hashstructure/v2                                         v2.0.2                                  go-module  (+2 duplicates)   
 github.com/mitchellh/reflectwalk                                              v1.0.2                                  go-module                    
-github.com/moby/buildkit                                                      v0.24.0                                 go-module                    
 github.com/moby/buildkit                                                      v0.25.0                                 go-module                    
-github.com/moby/buildkit                                                      v0.25.1                                 go-module                    
+github.com/moby/buildkit                                                      v0.25.1                                 go-module  (+1 duplicate)    
 github.com/moby/docker-image-spec                                             v1.3.1                                  go-module  (+2 duplicates)   
 github.com/moby/go-archive                                                    v0.1.0                                  go-module  (+2 duplicates)   
 github.com/moby/ipvs                                                          v1.1.0                                  go-module                    
@@ -428,8 +427,7 @@ github.com/vishvananda/netns                                                  v0
 github.com/weppos/publicsuffix-go                                             v0.15.1-0.20210511084619-b1f36a2d6c0b   go-module                    
 github.com/x448/float16                                                       v0.8.4                                  go-module  (+1 duplicate)    
 github.com/xhit/go-str2duration/v2                                            v2.1.0                                  go-module  (+1 duplicate)    
-github.com/zclconf/go-cty                                                     v1.16.2                                 go-module                    
-github.com/zclconf/go-cty                                                     v1.17.0                                 go-module                    
+github.com/zclconf/go-cty                                                     v1.17.0                                 go-module  (+1 duplicate)    
 github.com/zmap/zcrypto                                                       v0.0.0-20210511125630-18f1e0152cfc      go-module                    
 github.com/zmap/zlint/v3                                                      v3.1.0                                  go-module                    
 glib-networking                                                               2.68.3-3.el9                            rpm                          
@@ -505,7 +503,7 @@ golang.org/x/sync                                                             v0
 golang.org/x/sys                                                              v0.30.0                                 go-module                    
 golang.org/x/sys                                                              v0.33.0                                 go-module  (+2 duplicates)   
 golang.org/x/sys                                                              v0.34.0                                 go-module  (+5 duplicates)   
-golang.org/x/sys                                                              v0.36.0                                 go-module                    
+golang.org/x/sys                                                              v0.37.0                                 go-module                    
 golang.org/x/term                                                             v0.32.0                                 go-module  (+1 duplicate)    
 golang.org/x/term                                                             v0.33.0                                 go-module                    
 golang.org/x/text                                                             v0.24.0                                 go-module                    
@@ -532,8 +530,7 @@ google.golang.org/grpc                                                        v1
 google.golang.org/grpc                                                        v1.74.2                                 go-module                    
 google.golang.org/protobuf                                                    v1.35.2                                 go-module  (+5 duplicates)   
 google.golang.org/protobuf                                                    v1.36.5                                 go-module                    
-google.golang.org/protobuf                                                    v1.36.6                                 go-module                    
-google.golang.org/protobuf                                                    v1.36.9                                 go-module  (+1 duplicate)    
+google.golang.org/protobuf                                                    v1.36.9                                 go-module  (+2 duplicates)   
 gopkg.in/evanphx/json-patch.v4                                                v4.12.0                                 go-module  (+1 duplicate)    
 gopkg.in/inf.v0                                                               v0.9.1                                  go-module  (+4 duplicates)   
 gopkg.in/ini.v1                                                               v1.67.0                                 go-module                    
@@ -738,8 +735,8 @@ libsmartcols                                                                  2.
 libsndfile                                                                    1.0.31-9.el9                            rpm                          
 libsolv                                                                       0.7.24-3.el9                            rpm                          
 libsoup                                                                       2.72.0-10.el9_6.2                       rpm                          
-libssh                                                                        0.10.4-13.el9                           rpm                          
-libssh-config                                                                 0.10.4-13.el9                           rpm                          
+libssh                                                                        0.10.4-15.el9_6                         rpm                          
+libssh-config                                                                 0.10.4-15.el9_6                         rpm                          
 libstdc++                                                                     11.5.0-5.0.1.el9_5                      rpm                          
 libstemmer                                                                    0-18.585svn.el9                         rpm                          
 libtasn1                                                                      4.16.0-9.el9                            rpm                          
@@ -926,7 +923,7 @@ perl-vars                                                                     0:
 pillow                                                                        11.3.0                                  python                       
 pip                                                                           21.3.1                                  python                       
 pipewire-libs                                                                 1.0.1-1.el9                             rpm                          
-pixelflux                                                                     1.4.5                                   python                       
+pixelflux                                                                     1.4.6                                   python                       
 pixman                                                                        0.40.0-6.el9_3                          rpm                          
 pkgconf                                                                       1.7.3-10.el9                            rpm                          
 pkgconf-m4                                                                    1.7.3-10.el9                            rpm                          
@@ -941,7 +938,7 @@ procps-ng                                                                     3.
 prometheus-client                                                             0.23.1                                  python                       
 propcache                                                                     0.4.1                                   python                       
 psmisc                                                                        23.4-3.el9                              rpm                          
-psutil                                                                        7.1.0                                   python                       
+psutil                                                                        7.1.1                                   python                       
 publicsuffix-list-dafsa                                                       20210518-3.el9                          rpm                          
 pulseaudio                                                                    15.0-3.el9                              rpm                          
 pulseaudio-libs                                                               15.0-3.el9                              rpm                          
@@ -1046,8 +1043,9 @@ sratom                                                                        0.
 srt-libs                                                                      1.4.4-1.el9                             rpm                          
 st                                                                            0.9-1.el9                               rpm                          
 startup-notification                                                          0.12-23.el9                             rpm                          
-stdlib                                                                        go1.24.7                                go-module  (+8 duplicates)   
+stdlib                                                                        go1.24.7                                go-module  (+7 duplicates)   
 stdlib                                                                        go1.24.8                                go-module  (+2 duplicates)   
+stdlib                                                                        go1.24.9                                go-module                    
 subscription-manager                                                          1.29.45.1                               python                       
 subscription-manager                                                          1.29.45.1-1.el9_6                       rpm                          
 subscription-manager-rhsm-certificates                                        20220623-1.el9                          rpm                          
