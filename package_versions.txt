@@ -3,7 +3,7 @@ accountsservice                                                               23
 adduser                                                                       3.152                                   deb                         
 adwaita-icon-theme                                                            48.1-1                                  deb                         
 aiohappyeyeballs                                                              2.6.1                                   python                      
-aiohttp                                                                       3.13.1                                  python                      
+aiohttp                                                                       3.13.2                                  python                      
 aioice                                                                        0.10.1                                  python                      
 aiosignal                                                                     1.4.0                                   python                      
 apt                                                                           3.0.3                                   deb                         
@@ -31,9 +31,9 @@ caja                                                                          1.
 caja-common                                                                   1.26.4-1                                deb                         
 catatonit                                                                     0.2.1-2+b3                              deb                         
 cffi                                                                          2.0.0                                   python                      
-chromium                                                                      141.0.7390.122-1~deb13u1                deb                         
-chromium-common                                                               141.0.7390.122-1~deb13u1                deb                         
-chromium-l10n                                                                 141.0.7390.122-1~deb13u1                deb                         
+chromium                                                                      142.0.7444.59-1~deb13u1                 deb                         
+chromium-common                                                               142.0.7444.59-1~deb13u1                 deb                         
+chromium-l10n                                                                 142.0.7444.59-1~deb13u1                 deb                         
 cli                                                                           UNKNOWN                                 binary                      
 cli-32                                                                        UNKNOWN                                 binary                      
 cli-64                                                                        UNKNOWN                                 binary                      
@@ -80,7 +80,7 @@ dnspython                                                                     2.
 docker-buildx-plugin                                                          0.29.1-1~debian.13~trixie               deb                         
 docker-ce                                                                     5:28.5.1-1~debian.13~trixie             deb                         
 docker-ce-cli                                                                 5:28.5.1-1~debian.13~trixie             deb                         
-docker-compose-plugin                                                         2.40.2-1~debian.13~trixie               deb                         
+docker-compose-plugin                                                         2.40.3-1~debian.13~trixie               deb                         
 dpkg                                                                          1.22.21                                 deb                         
 dunst                                                                         1.12.2-1                                deb                         
 emacsen-common                                                                3.0.8                                   deb                         
@@ -174,7 +174,8 @@ github.com/checkpoint-restore/go-criu/v6                                      v6
 github.com/cilium/ebpf                                                        v0.17.3                                 go-module  (+1 duplicate)   
 github.com/cilium/ebpf                                                        v0.9.1                                  go-module  (+3 duplicates)  
 github.com/cloudflare/cfssl                                                   v1.6.4                                  go-module                   
-github.com/compose-spec/compose-go/v2                                         v2.9.0                                  go-module  (+1 duplicate)   
+github.com/compose-spec/compose-go/v2                                         v2.9.0                                  go-module                   
+github.com/compose-spec/compose-go/v2                                         v2.9.1                                  go-module                   
 github.com/container-storage-interface/spec                                   v1.5.0                                  go-module                   
 github.com/containerd/accelerated-container-image                             v1.3.0                                  go-module                   
 github.com/containerd/aufs                                                    v1.0.0                                  go-module                   
@@ -227,7 +228,7 @@ github.com/docker/cli                                                         v2
 github.com/docker/cli                                                         v28.5.1+incompatible                    go-module                   
 github.com/docker/cli-docs-tool                                               v0.10.0                                 go-module  (+1 duplicate)   
 github.com/docker/cli/cmd/docker                                              UNKNOWN                                 go-module                   
-github.com/docker/compose/v2                                                  v0.0.0-20251022173216-6007d4c7e7b7      go-module                   
+github.com/docker/compose/v2                                                  v0.0.0-20251030091458-49b1c1e932ae      go-module                   
 github.com/docker/distribution                                                v2.8.3+incompatible                     go-module  (+1 duplicate)   
 github.com/docker/docker                                                      v28.4.0+incompatible                    go-module                   
 github.com/docker/docker                                                      v28.5.1                                 go-module  (+1 duplicate)   
@@ -1170,7 +1171,7 @@ procps                                                                        2:
 prometheus-client                                                             0.23.1                                  python                      
 propcache                                                                     0.4.1                                   python                      
 psmisc                                                                        23.7-2                                  deb                         
-psutil                                                                        7.1.1                                   python                      
+psutil                                                                        7.1.2                                   python                      
 publicsuffix                                                                  20250328.1952-0.1                       deb                         
 pulseaudio                                                                    17.0+dfsg1-2+b1                         deb                         
 pulseaudio-utils                                                              17.0+dfsg1-2+b1                         deb                         
@@ -1256,8 +1257,8 @@ xfonts-utils                                                                  1:
 xkb-data                                                                      2.42-1                                  deb                         
 xml-core                                                                      0.19                                    deb                         
 xsel                                                                          1.2.1-1                                 deb                         
-xserver-common                                                                2:21.1.16-1.3                           deb                         
-xserver-xorg-core                                                             2:21.1.16-1.3                           deb                         
+xserver-common                                                                2:21.1.16-1.3+deb13u1                   deb                         
+xserver-xorg-core                                                             2:21.1.16-1.3+deb13u1                   deb                         
 xserver-xorg-video-amdgpu                                                     23.0.0-1                                deb                         
 xserver-xorg-video-ati                                                        1:22.0.0-1                              deb                         
 xserver-xorg-video-intel                                                      2:2.99.917+git20210115-1                deb                         
@@ -1267,7 +1268,7 @@ xserver-xorg-video-radeon                                                     1:
 xsettingsd                                                                    1.0.2-1                                 deb                         
 xterm                                                                         398-1                                   deb                         
 xutils                                                                        1:7.7+24                                deb                         
-xvfb                                                                          2:21.1.16-1.3                           deb                         
+xvfb                                                                          2:21.1.16-1.3+deb13u1                   deb                         
 yarl                                                                          1.22.0                                  python                      
 zenity                                                                        4.1.90-1                                deb                         
 zenity-common                                                                 4.1.90-1                                deb                         
