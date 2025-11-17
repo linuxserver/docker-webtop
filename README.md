@@ -595,6 +595,7 @@ Once registered you can define the dockerfile to use with `-f Dockerfile.aarch64
 
 ## Versions
 
+* **17.11.25:** - Rebase Fedora images to 43.
 * **24.07.25:** - Rebase Debian images to Trixie.
 * **17.06.25:** - Rebase all images to Selkies, drop openbox and icewm, bump Alpine to 3.22, bump Fedora to 42.
 * **10.01.25:** - Rebase Fedora to 41.
