@@ -1,4 +1,4 @@
-FROM ghcr.io/linuxserver/baseimage-selkies:fedora42
+FROM ghcr.io/linuxserver/baseimage-selkies:fedora43
 
 # set version label
 ARG BUILD_DATE
