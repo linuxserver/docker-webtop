@@ -29,9 +29,6 @@ RUN \
   mv \
     /usr/bin/exo-open \
     /usr/bin/exo-open-real && \
-  mv \
-    /usr/bin/thunar \
-    /usr/bin/thunar-real && \
   rm -f \
     /etc/xdg/autostart/xfce4-power-manager.desktop \
     /etc/xdg/autostart/xfce-polkit.desktop \
