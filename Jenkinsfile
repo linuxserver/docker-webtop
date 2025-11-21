@@ -841,6 +841,8 @@ pipeline {
                 -e WEB_PATH=\"${CI_WEBPATH}\" \
                 -e NODE_NAME=\"${NODE_NAME}\" \
                 -e SYFT_IMAGE_TAG=\"${CI_SYFT_IMAGE_TAG:-${SYFT_IMAGE_TAG}}\" \
+                -e COMMIT_SHA=\"${COMMIT_SHA}\" \
+                -e BUILD_NUMBER=\"${BUILD_NUMBER}\" \
                 -t ghcr.io/linuxserver/ci:${CITEST_IMAGETAG} \
                 python3 test_build.py'''
         }
