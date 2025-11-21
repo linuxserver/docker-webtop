@@ -44,9 +44,6 @@ RUN \
   mv \
     /usr/bin/exo-open \
     /usr/bin/exo-open-real && \
-  mv \
-    /usr/bin/thunar \
-    /usr/bin/thunar-real && \
   rm -f \
     /etc/xdg/autostart/xscreensaver.desktop && \
   echo "**** cleanup ****" && \
