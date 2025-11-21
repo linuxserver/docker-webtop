@@ -27,8 +27,8 @@ bsdutils                                                                      1:
 ca-certificates                                                               20240203                                  deb                         
 catatonit                                                                     0.1.7-1                                   deb                         
 cffi                                                                          2.0.0                                     python                      
-chromium                                                                      142.0.7444.162-1xtradeb1.2404.1           deb                         
-chromium-common                                                               142.0.7444.162-1xtradeb1.2404.1           deb                         
+chromium                                                                      142.0.7444.175-1xtradeb1.2404.1           deb                         
+chromium-common                                                               142.0.7444.175-1xtradeb1.2404.1           deb                         
 cli                                                                           UNKNOWN                                   binary                      
 cli-32                                                                        UNKNOWN                                   binary                      
 cli-64                                                                        UNKNOWN                                   binary                      
@@ -78,8 +78,8 @@ distro                                                                        1.
 distro-info-data                                                              0.60ubuntu0.5                             deb                         
 dnspython                                                                     2.8.0                                     python                      
 docker-buildx-plugin                                                          0.30.0-1~ubuntu.24.04~noble               deb                         
-docker-ce                                                                     5:29.0.1-1~ubuntu.24.04~noble             deb                         
-docker-ce-cli                                                                 5:29.0.1-1~ubuntu.24.04~noble             deb                         
+docker-ce                                                                     5:29.0.2-1~ubuntu.24.04~noble             deb                         
+docker-ce-cli                                                                 5:29.0.2-1~ubuntu.24.04~noble             deb                         
 docker-compose-plugin                                                         2.40.3-1~ubuntu.24.04~noble               deb                         
 dpkg                                                                          1.22.6ubuntu6.5                           deb                         
 dunst                                                                         1.9.2-1build2                             deb                         
@@ -113,7 +113,7 @@ gcc-14-base                                                                   14
 gcc-x86-64-linux-gnu                                                          4:13.2.0-7ubuntu1                         deb                         
 gir1.2-girepository-2.0                                                       1.80.1-1                                  deb                         
 gir1.2-glib-2.0                                                               2.80.0-6ubuntu3.4                         deb                         
-gir1.2-packagekitglib-1.0                                                     1.2.8-2ubuntu1.2                          deb                         
+gir1.2-packagekitglib-1.0                                                     1.2.8-2ubuntu1.4                          deb                         
 git                                                                           1:2.43.0-1ubuntu7.3                       deb                         
 git-man                                                                       1:2.43.0-1ubuntu7.3                       deb                         
 github.com/AlecAivazis/survey/v2                                              v2.3.7                                    go-module                   
@@ -339,7 +339,7 @@ github.com/moby/go-archive                                                    v0
 github.com/moby/ipvs                                                          v1.1.0                                    go-module                   
 github.com/moby/locker                                                        v1.0.1                                    go-module  (+4 duplicates)  
 github.com/moby/moby/api                                                      v1.52.0                                   go-module                   
-github.com/moby/moby/v2                                                       v29.0.1                                   go-module  (+1 duplicate)   
+github.com/moby/moby/v2                                                       v29.0.2                                   go-module  (+1 duplicate)   
 github.com/moby/patternmatcher                                                v0.6.0                                    go-module  (+2 duplicates)  
 github.com/moby/profiles/apparmor                                             v0.1.0                                    go-module                   
 github.com/moby/profiles/seccomp                                              v0.1.0                                    go-module                   
@@ -664,12 +664,12 @@ libdebconfclient0                                                             0.
 libdeflate0                                                                   1.19-1build1.1                            deb                         
 libdevmapper1.02.1                                                            2:1.02.185-3ubuntu3.2                     deb                         
 libdouble-conversion3                                                         3.3.0-1build1                             deb                         
-libdrm-amdgpu1                                                                2.4.122-1~ubuntu0.24.04.1                 deb                         
-libdrm-common                                                                 2.4.122-1~ubuntu0.24.04.1                 deb                         
-libdrm-intel1                                                                 2.4.122-1~ubuntu0.24.04.1                 deb                         
-libdrm-nouveau2                                                               2.4.122-1~ubuntu0.24.04.1                 deb                         
-libdrm-radeon1                                                                2.4.122-1~ubuntu0.24.04.1                 deb                         
-libdrm2                                                                       2.4.122-1~ubuntu0.24.04.1                 deb                         
+libdrm-amdgpu1                                                                2.4.122-1~ubuntu0.24.04.2                 deb                         
+libdrm-common                                                                 2.4.122-1~ubuntu0.24.04.2                 deb                         
+libdrm-intel1                                                                 2.4.122-1~ubuntu0.24.04.2                 deb                         
+libdrm-nouveau2                                                               2.4.122-1~ubuntu0.24.04.2                 deb                         
+libdrm-radeon1                                                                2.4.122-1~ubuntu0.24.04.2                 deb                         
+libdrm2                                                                       2.4.122-1~ubuntu0.24.04.2                 deb                         
 libduktape207                                                                 2.7.0+tests-0ubuntu3                      deb                         
 libdw1t64                                                                     0.190-1.1ubuntu0.1                        deb                         
 libedit2                                                                      3.1-20230828-1build1                      deb                         
@@ -829,7 +829,7 @@ libopenjp2-7                                                                  2.
 libopus0                                                                      1.4-1build1                               deb                         
 liborc-0.4-0t64                                                               1:0.4.38-1ubuntu0.1                       deb                         
 libp11-kit0                                                                   0.25.3-4ubuntu2.1                         deb                         
-libpackagekit-glib2-18                                                        1.2.8-2ubuntu1.2                          deb                         
+libpackagekit-glib2-18                                                        1.2.8-2ubuntu1.4                          deb                         
 libpam-modules                                                                1.5.3-5ubuntu5.5                          deb                         
 libpam-modules-bin                                                            1.5.3-5ubuntu5.5                          deb                         
 libpam-runtime                                                                1.5.3-5ubuntu5.5                          deb                         
@@ -1019,7 +1019,7 @@ libzstd1                                                                      1.
 libzvbi-common                                                                0.2.42-2                                  deb                         
 libzvbi0t64                                                                   0.2.42-2                                  deb                         
 lightdm-gtk-greeter                                                           2.0.9-0ubuntu3                            deb                         
-linux-libc-dev                                                                6.8.0-87.88                               deb                         
+linux-libc-dev                                                                6.8.0-88.89                               deb                         
 locales                                                                       2.39-0ubuntu8.6                           deb                         
 locales-all                                                                   2.39-0ubuntu8.6                           deb                         
 login                                                                         1:4.13+dfsg1-4ubuntu3.2                   deb                         
@@ -1052,20 +1052,20 @@ ocl-icd-libopencl1                                                            2.
 openbox                                                                       3.6.1-12build5                            deb                         
 openssh-client                                                                1:9.6p1-3ubuntu13.14                      deb                         
 openssl                                                                       3.0.13-0ubuntu3.6                         deb                         
-packagekit                                                                    1.2.8-2ubuntu1.2                          deb                         
+packagekit                                                                    1.2.8-2ubuntu1.4                          deb                         
 packaging                                                                     24.2                                      python                      
 pasimple                                                                      0.0.3                                     python                      
 passwd                                                                        1:4.13+dfsg1-4ubuntu3.2                   deb                         
 pci.ids                                                                       0.0~2024.03.31-1ubuntu0.1                 deb                         
 pciutils                                                                      1:3.10.0-2build1                          deb                         
-pcmflux                                                                       1.0.5                                     python                      
+pcmflux                                                                       1.0.6                                     python                      
 perl                                                                          5.38.2-3.2ubuntu0.2                       deb                         
 perl-base                                                                     5.38.2-3.2ubuntu0.2                       deb                         
 perl-modules-5.38                                                             5.38.2-3.2ubuntu0.2                       deb                         
 pillow                                                                        12.0.0                                    python                      
 pinentry-curses                                                               1.2.1-3ubuntu5                            deb                         
 pip                                                                           24.0                                      python                      
-pixelflux                                                                     1.4.6                                     python                      
+pixelflux                                                                     1.4.7                                     python                      
 platformdirs                                                                  4.2.2                                     python                      
 plymouth                                                                      24.004.60-1ubuntu7.1                      deb                         
 plymouth-label                                                                24.004.60-1ubuntu7.1                      deb                         
