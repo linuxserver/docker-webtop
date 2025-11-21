@@ -28,9 +28,9 @@ bsdutils                                                                      1:
 ca-certificates                                                               20250419                                deb                         
 catatonit                                                                     0.2.1-2+b3                              deb                         
 cffi                                                                          2.0.0                                   python                      
-chromium                                                                      142.0.7444.162-1~deb13u1                deb                         
-chromium-common                                                               142.0.7444.162-1~deb13u1                deb                         
-chromium-l10n                                                                 142.0.7444.162-1~deb13u1                deb                         
+chromium                                                                      142.0.7444.175-1~deb13u1                deb                         
+chromium-common                                                               142.0.7444.175-1~deb13u1                deb                         
+chromium-l10n                                                                 142.0.7444.175-1~deb13u1                deb                         
 cli                                                                           UNKNOWN                                 binary                      
 cli-32                                                                        UNKNOWN                                 binary                      
 cli-64                                                                        UNKNOWN                                 binary                      
@@ -53,7 +53,7 @@ cpp-x86-64-linux-gnu                                                          4:
 cron                                                                          3.0pl1-197                              deb                         
 cron-daemon-common                                                            3.0pl1-197                              deb                         
 cryptography                                                                  46.0.3                                  python                      
-curl                                                                          8.14.1-2                                deb                         
+curl                                                                          8.14.1-2+deb13u2                        deb                         
 dario.cat/mergo                                                               v1.0.1                                  go-module                   
 dario.cat/mergo                                                               v1.0.2                                  go-module                   
 dash                                                                          0.5.12-12                               deb                         
@@ -74,8 +74,8 @@ dirmngr                                                                       2.
 dmsetup                                                                       2:1.02.205-2                            deb                         
 dnspython                                                                     2.8.0                                   python                      
 docker-buildx-plugin                                                          0.30.0-1~debian.13~trixie               deb                         
-docker-ce                                                                     5:29.0.1-1~debian.13~trixie             deb                         
-docker-ce-cli                                                                 5:29.0.1-1~debian.13~trixie             deb                         
+docker-ce                                                                     5:29.0.2-1~debian.13~trixie             deb                         
+docker-ce-cli                                                                 5:29.0.2-1~debian.13~trixie             deb                         
 docker-compose-plugin                                                         2.40.3-1~debian.13~trixie               deb                         
 dpkg                                                                          1.22.21                                 deb                         
 dunst                                                                         1.12.2-1                                deb                         
@@ -91,7 +91,7 @@ firmware-misc-nonfree                                                         20
 fontconfig                                                                    2.15.0-2.3                              deb                         
 fontconfig-config                                                             2.15.0-2.3                              deb                         
 fonts-noto-cjk                                                                1:20240730+repack1-1                    deb                         
-fonts-noto-color-emoji                                                        2.048-1                                 deb                         
+fonts-noto-color-emoji                                                        2.051-0+deb13u1                         deb                         
 fonts-noto-core                                                               20201225-2                              deb                         
 fonts-noto-mono                                                               20201225-2                              deb                         
 fonts-urw-base35                                                              20200910-8                              deb                         
@@ -332,7 +332,7 @@ github.com/moby/go-archive                                                    v0
 github.com/moby/ipvs                                                          v1.1.0                                  go-module                   
 github.com/moby/locker                                                        v1.0.1                                  go-module  (+4 duplicates)  
 github.com/moby/moby/api                                                      v1.52.0                                 go-module                   
-github.com/moby/moby/v2                                                       v29.0.1                                 go-module  (+1 duplicate)   
+github.com/moby/moby/v2                                                       v29.0.2                                 go-module  (+1 duplicate)   
 github.com/moby/patternmatcher                                                v0.6.0                                  go-module  (+2 duplicates)  
 github.com/moby/profiles/apparmor                                             v0.1.0                                  go-module                   
 github.com/moby/profiles/seccomp                                              v0.1.0                                  go-module                   
@@ -577,7 +577,7 @@ k8s.io/kubelet                                                                v0
 k8s.io/utils                                                                  v0.0.0-20241104100929-3ea5e8cea738      go-module  (+1 duplicate)   
 k8s.io/utils                                                                  v0.0.0-20250604170112-4c0f3b243397      go-module                   
 kbd                                                                           2.7.1-2                                 deb                         
-keyboard-configuration                                                        1.240                                   deb                         
+keyboard-configuration                                                        1.242~deb13u1                           deb                         
 krb5-locales                                                                  1.21.3-5                                deb                         
 libabsl20240722                                                               20240722.0-4                            deb                         
 libacl1                                                                       2.3.2-2+b1                              deb                         
@@ -632,9 +632,9 @@ libcrypt1                                                                     1:
 libcryptsetup12                                                               2:2.7.5-2                               deb                         
 libctf-nobfd0                                                                 2.44-3                                  deb                         
 libctf0                                                                       2.44-3                                  deb                         
-libcups2t64                                                                   2.4.10-3+deb13u1                        deb                         
-libcurl3t64-gnutls                                                            8.14.1-2                                deb                         
-libcurl4t64                                                                   8.14.1-2                                deb                         
+libcups2t64                                                                   2.4.10-3+deb13u2                        deb                         
+libcurl3t64-gnutls                                                            8.14.1-2+deb13u2                        deb                         
+libcurl4t64                                                                   8.14.1-2+deb13u2                        deb                         
 libdatrie1                                                                    0.2.13-3+b1                             deb                         
 libdav1d7                                                                     1.5.1-1                                 deb                         
 libdb5.3t64                                                                   5.3.28+dfsg2-9                          deb                         
@@ -845,16 +845,16 @@ libspeex1                                                                     1.
 libspeexdsp1                                                                  1.2.1-3                                 deb                         
 libsqlite3-0                                                                  3.46.1-7                                deb                         
 libssh2-1t64                                                                  1.11.1-1                                deb                         
-libssl3t64                                                                    3.5.1-1+deb13u1                         deb                         
+libssl3t64                                                                    3.5.4-1~deb13u1                         deb                         
 libstartup-notification0                                                      0.12-8                                  deb                         
 libstdc++-14-dev                                                              14.2.0-19                               deb                         
 libstdc++6                                                                    14.2.0-19                               deb                         
 libsvtav1enc2                                                                 2.3.0+dfsg-1                            deb                         
 libswresample5                                                                7:7.1.2-0+deb13u1                       deb                         
-libsystemd-shared                                                             257.8-1~deb13u2                         deb                         
-libsystemd0                                                                   257.8-1~deb13u2                         deb                         
+libsystemd-shared                                                             257.9-1~deb13u1                         deb                         
+libsystemd0                                                                   257.9-1~deb13u1                         deb                         
 libtasn1-6                                                                    4.20.0-2                                deb                         
-libtdb1                                                                       2:1.4.13+samba4.22.4+dfsg-1~deb13u1     deb                         
+libtdb1                                                                       2:1.4.13+samba4.22.6+dfsg-0+deb13u1     deb                         
 libthai-data                                                                  0.1.29-2                                deb                         
 libthai0                                                                      0.1.29-2+b1                             deb                         
 libtheoradec1                                                                 1.2.0~alpha1+dfsg-6                     deb                         
@@ -867,7 +867,7 @@ libtsan2                                                                      14
 libtwolame0                                                                   0.4.0-2+b2                              deb                         
 libubsan1                                                                     14.2.0-19                               deb                         
 libuchardet0                                                                  0.0.8-1+b2                              deb                         
-libudev1                                                                      257.8-1~deb13u2                         deb                         
+libudev1                                                                      257.9-1~deb13u1                         deb                         
 libunbound8                                                                   1.22.0-2                                deb                         
 libunistring5                                                                 1.3-2                                   deb                         
 libunwind8                                                                    1.8.1-0.1                               deb                         
@@ -938,7 +938,7 @@ libxinerama1                                                                  2:
 libxkbcommon-x11-0                                                            1.7.0-2                                 deb                         
 libxkbcommon0                                                                 1.7.0-2                                 deb                         
 libxkbfile1                                                                   1:1.1.0-1+b4                            deb                         
-libxml2                                                                       2.12.7+dfsg+really2.9.14-2.1+deb13u1    deb                         
+libxml2                                                                       2.12.7+dfsg+really2.9.14-2.1+deb13u2    deb                         
 libxmu6                                                                       2:1.1.3-3+b4                            deb                         
 libxmuu1                                                                      2:1.1.3-3+b4                            deb                         
 libxnvctrl0                                                                   535.171.04-1+b2                         deb                         
@@ -962,7 +962,7 @@ libz3-4                                                                       4.
 libzstd1                                                                      1.5.7+dfsg-1                            deb                         
 libzvbi-common                                                                0.2.44-1                                deb                         
 libzvbi0t64                                                                   0.2.44-1                                deb                         
-linux-libc-dev                                                                6.12.48-1                               deb                         
+linux-libc-dev                                                                6.12.57-1                               deb                         
 linux-sysctl-defaults                                                         4.12                                    deb                         
 locales                                                                       2.41-12                                 deb                         
 locales-all                                                                   2.41-12                                 deb                         
@@ -991,21 +991,21 @@ nginx-common                                                                  1.
 ocl-icd-libopencl1                                                            2.3.3-1                                 deb                         
 openbox                                                                       3.6.1-12+b2                             deb                         
 openssh-client                                                                1:10.0p1-7                              deb                         
-openssl                                                                       3.5.1-1+deb13u1                         deb                         
-openssl-provider-legacy                                                       3.5.1-1+deb13u1                         deb                         
+openssl                                                                       3.5.4-1~deb13u1                         deb                         
+openssl-provider-legacy                                                       3.5.4-1~deb13u1                         deb                         
 packaging                                                                     24.2                                    python                      
 pasimple                                                                      0.0.3                                   python                      
 passwd                                                                        1:4.17.4-2                              deb                         
 pci.ids                                                                       0.0~2025.06.09-1                        deb                         
 pciutils                                                                      1:3.13.0-2                              deb                         
-pcmflux                                                                       1.0.5                                   python                      
+pcmflux                                                                       1.0.6                                   python                      
 perl                                                                          5.40.1-6                                deb                         
 perl-base                                                                     5.40.1-6                                deb                         
 perl-modules-5.40                                                             5.40.1-6                                deb                         
 pillow                                                                        12.0.0                                  python                      
 pinentry-curses                                                               1.3.1-2                                 deb                         
 pip                                                                           25.1.1                                  python                      
-pixelflux                                                                     1.4.6                                   python                      
+pixelflux                                                                     1.4.7                                   python                      
 platformdirs                                                                  4.2.2                                   python                      
 poppler-data                                                                  0.4.12-1                                deb                         
 procps                                                                        2:4.0.4-9                               deb                         
@@ -1054,9 +1054,9 @@ stdlib                                                                        go
 stdlib                                                                        go1.25.4                                go-module  (+2 duplicates)  
 stterm                                                                        0.9.2-1                                 deb                         
 sudo                                                                          1.9.16p2-3                              deb                         
-systemd                                                                       257.8-1~deb13u2                         deb                         
-systemd-cryptsetup                                                            257.8-1~deb13u2                         deb                         
-systemd-timesyncd                                                             257.8-1~deb13u2                         deb                         
+systemd                                                                       257.9-1~deb13u1                         deb                         
+systemd-cryptsetup                                                            257.9-1~deb13u1                         deb                         
+systemd-timesyncd                                                             257.9-1~deb13u1                         deb                         
 sysvinit-utils                                                                3.14-4                                  deb                         
 tags.cncf.io/container-device-interface                                       v1.0.1                                  go-module  (+3 duplicates)  
 tags.cncf.io/container-device-interface/specs-go                              v1.0.0                                  go-module  (+2 duplicates)  
@@ -1066,14 +1066,14 @@ typeguard                                                                     4.
 typing-extensions                                                             4.12.2                                  python                      
 typing-extensions                                                             4.15.0                                  python                      
 tzdata                                                                        2025b-4+deb13u1                         deb                         
-udev                                                                          257.8-1~deb13u2                         deb                         
+udev                                                                          257.9-1~deb13u1                         deb                         
 util-linux                                                                    2.41-5                                  deb                         
 vulkan-tools                                                                  1.4.304.0+dfsg1-1                       deb                         
 watchdog                                                                      6.0.0                                   python                      
 websockets                                                                    15.0.1                                  python                      
 wheel                                                                         0.45.1                                  python                      
 x11-apps                                                                      7.7+11+b1                               deb                         
-x11-common                                                                    1:7.7+24                                deb                         
+x11-common                                                                    1:7.7+24+deb13u1                        deb                         
 x11-session-utils                                                             7.7+6+b1                                deb                         
 x11-utils                                                                     7.7+7                                   deb                         
 x11-xkb-utils                                                                 7.7+9                                   deb                         
@@ -1100,7 +1100,7 @@ xserver-xorg-video-qxl                                                        0.
 xserver-xorg-video-radeon                                                     1:22.0.0-1                              deb                         
 xsettingsd                                                                    1.0.2-1                                 deb                         
 xterm                                                                         398-1                                   deb                         
-xutils                                                                        1:7.7+24                                deb                         
+xutils                                                                        1:7.7+24+deb13u1                        deb                         
 xvfb                                                                          2:21.1.16-1.3+deb13u1                   deb                         
 yarl                                                                          1.22.0                                  python                      
 zipp                                                                          3.19.2                                  python                      
