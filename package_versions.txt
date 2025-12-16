@@ -27,9 +27,9 @@ bsdutils                                                                      1:
 ca-certificates                                                               20250419                                deb                         
 catatonit                                                                     0.2.1-2+b3                              deb                         
 cffi                                                                          2.0.0                                   python                      
-chromium                                                                      143.0.7499.40-1~deb13u1                 deb                         
-chromium-common                                                               143.0.7499.40-1~deb13u1                 deb                         
-chromium-l10n                                                                 143.0.7499.40-1~deb13u1                 deb                         
+chromium                                                                      143.0.7499.109-1~deb13u1                deb                         
+chromium-common                                                               143.0.7499.109-1~deb13u1                deb                         
+chromium-l10n                                                                 143.0.7499.109-1~deb13u1                deb                         
 cli                                                                           UNKNOWN                                 binary                      
 cli-32                                                                        UNKNOWN                                 binary                      
 cli-64                                                                        UNKNOWN                                 binary                      
@@ -72,8 +72,8 @@ dirmngr                                                                       2.
 dmsetup                                                                       2:1.02.205-2                            deb                         
 dnspython                                                                     2.8.0                                   python                      
 docker-buildx-plugin                                                          0.30.1-1~debian.13~trixie               deb                         
-docker-ce                                                                     5:29.1.2-1~debian.13~trixie             deb                         
-docker-ce-cli                                                                 5:29.1.2-1~debian.13~trixie             deb                         
+docker-ce                                                                     5:29.1.3-1~debian.13~trixie             deb                         
+docker-ce-cli                                                                 5:29.1.3-1~debian.13~trixie             deb                         
 docker-compose-plugin                                                         5.0.0-1~debian.13~trixie                deb                         
 dpkg                                                                          1.22.21                                 deb                         
 dunst                                                                         1.12.2-1                                deb                         
@@ -192,7 +192,8 @@ github.com/containerd/ttrpc                                                   v1
 github.com/containerd/typeurl/v2                                              v2.2.3                                  go-module  (+5 duplicates)  
 github.com/containerd/zfs/v2                                                  v2.0.0-rc.0                             go-module                   
 github.com/containernetworking/cni                                            v1.3.0                                  go-module  (+2 duplicates)  
-github.com/containernetworking/plugins                                        v1.8.0                                  go-module  (+1 duplicate)   
+github.com/containernetworking/plugins                                        v1.8.0                                  go-module                   
+github.com/containernetworking/plugins                                        v1.9.0                                  go-module                   
 github.com/containers/ocicrypt                                                v1.2.1                                  go-module                   
 github.com/coreos/go-semver                                                   v0.3.1                                  go-module                   
 github.com/coreos/go-systemd/v22                                              v22.5.0                                 go-module                   
@@ -313,7 +314,7 @@ github.com/moby/go-archive                                                    v0
 github.com/moby/ipvs                                                          v1.1.0                                  go-module                   
 github.com/moby/locker                                                        v1.0.1                                  go-module  (+4 duplicates)  
 github.com/moby/moby/api                                                      v1.52.0                                 go-module                   
-github.com/moby/moby/v2                                                       v29.1.2                                 go-module  (+1 duplicate)   
+github.com/moby/moby/v2                                                       v29.1.3                                 go-module  (+1 duplicate)   
 github.com/moby/patternmatcher                                                v0.6.0                                  go-module  (+2 duplicates)  
 github.com/moby/policy-helpers                                                v0.0.0-20251105011237-bcaa71c99f14      go-module                   
 github.com/moby/profiles/apparmor                                             v0.1.0                                  go-module                   
@@ -559,8 +560,8 @@ libaudit1                                                                     1:
 libavahi-client3                                                              0.8-16                                  deb                         
 libavahi-common-data                                                          0.8-16                                  deb                         
 libavahi-common3                                                              0.8-16                                  deb                         
-libavcodec61                                                                  7:7.1.2-0+deb13u1                       deb                         
-libavutil59                                                                   7:7.1.2-0+deb13u1                       deb                         
+libavcodec61                                                                  7:7.1.3-0+deb13u1                       deb                         
+libavutil59                                                                   7:7.1.3-0+deb13u1                       deb                         
 libbinutils                                                                   2.44-3                                  deb                         
 libblkid1                                                                     2.41-5                                  deb                         
 libbpf1                                                                       1:1.5.0-3                               deb                         
@@ -765,7 +766,7 @@ libpcre2-8-0                                                                  10
 libperl5.40                                                                   5.40.1-6                                deb                         
 libpipeline1                                                                  1.5.8-1                                 deb                         
 libpixman-1-0                                                                 0.44.0-3                                deb                         
-libpng16-16t64                                                                1.6.48-1                                deb                         
+libpng16-16t64                                                                1.6.48-1+deb13u1                        deb                         
 libproc2-0                                                                    2:4.0.4-9                               deb                         
 libpsl5t64                                                                    0.21.2-1.1+b1                           deb                         
 libpulse0                                                                     17.0+dfsg1-2+b1                         deb                         
@@ -808,7 +809,7 @@ libstartup-notification0                                                      0.
 libstdc++-14-dev                                                              14.2.0-19                               deb                         
 libstdc++6                                                                    14.2.0-19                               deb                         
 libsvtav1enc2                                                                 2.3.0+dfsg-1                            deb                         
-libswresample5                                                                7:7.1.2-0+deb13u1                       deb                         
+libswresample5                                                                7:7.1.3-0+deb13u1                       deb                         
 libsystemd-shared                                                             257.9-1~deb13u1                         deb                         
 libsystemd0                                                                   257.9-1~deb13u1                         deb                         
 libtasn1-6                                                                    4.20.0-2                                deb                         
