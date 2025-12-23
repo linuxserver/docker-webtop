@@ -53,7 +53,7 @@ cmake-rpm-macros                                                              3.
 code.cloudfoundry.org/clock                                                   v1.37.0                                 go-module                   
 colord-libs                                                                   1.4.5-6.el9_6                           rpm                         
 container-selinux                                                             4:2.240.0-3.el9_7                       rpm                         
-containerd.io                                                                 2.2.0-2.el9                             rpm                         
+containerd.io                                                                 2.2.1-1.el9                             rpm                         
 coreutils                                                                     8.32-39.0.1.el9                         rpm                         
 coreutils-common                                                              8.32-39.0.1.el9                         rpm                         
 cpp                                                                           11.5.0-11.0.1.el9                       rpm                         
@@ -81,8 +81,8 @@ dejavu-sans-fonts                                                             2.
 dejavu-sans-mono-fonts                                                        2.37-18.el9                             rpm                         
 desktop-backgrounds-compat                                                    39.0.0-3.el9                            rpm                         
 desktop-file-utils                                                            0.26-6.el9                              rpm                         
-device-mapper                                                                 9:1.02.206-2.el9                        rpm                         
-device-mapper-libs                                                            9:1.02.206-2.el9                        rpm                         
+device-mapper                                                                 9:1.02.206-2.el9_7.1                    rpm                         
+device-mapper-libs                                                            9:1.02.206-2.el9_7.1                    rpm                         
 diffutils                                                                     3.7-12.el9                              rpm                         
 distlib                                                                       0.3.2                                   python                      
 distro                                                                        1.5.0                                   python                      
@@ -204,10 +204,12 @@ github.com/compose-spec/compose-go/v2                                         v2
 github.com/container-storage-interface/spec                                   v1.5.0                                  go-module                   
 github.com/containerd/accelerated-container-image                             v1.3.0                                  go-module                   
 github.com/containerd/btrfs/v2                                                v2.0.0                                  go-module                   
-github.com/containerd/cgroups/v3                                              v3.1.0                                  go-module  (+4 duplicates)  
+github.com/containerd/cgroups/v3                                              v3.1.0                                  go-module                   
+github.com/containerd/cgroups/v3                                              v3.1.2                                  go-module  (+3 duplicates)  
 github.com/containerd/console                                                 v1.0.5                                  go-module  (+7 duplicates)  
 github.com/containerd/containerd/api                                          v1.10.0                                 go-module  (+6 duplicates)  
-github.com/containerd/containerd/v2                                           v2.2.0                                  go-module  (+4 duplicates)  
+github.com/containerd/containerd/v2                                           v2.2.0                                  go-module                   
+github.com/containerd/containerd/v2                                           v2.2.1                                  go-module  (+3 duplicates)  
 github.com/containerd/containerd/v2                                           v2.2.1-0.20251115011841-efd86f2b0bc2    go-module  (+1 duplicate)   
 github.com/containerd/continuity                                              v0.4.5                                  go-module  (+6 duplicates)  
 github.com/containerd/errdefs                                                 v1.0.0                                  go-module  (+6 duplicates)  
@@ -217,22 +219,22 @@ github.com/containerd/go-cni                                                  v1
 github.com/containerd/go-runc                                                 v1.1.0                                  go-module  (+4 duplicates)  
 github.com/containerd/imgcrypt/v2                                             v2.0.1                                  go-module                   
 github.com/containerd/log                                                     v0.1.0                                  go-module  (+7 duplicates)  
-github.com/containerd/nri                                                     v0.10.0                                 go-module                   
+github.com/containerd/nri                                                     v0.11.0                                 go-module                   
 github.com/containerd/otelttrpc                                               v0.1.0                                  go-module  (+1 duplicate)   
 github.com/containerd/platforms                                               v1.0.0-rc.2                             go-module  (+5 duplicates)  
 github.com/containerd/plugin                                                  v1.0.0                                  go-module  (+4 duplicates)  
 github.com/containerd/stargz-snapshotter/estargz                              v0.17.0                                 go-module                   
 github.com/containerd/ttrpc                                                   v1.2.7                                  go-module  (+6 duplicates)  
 github.com/containerd/typeurl/v2                                              v2.2.3                                  go-module  (+6 duplicates)  
-github.com/containerd/zfs/v2                                                  v2.0.0-rc.0                             go-module                   
+github.com/containerd/zfs/v2                                                  v2.0.0                                  go-module                   
 github.com/containernetworking/cni                                            v1.3.0                                  go-module  (+3 duplicates)  
-github.com/containernetworking/plugins                                        v1.8.0                                  go-module                   
-github.com/containernetworking/plugins                                        v1.9.0                                  go-module                   
+github.com/containernetworking/plugins                                        v1.9.0                                  go-module  (+1 duplicate)   
 github.com/containers/ocicrypt                                                v1.2.1                                  go-module                   
 github.com/coreos/go-semver                                                   v0.3.1                                  go-module                   
 github.com/coreos/go-systemd/v22                                              v22.5.0                                 go-module                   
 github.com/coreos/go-systemd/v22                                              v22.6.0                                 go-module  (+4 duplicates)  
 github.com/cpuguy83/go-md2man/v2                                              v2.0.7                                  go-module                   
+github.com/cyphar/filepath-securejoin                                         v0.5.1                                  go-module  (+2 duplicates)  
 github.com/cyphar/filepath-securejoin                                         v0.5.2                                  go-module                   
 github.com/cyphar/filepath-securejoin                                         v0.6.0                                  go-module                   
 github.com/davecgh/go-spew                                                    v1.1.1                                  go-module  (+2 duplicates)  
@@ -381,10 +383,11 @@ github.com/opencontainers/cgroups                                             v0
 github.com/opencontainers/go-digest                                           v1.0.0                                  go-module  (+6 duplicates)  
 github.com/opencontainers/image-spec                                          v1.1.1                                  go-module  (+6 duplicates)  
 github.com/opencontainers/runc                                                v1.3.4                                  go-module                   
-github.com/opencontainers/runtime-spec                                        v1.2.1                                  go-module  (+5 duplicates)  
-github.com/opencontainers/runtime-tools                                       v0.9.1-0.20250523060157-0ea5ed0382a2    go-module  (+3 duplicates)  
-github.com/opencontainers/selinux                                             v1.12.0                                 go-module  (+2 duplicates)  
-github.com/opencontainers/selinux                                             v1.13.1                                 go-module  (+1 duplicate)   
+github.com/opencontainers/runtime-spec                                        v1.2.1                                  go-module  (+1 duplicate)   
+github.com/opencontainers/runtime-spec                                        v1.3.0                                  go-module  (+3 duplicates)  
+github.com/opencontainers/runtime-tools                                       v0.9.1-0.20250523060157-0ea5ed0382a2    go-module                   
+github.com/opencontainers/runtime-tools                                       v0.9.1-0.20251114084447-edf4cb3d2116    go-module  (+2 duplicates)  
+github.com/opencontainers/selinux                                             v1.13.1                                 go-module  (+4 duplicates)  
 github.com/package-url/packageurl-go                                          v0.1.1                                  go-module                   
 github.com/pelletier/go-toml                                                  v1.9.5                                  go-module  (+2 duplicates)  
 github.com/pelletier/go-toml/v2                                               v2.2.4                                  go-module  (+3 duplicates)  
@@ -416,7 +419,7 @@ github.com/spf13/pflag                                                        v1
 github.com/stefanberger/go-pkcs11uri                                          v0.0.0-20230803200340-78284954bff6      go-module                   
 github.com/stretchr/testify                                                   v1.11.1                                 go-module  (+1 duplicate)   
 github.com/tchap/go-patricia/v2                                               v2.3.3                                  go-module                   
-github.com/tetratelabs/wazero                                                 v1.9.0                                  go-module                   
+github.com/tetratelabs/wazero                                                 v1.10.1                                 go-module                   
 github.com/theupdateframework/notary                                          v0.7.0                                  go-module                   
 github.com/tilt-dev/fsnotify                                                  v1.4.8-0.20220602155310-fff9c274a375    go-module                   
 github.com/tinylib/msgp                                                       v1.3.0                                  go-module                   
@@ -501,30 +504,26 @@ go.yaml.in/yaml/v2                                                            v2
 go.yaml.in/yaml/v3                                                            v3.0.4                                  go-module                   
 go.yaml.in/yaml/v4                                                            v4.0.0-rc.3                             go-module                   
 gobject-introspection                                                         1.68.0-11.el9                           rpm                         
-golang.org/x/crypto                                                           v0.41.0                                 go-module                   
 golang.org/x/crypto                                                           v0.42.0                                 go-module                   
-golang.org/x/crypto                                                           v0.45.0                                 go-module  (+1 duplicate)   
+golang.org/x/crypto                                                           v0.45.0                                 go-module  (+2 duplicates)  
 golang.org/x/exp                                                              v0.0.0-20241108190413-2d47ceb2692f      go-module  (+3 duplicates)  
 golang.org/x/mod                                                              v0.29.0                                 go-module  (+2 duplicates)  
 golang.org/x/mod                                                              v0.30.0                                 go-module                   
 golang.org/x/net                                                              v0.35.0                                 go-module                   
-golang.org/x/net                                                              v0.43.0                                 go-module  (+3 duplicates)  
 golang.org/x/net                                                              v0.44.0                                 go-module                   
-golang.org/x/net                                                              v0.47.0                                 go-module  (+2 duplicates)  
+golang.org/x/net                                                              v0.47.0                                 go-module  (+6 duplicates)  
 golang.org/x/oauth2                                                           v0.30.0                                 go-module  (+2 duplicates)  
-golang.org/x/sync                                                             v0.17.0                                 go-module  (+4 duplicates)  
-golang.org/x/sync                                                             v0.18.0                                 go-module  (+1 duplicate)   
+golang.org/x/sync                                                             v0.17.0                                 go-module                   
+golang.org/x/sync                                                             v0.18.0                                 go-module  (+5 duplicates)  
 golang.org/x/sys                                                              v0.30.0                                 go-module                   
-golang.org/x/sys                                                              v0.37.0                                 go-module  (+4 duplicates)  
-golang.org/x/sys                                                              v0.38.0                                 go-module  (+2 duplicates)  
-golang.org/x/term                                                             v0.34.0                                 go-module                   
+golang.org/x/sys                                                              v0.37.0                                 go-module                   
+golang.org/x/sys                                                              v0.38.0                                 go-module  (+6 duplicates)  
 golang.org/x/term                                                             v0.35.0                                 go-module                   
-golang.org/x/term                                                             v0.37.0                                 go-module                   
-golang.org/x/text                                                             v0.28.0                                 go-module  (+2 duplicates)  
+golang.org/x/term                                                             v0.37.0                                 go-module  (+1 duplicate)   
 golang.org/x/text                                                             v0.29.0                                 go-module                   
-golang.org/x/text                                                             v0.31.0                                 go-module  (+1 duplicate)   
+golang.org/x/text                                                             v0.31.0                                 go-module  (+4 duplicates)  
 golang.org/x/time                                                             v0.14.0                                 go-module  (+3 duplicates)  
-google-crc32c                                                                 1.7.1                                   python                      
+google-crc32c                                                                 1.8.0                                   python                      
 google-noto-cjk-fonts-common                                                  20230817-2.el9                          rpm                         
 google-noto-emoji-fonts                                                       20211102-1.el9                          rpm                         
 google-noto-fonts-common                                                      20201206-5.el9                          rpm                         
@@ -573,7 +572,7 @@ gvfs-client                                                                   1.
 gzip                                                                          1.12-1.el9                              rpm                         
 harfbuzz                                                                      2.7.4-10.el9                            rpm                         
 hicolor-icon-theme                                                            0.17-13.el9                             rpm                         
-highway                                                                       1.2.0-7.el9                             rpm                         
+highway                                                                       1.3.0-1.el9                             rpm                         
 hostname                                                                      3.23-6.el9                              rpm                         
 hunspell                                                                      1.7.0-11.el9                            rpm                         
 hunspell-en-US                                                                0.20140811.1-20.el9                     rpm                         
@@ -762,8 +761,8 @@ libsndfile                                                                    1.
 libsolv                                                                       0.7.24-3.el9                            rpm                         
 libsoup                                                                       2.72.0-12.el9_7.1                       rpm                         
 libss                                                                         1.46.5-8.el9                            rpm                         
-libssh                                                                        0.10.4-15.el9_7                         rpm                         
-libssh-config                                                                 0.10.4-15.el9_7                         rpm                         
+libssh                                                                        0.10.4-17.el9_7                         rpm                         
+libssh-config                                                                 0.10.4-17.el9_7                         rpm                         
 libstdc++                                                                     11.5.0-11.0.1.el9                       rpm                         
 libstemmer                                                                    0-18.585svn.el9                         rpm                         
 libtasn1                                                                      4.16.0-9.el9                            rpm                         
@@ -787,8 +786,8 @@ libverto                                                                      0.
 libvmaf                                                                       2.3.0-2.el9                             rpm                         
 libvorbis                                                                     1:1.3.7-5.el9                           rpm                         
 libvpx                                                                        1.9.0-9.el9_6                           rpm                         
-libwacom                                                                      1.12.1-5.el9_6                          rpm                         
-libwacom-data                                                                 1.12.1-5.el9_6                          rpm                         
+libwacom                                                                      1.12.1-6.el9_7                          rpm                         
+libwacom-data                                                                 1.12.1-6.el9_7                          rpm                         
 libwayland-client                                                             1.21.0-1.el9                            rpm                         
 libwayland-cursor                                                             1.21.0-1.el9                            rpm                         
 libwayland-egl                                                                1.21.0-1.el9                            rpm                         
@@ -803,9 +802,11 @@ libxdo                                                                        1:
 libxfce4ui                                                                    4.18.4-2.el9                            rpm                         
 libxfce4util                                                                  4.18.1-2.el9                            rpm                         
 libxkbcommon                                                                  1.0.3-4.el9                             rpm                         
+libxkbcommon-devel                                                            1.0.3-4.el9                             rpm                         
 libxkbfile                                                                    1.1.0-8.el9                             rpm                         
 libxklavier                                                                   5.4-20.el9                              rpm                         
 libxml2                                                                       2.9.13-14.el9_7                         rpm                         
+libxml2-devel                                                                 2.9.13-14.el9_7                         rpm                         
 libxshmfence                                                                  1.3-10.el9                              rpm                         
 libxslt                                                                       1.1.34-13.0.1.el9_6                     rpm                         
 libyaml                                                                       0.2.5-7.el9                             rpm                         
@@ -852,6 +853,7 @@ nss-softokn-freebl                                                            3.
 nss-sysinit                                                                   3.112.0-4.el9_4                         rpm                         
 nss-util                                                                      3.112.0-4.el9_4                         rpm                         
 numactl-libs                                                                  2.0.19-3.el9                            rpm                         
+nvidia-cuda-nvrtc                                                             13.1.80                                 python                      
 ocl-icd                                                                       2.2.13-4.el9                            rpm                         
 oniguruma                                                                     6.9.6-1.el9.6                           rpm                         
 openbox                                                                       3.6.1-18.el9                            rpm                         
@@ -859,8 +861,8 @@ openbox-libs                                                                  3.
 opencore-amr                                                                  0.1.6-3.el9                             rpm                         
 openjpeg2                                                                     2.4.0-8.el9                             rpm                         
 openldap                                                                      2.6.8-4.el9                             rpm                         
-openssh                                                                       8.7p1-46.0.2.el9                        rpm                         
-openssh-clients                                                               8.7p1-46.0.2.el9                        rpm                         
+openssh                                                                       8.7p1-47.0.1.el9_7                      rpm                         
+openssh-clients                                                               8.7p1-47.0.1.el9_7                      rpm                         
 openssl                                                                       1:3.5.1-4.0.1.el9_7                     rpm                         
 openssl-fips-provider                                                         3.0.7-8.el9                             rpm                         
 openssl-fips-provider-so                                                      3.0.7-8.el9                             rpm                         
@@ -982,7 +984,7 @@ pyopenssl                                                                     25
 pysocks                                                                       1.7.1                                   python                      
 python-dateutil                                                               2.9.0.post0                             python                      
 python-xlib                                                                   0.33                                    python                      
-python3                                                                       3.9.23-2.0.1.el9                        rpm                         
+python3                                                                       3.9.25-2.0.1.el9_7                      rpm                         
 python3-audit                                                                 3.1.5-7.el9                             rpm                         
 python3-chardet                                                               4.0.0-5.el9                             rpm                         
 python3-cloud-what                                                            1.29.47.1-1.el9_7                       rpm                         
@@ -1004,7 +1006,7 @@ python3-inotify                                                               0.
 python3-libcomps                                                              0.1.18-1.el9                            rpm                         
 python3-libdnf                                                                0.69.0-16.el9                           rpm                         
 python3-librepo                                                               1.14.5-3.el9                            rpm                         
-python3-libs                                                                  3.9.23-2.0.1.el9                        rpm                         
+python3-libs                                                                  3.9.25-2.0.1.el9_7                      rpm                         
 python3-libselinux                                                            3.6-3.el9                               rpm                         
 python3-libsemanage                                                           3.6-5.el9_6                             rpm                         
 python3-pip-wheel                                                             21.3.1-1.el9                            rpm                         
@@ -1069,7 +1071,8 @@ sratom                                                                        0.
 srt-libs                                                                      1.4.4-1.el9                             rpm                         
 st                                                                            0.9-1.el9                               rpm                         
 startup-notification                                                          0.12-23.el9                             rpm                         
-stdlib                                                                        go1.24.9                                go-module  (+5 duplicates)  
+stdlib                                                                        go1.24.11                               go-module  (+4 duplicates)  
+stdlib                                                                        go1.24.9                                go-module                   
 stdlib                                                                        go1.25.3                                go-module                   
 stdlib                                                                        go1.25.5                                go-module  (+2 duplicates)  
 subscription-manager                                                          1.29.47.1                               python                      
@@ -1083,8 +1086,10 @@ systemd-pam                                                                   25
 systemd-python                                                                234                                     python                      
 systemd-rpm-macros                                                            252-55.el9_7.7                          rpm                         
 systemd-udev                                                                  252-55.el9_7.7                          rpm                         
-tags.cncf.io/container-device-interface                                       v1.0.1                                  go-module  (+4 duplicates)  
-tags.cncf.io/container-device-interface/specs-go                              v1.0.0                                  go-module  (+3 duplicates)  
+tags.cncf.io/container-device-interface                                       v1.0.1                                  go-module  (+1 duplicate)   
+tags.cncf.io/container-device-interface                                       v1.1.0                                  go-module  (+2 duplicates)  
+tags.cncf.io/container-device-interface/specs-go                              v1.0.0                                  go-module                   
+tags.cncf.io/container-device-interface/specs-go                              v1.1.0                                  go-module  (+2 duplicates)  
 tar                                                                           2:1.34-7.el9                            rpm                         
 tpm2-tss                                                                      3.2.3-1.el9                             rpm                         
 typing-extensions                                                             4.15.0                                  python                      
@@ -1131,6 +1136,7 @@ xfdesktop                                                                     4.
 xfsprogs                                                                      6.12.0-1.0.2.el9                        rpm                         
 xfwm4                                                                         4.18.0-2.el9                            rpm                         
 xfwm4-themes                                                                  4.10.0-18.el9                           rpm                         
+xkbcommon                                                                     1.0.1                                   python                      
 xkbcomp                                                                       1.4.4-4.el9                             rpm                         
 xkeyboard-config                                                              2.33-2.el9                              rpm                         
 xml-common                                                                    0.6.3-58.el9                            rpm                         
@@ -1151,10 +1157,12 @@ xterm                                                                         36
 xterm-resize                                                                  366-12.el9_6                            rpm                         
 xvidcore                                                                      1.3.7-9.el9                             rpm                         
 xz                                                                            5.2.5-8.el9_0                           rpm                         
+xz-devel                                                                      5.2.5-8.el9_0                           rpm                         
 xz-libs                                                                       5.2.5-8.el9_0                           rpm                         
 yarl                                                                          1.22.0                                  python                      
 yum                                                                           4.14.0-31.el9                           rpm                         
 yum-utils                                                                     4.3.0-24.el9_7                          rpm                         
 zimg                                                                          3.0.6-2.el9                             rpm                         
 zlib                                                                          1.2.11-40.el9                           rpm                         
+zlib-devel                                                                    1.2.11-40.el9                           rpm                         
 zvbi                                                                          0.2.35-15.el9                           rpm                         
