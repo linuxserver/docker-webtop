@@ -17,6 +17,9 @@ USER_PASSWORD=${USER_PASSWORD:-}
 USER_LANGUAGE=${USER_LANGUAGE:-en}
 HOST_HOSTNAME_DEFAULT="Docker-$(hostname)"
 PLATFORM_ARCH_HINT=""
+LANG_ARG="en_US.UTF-8"
+LANGUAGE_ARG="en_US:en"
+NO_CACHE_FLAG=""
 
 usage() {
   cat <<EOF
@@ -29,6 +32,7 @@ Usage: $0 [-b base_image] [-i base_image_name] [-u user] [-U uid] [-G gid] [-a a
   -a, --arch       Arch hint (amd64/arm64) to pick base tag
   -p, --platform   Platform override for buildx (e.g. linux/arm64)
   -l, --language   Language pack to install (en or ja). Default: ${USER_LANGUAGE}
+  -n, --no-cache   Build without cache (passes --no-cache to buildx)
   (env) USER_PASSWORD  Password to set for the user (will prompt if empty)
 EOF
 }
@@ -43,6 +47,7 @@ while [[ $# -gt 0 ]]; do
     -a|--arch) TARGET_ARCH=$2; shift 2 ;;
     -p|--platform) PLATFORM_OVERRIDE=$2; shift 2 ;;
     -l|--language) USER_LANGUAGE=$2; shift 2 ;;
+    -n|--no-cache) NO_CACHE_FLAG="--no-cache"; shift ;;
     -h|--help) usage; exit 0 ;;
     *) echo "Unknown option: $1" >&2; usage; exit 1 ;;
   esac
@@ -91,6 +96,11 @@ echo "User: ${USER_NAME} (${USER_UID}:${USER_GID})"
 echo "Target arch: ${TARGET_ARCH}, platform: ${PLATFORM}"
 echo "Language: ${USER_LANGUAGE}"
 
+if [[ "${USER_LANGUAGE}" == "ja" ]]; then
+  LANG_ARG="ja_JP.UTF-8"
+  LANGUAGE_ARG="ja_JP:ja"
+fi
+
 if [[ ! -f "${DOCKERFILE_USER}" ]]; then
   echo "User Dockerfile not found: ${DOCKERFILE_USER}" >&2
   exit 1
@@ -98,6 +108,7 @@ fi
 
 docker buildx build \
   --platform "${PLATFORM}" \
+  ${NO_CACHE_FLAG} \
   -f "${DOCKERFILE_USER}" \
   --build-arg BASE_IMAGE="${BASE_IMAGE}" \
   --build-arg USER_NAME="${USER_NAME}" \
@@ -105,9 +116,11 @@ docker buildx build \
   --build-arg USER_GID="${USER_GID}" \
   --build-arg USER_PASSWORD="${USER_PASSWORD}" \
   --build-arg USER_LANGUAGE="${USER_LANGUAGE}" \
+  --build-arg USER_LANG_ENV="${LANG_ARG}" \
+  --build-arg USER_LANGUAGE_ENV="${LANGUAGE_ARG}" \
   --build-arg HOST_HOSTNAME="${HOST_HOSTNAME_DEFAULT}" \
   --progress=plain \
   --load \
   -t "${IMAGE_NAME_BASE}-${USER_NAME}:${TARGET_ARCH}-latest" \
-  -t "${IMAGE_NAME_BASE}-${USER_NAME}:latest" \
+  -t "${IMAGE_NAME_BASE}-${USER_NAME}:${TARGET_ARCH}" \
   "${FILES_DIR}"

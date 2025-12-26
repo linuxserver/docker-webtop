@@ -456,6 +456,14 @@ RUN \
     kio-extras knewstuff-dialog konsole ksystemstats kubuntu-settings-desktop \
     kubuntu-wallpapers kubuntu-web-shortcuts kwin-addons kwin-x11 kwrite \
     plasma-desktop plasma-workspace qml-module-qt-labs-platform systemsettings && \
+  if [ "$(dpkg --print-architecture)" = "amd64" ]; then \
+    echo "**** install latest google-chrome (amd64) ****" && \
+    cd /tmp && \
+    curl -fsSL -o google-chrome-stable.deb https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb && \
+    apt-get update && \
+    DEBIAN_FRONTEND=noninteractive apt-get install --no-install-recommends -y ./google-chrome-stable.deb && \
+    rm -f /tmp/google-chrome-stable.deb; \
+  fi && \
   echo "**** application tweaks ****" && \
   sed -i 's#^Exec=.*#Exec=/usr/local/bin/wrapped-chromium#g' \
     /usr/share/applications/chromium.desktop && \

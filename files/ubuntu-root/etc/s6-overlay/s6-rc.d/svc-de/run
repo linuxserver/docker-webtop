@@ -48,6 +48,9 @@ else
   echo "Xcursor.theme: breeze" > "${HOME}/.Xresources"
   xrdb "${HOME}/.Xresources"
 fi
+if [[ "${LANG:-}" == ja* ]]; then
+  setxkbmap -layout jp -model jp106 -option ''
+fi
 chown "${TARGET_USER}:${TARGET_USER}" "${HOME}/.Xresources"
 chmod 777 /tmp/selkies*
 

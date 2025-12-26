@@ -7,11 +7,16 @@ ARG USER_GID
 ARG USER_PASSWORD=""
 ARG HOST_HOSTNAME="Docker-Host"
 ARG USER_LANGUAGE="en"
+ARG USER_LANG_ENV="en_US.UTF-8"
+ARG USER_LANGUAGE_ENV="en_US:en"
 
 ENV HOME="/home/${USER_NAME}" \
     USER_NAME="${USER_NAME}" \
     HOST_HOSTNAME="${HOST_HOSTNAME}" \
-    SHELL="/bin/bash"
+    SHELL="/bin/bash" \
+    LANG="${USER_LANG_ENV}" \
+    LANGUAGE="${USER_LANGUAGE_ENV}" \
+    LC_ALL="${USER_LANG_ENV}"
 
 RUN set -eux; \
   TARGET_USER="${USER_NAME}"; \
@@ -134,12 +139,17 @@ RUN set -eux; \
 
 # optional Japanese locale and input (toggle via USER_LANGUAGE=ja)
 RUN set -eux; \
-  if [ "${USER_LANGUAGE}" = "ja" ]; then \
+  LANG_SEL="$(echo "${USER_LANGUAGE}" | tr '[:upper:]' '[:lower:]')" ; \
+  if [ "${LANG_SEL}" = "ja" ] || [ "${LANG_SEL}" = "ja_jp" ] || [ "${LANG_SEL}" = "ja-jp" ]; then \
     apt-get update && \
     DEBIAN_FRONTEND=noninteractive apt-get install --no-install-recommends -y \
-      language-pack-ja-base language-pack-ja \
+      language-pack-ja-base language-pack-ja im-config \
       fonts-noto-cjk fonts-noto-color-emoji \
-      fcitx fcitx-mozc fcitx-frontend-gtk3 fcitx-frontend-qt5 fcitx-module-dbus fcitx-ui-classic \
+      fcitx fcitx-bin fcitx-data fcitx-table-all \
+      fcitx-mozc fcitx-config-gtk \
+      fcitx-frontend-gtk2 fcitx-frontend-gtk3 fcitx-frontend-qt5 \
+      fcitx-module-dbus fcitx-module-kimpanel fcitx-module-x11 fcitx-module-lua fcitx-ui-classic \
+      kde-config-fcitx \
       mozc-utils-gui && \
     locale-gen ja_JP.UTF-8 && \
     update-locale LANG=ja_JP.UTF-8 LANGUAGE=ja_JP:ja LC_ALL=ja_JP.UTF-8 && \
@@ -148,6 +158,67 @@ RUN set -eux; \
     echo 'LANG=ja_JP.UTF-8' > /etc/default/locale; \
     echo 'LANGUAGE=ja_JP:ja' >> /etc/default/locale; \
     echo 'LC_ALL=ja_JP.UTF-8' >> /etc/default/locale; \
+    printf '%s\n' \
+      'export GTK_IM_MODULE=fcitx' \
+      'export QT_IM_MODULE=fcitx' \
+      'export XMODIFIERS=@im=fcitx' \
+      'export INPUT_METHOD=fcitx' \
+      'export SDL_IM_MODULE=fcitx' \
+      'export GLFW_IM_MODULE=fcitx' \
+      'export FCITX_DEFAULT_INPUT_METHOD=mozc' \
+      > /etc/profile.d/fcitx.sh; \
+    chmod 644 /etc/profile.d/fcitx.sh; \
+    printf '%s\n' \
+      'XKBMODEL="jp106"' \
+      'XKBLAYOUT="jp"' \
+      'XKBVARIANT=""' \
+      'XKBOPTIONS=""' \
+      'BACKSPACE="guess"' \
+      > /etc/default/keyboard; \
+    install -d -m 755 /etc/X11/xorg.conf.d; \
+    printf '%s\n' \
+      'Section "InputClass"' \
+      '    Identifier "system-keyboard"' \
+      '    MatchIsKeyboard "on"' \
+      '    Option "XkbLayout" "jp"' \
+      '    Option "XkbModel" "jp106"' \
+      '    Option "XkbVariant" ""' \
+      '    Option "XkbOptions" ""' \
+      'EndSection' \
+      > /etc/X11/xorg.conf.d/00-keyboard.conf; \
+    im-config -n fcitx; \
+    install -d -m 755 /etc/xdg/autostart "/home/${USER_NAME}/.config/autostart"; \
+    printf '%s\n' \
+      '[Desktop Entry]' \
+      'Type=Application' \
+      'Exec=fcitx -d' \
+      'Hidden=false' \
+      'X-GNOME-Autostart-enabled=true' \
+      'Name=fcitx' \
+      'Comment=Start Fcitx input method daemon' \
+      > /etc/xdg/autostart/fcitx-autostart.desktop; \
+    cp /etc/xdg/autostart/fcitx-autostart.desktop "/home/${USER_NAME}/.config/autostart/fcitx-autostart.desktop"; \
+    chown "${USER_UID}:${USER_GID}" "/home/${USER_NAME}/.config/autostart/fcitx-autostart.desktop"; \
+    printf '%s\n' \
+      'export GTK_IM_MODULE=fcitx' \
+      'export QT_IM_MODULE=fcitx' \
+      'export XMODIFIERS=@im=fcitx' \
+      'export INPUT_METHOD=fcitx' \
+      'export SDL_IM_MODULE=fcitx' \
+      'export GLFW_IM_MODULE=fcitx' \
+      'export FCITX_DEFAULT_INPUT_METHOD=mozc' \
+      'fcitx -d >/tmp/fcitx.log 2>&1' \
+      > "/home/${USER_NAME}/.xprofile"; \
+    printf '%s\n' \
+      '[Layout]' \
+      'DisplayNames=' \
+      'LayoutList=jp' \
+      'Model=jp106' \
+      'Options=' \
+      'ResetOldOptions=true' \
+      'Use=true' \
+      > "/home/${USER_NAME}/.config/kxkbrc"; \
+    chown "${USER_UID}:${USER_GID}" "/home/${USER_NAME}/.xprofile" "/home/${USER_NAME}/.config/kxkbrc"; \
   fi
 
 # create XDG user dirs and desktop shortcuts (Home/Trash)
@@ -157,47 +228,72 @@ RUN set -eux; \
     chown "${USER_UID}:${USER_GID}" "/home/${USER_NAME}/${d}"; \
   done; \
   install -d -m 755 "/home/${USER_NAME}/.config"; \
-  cat > "/home/${USER_NAME}/.config/user-dirs.dirs" <<'EOF'
+  printf '%s\n' \
+    'XDG_DESKTOP_DIR="$HOME/Desktop"' \
+    'XDG_DOWNLOAD_DIR="$HOME/Downloads"' \
+    'XDG_TEMPLATES_DIR="$HOME/Templates"' \
+    'XDG_PUBLICSHARE_DIR="$HOME/Public"' \
+    'XDG_DOCUMENTS_DIR="$HOME/Documents"' \
+    'XDG_MUSIC_DIR="$HOME/Music"' \
+    'XDG_PICTURES_DIR="$HOME/Pictures"' \
+    'XDG_VIDEOS_DIR="$HOME/Videos"' \
+    > "/home/${USER_NAME}/.config/user-dirs.dirs"; \
+  printf '%s\n' \
+    '[Desktop Entry]' \
+    'Encoding=UTF-8' \
+    'Name=Home' \
+    'GenericName=Personal Files' \
+    'URL[$e]=$HOME' \
+    'Icon=user-home' \
+    'Type=Link' \
+    > "/home/${USER_NAME}/Desktop/home.desktop"; \
+  printf '%s\n' \
+    '[Desktop Entry]' \
+    'Name=Trash' \
+    'Comment=Contains removed files' \
+    'Icon=user-trash-full' \
+    'EmptyIcon=user-trash' \
+    'URL=trash:/' \
+    'Type=Link' \
+    > "/home/${USER_NAME}/Desktop/trash.desktop"; \
+  chown "${USER_UID}:${USER_GID}" /home/${USER_NAME}/Desktop/home.desktop /home/${USER_NAME}/Desktop/trash.desktop
 
-# Create XDG user directories
-RUN mkdir -p /home/${USER_NAME}/.config && \
-    mkdir -p /home/${USER_NAME}/Desktop && \
-    mkdir -p /home/${USER_NAME}/Downloads && \
-    mkdir -p /home/${USER_NAME}/Templates && \
-    mkdir -p /home/${USER_NAME}/Public && \
-    mkdir -p /home/${USER_NAME}/Documents && \
-    mkdir -p /home/${USER_NAME}/Music && \
-    mkdir -p /home/${USER_NAME}/Pictures && \
-    mkdir -p /home/${USER_NAME}/Videos
-
-# Configure XDG user directories
-RUN echo 'XDG_DESKTOP_DIR="$HOME/Desktop"' > /home/${USER_NAME}/.config/user-dirs.dirs && \
-    echo 'XDG_DOWNLOAD_DIR="$HOME/Downloads"' >> /home/${USER_NAME}/.config/user-dirs.dirs && \
-    echo 'XDG_TEMPLATES_DIR="$HOME/Templates"' >> /home/${USER_NAME}/.config/user-dirs.dirs && \
-    echo 'XDG_PUBLICSHARE_DIR="$HOME/Public"' >> /home/${USER_NAME}/.config/user-dirs.dirs && \
-    echo 'XDG_DOCUMENTS_DIR="$HOME/Documents"' >> /home/${USER_NAME}/.config/user-dirs.dirs && \
-    echo 'XDG_MUSIC_DIR="$HOME/Music"' >> /home/${USER_NAME}/.config/user-dirs.dirs && \
-    echo 'XDG_PICTURES_DIR="$HOME/Pictures"' >> /home/${USER_NAME}/.config/user-dirs.dirs && \
-    echo 'XDG_VIDEOS_DIR="$HOME/Videos"' >> /home/${USER_NAME}/.config/user-dirs.dirs
-
-# Create Desktop shortcuts
-RUN echo '[Desktop Entry]' > /home/${USER_NAME}/Desktop/home.desktop && \
-    echo 'Encoding=UTF-8' >> /home/${USER_NAME}/Desktop/home.desktop && \
-    echo 'Name=Home' >> /home/${USER_NAME}/Desktop/home.desktop && \
-    echo 'GenericName=Personal Files' >> /home/${USER_NAME}/Desktop/home.desktop && \
-    echo 'URL[$e]=$HOME' >> /home/${USER_NAME}/Desktop/home.desktop && \
-    echo 'Icon=user-home' >> /home/${USER_NAME}/Desktop/home.desktop && \
-    echo 'Type=Link' >> /home/${USER_NAME}/Desktop/home.desktop
-
-RUN echo '[Desktop Entry]' > /home/${USER_NAME}/Desktop/trash.desktop && \
-    echo 'Name=Trash' >> /home/${USER_NAME}/Desktop/trash.desktop && \
-    echo 'Comment=Contains removed files' >> /home/${USER_NAME}/Desktop/trash.desktop && \
-    echo 'Icon=user-trash-full' >> /home/${USER_NAME}/Desktop/trash.desktop && \
-    echo 'EmptyIcon=user-trash' >> /home/${USER_NAME}/Desktop/trash.desktop && \
-    echo 'URL=trash:/' >> /home/${USER_NAME}/Desktop/trash.desktop && \
-    echo 'Type=Link' >> /home/${USER_NAME}/Desktop/trash.desktop
-
-# Set ownership of all user files
-RUN chown -R ${USER_NAME} /home/${USER_NAME}
+# browser wrappers (Chromium on arm64, Chrome on amd64) to enforce flags even after package updates
+RUN set -eux; \
+  ARCH="$(dpkg --print-architecture)"; \
+  if [ "${ARCH}" = "arm64" ]; then \
+    if [ -x /usr/bin/chromium ]; then \
+      echo '#!/bin/bash' > /usr/local/bin/chromium-wrapped && \
+      echo 'CHROME_BIN=\"/usr/bin/chromium\"' >> /usr/local/bin/chromium-wrapped && \
+      echo 'exec \"${CHROME_BIN}\" --password-store=basic --in-process-gpu --no-sandbox ${CHROME_EXTRA_FLAGS} \"$@\"' >> /usr/local/bin/chromium-wrapped && \
+      chmod 755 /usr/local/bin/chromium-wrapped; \
+      if [ -f /usr/share/applications/chromium.desktop ]; then \
+        mkdir -p /home/${USER_NAME}/.local/share/applications && \
+        cp /usr/share/applications/chromium.desktop /home/${USER_NAME}/.local/share/applications/chromium.desktop && \
+        sed -i -e 's#Exec=/usr/bin/chromium#Exec=/usr/local/bin/chromium-wrapped#g' /home/${USER_NAME}/.local/share/applications/chromium.desktop && \
+        chown ${USER_UID}:${USER_GID} /home/${USER_NAME}/.local/share/applications/chromium.desktop; \
+      fi; \
+    fi; \
+  else \
+    if [ -x /usr/bin/google-chrome-stable ]; then \
+      echo '#!/bin/bash' > /usr/local/bin/google-chrome-wrapped && \
+      echo 'CHROME_BIN=\"/usr/bin/google-chrome-stable\"' >> /usr/local/bin/google-chrome-wrapped && \
+      echo 'exec \"${CHROME_BIN}\" --password-store=basic --in-process-gpu --no-sandbox ${CHROME_EXTRA_FLAGS} \"$@\"' >> /usr/local/bin/google-chrome-wrapped && \
+      chmod 755 /usr/local/bin/google-chrome-wrapped; \
+      for chrome_bin in google-chrome google-chrome-beta google-chrome-unstable; do \
+        if [ -x \"/usr/bin/${chrome_bin}\" ]; then \
+          echo '#!/bin/bash' > \"/usr/local/bin/${chrome_bin}-wrapped\" && \
+          echo 'exec /usr/local/bin/google-chrome-wrapped \"$@\"' >> \"/usr/local/bin/${chrome_bin}-wrapped\" && \
+          chmod 755 \"/usr/local/bin/${chrome_bin}-wrapped\"; \
+        fi; \
+      done; \
+      if [ -f /usr/share/applications/google-chrome.desktop ]; then \
+        mkdir -p /home/${USER_NAME}/.local/share/applications && \
+        cp /usr/share/applications/google-chrome.desktop /home/${USER_NAME}/.local/share/applications/google-chrome.desktop && \
+        sed -i -e 's#Exec=/usr/bin/google-chrome-stable#Exec=/usr/local/bin/google-chrome-wrapped#g' /home/${USER_NAME}/.local/share/applications/google-chrome.desktop && \
+        chown ${USER_UID}:${USER_GID} /home/${USER_NAME}/.local/share/applications/google-chrome.desktop; \
+      fi; \
+    fi; \
+  fi
 
 # Keep default USER=root so s6 init can modify system paths.

@@ -6,12 +6,19 @@ HOST_UID=$(id -u "${HOST_USER}")
 HOST_GID=$(id -g "${HOST_USER}")
 NAME=${CONTAINER_NAME:-linuxserver-kde-${HOST_USER}}
 IMAGE_BASE=${IMAGE_BASE:-webtop-kde}
-IMAGE_TAG=${IMAGE_TAG:-latest}
+IMAGE_TAG=${IMAGE_TAG:-}
 IMAGE_OVERRIDE=${IMAGE_NAME:-}
 RESOLUTION=${RESOLUTION:-1920x1080}
 DPI=${DPI:-96}
 PLATFORM=${PLATFORM:-}
 SSL_DIR=${SSL_DIR:-}
+IMAGE_TAG_SET=false
+HOST_ARCH_RAW=$(uname -m)
+case "${HOST_ARCH_RAW}" in
+  x86_64|amd64) DETECTED_ARCH=amd64 ;;
+  aarch64|arm64) DETECTED_ARCH=arm64 ;;
+  *) DETECTED_ARCH="${HOST_ARCH_RAW}" ;;
+esac
 
 usage() {
   cat <<EOF
@@ -30,7 +37,7 @@ while getopts ":n:i:t:r:d:p:s:h" opt; do
   case "$opt" in
     n) NAME=$OPTARG ;;
     i) IMAGE_BASE=$OPTARG ;;
-    t) IMAGE_TAG=$OPTARG ;;
+    t) IMAGE_TAG=$OPTARG; IMAGE_TAG_SET=true ;;
     r) RESOLUTION=$OPTARG ;;
     d) DPI=$OPTARG ;;
     p) PLATFORM=$OPTARG ;;
@@ -43,6 +50,20 @@ done
 if [[ ! $RESOLUTION =~ ^[0-9]+x[0-9]+$ ]]; then
   echo "Resolution must be WIDTHxHEIGHT (e.g. 1920x1080)" >&2
   exit 1
+fi
+
+if [[ "${IMAGE_TAG_SET}" = false ]]; then
+  # If platform is provided, derive arch from it; otherwise use detected arch.
+  if [[ -n "${PLATFORM}" ]]; then
+    PLATFORM_ARCH="${PLATFORM#*/}"
+    case "${PLATFORM_ARCH}" in
+      amd64|x86_64) IMAGE_TAG="amd64-latest" ;;
+      arm64|aarch64) IMAGE_TAG="arm64-latest" ;;
+      *) IMAGE_TAG="${DETECTED_ARCH}-latest" ;;
+    esac
+  else
+    IMAGE_TAG="${DETECTED_ARCH}-latest"
+  fi
 fi
 
 WIDTH=${RESOLUTION%x*}
