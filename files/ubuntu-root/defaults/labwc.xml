@@ -1,0 +1,56 @@
+<labwc_config>
+
+  <core>
+    <decoration>server</decoration>
+    <gap>0</gap>
+  </core>
+
+  <theme>
+    <titlebar>
+      <layout>icon:iconify,max,close</layout>
+      <showTitle>yes</showTitle>
+    </titlebar>
+    <cornerRadius>8</cornerRadius>
+  </theme>
+
+  <keyboard>
+    <default />
+    <keybind key="A-F4"><action name="Close" /></keybind>
+    <keybind key="A-Escape"><action name="Close" /></keybind>
+    <keybind key="A-space"><action name="ShowMenu" menu="client-menu" /></keybind>
+    <keybind key="W-e"><action name="Execute" command="lab-sensible-terminal" /></keybind>
+  </keyboard>
+
+  <mouse>
+    <default />
+    <context name="Root">
+      <mousebind button="Left" action="Press" />
+      <mousebind button="Right" action="Press"><action name="ShowMenu" menu="root-menu" /></mousebind>
+      <mousebind button="Middle" action="Press"><action name="ShowMenu" menu="client-list-combined-menu" /></mousebind>
+    </context>
+    <context name="TitleBar">
+      <mousebind button="Right" action="Click"><action name="ShowMenu" menu="client-menu" /></mousebind>
+      <mousebind button="Middle" action="Click"><action name="ToggleMaximize" direction="vertical" /></mousebind>
+    </context>
+  </mouse>
+
+  <windowRules>
+    <windowRule identifier="*" serverDecoration="yes" />
+    <windowRule identifier="*"><action name="Maximize" /></windowRule>
+    <windowRule identifier="brave" serverDecoration="no" />
+    <windowRule identifier="chrome" serverDecoration="no" />
+    <windowRule identifier="chromium-browser" serverDecoration="no" />
+    <windowRule identifier="chromium" serverDecoration="no" />
+    <windowRule identifier="firefox-esr" serverDecoration="no" />
+    <windowRule identifier="firefox" serverDecoration="no" />
+    <windowRule identifier="google-chrome" serverDecoration="no" />
+    <windowRule identifier="librewolf" serverDecoration="no" />
+    <windowRule identifier="mullvad-browser" serverDecoration="no" />
+    <windowRule identifier="opera-bin" serverDecoration="no" />
+    <windowRule identifier="opera" serverDecoration="no" />
+    <windowRule identifier="vivaldi" serverDecoration="no" />
+    <windowRule identifier="wrapped-chromium" serverDecoration="no" />
+    <windowRule identifier="zen" serverDecoration="no" />
+  </windowRules>
+
+</labwc_config>

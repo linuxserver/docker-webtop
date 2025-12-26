@@ -1,0 +1,77 @@
+#!/usr/bin/with-contenv bash
+
+TARGET_USER="${CUSTOM_USER:-${USER_NAME:-root}}"
+PORT="${SELKIES_PORT:-8082}"
+
+# Default sink setup (wait until pulseaudio is ready, then create virtual sinks)
+if [ ! -f '/dev/shm/audio.lock' ]; then
+  # ensure pulseaudio is up
+  for i in $(seq 1 30); do
+    if s6-setuidgid "$TARGET_USER" with-contenv pactl info >/dev/null 2>&1; then
+      READY=1
+      break
+    fi
+    sleep 0.5
+  done
+  if [ "${READY:-0}" -eq 1 ]; then
+    s6-setuidgid "$TARGET_USER" with-contenv pactl \
+      load-module module-null-sink \
+      sink_name="output" \
+      sink_properties=device.description="output"
+    s6-setuidgid "$TARGET_USER" with-contenv pactl \
+      load-module module-null-sink \
+      sink_name="input" \
+      sink_properties=device.description="input"
+    touch /dev/shm/audio.lock
+  else
+    echo "[svc-selkies] pulseaudio not ready; skipped null-sink setup (audio may be missing)." >&2
+  fi
+fi
+
+# Setup dev mode if defined
+if [ ! -z ${DEV_MODE+x} ]; then
+  # Dev deps
+  apt-get update
+  apt-get install -y \
+    nodejs
+  npm install -g nodemon
+  rm -Rf $HOME/.npm
+  # Frontend setup
+  if [[ "${DEV_MODE}" == "core" ]]; then
+    # Core just runs from directory
+    cd $HOME/src/addons/gst-web-core
+    s6-setuidgid "$TARGET_USER" npm install
+    s6-setuidgid "$TARGET_USER" npm run serve &
+  else
+    # Build core
+    cd $HOME/src/addons/gst-web-core
+    s6-setuidgid "$TARGET_USER" npm install
+    s6-setuidgid "$TARGET_USER" npm run build
+    s6-setuidgid "$TARGET_USER" cp dist/selkies-core.js ../${DEV_MODE}/src/
+    s6-setuidgid "$TARGET_USER" nodemon --watch selkies-core.js --exec "npm run build && cp dist/selkies-core.js ../${DEV_MODE}/src/" & 
+    # Copy touch gamepad
+    s6-setuidgid "$TARGET_USER" cp ../universal-touch-gamepad/universalTouchGamepad.js ../${DEV_MODE}/src/
+    s6-setuidgid "$TARGET_USER" nodemon --watch ../universal-touch-gamepad/universalTouchGamepad.js --exec "cp ../universal-touch-gamepad/universalTouchGamepad.js ../${DEV_MODE}/src/" &  
+    # Copy themes
+    s6-setuidgid "$TARGET_USER" cp -a nginx ../${DEV_MODE}/
+    # Run passed frontend
+    cd $HOME/src/addons/${DEV_MODE}
+    s6-setuidgid "$TARGET_USER" npm install
+    s6-setuidgid "$TARGET_USER" npm run serve &
+  fi
+  # Run backend
+  cd $HOME/src/src
+  s6-setuidgid "$TARGET_USER" \
+    nodemon -V --ext py --exec \
+      "python3" -m selkies \
+      --addr="localhost" \
+      --mode="websockets" \
+      --debug="true"
+fi
+
+# Start Selkies
+exec s6-setuidgid "$TARGET_USER" \
+  selkies \
+    --addr="localhost" \
+    --mode="websockets" \
+    --port="${PORT}"

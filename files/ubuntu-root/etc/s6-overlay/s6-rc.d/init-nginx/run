@@ -1,0 +1,85 @@
+#!/usr/bin/with-contenv bash
+
+# nginx Path
+NGINX_CONFIG=/etc/nginx/sites-available/default
+
+# user passed env vars
+CPORT="${CUSTOM_PORT:-3000}"
+CHPORT="${CUSTOM_HTTPS_PORT:-3001}"
+CWS="${CUSTOM_WS_PORT:-8082}"
+CUSER="${CUSTOM_USER:-${USER_NAME:-root}}"
+SFOLDER="${SUBFOLDER:-/}"
+FILE_MANAGER_PATH="${FILE_MANAGER_PATH:-$HOME}"
+DASHBOARD="${DASHBOARD:-selkies-dashboard}"
+SELKIES_FILE_TRANSFERS="${SELKIES_FILE_TRANSFERS:-upload,download}"
+HARDEN_DESKTOP="${HARDEN_DESKTOP:-false}"
+
+# create self signed cert
+if [ ! -f "/config/ssl/cert.pem" ]; then
+  mkdir -p /config/ssl
+  openssl req -new -x509 \
+    -days 3650 -nodes \
+    -out /config/ssl/cert.pem \
+    -keyout /config/ssl/cert.key \
+    -subj "/C=US/ST=CA/L=Carlsbad/O=Linuxserver.io/OU=LSIO Server/CN=*"
+  chmod 600 /config/ssl/cert.key
+  TARGET_USER="${CUSER}"
+  chown -R "${TARGET_USER}:${TARGET_USER}" /config/ssl
+fi
+
+# modify nginx config
+cp /defaults/default.conf ${NGINX_CONFIG}
+sed -i "s/3000/$CPORT/g" ${NGINX_CONFIG}
+sed -i "s/3001/$CHPORT/g" ${NGINX_CONFIG}
+sed -i "s/CWS/$CWS/g" ${NGINX_CONFIG}
+sed -i "s|SUBFOLDER|$SFOLDER|g" ${NGINX_CONFIG}
+sed -i "s|REPLACE_DOWNLOADS_PATH|$FILE_MANAGER_PATH|g" ${NGINX_CONFIG}
+s6-setuidgid "${CUSER}" mkdir -p ${FILE_MANAGER_PATH}
+if [[ $SELKIES_FILE_TRANSFERS != *"download"* ]] || [[ ${HARDEN_DESKTOP,,} == "true" ]]; then
+  sed -i '/files {/,/^  }/d' ${NGINX_CONFIG}
+fi
+if [ ! -z ${DISABLE_IPV6+x} ]; then
+  sed -i '/listen \[::\]/d' ${NGINX_CONFIG}
+fi
+if [ ! -z ${PASSWORD+x} ]; then
+  printf "${CUSER}:$(openssl passwd -apr1 ${PASSWORD})\n" > /etc/nginx/.htpasswd
+  sed -i 's/#//g' ${NGINX_CONFIG}
+fi
+if [ ! -z ${DEV_MODE+x} ]; then
+  sed -i \
+    -e 's:location / {:location /null {:g' \
+    -e 's:location /devmode:location /:g' \
+    ${NGINX_CONFIG}
+fi
+
+# set dashboard and icon
+rm -Rf \
+  /usr/share/selkies/web
+cp -a \
+  /usr/share/selkies/$DASHBOARD \
+  /usr/share/selkies/web
+sed -i "s|REPLACE_DOWNLOADS_PATH|$FILE_MANAGER_PATH|g" /usr/share/selkies/web/nginx/footer.html
+cp \
+  /usr/share/selkies/www/icon.png \
+  /usr/share/selkies/web/favicon.ico
+cp \
+  /usr/share/selkies/www/icon.png \
+  /usr/share/selkies/web/icon.png
+# manifest creation
+echo "{
+  \"name\": \"${TITLE}\",
+  \"short_name\": \"${TITLE}\",
+  \"manifest_version\": 2,
+  \"version\": \"1.0.0\",
+  \"display\": \"fullscreen\",
+  \"background_color\": \"#000000\",
+  \"theme_color\": \"#000000\",
+  \"icons\": [
+    {
+      \"src\": \"icon.png\",
+      \"type\": \"image/png\",
+      \"sizes\": \"180x180\"
+    }
+  ],
+  \"start_url\": \"/\"
+}" > /usr/share/selkies/web/manifest.json

@@ -1,0 +1,8 @@
+#!/usr/bin/with-contenv bash
+TARGET_USER="${CUSTOM_USER:-${USER_NAME:-root}}"
+
+exec s6-setuidgid "$TARGET_USER" \
+  /usr/bin/pulseaudio \
+    --log-level=0 \
+    --log-target=stderr \
+    --exit-idle-time=-1 > /dev/null 2>&1

@@ -1,0 +1,46 @@
+#!/usr/bin/with-contenv bash
+
+# exit early if no pid file
+PID_FILE="/de-pid"
+WAIT_SECONDS=5
+if [ ! -r "$PID_FILE" ]; then
+    exit 0
+fi
+PARENT_PID=$(cat "$PID_FILE")
+if [ -z "$PARENT_PID" ]; then
+    rm -f "$PID_FILE"
+    exit 0
+fi
+
+# get all descendant pids of de
+PIDS_TO_KILL=$(pstree -p "$PARENT_PID" | grep -o '([0-9]\+)' | grep -o '[0-9]\+' | grep -v "^${PARENT_PID}$")
+
+# kill all descendant pids
+if [ -z "$PIDS_TO_KILL" ]; then
+    echo "No desktop processes found to terminate."
+else
+    echo "$PIDS_TO_KILL" | xargs --no-run-if-empty kill -TERM -- 2>/dev/null
+    echo "Waiting up to ${WAIT_SECONDS} seconds for desktop processes to terminate..."
+    for ((i=0; i < WAIT_SECONDS * 4; i++)); do
+        all_gone=1
+        for pid in $PIDS_TO_KILL; do
+            if kill -0 "$pid" 2>/dev/null; then
+                all_gone=0
+                break
+            fi
+        done
+        if [ "$all_gone" -eq 1 ]; then
+            echo "All desktop processes terminated cleanly."
+            break
+        fi
+        sleep 0.25
+    done
+    if [ "$all_gone" -eq 0 ]; then
+        echo "Timeout reached. Handing off to s6 for final termination."
+    fi
+fi
+
+# clean up the PID file.
+rm -f "$PID_FILE"
+
+exit 0

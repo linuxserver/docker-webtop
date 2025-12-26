@@ -1,0 +1,60 @@
+#!/usr/bin/with-contenv bash
+
+# bail early on wayland
+if [[ "${PIXELFLUX_WAYLAND}" == "true" ]]; then
+  sleep infinity
+fi
+
+# Cleanup
+rm -f /tmp/.X1-lock
+
+# Enable DRI3 support if detected
+VFBCOMMAND=""
+if ! which nvidia-smi && [ -e "/dev/dri/renderD128" ]; then
+  VFBCOMMAND="-vfbdevice /dev/dri/renderD128"
+fi
+if [ ! -z ${DRINODE+x} ]; then
+  VFBCOMMAND="-vfbdevice ${DRINODE}"
+fi
+if [ "${DISABLE_DRI3}" != "false" ]; then
+  VFBCOMMAND=""
+fi
+
+# Clamp virtual screen max size based on env
+DEFAULT_RES="15360x8640"
+if [ ! -z ${MAX_RES+x} ]; then
+  DEFAULT_RES="${MAX_RES}"
+fi
+if [ -n "${SELKIES_MANUAL_HEIGHT}" ] || [ -n "${SELKIES_MANUAL_WIDTH}" ]; then
+  T_WIDTH="${SELKIES_MANUAL_WIDTH:-1024}"
+  T_HEIGHT="${SELKIES_MANUAL_HEIGHT:-768}"
+  if [ "${T_WIDTH}" = "0" ]; then T_WIDTH="1024"; fi
+  if [ "${T_HEIGHT}" = "0" ]; then T_HEIGHT="768"; fi
+  DEFAULT_RES="${T_WIDTH}x${T_HEIGHT}"
+fi
+
+# Set DPI based on environment variable (default 96 for standard displays, use 144 or 192 for HiDPI)
+DPI_VALUE="${DPI:-96}"
+
+# Run Xvfb server with required extensions
+TARGET_USER="${CUSTOM_USER:-${USER_NAME:-root}}"
+exec s6-setuidgid "$TARGET_USER" \
+  /usr/bin/Xvfb \
+    "${DISPLAY}" \
+    -screen 0 "${DEFAULT_RES}x24" \
+    -dpi "${DPI_VALUE}" \
+    +extension "COMPOSITE" \
+    +extension "DAMAGE" \
+    +extension "GLX" \
+    +extension "RANDR" \
+    +extension "RENDER" \
+    +extension "MIT-SHM" \
+    +extension "XFIXES" \
+    +extension "XTEST" \
+    +iglx \
+    +render \
+    -nolisten "tcp" \
+    -ac \
+    -noreset \
+    -shmem \
+    ${VFBCOMMAND}

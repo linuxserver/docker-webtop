@@ -1,0 +1,50 @@
+#!/usr/bin/with-contenv bash
+# shellcheck shell=bash
+
+TARGET_USER="${CUSTOM_USER:-${USER_NAME:-user}}"
+PUID=${PUID:-${USER_UID:-911}}
+PGID=${PGID:-${USER_GID:-911}}
+USER_HOME="/home/${TARGET_USER}"
+
+if [[ -z ${LSIO_READ_ONLY_FS} ]] && [[ -z ${LSIO_NON_ROOT_USER} ]]; then
+    # ensure primary group
+    if getent group "${TARGET_USER}" >/dev/null; then
+        groupmod -o -g "${PGID}" "${TARGET_USER}" || true
+    else
+        groupadd -o -g "${PGID}" "${TARGET_USER}" || true
+    fi
+
+    # ensure user
+    if getent passwd "${TARGET_USER}" >/dev/null; then
+        usermod -o -u "${PUID}" -g "${PGID}" -d "${USER_HOME}" "${TARGET_USER}" || true
+    else
+        useradd -M -d "${USER_HOME}" -u "${PUID}" -g "${PGID}" -s /bin/bash "${TARGET_USER}" || true
+    fi
+
+    # basic home and ownership for shared dirs
+    install -d -m 755 "${USER_HOME}"
+    lsiown "${TARGET_USER}:${TARGET_USER}" /app /config /defaults /lsiopy "${USER_HOME}"
+fi
+
+cat /run/branding 2>/dev/null || true
+echo '
+───────────────────────────────────────
+GID/UID
+───────────────────────────────────────'
+if [[ -z ${LSIO_NON_ROOT_USER} ]]; then
+echo "
+User UID:    $(id -u "${TARGET_USER}")
+User GID:    $(id -g "${TARGET_USER}")
+───────────────────────────────────────"
+else
+echo "
+User UID:    $(stat /run -c %u)
+User GID:    $(stat /run -c %g)
+───────────────────────────────────────"
+fi
+if [[ -f /build_version ]]; then
+    cat /build_version
+    echo '
+───────────────────────────────────────
+    '
+fi

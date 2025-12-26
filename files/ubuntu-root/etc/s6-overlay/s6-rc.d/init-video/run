@@ -1,0 +1,114 @@
+#!/usr/bin/with-contenv bash
+
+TARGET_USER="${CUSTOM_USER:-${USER_NAME:-root}}"
+FILES=$(find /dev/dri /dev/dvb -type c -print 2>/dev/null)
+
+for i in $FILES
+do
+    VIDEO_GID=$(stat -c '%g' "${i}")
+    VIDEO_UID=$(stat -c '%u' "${i}")
+    # check if user matches device
+    if id -u "$TARGET_USER" | grep -qw "${VIDEO_UID}"; then
+        echo "**** permissions for ${i} are good ****"
+    else
+        # check if group matches and that device has group rw
+        if id -G "$TARGET_USER" | grep -qw "${VIDEO_GID}" && [ $(stat -c '%A' "${i}" | cut -b 5,6) = "rw" ]; then
+            echo "**** permissions for ${i} are good ****"
+        # check if device needs to be added to video group
+        elif ! id -G "$TARGET_USER" | grep -qw "${VIDEO_GID}"; then
+            # check if video group needs to be created
+            VIDEO_NAME=$(getent group "${VIDEO_GID}" | awk -F: '{print $1}')
+            if [ -z "${VIDEO_NAME}" ]; then
+                VIDEO_NAME="video$(head /dev/urandom | tr -dc 'a-z0-9' | head -c4)"
+                groupadd "${VIDEO_NAME}"
+                groupmod -g "${VIDEO_GID}" "${VIDEO_NAME}"
+                echo "**** creating video group ${VIDEO_NAME} with id ${VIDEO_GID} ****"
+            fi
+            echo "**** adding ${i} to video group ${VIDEO_NAME} with id ${VIDEO_GID} ****"
+            usermod -a -G "${VIDEO_NAME}" "$TARGET_USER"
+        fi
+        # check if device has group rw
+        if [ $(stat -c '%A' "${i}" | cut -b 5,6) != "rw" ]; then
+            echo -e "**** The device ${i} does not have group read/write permissions, attempting to fix inside the container.If it doesn't work, you can run the following on your docker host: ****\nsudo chmod g+rw ${i}\n"
+            chmod g+rw "${i}"
+        fi
+    fi
+done
+
+# check if nvidia gpu is present
+if which nvidia-smi > /dev/null 2>&1 && ls -A /dev/dri 2>/dev/null; then
+    # nvidia-container-toolkit may not place files correctly, so we set them up here
+    echo "**** NVIDIA GPU detected ****"
+    OPENCL_ICDS=$(find /etc/OpenCL/vendors -name '*nvidia*.icd' 2>/dev/null)
+    # if no opencl icd found
+    if [ -z "${OPENCL_ICDS}" ]; then
+        echo "**** Setting up OpenCL ICD for NVIDIA ****"
+        mkdir -pm755 /etc/OpenCL/vendors/
+        echo "libnvidia-opencl.so.1" > /etc/OpenCL/vendors/nvidia.icd
+    fi
+    # find vulkan icds
+    ICDS=$(find /usr/share/vulkan/icd.d /etc/vulkan/icd.d -name '*nvidia*.json' 2>/dev/null)
+    # if no icd found
+    if [ -z "${ICDS}" ]; then
+        echo "**** Setting up Vulkan ICD for NVIDIA ****"
+        # get vulkan api version
+        VULKAN_API_VERSION=$(ldconfig -p | grep "libvulkan.so" | awk '{print $NF}' | xargs readlink | grep -oE "[0-9]+\.[0-9]+\.[0-9]+")
+        # Fallback if pipeline fails
+        if [ -z "${VULKAN_API_VERSION}" ]; then
+            # version 1.1 or greater allows vulkan-loader to load the driver's dynamic library
+            VULKAN_API_VERSION="1.1.0"
+        fi
+        mkdir -pm755 /etc/vulkan/icd.d/
+        cat > /etc/vulkan/icd.d/nvidia_icd.json << EOF
+{
+    "file_format_version" : "1.0.0",
+    "ICD": {
+        "library_path": "libGLX_nvidia.so.0",
+        "api_version" : "${VULKAN_API_VERSION}"
+    }
+}
+EOF
+    fi
+    # find glvnd egl_vendor files
+    EGLS=$(find /usr/share/glvnd/egl_vendor.d /etc/glvnd/egl_vendor.d -name '*nvidia*.json' 2>/dev/null)
+    # if no egl_vendor file found
+    if [ -z "${EGLS}" ]; then
+        echo "**** Setting up EGL vendor file for NVIDIA ****"
+        mkdir -pm755 /etc/glvnd/egl_vendor.d/
+        cat > /etc/glvnd/egl_vendor.d/10_nvidia.json << EOF
+{
+    "file_format_version" : "1.0.0",
+    "ICD": {
+        "library_path": "libEGL_nvidia.so.0"
+    }
+}
+EOF
+    fi
+    # fix gbm library linkage
+    if ! ldconfig -p | grep -q "nvidia-drm_gbm.so"; then
+        GBM_PATHS=(
+            "/usr/lib/x86_64-linux-gnu/gbm/nvidia-drm_gbm.so"
+            "/usr/lib/aarch64-linux-gnu/gbm/nvidia-drm_gbm.so"
+            "/usr/lib64/gbm/nvidia-drm_gbm.so"
+            "/usr/lib/gbm/nvidia-drm_gbm.so"
+            "/usr/local/lib/gbm/nvidia-drm_gbm.so"
+            "/usr/local/lib64/gbm/nvidia-drm_gbm.so"
+        )
+        GBM_SRC=""
+        for p in "${GBM_PATHS[@]}"; do
+            if [ -f "${p}" ]; then GBM_SRC="${p}"; break; fi
+        done
+        if [ -n "${GBM_SRC}" ]; then
+            echo "**** Fixing GBM library linkage ****"
+            LIB_PATH=$(ldconfig -p | grep "libc.so.6" | head -n1 | awk -F '=> ' '{print $2}' | xargs dirname)
+            if [ -z "${LIB_PATH}" ]; then LIB_PATH="/usr/lib"; fi
+            if [ -d "${LIB_PATH}/gbm" ]; then
+                GBM_DEST="${LIB_PATH}/gbm"
+            else
+                GBM_DEST="${LIB_PATH}"
+            fi
+            cp "${GBM_SRC}" "${GBM_DEST}/"
+            ldconfig
+        fi
+    fi
+fi

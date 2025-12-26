@@ -1,0 +1,17 @@
+#!/usr/bin/with-contenv bash
+
+# bail early on xfce based systems or wayland
+if which xfce4-session > /dev/null 2>&1 || [[ "${PIXELFLUX_WAYLAND}" == "true" ]]; then
+  sleep infinity
+fi
+
+# create default xsettings
+if [ ! -f "${HOME}/.xsettingsd" ]; then
+  echo "Xft/DPI 98304" > "${HOME}/.xsettingsd"
+fi
+chown "$TARGET_USER:$TARGET_USER" "${HOME}/.xsettingsd"
+
+# run
+exec s6-setuidgid "$TARGET_USER" \
+  xsettingsd
+TARGET_USER="${CUSTOM_USER:-${USER_NAME:-root}}"

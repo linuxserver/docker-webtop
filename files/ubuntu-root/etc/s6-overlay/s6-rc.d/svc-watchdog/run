@@ -1,0 +1,33 @@
+#!/usr/bin/with-contenv bash
+
+if [[ ${RESTART_APP,,} != "true" ]]; then
+  exec sleep infinity
+fi
+
+# monitor loop for autostart
+TARGET_USER="${CUSTOM_USER:-${USER_NAME:-root}}"
+AUTOSTART_CMD="sh $HOME/.config/openbox/autostart"
+while true; do
+  if pgrep -o -u "$TARGET_USER" -f "$AUTOSTART_CMD" > /dev/null; then
+    echo "SVC Watchdog: Initial process detected. Starting active monitoring."
+    break
+  fi
+  sleep 2
+done
+last_known_pid=""
+while true; do
+  current_pid=$(pgrep -o -u "$TARGET_USER" -f "$AUTOSTART_CMD")
+  if [ -z "$current_pid" ]; then
+    if [ -n "$last_known_pid" ]; then
+      echo "SVC Watchdog: Application process (PID: $last_known_pid) has terminated. Restarting..."
+    else
+      echo "SVC Watchdog: Application not running. Attempting to start..."
+    fi
+    s6-setuidgid "$TARGET_USER" $AUTOSTART_CMD &
+    last_known_pid=""
+  elif [ "$current_pid" != "$last_known_pid" ]; then
+    echo "SVC Watchdog: Application process found with PID: $current_pid. Monitoring..."
+    last_known_pid="$current_pid"
+  fi
+  sleep 1
+done

@@ -1,0 +1,15 @@
+#!/usr/bin/with-contenv bash
+
+TARGET_USER="${CUSTOM_USER:-${USER_NAME:-root}}"
+
+# Folder setup
+mkdir -p /run/dbus
+chown "$TARGET_USER:$TARGET_USER" /run/dbus
+rm -f /run/dbus/pid
+
+# Run dbus
+exec s6-setuidgid "$TARGET_USER" \
+  dbus-daemon \
+    --system \
+    --nofork \
+    --nosyslog 
