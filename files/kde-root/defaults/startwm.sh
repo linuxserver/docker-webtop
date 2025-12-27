@@ -26,7 +26,9 @@ setterm blank 0
 setterm powerdown 0
 
 # Directories
-sudo rm -f /usr/share/dbus-1/system-services/org.freedesktop.UDisks2.service
+sudo rm -f /usr/share/dbus-1/system-services/org.freedesktop.UDisks2.service \
+  /usr/share/dbus-1/system-services/org.freedesktop.PackageKit.service \
+  /etc/xdg/autostart/packagekitd.desktop
 mkdir -p "${HOME}/.config/autostart" "${HOME}/.XDG" "${HOME}/.local/share/"
 chmod 700 "${HOME}/.XDG"
 touch "${HOME}/.local/share/user-places.xbel"
@@ -41,6 +43,16 @@ if [ ! -d $HOME/.config/kde.org ]; then
     done
   ) &
 fi
+
+# Ensure XDG_RUNTIME_DIR exists (required for dbus/Qt) with correct perms
+if [ -z "${XDG_RUNTIME_DIR:-}" ]; then
+  export XDG_RUNTIME_DIR="/run/user/$(id -u)"
+fi
+if ! mkdir -p "${XDG_RUNTIME_DIR}" 2>/dev/null; then
+  export XDG_RUNTIME_DIR="/tmp/runtime-$(id -u)"
+  mkdir -p "${XDG_RUNTIME_DIR}"
+fi
+chmod 700 "${XDG_RUNTIME_DIR}"
 
 # Create startup script if it does not exist (keep in sync with openbox)
 STARTUP_FILE="${HOME}/.config/autostart/autostart.desktop"

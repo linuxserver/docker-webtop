@@ -90,14 +90,12 @@ fi
 
 PROOT_ARCH=${PROOT_ARCH_OVERRIDE:-x86_64}
 
-BUILD_DATE=$(date -u +'%Y-%m-%dT%H:%M:%SZ')
 LOG_FILE="${FILES_DIR}/build-${TARGET_ARCH}-${VERSION}.log"
 
 echo "=========================================="
-echo "Building ${IMAGE_NAME}:${TARGET_ARCH}-${VERSION}"
+echo "Building ${IMAGE_NAME}-base-${TARGET_ARCH}:${VERSION}"
 echo "Platform: ${PLATFORM}"
 echo "Dockerfile: ${FILES_DIR}/linuxserver-kde.dockerfile"
-echo "Build Date: ${BUILD_DATE}"
 echo "=========================================="
 
 REQUIRED_FILES=(
@@ -122,7 +120,6 @@ docker buildx build \
   --platform "${PLATFORM}" \
   ${NO_CACHE_FLAG} \
   -f "${DOCKERFILE_BASE}" \
-  --build-arg BUILD_DATE="${BUILD_DATE}" \
   --build-arg VERSION="${VERSION}" \
   --build-arg ALPINE_ARCH="${ALPINE_ARCH}" \
   --build-arg UBUNTU_ARCH="${UBUNTU_ARCH}" \
@@ -134,9 +131,7 @@ docker buildx build \
   --build-arg PROOT_ARCH="${PROOT_ARCH}" \
   --progress=plain \
   --load \
-  -t ${IMAGE_NAME}:base-${TARGET_ARCH}-${VERSION} \
-  -t ${IMAGE_NAME}:base-${TARGET_ARCH}-latest \
-  -t ${IMAGE_NAME}:base-latest \
+  -t ${IMAGE_NAME}-base-${TARGET_ARCH}:${VERSION} \
   "${FILES_DIR}" 2>&1 | tee "${LOG_FILE}"
 
 BUILD_STATUS=${PIPESTATUS[0]}

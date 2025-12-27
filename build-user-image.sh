@@ -6,6 +6,7 @@ FILES_DIR="${SCRIPT_DIR}/files"
 DOCKERFILE_USER="${FILES_DIR}/linuxserver-kde.user.dockerfile"
 
 HOST_ARCH=$(uname -m)
+VERSION=${VERSION:-1.0.0}
 USER_NAME=${USER:-$(whoami)}
 USER_UID=${USER_UID_OVERRIDE:-$(id -u "${USER_NAME}")}
 USER_GID=${USER_GID_OVERRIDE:-$(id -g "${USER_NAME}")}
@@ -23,8 +24,8 @@ NO_CACHE_FLAG=""
 
 usage() {
   cat <<EOF
-Usage: $0 [-b base_image] [-i base_image_name] [-u user] [-U uid] [-G gid] [-a arch] [-p platform] [-l language]
-  -b, --base       Base image tag (default: derived from arch, e.g. webtop-kde:base-amd64-latest)
+Usage: $0 [-b base_image] [-i base_image_name] [-u user] [-U uid] [-G gid] [-a arch] [-p platform] [-l language] [-v version]
+  -b, --base       Base image tag (required; expected: <name>-base-<arch>:<version>)
   -i, --image      Base image name (default: ${IMAGE_NAME_BASE})
   -u, --user       Username to bake in (default: current user ${USER_NAME})
   -U, --uid        UID to use (default: host uid for user)
@@ -32,6 +33,7 @@ Usage: $0 [-b base_image] [-i base_image_name] [-u user] [-U uid] [-G gid] [-a a
   -a, --arch       Arch hint (amd64/arm64) to pick base tag
   -p, --platform   Platform override for buildx (e.g. linux/arm64)
   -l, --language   Language pack to install (en or ja). Default: ${USER_LANGUAGE}
+  -v, --version    Version tag to use (default: ${VERSION})
   -n, --no-cache   Build without cache (passes --no-cache to buildx)
   (env) USER_PASSWORD  Password to set for the user (will prompt if empty)
 EOF
@@ -47,6 +49,7 @@ while [[ $# -gt 0 ]]; do
     -a|--arch) TARGET_ARCH=$2; shift 2 ;;
     -p|--platform) PLATFORM_OVERRIDE=$2; shift 2 ;;
     -l|--language) USER_LANGUAGE=$2; shift 2 ;;
+    -v|--version) VERSION=$2; shift 2 ;;
     -n|--no-cache) NO_CACHE_FLAG="--no-cache"; shift ;;
     -h|--help) usage; exit 0 ;;
     *) echo "Unknown option: $1" >&2; usage; exit 1 ;;
@@ -74,7 +77,30 @@ if [[ -z "${TARGET_ARCH}" ]]; then
 fi
 
 if [[ -z "${BASE_IMAGE}" ]]; then
-  BASE_IMAGE="${IMAGE_NAME_BASE}:base-${TARGET_ARCH}-latest"
+  # macOS bash (3.x) lacks mapfile; use a portable read loop
+  BASE_CANDIDATES=()
+  while IFS= read -r line; do
+    BASE_CANDIDATES+=("$line")
+  done < <(docker images --format '{{.Repository}}:{{.Tag}}' | grep "^${IMAGE_NAME_BASE}-base-${TARGET_ARCH}:" || true)
+
+  if [[ ${#BASE_CANDIDATES[@]} -eq 0 ]]; then
+    echo "BASE_IMAGE not provided and no local base found matching ${IMAGE_NAME_BASE}-base-${TARGET_ARCH}:<tag>. Pass -b/--base." >&2
+    exit 1
+  fi
+  for candidate in "${BASE_CANDIDATES[@]}"; do
+    if [[ "${candidate}" != *":latest" ]]; then
+      BASE_IMAGE="${candidate}"
+      break
+    fi
+  done
+  if [[ -z "${BASE_IMAGE}" ]]; then
+    BASE_IMAGE="${BASE_CANDIDATES[0]}"
+  fi
+  echo "Using detected base image: ${BASE_IMAGE}"
+fi
+
+if [[ "${BASE_IMAGE}" == *":latest" ]]; then
+  echo "Warning: BASE_IMAGE uses ':latest' (${BASE_IMAGE}); consider pinning a version." >&2
 fi
 
 PLATFORM="linux/${TARGET_ARCH}"
@@ -95,6 +121,12 @@ echo "Building user image from ${BASE_IMAGE}"
 echo "User: ${USER_NAME} (${USER_UID}:${USER_GID})"
 echo "Target arch: ${TARGET_ARCH}, platform: ${PLATFORM}"
 echo "Language: ${USER_LANGUAGE}"
+echo "Version tag: ${VERSION}"
+
+if ! docker image inspect "${BASE_IMAGE}" >/dev/null 2>&1; then
+  echo "Base image ${BASE_IMAGE} not found locally. Build it first (e.g. ./build-base-image.sh -a ${TARGET_ARCH} -v ${VERSION})." >&2
+  exit 1
+fi
 
 if [[ "${USER_LANGUAGE}" == "ja" ]]; then
   LANG_ARG="ja_JP.UTF-8"
@@ -121,6 +153,5 @@ docker buildx build \
   --build-arg HOST_HOSTNAME="${HOST_HOSTNAME_DEFAULT}" \
   --progress=plain \
   --load \
-  -t "${IMAGE_NAME_BASE}-${USER_NAME}:${TARGET_ARCH}-latest" \
-  -t "${IMAGE_NAME_BASE}-${USER_NAME}:${TARGET_ARCH}" \
+  -t "${IMAGE_NAME_BASE}-${USER_NAME}-${TARGET_ARCH}:${VERSION}" \
   "${FILES_DIR}"

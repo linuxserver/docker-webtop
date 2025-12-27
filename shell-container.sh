@@ -26,8 +26,19 @@ fi
 HOST_UID=$(id -u "${HOST_USER}")
 HOST_GID=$(id -g "${HOST_USER}")
 
+# Use username so container supplemental groups (sudo, docker, etc.) are preserved
+if ! docker exec "$NAME" id "${HOST_USER}" >/dev/null 2>&1; then
+  echo "User ${HOST_USER} not found in container. Falling back to uid:gid." >&2
+  exec docker exec -it \
+    -u "${HOST_UID}:${HOST_GID}" \
+    -e USER="${HOST_USER}" \
+    -e HOME="/home/${HOST_USER}" \
+    -w "${WORKDIR}" \
+    "$NAME" bash -l
+fi
+
 exec docker exec -it \
-  -u "${HOST_UID}:${HOST_GID}" \
+  --user "${HOST_USER}" \
   -e USER="${HOST_USER}" \
   -e HOME="/home/${HOST_USER}" \
   -w "${WORKDIR}" \

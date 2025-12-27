@@ -13,6 +13,7 @@ DPI=${DPI:-96}
 PLATFORM=${PLATFORM:-}
 SSL_DIR=${SSL_DIR:-}
 IMAGE_TAG_SET=false
+IMAGE_VERSION_DEFAULT=${IMAGE_VERSION:-1.0.0}
 HOST_ARCH_RAW=$(uname -m)
 case "${HOST_ARCH_RAW}" in
   x86_64|amd64) DETECTED_ARCH=amd64 ;;
@@ -22,10 +23,10 @@ esac
 
 usage() {
   cat <<EOF
-Usage: $0 [-n name] [-i image-base] [-t tag] [-r WIDTHxHEIGHT] [-d dpi] [-p platform] [-s ssl_dir]
+Usage: $0 [-n name] [-i image-base] [-t version] [-r WIDTHxHEIGHT] [-d dpi] [-p platform] [-s ssl_dir]
   -n  container name (default: ${NAME})
-  -i  image base name; final image becomes <base>-<user>:<tag> (default base: ${IMAGE_BASE})
-  -t  image tag (default: ${IMAGE_TAG})
+  -i  image base name; final image becomes <base>-<user>-<arch>:<version> (default base: ${IMAGE_BASE})
+  -t  image version tag (default: ${IMAGE_VERSION_DEFAULT})
   -r  resolution (e.g. 1920x1080, default: ${RESOLUTION})
   -d  DPI (default: ${DPI})
   -p  platform for docker run (e.g. linux/arm64). Default: host
@@ -52,18 +53,19 @@ if [[ ! $RESOLUTION =~ ^[0-9]+x[0-9]+$ ]]; then
   exit 1
 fi
 
-if [[ "${IMAGE_TAG_SET}" = false ]]; then
-  # If platform is provided, derive arch from it; otherwise use detected arch.
-  if [[ -n "${PLATFORM}" ]]; then
-    PLATFORM_ARCH="${PLATFORM#*/}"
-    case "${PLATFORM_ARCH}" in
-      amd64|x86_64) IMAGE_TAG="amd64-latest" ;;
-      arm64|aarch64) IMAGE_TAG="arm64-latest" ;;
-      *) IMAGE_TAG="${DETECTED_ARCH}-latest" ;;
-    esac
-  else
-    IMAGE_TAG="${DETECTED_ARCH}-latest"
-  fi
+if [[ -n "${PLATFORM}" ]]; then
+  PLATFORM_ARCH="${PLATFORM#*/}"
+  case "${PLATFORM_ARCH}" in
+    amd64|x86_64) IMAGE_ARCH="amd64" ;;
+    arm64|aarch64) IMAGE_ARCH="arm64" ;;
+    *) IMAGE_ARCH="${DETECTED_ARCH}" ;;
+  esac
+else
+  IMAGE_ARCH="${DETECTED_ARCH}"
+fi
+
+if [[ "${IMAGE_TAG_SET}" = false || -z "${IMAGE_TAG}" ]]; then
+  IMAGE_TAG="${IMAGE_VERSION_DEFAULT}"
 fi
 
 WIDTH=${RESOLUTION%x*}
@@ -76,8 +78,9 @@ HOST_HOME_MOUNT="/home/${HOST_USER}/host_home"
 if [[ -n "${IMAGE_OVERRIDE}" ]]; then
   IMAGE="${IMAGE_OVERRIDE}"
 else
-  IMAGE="${IMAGE_BASE}-${HOST_USER}:${IMAGE_TAG}"
+  IMAGE="${IMAGE_BASE}-${HOST_USER}-${IMAGE_ARCH}:${IMAGE_TAG}"
 fi
+REPO_PREFIX="${IMAGE_BASE}-${HOST_USER}-${IMAGE_ARCH}"
 
 if docker ps -a --format '{{.Names}}' | grep -qx "$NAME"; then
   echo "Container ${NAME} already exists. Stop/remove it before starting a new one." >&2
@@ -85,8 +88,16 @@ if docker ps -a --format '{{.Names}}' | grep -qx "$NAME"; then
 fi
 
 if ! docker image inspect "$IMAGE" >/dev/null 2>&1; then
-  echo "Image ${IMAGE} not found. Build user image first (e.g. ./build-user-image.sh)." >&2
-  exit 1
+  echo "Image ${IMAGE} not found. Searching for fallback tags under ${REPO_PREFIX}:*" >&2
+  mapfile -t REPO_IMAGES < <(docker images --format '{{.Repository}}:{{.Tag}}' | grep "^${REPO_PREFIX}:" || true)
+  if [[ ${#REPO_IMAGES[@]} -gt 0 ]]; then
+    FALLBACK_IMAGE="${REPO_IMAGES[0]}"
+    echo "Using fallback image: ${FALLBACK_IMAGE}" >&2
+    IMAGE="${FALLBACK_IMAGE}"
+  else
+    echo "Image ${IMAGE} not found. Build user image first (e.g. ./build-user-image.sh)." >&2
+    exit 1
+  fi
 fi
 
 echo "Starting: name=${NAME}, image=${IMAGE}, resolution=${RESOLUTION}, DPI=${DPI}, host ports https=${HOST_PORT_SSL}->3001, http=${HOST_PORT_HTTP}->3000"

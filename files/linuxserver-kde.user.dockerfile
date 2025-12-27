@@ -1,4 +1,4 @@
-ARG BASE_IMAGE=webtop-kde:base-latest
+ARG BASE_IMAGE
 FROM ${BASE_IMAGE}
 
 ARG USER_NAME
@@ -131,9 +131,8 @@ RUN set -eux; \
   # reset sudoers to require password \
   sed -i 's/^%sudo\tALL=(ALL:ALL) NOPASSWD: ALL/%sudo\tALL=(ALL:ALL) ALL/' /etc/sudoers || true; \
   if ! grep -q "^%sudo\s\+ALL=(ALL:ALL)\s\+ALL" /etc/sudoers; then echo "%sudo ALL=(ALL:ALL) ALL" >> /etc/sudoers; fi; \
-  # disable PackageKit (causes DBus permission errors in minimal container) \
-  apt-get purge -y packagekit || true; \
-  rm -f /usr/share/dbus-1/system-services/org.freedesktop.PackageKit.service /etc/xdg/autostart/packagekitd.desktop || true; \
+  # disable PackageKit autostart (keep package to satisfy kubuntu-desktop deps) \
+  rm -f /etc/xdg/autostart/packagekitd.desktop || true; \
   mkdir -p /defaults /app /lsiopy && \
   chown -R "${TARGET_UID}:${TARGET_GID}" /defaults /app /lsiopy
 
@@ -277,8 +276,8 @@ RUN set -eux; \
   else \
     if [ -x /usr/bin/google-chrome-stable ]; then \
       echo '#!/bin/bash' > /usr/local/bin/google-chrome-wrapped && \
-      echo 'CHROME_BIN=\"/usr/bin/google-chrome-stable\"' >> /usr/local/bin/google-chrome-wrapped && \
-      echo 'exec \"${CHROME_BIN}\" --password-store=basic --in-process-gpu --no-sandbox ${CHROME_EXTRA_FLAGS} \"$@\"' >> /usr/local/bin/google-chrome-wrapped && \
+      echo 'CHROME_BIN="/usr/bin/google-chrome-stable"' >> /usr/local/bin/google-chrome-wrapped && \
+      echo 'exec "${CHROME_BIN}" --password-store=basic --in-process-gpu --no-sandbox ${CHROME_EXTRA_FLAGS} "$@"' >> /usr/local/bin/google-chrome-wrapped && \
       chmod 755 /usr/local/bin/google-chrome-wrapped; \
       for chrome_bin in google-chrome google-chrome-beta google-chrome-unstable; do \
         if [ -x \"/usr/bin/${chrome_bin}\" ]; then \
@@ -287,12 +286,18 @@ RUN set -eux; \
           chmod 755 \"/usr/local/bin/${chrome_bin}-wrapped\"; \
         fi; \
       done; \
-      if [ -f /usr/share/applications/google-chrome.desktop ]; then \
-        mkdir -p /home/${USER_NAME}/.local/share/applications && \
-        cp /usr/share/applications/google-chrome.desktop /home/${USER_NAME}/.local/share/applications/google-chrome.desktop && \
-        sed -i -e 's#Exec=/usr/bin/google-chrome-stable#Exec=/usr/local/bin/google-chrome-wrapped#g' /home/${USER_NAME}/.local/share/applications/google-chrome.desktop && \
-        chown ${USER_UID}:${USER_GID} /home/${USER_NAME}/.local/share/applications/google-chrome.desktop; \
-      fi; \
+      for desktop in /usr/share/applications/google-chrome*.desktop; do \
+        [ -f "$desktop" ] || continue; \
+        sed -i -E 's#Exec=/usr/bin/google-chrome-stable([^\\n]*)#Exec=/usr/local/bin/google-chrome-wrapped#g' "$desktop"; \
+      done; \
+      mkdir -p /home/${USER_NAME}/.local/share/applications; \
+      for desktop in /usr/share/applications/google-chrome*.desktop; do \
+        [ -f "$desktop" ] || continue; \
+        base=$(basename "$desktop"); \
+        cp "$desktop" "/home/${USER_NAME}/.local/share/applications/$base"; \
+        sed -i -E 's#Exec=/usr/bin/google-chrome-stable([^\\n]*)#Exec=/usr/local/bin/google-chrome-wrapped#g' "/home/${USER_NAME}/.local/share/applications/$base"; \
+        chown ${USER_UID}:${USER_GID} "/home/${USER_NAME}/.local/share/applications/$base"; \
+      done; \
     fi; \
   fi
 

@@ -2,6 +2,18 @@
 
 TARGET_USER="${CUSTOM_USER:-${USER_NAME:-root}}"
 
+# ensure runtime dir for DBus/Qt
+TARGET_UID=$(id -u "${TARGET_USER}" 2>/dev/null || true)
+if [ -n "${TARGET_UID}" ]; then
+  RUNTIME_DIR="/run/user/${TARGET_UID}"
+  if ! mkdir -p "${RUNTIME_DIR}"; then
+    RUNTIME_DIR="/tmp/runtime-${TARGET_UID}"
+    mkdir -p "${RUNTIME_DIR}"
+  fi
+  chown "${TARGET_USER}:${TARGET_USER}" "${RUNTIME_DIR}" || true
+  chmod 700 "${RUNTIME_DIR}" || true
+fi
+
 # wayland entrypoint
 if [[ "${PIXELFLUX_WAYLAND}" == "true" ]]; then
   SOCKET_PATH="${XDG_RUNTIME_DIR}/${WAYLAND_DISPLAY:-wayland-1}"

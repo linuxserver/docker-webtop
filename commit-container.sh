@@ -3,19 +3,22 @@ set -euo pipefail
 
 HOST_USER=${USER:-$(whoami)}
 NAME=${CONTAINER_NAME:-linuxserver-kde-${HOST_USER}}
-TARGET_IMAGE=${TARGET_IMAGE:-webtop-kde:latest}
+TARGET_IMAGE=${TARGET_IMAGE:-webtop-kde}
 TARGET_ARCH=${TARGET_ARCH:-}
+TARGET_VERSION=${TARGET_VERSION:-1.0.0}
 
 usage() {
-  echo "Usage: $0 [-n container_name] [-t target_image]"
+  echo "Usage: $0 [-n container_name] [-t target_image_base] [-v version]"
   echo "  -n  container name to commit (default: ${NAME})"
-  echo "  -t  target image:tag to create (default: ${TARGET_IMAGE})"
+  echo "  -t  target image base (no arch/tag), e.g. webtop-kde (default: ${TARGET_IMAGE})"
+  echo "  -v  version tag to use (default: ${TARGET_VERSION})"
 }
 
-while getopts ":n:t:h" opt; do
+while getopts ":n:t:v:h" opt; do
   case "$opt" in
     n) NAME=$OPTARG ;;
     t) TARGET_IMAGE=$OPTARG ;;
+    v) TARGET_VERSION=$OPTARG ;;
     h) usage; exit 0 ;;
     *) usage; exit 1 ;;
   esac
@@ -44,16 +47,8 @@ if [[ -z "${TARGET_ARCH}" ]]; then
   esac
 fi
 
-if [[ "${TARGET_IMAGE}" == *:* ]]; then
-  BASE="${TARGET_IMAGE%%:*}"
-  TAG="${TARGET_IMAGE##*:}"
-else
-  BASE="${TARGET_IMAGE}"
-  TAG="latest"
-fi
-
-# Default naming: <base>-<user>:<arch>-<tag>
-FINAL_IMAGE="${BASE}-${HOST_USER}:${TARGET_ARCH}-${TAG}"
+# Default naming: <base>-<user>-<arch>:<version>
+FINAL_IMAGE="${TARGET_IMAGE}-${HOST_USER}-${TARGET_ARCH}:${TARGET_VERSION}"
 
 echo "Committing container ${NAME} -> ${FINAL_IMAGE}"
 docker commit "$NAME" "$FINAL_IMAGE"

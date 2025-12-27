@@ -98,7 +98,6 @@ FROM scratch AS ubuntu-base-temp
 
 COPY --from=ubuntu-rootfs-stage /root-out/ /
 
-ARG BUILD_DATE
 ARG VERSION
 ARG MODS_VERSION="v3"
 ARG PKG_INST_VERSION="v1"
@@ -287,9 +286,8 @@ RUN \
 FROM ubuntu-base-temp AS selkies-base
 
 # set version label
-ARG BUILD_DATE
 ARG VERSION
-LABEL build_version="Linuxserver.io version:- ${VERSION} Build-date:- ${BUILD_DATE}"
+LABEL build_version="Linuxserver.io version:- ${VERSION}"
 LABEL maintainer="thelamer"
 
 # env
@@ -434,9 +432,8 @@ VOLUME /config
 FROM selkies-base
 
 # set version label
-ARG BUILD_DATE
 ARG VERSION
-LABEL build_version="Linuxserver.io version:- ${VERSION} Build-date:- ${BUILD_DATE}"
+LABEL build_version="Linuxserver.io version:- ${VERSION}"
 LABEL maintainer="thelamer"
 ARG DEBIAN_FRONTEND="noninteractive"
 
@@ -455,7 +452,7 @@ RUN \
     bc chromium dolphin gwenview kde-config-gtk-style kdialog kfind khotkeys \
     kio-extras knewstuff-dialog konsole ksystemstats kubuntu-settings-desktop \
     kubuntu-wallpapers kubuntu-web-shortcuts kwin-addons kwin-x11 kwrite \
-    plasma-desktop plasma-workspace qml-module-qt-labs-platform systemsettings && \
+    plasma-desktop plasma-workspace qml-module-qt-labs-platform systemsettings kubuntu-desktop && \
   if [ "$(dpkg --print-architecture)" = "amd64" ]; then \
     echo "**** install latest google-chrome (amd64) ****" && \
     cd /tmp && \
