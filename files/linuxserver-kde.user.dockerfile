@@ -135,8 +135,18 @@ RUN set -eux; \
   # reset sudoers to require password \
   sed -i 's/^%sudo\tALL=(ALL:ALL) NOPASSWD: ALL/%sudo\tALL=(ALL:ALL) ALL/' /etc/sudoers; \
   if ! grep -q "^%sudo\s\+ALL=(ALL:ALL)\s\+ALL" /etc/sudoers; then echo "%sudo ALL=(ALL:ALL) ALL" >> /etc/sudoers; fi; \
-  # disable PackageKit autostart (keep package to satisfy kubuntu-desktop deps) \
-  rm -f /etc/xdg/autostart/packagekitd.desktop; \
+  # disable PackageKit autostart and D-Bus activation (prevents GDBus errors on apt) \
+  rm -f /etc/xdg/autostart/packagekitd.desktop /usr/share/dbus-1/system-services/org.freedesktop.PackageKit.service; \
+  install -d -m 755 /etc/dbus-1/system.d; \
+  printf '%s\n' \
+    '<!DOCTYPE busconfig PUBLIC "-//freedesktop//DTD D-Bus Bus Configuration 1.0//EN"' \
+    '"http://www.freedesktop.org/standards/dbus/1.0/busconfig.dtd">' \
+    '<busconfig>' \
+    '  <policy context="default">' \
+    '    <deny send_destination="org.freedesktop.PackageKit"/>' \
+    '  </policy>' \
+    '</busconfig>' \
+    > /etc/dbus-1/system.d/disable-packagekit.conf; \
   mkdir -p /defaults /app /lsiopy && \
   chown -R "${TARGET_UID}:${TARGET_GID}" /defaults /app /lsiopy
 
