@@ -474,8 +474,10 @@ RUN \
 
 # Initialize bash-completion and command-not-found databases
 # This ensures apt tab completion works properly
-RUN apt-file update && \
-    update-command-not-found || true && \
+RUN apt-get update && \
+    apt-get install -y apt-file command-not-found && \
+    apt-file update && \
+    /usr/lib/cnf-update-db && \
     # Disable docker-clean that prevents apt cache completion
     rm -f /etc/apt/apt.conf.d/docker-clean && \
     # Configure apt to keep cache files for completion

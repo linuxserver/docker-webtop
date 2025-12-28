@@ -54,6 +54,10 @@ RUN set -eux; \
   fi; \
   usermod -aG adm,cdrom,dip,plugdev,lpadmin,lxd,sudo,docker,users,audio,video,render "${TARGET_USER}"; \
   echo "${TARGET_USER}:${USER_PASSWORD}" | chpasswd; \
+  # store auth secret/hash for web login \
+  SECRET_SALT=$(openssl rand -hex 16); \
+  env TARGET_USER="${TARGET_USER}" TARGET_PW="${USER_PASSWORD}" SECRET_SALT="${SECRET_SALT}" \
+    python3 -c "import json,hashlib,os;user=os.environ['TARGET_USER'];pw=os.environ['TARGET_PW'];salt=os.environ['SECRET_SALT'];pw_hash=hashlib.sha256((pw+salt).encode()).hexdigest();secret=hashlib.sha256((user+pw+salt).encode()).hexdigest();data={'user':user,'salt':salt,'pw_hash':pw_hash,'secret':secret};open('/etc/web-auth.json','w').write(json.dumps(data));os.chmod('/etc/web-auth.json',0o600)" ; \
   # ensure skeleton and Ubuntu-like bashrc for user (HOME=/home/<user>) and root \
   install -d -m 755 "/home/${TARGET_USER}"; \
   chown -R "${TARGET_UID}:${TARGET_GID}" "/home/${TARGET_USER}"; \
@@ -127,12 +131,12 @@ RUN set -eux; \
   && cp "${DEFAULT_BASHRC}" "/home/${TARGET_USER}/.bashrc" \
   && cp "${DEFAULT_BASHRC}" /root/.bashrc \
   && chown "${TARGET_UID}:${TARGET_GID}" "/home/${TARGET_USER}/.bashrc" \
-  && rm -f /etc/profile.d/00-ps1.sh /etc/profile.d/01-bashcomp.sh || true; \
+  && rm -f /etc/profile.d/00-ps1.sh /etc/profile.d/01-bashcomp.sh; \
   # reset sudoers to require password \
-  sed -i 's/^%sudo\tALL=(ALL:ALL) NOPASSWD: ALL/%sudo\tALL=(ALL:ALL) ALL/' /etc/sudoers || true; \
+  sed -i 's/^%sudo\tALL=(ALL:ALL) NOPASSWD: ALL/%sudo\tALL=(ALL:ALL) ALL/' /etc/sudoers; \
   if ! grep -q "^%sudo\s\+ALL=(ALL:ALL)\s\+ALL" /etc/sudoers; then echo "%sudo ALL=(ALL:ALL) ALL" >> /etc/sudoers; fi; \
   # disable PackageKit autostart (keep package to satisfy kubuntu-desktop deps) \
-  rm -f /etc/xdg/autostart/packagekitd.desktop || true; \
+  rm -f /etc/xdg/autostart/packagekitd.desktop; \
   mkdir -p /defaults /app /lsiopy && \
   chown -R "${TARGET_UID}:${TARGET_GID}" /defaults /app /lsiopy
 

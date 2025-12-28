@@ -9,6 +9,7 @@ Containerized Kubuntu (KDE Plasma) desktop with Selkies streaming, derived from 
 - Audio-ready: virtual PulseAudio sinks, speaker/mic streaming; optional SSL mount for WSS.
 - macOS-friendly (arm64/amd64) images with helper scripts for build/start/stop/shell.
 - On macOS you can build/run both arm64 native and amd64 (via buildx/QEMU).
+- Secure login: browser access is gated by a form-based auth using the image user/password (no Basic auth).
 
 ## Image naming
 - Base: `webtop-kde-base-amd64:1.0.0`, `webtop-kde-base-arm64:1.0.0`
@@ -21,11 +22,12 @@ Containerized Kubuntu (KDE Plasma) desktop with Selkies streaming, derived from 
 2) Build user  
    `USER_PASSWORD=<pw> ./build-user-image.sh -a arm64 -l ja` (use `-l en` if English only)
 3) Start  
-   `./start-container.sh -r 1920x1080 -d 120`  
+   `./start-container.sh -r 2560x1600 -d 192`  
    Ports: HTTP `UID+20000 -> 3000`, HTTPS `UID+10000 -> 3001`
 4) Browser  
    - HTTP: `http://localhost:<UID+20000>`  
-   - HTTPS: `https://localhost:<UID+10000>` (self-signed or mount `-s /path/to/ssl`)
+   - HTTPS: `https://localhost:<UID+10000>` (self-signed or mount `-s /path/to/ssl`)  
+   - Sign in with the same username/password used at image build.
 5) Shell  
    `./shell-container.sh`
 6) Stop/remove  
@@ -73,6 +75,7 @@ Containerized Kubuntu (KDE Plasma) desktop with Selkies streaming, derived from 
 - 音声対応: 仮想 PulseAudio sink/source でスピーカー/マイク配信、SSL マウントで WSS も可能
 - macOS フレンドリー（arm64/amd64）なイメージとビルド/起動/停止/シェル用ヘルパー付き
 - macOS 上で arm64 ネイティブも amd64（buildx/QEMU 経由）もビルド・実行可能
+- ブラウザアクセスはビルド時のユーザー名/パスワードでフォーム認証（Basic 認証ではなく Cookie セッション）
 
 ## イメージ命名
 - Base: `webtop-kde-base-amd64:1.0.0`, `webtop-kde-base-arm64:1.0.0`
@@ -89,7 +92,8 @@ Containerized Kubuntu (KDE Plasma) desktop with Selkies streaming, derived from 
    ポート: HTTP `UID+20000 -> 3000`, HTTPS `UID+10000 -> 3001`
 4) ブラウザアクセス  
    - HTTP: `http://localhost:<UID+20000>`  
-   - HTTPS: `https://localhost:<UID+10000>`（自己署名または `-s /path/to/ssl` で外部証明書）
+   - HTTPS: `https://localhost:<UID+10000>`（自己署名または `-s /path/to/ssl` で外部証明書）  
+   - ログインはイメージビルド時のユーザー名/パスワードを使用
 5) シェル  
    `./shell-container.sh`
 6) 停止/削除  
