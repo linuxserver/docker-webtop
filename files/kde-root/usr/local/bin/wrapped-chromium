@@ -1,6 +1,8 @@
 #! /bin/bash
 
 BIN=/usr/bin/chromium
+DEFAULT_FLAGS="--disable-dev-shm-usage --disable-gpu --use-gl=swiftshader --password-store=basic"
+EXTRA_FLAGS=(${CHROMIUM_FLAGS:-})
 
 # Cleanup
 if ! pgrep chromium > /dev/null;then
@@ -9,7 +11,7 @@ fi
 
 # Run normally on privved containers or modified un non priv
 if grep -q 'Seccomp:.0' /proc/1/status; then
-  ${BIN} --password-store=basic "$@"
+  ${BIN} ${DEFAULT_FLAGS} "${EXTRA_FLAGS[@]}" "$@"
 else
-  ${BIN} --password-store=basic --no-sandbox --test-type "$@"
+  ${BIN} ${DEFAULT_FLAGS} --no-sandbox --test-type "${EXTRA_FLAGS[@]}" "$@"
 fi

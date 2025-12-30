@@ -10,6 +10,7 @@ IMAGE_TAG=${IMAGE_TAG:-}
 IMAGE_OVERRIDE=${IMAGE_NAME:-}
 RESOLUTION=${RESOLUTION:-1920x1080}
 DPI=${DPI:-96}
+SHM_SIZE=${SHM_SIZE:-4g}
 PLATFORM=${PLATFORM:-}
 SSL_DIR=${SSL_DIR:-}
 IMAGE_TAG_SET=false
@@ -146,6 +147,7 @@ docker run -d \
   -e USER_NAME="${HOST_USER}" \
   -e PUID="${HOST_UID}" \
   -e PGID="${HOST_GID}" \
+  --shm-size "${SHM_SIZE}" \
   -v "${HOME}":"${HOST_HOME_MOUNT}":rw \
   ${SSL_FLAGS[@]+"${SSL_FLAGS[@]}"} \
   "$IMAGE"

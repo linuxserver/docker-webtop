@@ -25,11 +25,14 @@ fi
 setterm blank 0
 setterm powerdown 0
 
-# Directories
-sudo rm -f /usr/share/dbus-1/system-services/org.freedesktop.UDisks2.service \
+# Directories / DBus noise control (run as session user; no sudo)
+rm -f /usr/share/dbus-1/system-services/org.freedesktop.UDisks2.service \
   /usr/share/dbus-1/system-services/org.freedesktop.PackageKit.service \
   /etc/xdg/autostart/packagekitd.desktop
 mkdir -p "${HOME}/.config/autostart" "${HOME}/.XDG" "${HOME}/.local/share/"
+# Fix perms in case persisted home left root-owned
+chown -R "$(id -u)":"$(id -g)" "${HOME}/.config" "${HOME}/.XDG" "${HOME}/.local" 2>/dev/null || true
+chown "$(id -u)":"$(id -g)" "${HOME}/.xsettingsd" "${HOME}/.Xauthority" "${HOME}/.ICEauthority" 2>/dev/null || true
 chmod 700 "${HOME}/.XDG"
 touch "${HOME}/.local/share/user-places.xbel"
 

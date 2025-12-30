@@ -135,8 +135,11 @@ RUN set -eux; \
   # reset sudoers to require password \
   sed -i 's/^%sudo\tALL=(ALL:ALL) NOPASSWD: ALL/%sudo\tALL=(ALL:ALL) ALL/' /etc/sudoers; \
   if ! grep -q "^%sudo\s\+ALL=(ALL:ALL)\s\+ALL" /etc/sudoers; then echo "%sudo ALL=(ALL:ALL) ALL" >> /etc/sudoers; fi; \
-  # disable PackageKit autostart and D-Bus activation (prevents GDBus errors on apt) \
-  rm -f /etc/xdg/autostart/packagekitd.desktop /usr/share/dbus-1/system-services/org.freedesktop.PackageKit.service; \
+  # disable PackageKit/UDisks2 autostart and D-Bus activation (prevents permission-denied spam) \
+  rm -f \
+    /etc/xdg/autostart/packagekitd.desktop \
+    /usr/share/dbus-1/system-services/org.freedesktop.PackageKit.service \
+    /usr/share/dbus-1/system-services/org.freedesktop.UDisks2.service; \
   install -d -m 755 /etc/dbus-1/system.d; \
   printf '%s\n' \
     '<!DOCTYPE busconfig PUBLIC "-//freedesktop//DTD D-Bus Bus Configuration 1.0//EN"' \
@@ -144,6 +147,7 @@ RUN set -eux; \
     '<busconfig>' \
     '  <policy context="default">' \
     '    <deny send_destination="org.freedesktop.PackageKit"/>' \
+    '    <deny send_destination="org.freedesktop.UDisks2"/>' \
     '  </policy>' \
     '</busconfig>' \
     > /etc/dbus-1/system.d/disable-packagekit.conf; \
