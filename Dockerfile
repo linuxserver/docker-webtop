@@ -22,7 +22,9 @@ RUN \
     chromium-l10n \
     i3 \
     i3-wm \
-    stterm && \
+    sway \
+    swaybg \
+    sway-backgrounds && \
   echo "**** application tweaks ****" && \
   mv \
     /usr/bin/chromium \
@@ -46,5 +48,5 @@ RUN \
 COPY /root /
 
 # ports and volumes
-EXPOSE 3000
+EXPOSE 3001
 VOLUME /config
