@@ -43,37 +43,22 @@ Usage: $0 [-n name] [-i image-base] [-t version] [-r WIDTHxHEIGHT] [-d dpi] [-p 
 EOF
 }
 
-while getopts ":n:i:t:r:d:p:s:g:h" opt; do
-  case "$opt" in
-    n) NAME=$OPTARG ;;
-    i) IMAGE_BASE=$OPTARG ;;
-    t) IMAGE_TAG=$OPTARG; IMAGE_TAG_SET=true ;;
-    r) RESOLUTION=$OPTARG ;;
-    d) DPI=$OPTARG ;;
-    p) PLATFORM=$OPTARG ;;
-    s) SSL_DIR=$OPTARG ;;
-    g) GPU_VENDOR=$OPTARG ;;
-    h) usage; exit 0 ;;
-    *) usage; exit 1 ;;
-  esac
-done
-
-shift $((OPTIND -1))
-
 while [[ $# -gt 0 ]]; do
   case "$1" in
-    --gpu)
-      GPU_VENDOR=$2; shift 2 ;;
-    --all)
-      GPU_ALL=true; shift ;;
-    --num)
-      GPU_NUMS=$2; shift 2 ;;
-    --)
-      shift; break ;;
-    *)
-      echo "Unknown option: $1" >&2
-      usage
-      exit 1 ;;
+    -n) NAME=$2; shift 2 ;;
+    -i) IMAGE_BASE=$2; shift 2 ;;
+    -t) IMAGE_TAG=$2; IMAGE_TAG_SET=true; shift 2 ;;
+    -r) RESOLUTION=$2; shift 2 ;;
+    -d) DPI=$2; shift 2 ;;
+    -p) PLATFORM=$2; shift 2 ;;
+    -s) SSL_DIR=$2; shift 2 ;;
+    -g|--gpu) GPU_VENDOR=$2; shift 2 ;;
+    --all) GPU_ALL=true; shift ;;
+    --num) GPU_NUMS=$2; shift 2 ;;
+    -h|--help) usage; exit 0 ;;
+    --) shift; break ;;
+    -*) echo "Unknown option: $1" >&2; usage; exit 1 ;;
+    *) break ;;
   esac
 done
 
