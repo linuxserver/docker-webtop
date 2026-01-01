@@ -47,6 +47,7 @@ av1-grain                                                                     0.
 avahi-libs                                                                    0.8-r23                                 apk                          
 backports-tarfile                                                             1.2.0                                   python                       
 bash                                                                          5.3.3-r1                                apk                          
+basu                                                                          0.2.1-r2                                apk                          
 bitflags                                                                      2.4.1                                   rust-crate                   
 bitflags                                                                      2.9.1                                   rust-crate                   
 bitstream-io                                                                  2.2.0                                   rust-crate                   
@@ -659,6 +660,7 @@ jaraco-functools                                                              4.
 jaraco-text                                                                   3.12.1                                  python                       
 jq                                                                            1.7.1                                   binary                       
 jq                                                                            1.8.1-r0                                apk                          
+json-c                                                                        0.18-r1                                 apk                          
 k8s.io/api                                                                    v0.32.3                                 go-module                    
 k8s.io/api                                                                    v0.34.1                                 go-module   (+1 duplicate)   
 k8s.io/apimachinery                                                           v0.32.3                                 go-module                    
@@ -696,6 +698,7 @@ libc                                                                          0.
 libcamera                                                                     0.6.0-r0                                apk                          
 libcamera-ipa                                                                 0.6.0-r0                                apk                          
 libcap-ng                                                                     0.8.5-r0                                apk                          
+libcap-setcap                                                                 2.77-r0                                 apk                          
 libcap2                                                                       2.77-r0                                 apk                          
 libcrypto3                                                                    3.5.4-r0                                apk                          
 libcurl                                                                       8.17.0-r1                               apk                          
@@ -755,7 +758,7 @@ libsharpyuv                                                                   1.
 libsm                                                                         1.2.6-r0                                apk                          
 libsmartcols                                                                  2.41.2-r0                               apk                          
 libsndfile                                                                    1.2.2-r2                                apk                          
-libsodium                                                                     1.0.20-r0                               apk                          
+libsodium                                                                     1.0.20-r1                               apk                          
 libsrt                                                                        1.5.3-r1                                apk                          
 libssh                                                                        0.11.3-r0                               apk                          
 libssl3                                                                       3.5.4-r0                                apk                          
@@ -911,7 +914,7 @@ pcre2                                                                         10
 pillow                                                                        12.0.0                                  python                       
 pip                                                                           25.0.1                                  python                       
 pipewire-libs                                                                 1.4.9-r2                                apk                          
-pixelflux                                                                     1.5.2                                   python                       
+pixelflux                                                                     1.5.3                                   python                       
 pixman                                                                        0.46.4-r0                               apk                          
 pkgconf                                                                       2.5.1-r0                                apk                          
 platformdirs                                                                  4.2.2                                   python                       
@@ -926,7 +929,7 @@ profiling                                                                     1.
 profiling-procmacros                                                          1.0.13                                  rust-crate                   
 prometheus-client                                                             0.23.1                                  python                       
 propcache                                                                     0.4.1                                   python                       
-psutil                                                                        7.2.0                                   python                       
+psutil                                                                        7.2.1                                   python                       
 pulseaudio                                                                    17.0-r5                                 apk                          
 pulseaudio-alsa                                                               17.0-r5                                 apk                          
 pulseaudio-lang                                                               17.0-r5                                 apk                          
@@ -1006,6 +1009,11 @@ stable_deref_trait                                                            1.
 startup-notification                                                          0.12-r8                                 apk                          
 stdlib                                                                        go1.25.5                                go-module   (+7 duplicates)  
 sudo                                                                          1.9.17_p2-r0                            apk                          
+sway                                                                          1.11-r2                                 apk                          
+sway-wallpapers                                                               1.11-r2                                 apk                          
+swaybar                                                                       1.11-r2                                 apk                          
+swaybg                                                                        1.2.1-r1                                apk                          
+swaynag                                                                       1.11-r2                                 apk                          
 syn                                                                           2.0.102                                 rust-crate                   
 syn                                                                           2.0.48                                  rust-crate                   
 tags.cncf.io/container-device-interface                                       v1.0.1                                  go-module   (+2 duplicates)  
