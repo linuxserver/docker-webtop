@@ -45,7 +45,25 @@ if [ ! -f "${STARTUP_FILE}" ]; then
   chmod +x $STARTUP_FILE
 fi
 
+# Setup application DB
+sudo mv \
+  /etc/xdg/menus/plasma-applications.menu \
+  /etc/xdg/menus/applications.menu
+kbuildsycoca6
+
+# Wayland Hacks
+unset DISPLAY
+sudo setcap -r /usr/sbin/kwin_wayland
+sudo rm -f /usr/bin/wl-paste /usr/bin/wl-copy
+echo "#! /bin/bash" > /tmp/wl-paste && chmod +x /tmp/wl-paste
+echo "#! /bin/bash" > /tmp/wl-copy && chmod +x /tmp/wl-copy
+sudo cp /tmp/wl-* /usr/bin/
+if ! grep -q "ozone-platform" /usr/local/bin/wrapped-chromium > /dev/null 2>&1; then
+  sudo sed -i 's/--password/--ozone-platform=wayland --password/g' /usr/local/bin/wrapped-chromium
+fi
+sudo rm -f /usr/share/applications/chromium-browser.desktop
+
 # Start DE
-WAYLAND_DISPLAY=wayland-1 Xwayland :1 &
+WAYLAND_DISPLAY=wayland-1 dbus-run-session kwin_wayland &
 sleep 2
-exec dbus-launch --exit-with-session /usr/bin/startplasma-x11 > /dev/null 2>&1
+WAYLAND_DISPLAY=wayland-0 exec dbus-run-session /usr/bin/plasmashell > /dev/null 2>&1

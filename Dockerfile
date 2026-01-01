@@ -20,6 +20,7 @@ RUN \
     breeze-icon-theme \
     chromium \
     dolphin \
+    firefox \
     kde-gtk-config \
     kde-settings-pulseaudio \
     kde-wallpapers \
