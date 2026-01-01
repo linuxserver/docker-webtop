@@ -21,7 +21,10 @@ RUN \
     feh \
     i3 \
     i3status \
-    st && \
+    st \
+    sway \
+    swaybg \
+    sway-wallpapers && \
   echo "**** application tweaks ****" && \
   mv \
     /usr/bin/chromium-browser \
@@ -29,6 +32,8 @@ RUN \
   ln -s \
     /usr/bin/st-fedora \
     /usr/bin/x-terminal-emulator && \
+  setcap -r \
+    /usr/bin/sway && \
   echo "**** cleanup ****" && \
   dnf autoremove -y && \
   dnf clean all && \
