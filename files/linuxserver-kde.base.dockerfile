@@ -335,6 +335,9 @@ RUN \
     libxkbcommon-dev libxkbcommon-x11-0 libxshmfence1 libxtst6 locales-all make \
     mesa-libgallium mesa-va-drivers mesa-vulkan-drivers nginx openbox openssh-client \
     openssl pciutils procps psmisc pulseaudio pulseaudio-utils python3 python3-venv \
+    gstreamer1.0-tools gstreamer1.0-plugins-base gstreamer1.0-plugins-good \
+    gstreamer1.0-plugins-bad gstreamer1.0-plugins-ugly gstreamer1.0-libav \
+    gstreamer1.0-vaapi \
     bash-completion software-properties-common ssl-cert stterm sudo tar util-linux vulkan-tools \
     wl-clipboard wtype x11-apps x11-common x11-utils x11-xkb-utils x11-xserver-utils \
     xauth xclip xcvt xdg-utils xdotool xfconf xfonts-base xkb-data xsel \
@@ -411,6 +414,21 @@ RUN \
   echo "**** theme ****" && \
   curl -s https://raw.githubusercontent.com/thelamer/lang-stash/master/theme.tar.gz \
     | tar xzvf - -C /usr/share/themes/Clearlooks/openbox-3/ && \
+  echo "**** enable hardware encoders in selkies settings ****" && \
+  python3 - <<'PY'
+import selkies
+import pathlib
+
+path = pathlib.Path(selkies.__file__).with_name("settings.py")
+text = path.read_text()
+old = "['x264enc', 'x264enc-striped', 'jpeg']"
+new = "['x264enc', 'x264enc-striped', 'jpeg', 'nvh264enc', 'vah264enc', 'vaapih264enc']"
+if old not in text:
+    raise SystemExit("Expected encoder list not found in %s" % path)
+path.write_text(text.replace(old, new, 1))
+print("Updated selkies encoder allowlist:", path)
+PY
+  && \
   echo "**** cleanup ****" && \
   apt-get purge -y --autoremove python3-dev && \
   apt-get autoclean && \
