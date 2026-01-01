@@ -21,7 +21,7 @@ touch "${HOME}/.local/share/user-places.xbel"
 # Background perm loop
 if [ ! -d $HOME/.config/kde.org ]; then
   (
-    loop_end_time=$((SECONDS + 30))
+    loop_end_time=$((SECONDS + 60))
     while [ $SECONDS -lt $loop_end_time ]; do
         find "$HOME/.cache" "$HOME/.config" "$HOME/.local" -type f -perm 000 -exec chmod 644 {} + 2>/dev/null
         sleep .1
@@ -42,7 +42,24 @@ if [ ! -f "${STARTUP_FILE}" ]; then
   chmod +x $STARTUP_FILE
 fi
 
+# Setup application DB
+sudo mv \
+  /etc/xdg/menus/plasma-applications.menu \
+  /etc/xdg/menus/applications.menu
+kbuildsycoca6
+
+# Wayland Hacks
+unset DISPLAY
+sudo setcap -r /usr/sbin/kwin_wayland
+sudo rm -f /usr/sbin/wl-paste /usr/sbin/wl-copy
+echo "#! /bin/bash" > /tmp/wl-paste && chmod +x /tmp/wl-paste
+echo "exit 0" > /tmp/wl-copy && chmod +x /tmp/wl-copy
+sudo cp /tmp/wl-* /usr/sbin/
+if ! grep -q "ozone-platform" /usr/local/bin/wrapped-chromium > /dev/null 2>&1; then
+  sudo sed -i 's/--password/--ozone-platform=wayland --password/g' /usr/local/bin/wrapped-chromium
+fi
+
 # Start DE
-WAYLAND_DISPLAY=wayland-1 Xwayland :1 &
+WAYLAND_DISPLAY=wayland-1 dbus-run-session kwin_wayland &
 sleep 2
-exec dbus-launch /usr/bin/startplasma-x11 > /dev/null 2>&1
+WAYLAND_DISPLAY=wayland-0 exec dbus-run-session /usr/bin/plasmashell > /dev/null 2>&1

@@ -19,6 +19,7 @@ RUN \
   pacman -Sy --noconfirm --needed \
     chromium \
     dolphin \
+    firefox \
     kate \
     konsole \
     kwin-x11 \
