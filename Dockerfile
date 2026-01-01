@@ -19,6 +19,8 @@ RUN \
     chromium \
     i3-wm \
     i3status \
+    sway \
+    swaybg \
     xfce4-terminal && \
   echo "**** application tweaks ****" && \
   mv \
@@ -27,6 +29,8 @@ RUN \
   ln -s \
     /usr/sbin/xfce4-terminal \
     /usr/bin/x-terminal-emulator && \
+  setcap -r \
+    /usr/bin/sway && \
   echo "**** cleanup ****" && \
   rm -rf \
     /config/.cache \
