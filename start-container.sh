@@ -125,7 +125,7 @@ case "${GPU_VENDOR}" in
     GPU_ENV_VARS+=(-e ENABLE_NVIDIA=false)
     ;;
   intel)
-    VIDEO_ENCODER="vah264enc"
+    VIDEO_ENCODER="x264enc"
     GPU_ENV_VARS+=(-e ENABLE_NVIDIA=false -e LIBVA_DRIVER_NAME="${LIBVA_DRIVER_NAME:-iHD}")
     if [ -d "/dev/dri" ]; then
       GPU_FLAGS+=(--device=/dev/dri:/dev/dri:rwm)
@@ -134,7 +134,7 @@ case "${GPU_VENDOR}" in
     fi
     ;;
   amd)
-    VIDEO_ENCODER="vah264enc"
+    VIDEO_ENCODER="x264enc"
     GPU_ENV_VARS+=(-e ENABLE_NVIDIA=false -e LIBVA_DRIVER_NAME="${LIBVA_DRIVER_NAME:-radeonsi}")
     if [ -d "/dev/dri" ]; then
       GPU_FLAGS+=(--device=/dev/dri:/dev/dri:rwm)
@@ -146,7 +146,7 @@ case "${GPU_VENDOR}" in
     fi
     ;;
   nvidia)
-    VIDEO_ENCODER="nvh264enc"
+    VIDEO_ENCODER="x264enc"
     if [ "${GPU_ALL}" = true ]; then
       GPU_FLAGS+=(--gpus all)
     elif [ -n "${GPU_NUMS}" ]; then

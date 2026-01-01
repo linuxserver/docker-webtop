@@ -3,6 +3,20 @@
 TARGET_USER="${CUSTOM_USER:-${USER_NAME:-root}}"
 PORT="${SELKIES_PORT:-8082}"
 
+# Prefer selkies-gstreamer when available (amd64), fallback to legacy selkies
+SELKIES_CMD="selkies-gstreamer"
+CMD_OPTS=(--addr="localhost" --port="${PORT}" --enable_basic_auth="false" --enable_resize="true" --enable_metrics_http="true" --metrics_http_port="${SELKIES_METRICS_HTTP_PORT:-9081}" --enable_clipboard="true")
+if ! command -v "${SELKIES_CMD}" >/dev/null 2>&1; then
+  SELKIES_CMD="selkies"
+  CMD_OPTS=(--addr="localhost" --mode="websockets" --port="${PORT}")
+fi
+
+# Load GStreamer env if present (for selkies-gstreamer)
+if [ -f /opt/gstreamer/gst-env ]; then
+  # shellcheck source=/opt/gstreamer/gst-env
+  . /opt/gstreamer/gst-env
+fi
+
 # Default sink setup (wait until pulseaudio is ready, then create virtual sinks)
 if [ ! -f '/dev/shm/audio.lock' ]; then
   # ensure pulseaudio is up
@@ -70,8 +84,5 @@ if [ ! -z ${DEV_MODE+x} ]; then
 fi
 
 # Start Selkies
-exec s6-setuidgid "$TARGET_USER" \
-  selkies \
-    --addr="localhost" \
-    --mode="websockets" \
-    --port="${PORT}"
+echo "[svc-selkies] Starting ${SELKIES_CMD} on port ${PORT}"
+exec s6-setuidgid "$TARGET_USER" "${SELKIES_CMD}" "${CMD_OPTS[@]}"

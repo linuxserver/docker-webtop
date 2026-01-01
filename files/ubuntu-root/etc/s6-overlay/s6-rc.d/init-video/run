@@ -35,20 +35,9 @@ do
     fi
 done
 
-# pick default encoder based on detected GPU (override with SELKIES_ENCODER env)
+# set default encoder to software x264enc unless user overrides
 if [ -z "${SELKIES_ENCODER+x}" ]; then
-    DEFAULT_ENCODER="x264enc"
-    if which nvidia-smi > /dev/null 2>&1; then
-        DEFAULT_ENCODER="nvh264enc"
-    elif [ -e "/dev/dri/renderD128" ]; then
-        DEFAULT_ENCODER="vah264enc"
-    fi
-    echo "SELKIES_ENCODER=${DEFAULT_ENCODER}" > /run/s6/container_environment/SELKIES_ENCODER
-fi
-
-# set a default DRI node for VA-API if one render node exists
-if [ -z "${DRI_NODE+x}" ] && [ -e "/dev/dri/renderD128" ]; then
-    echo "/dev/dri/renderD128" > /run/s6/container_environment/DRI_NODE
+    echo "SELKIES_ENCODER=x264enc" > /run/s6/container_environment/SELKIES_ENCODER
 fi
 
 # check if nvidia gpu is present

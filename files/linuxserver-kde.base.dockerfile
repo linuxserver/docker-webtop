@@ -307,6 +307,7 @@ ARG APT_EXTRA_PACKAGES=""
 ARG LIBVA_DEB_URL="https://launchpad.net/ubuntu/+source/libva/2.22.0-3ubuntu2/+build/30591127/+files/libva2_2.22.0-3ubuntu2_amd64.deb"
 ARG LIBVA_LIBDIR="/usr/lib/x86_64-linux-gnu"
 ARG PROOT_ARCH="x86_64"
+ARG SELKIES_VERSION="1.6.2"
 
 RUN \
   echo "**** dev deps ****" && \
@@ -417,6 +418,20 @@ RUN \
   echo "**** enable hardware encoders in selkies settings ****" && \
   python3 -c "import selkies, pathlib; p = pathlib.Path(selkies.__file__).with_name('settings.py'); t = p.read_text(); old = \"['x264enc', 'x264enc-striped', 'jpeg']\"; new = \"['x264enc', 'x264enc-striped', 'jpeg', 'nvh264enc', 'vah264enc', 'vaapih264enc']\"; \
 assert old in t, f'Expected encoder list not found in {p}'; p.write_text(t.replace(old, new, 1)); print('Updated selkies encoder allowlist:', p)" && \
+  echo "**** selkies-gstreamer (amd64 only) ****" && \
+  ARCH_CUR=$(dpkg --print-architecture) && \
+  if [ "${ARCH_CUR}" = "amd64" ]; then \
+    UBUNTU_VERSION="$(. /etc/os-release && echo ${VERSION_ID})"; \
+    BASE_URL="https://github.com/selkies-project/selkies/releases/download/v${SELKIES_VERSION}"; \
+    mkdir -p /opt/gstreamer && \
+    curl -fsSL "${BASE_URL}/gstreamer-selkies_gpl_v${SELKIES_VERSION}_ubuntu${UBUNTU_VERSION}_amd64.tar.gz" | tar -xzf - -C /opt && \
+    curl -fsSLo /tmp/selkies_gstreamer.whl "${BASE_URL}/selkies_gstreamer-${SELKIES_VERSION}-py3-none-any.whl" && \
+    pip install --no-cache-dir /tmp/selkies_gstreamer.whl "websockets<14.0" && \
+    rm -f /tmp/selkies_gstreamer.whl && \
+    curl -fsSL "${BASE_URL}/selkies-gstreamer-web_v${SELKIES_VERSION}.tar.gz" | tar -xzf - -C /opt; \
+  else \
+    echo "Skipping selkies-gstreamer install on arch ${ARCH_CUR}"; \
+  fi && \
   echo "**** cleanup ****" && \
   apt-get purge -y --autoremove python3-dev && \
   apt-get autoclean && \
