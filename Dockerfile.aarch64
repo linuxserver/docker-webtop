@@ -10,7 +10,8 @@ LABEL build_version="Linuxserver.io version:- ${VERSION} Build-date:- ${BUILD_DA
 LABEL maintainer="thelamer"
 
 # title
-ENV TITLE="Alpine XFCE"
+ENV TITLE="Alpine KDE" \
+    PIXELFLUX_WAYLAND=true
 
 RUN \
   echo "**** add icon ****" && \
@@ -19,24 +20,14 @@ RUN \
     https://raw.githubusercontent.com/linuxserver/docker-templates/master/linuxserver.io/img/webtop-logo.png && \
   echo "**** install packages ****" && \
   apk add --no-cache \
-    adw-gtk3 \
-    adwaita-xfce-icon-theme \
+    breeze \
     chromium \
-    mousepad \
-    ristretto \
-    thunar \
-    util-linux-misc \
-    xfce4 \
-    xfce4-terminal && \
-  echo "**** xfce-tweaks ****" && \
-  mv \
-    /usr/bin/thunar \
-    /usr/bin/thunar-real && \
+    discover \
+    firefox \
+    kde-applications-base \
+    plasma-desktop \
+    systemsettings && \
   echo "**** cleanup ****" && \
-  rm -f \
-    /etc/xdg/autostart/xfce4-power-manager.desktop \
-    /etc/xdg/autostart/xscreensaver.desktop \
-    /usr/share/xfce4/panel/plugins/power-manager-plugin.desktop && \
   rm -rf \
     /config/.cache \
     /tmp/*
