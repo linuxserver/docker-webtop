@@ -20,7 +20,10 @@ RUN \
     chromium \
     i3status \
     i3wm \
+    libcap-setcap \
     st \
+    sway \
+    swaybg \
     util-linux-misc && \
   echo "**** application tweaks ****" && \
   ln -s \
@@ -29,6 +32,8 @@ RUN \
   sed -i \
     's:/usr/bin/chromium-browser:/usr/bin/chromium:g' \
     /usr/share/applications/chromium.desktop && \
+  setcap -r \
+    /usr/bin/sway && \
   echo "**** cleanup ****" && \
   rm -rf \
     /config/.cache \
