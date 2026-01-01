@@ -415,20 +415,8 @@ RUN \
   curl -s https://raw.githubusercontent.com/thelamer/lang-stash/master/theme.tar.gz \
     | tar xzvf - -C /usr/share/themes/Clearlooks/openbox-3/ && \
   echo "**** enable hardware encoders in selkies settings ****" && \
-  python3 - <<'PY'
-import selkies
-import pathlib
-
-path = pathlib.Path(selkies.__file__).with_name("settings.py")
-text = path.read_text()
-old = "['x264enc', 'x264enc-striped', 'jpeg']"
-new = "['x264enc', 'x264enc-striped', 'jpeg', 'nvh264enc', 'vah264enc', 'vaapih264enc']"
-if old not in text:
-    raise SystemExit("Expected encoder list not found in %s" % path)
-path.write_text(text.replace(old, new, 1))
-print("Updated selkies encoder allowlist:", path)
-PY
-  && \
+  python3 -c "import selkies, pathlib; p = pathlib.Path(selkies.__file__).with_name('settings.py'); t = p.read_text(); old = \"['x264enc', 'x264enc-striped', 'jpeg']\"; new = \"['x264enc', 'x264enc-striped', 'jpeg', 'nvh264enc', 'vah264enc', 'vaapih264enc']\"; \
+assert old in t, f'Expected encoder list not found in {p}'; p.write_text(t.replace(old, new, 1)); print('Updated selkies encoder allowlist:', p)" && \
   echo "**** cleanup ****" && \
   apt-get purge -y --autoremove python3-dev && \
   apt-get autoclean && \
