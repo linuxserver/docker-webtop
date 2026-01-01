@@ -62,6 +62,7 @@ This image provides various versions that are available via tags. Please read th
 | :----: | :----: |--- |
 | latest | ✅ | XFCE Alpine |
 | alpine-i3 | ✅ | i3 Alpine |
+| alpine-kde | ✅ | KDE Alpine *Wayland Only |
 | alpine-mate | ✅ | MATE Alpine |
 | arch-i3 | ✅ | i3 Arch |
 | arch-kde | ✅ | KDE Arch |
