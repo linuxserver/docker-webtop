@@ -30,9 +30,25 @@ if ! docker ps -a --format '{{.Names}}' | grep -qx "$NAME"; then
 fi
 
 ARCH_FROM_LABEL=$(docker inspect --format '{{ index .Config.Labels "org.opencontainers.image.architecture" }}' "$NAME" 2>/dev/null || true)
+IMAGE_FROM_CONFIG=$(docker inspect --format '{{ .Config.Image }}' "$NAME" 2>/dev/null || true)
+
+detect_arch_from_image_name() {
+  # Expect patterns like webtop-kde-<user>-amd64:1.0.0 or webtop-kde-<user>-arm64:tag
+  local img="$1"
+  local repo="${img%%:*}"
+  local suffix="${repo##*-}"
+  case "${suffix}" in
+    amd64|x86_64) echo "amd64" ;;
+    arm64|aarch64) echo "arm64" ;;
+    *) echo "" ;;
+  esac
+}
+
 if [[ -z "${TARGET_ARCH}" ]]; then
   if [[ -n "${ARCH_FROM_LABEL}" ]]; then
     TARGET_ARCH="${ARCH_FROM_LABEL}"
+  elif [[ -n "${IMAGE_FROM_CONFIG}" ]]; then
+    TARGET_ARCH="$(detect_arch_from_image_name "${IMAGE_FROM_CONFIG}")"
   else
     TARGET_ARCH=$(docker inspect "$NAME" 2>/dev/null \
       | python3 -c 'import sys,json; data=json.load(sys.stdin); print(data[0].get("Architecture",""))' || true)

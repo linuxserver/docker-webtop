@@ -66,6 +66,14 @@ fi
 chown "${TARGET_USER}:${TARGET_USER}" "${HOME}/.Xresources"
 chmod 777 /tmp/selkies*
 
+# Harden home ownership for persisted volumes (avoids root-owned files causing black screens)
+chown -R "${TARGET_USER}:${TARGET_USER}" "${HOME}/.config" "${HOME}/.local" "${HOME}/.cache" 2>/dev/null || true
+for f in "${HOME}/.xsettingsd" "${HOME}/.Xauthority" "${HOME}/.ICEauthority"; do
+  [ -e "$f" ] && chown "${TARGET_USER}:${TARGET_USER}" "$f" 2>/dev/null || true
+done
+# Ensure UDisks2 activation is gone at runtime too
+rm -f /usr/share/dbus-1/system-services/org.freedesktop.UDisks2.service
+
 # run
 cd $HOME
 exec s6-setuidgid "${TARGET_USER}" \

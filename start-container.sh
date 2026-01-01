@@ -148,6 +148,7 @@ docker run -d \
   -e PUID="${HOST_UID}" \
   -e PGID="${HOST_GID}" \
   --shm-size "${SHM_SIZE}" \
+  --privileged \
   -v "${HOME}":"${HOST_HOME_MOUNT}":rw \
   ${SSL_FLAGS[@]+"${SSL_FLAGS[@]}"} \
   "$IMAGE"

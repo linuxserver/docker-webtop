@@ -1,5 +1,7 @@
 #!/usr/bin/with-contenv bash
 
+TARGET_USER="${CUSTOM_USER:-${USER_NAME:-root}}"
+
 # bail early on xfce based systems or wayland
 if which xfce4-session > /dev/null 2>&1 || [[ "${PIXELFLUX_WAYLAND}" == "true" ]]; then
   sleep infinity
@@ -14,4 +16,3 @@ chown "$TARGET_USER:$TARGET_USER" "${HOME}/.xsettingsd"
 # run
 exec s6-setuidgid "$TARGET_USER" \
   xsettingsd
-TARGET_USER="${CUSTOM_USER:-${USER_NAME:-root}}"
