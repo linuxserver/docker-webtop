@@ -22,7 +22,10 @@ RUN \
     chromium \
     i3 \
     i3-wm \
-    stterm && \
+    stterm \
+    sway \
+    sway-backgrounds \
+    swaybg && \
   echo "**** application tweaks ****" && \
   update-alternatives --set \
     x-terminal-emulator \
