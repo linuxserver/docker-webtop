@@ -13,6 +13,10 @@ DPI=${DPI:-96}
 SHM_SIZE=${SHM_SIZE:-4g}
 PLATFORM=${PLATFORM:-}
 SSL_DIR=${SSL_DIR:-}
+GPU_VENDOR=${GPU_VENDOR:-none} # none|nvidia|intel|amd
+GPU_ALL=false
+GPU_NUMS=""
+VIDEO_ENCODER="x264enc"
 IMAGE_TAG_SET=false
 IMAGE_VERSION_DEFAULT=${IMAGE_VERSION:-1.0.0}
 HOST_ARCH_RAW=$(uname -m)
@@ -32,10 +36,14 @@ Usage: $0 [-n name] [-i image-base] [-t version] [-r WIDTHxHEIGHT] [-d dpi] [-p 
   -d  DPI (default: ${DPI})
   -p  platform for docker run (e.g. linux/arm64). Default: host
   -s  host directory containing cert.pem and cert.key to mount at ssl (recommended for WSS)
+  -g  GPU vendor: none|nvidia|intel|amd (default: ${GPU_VENDOR})
+      --gpu <vendor>   same as -g
+      --all            use all NVIDIA GPUs (requires -g nvidia)
+      --num <list>     comma-separated NVIDIA GPU list (requires -g nvidia)
 EOF
 }
 
-while getopts ":n:i:t:r:d:p:s:h" opt; do
+while getopts ":n:i:t:r:d:p:s:g:h" opt; do
   case "$opt" in
     n) NAME=$OPTARG ;;
     i) IMAGE_BASE=$OPTARG ;;
@@ -44,8 +52,28 @@ while getopts ":n:i:t:r:d:p:s:h" opt; do
     d) DPI=$OPTARG ;;
     p) PLATFORM=$OPTARG ;;
     s) SSL_DIR=$OPTARG ;;
+    g) GPU_VENDOR=$OPTARG ;;
     h) usage; exit 0 ;;
     *) usage; exit 1 ;;
+  esac
+done
+
+shift $((OPTIND -1))
+
+while [[ $# -gt 0 ]]; do
+  case "$1" in
+    --gpu)
+      GPU_VENDOR=$2; shift 2 ;;
+    --all)
+      GPU_ALL=true; shift ;;
+    --num)
+      GPU_NUMS=$2; shift 2 ;;
+    --)
+      shift; break ;;
+    *)
+      echo "Unknown option: $1" >&2
+      usage
+      exit 1 ;;
   esac
 done
 
@@ -101,7 +129,59 @@ if ! docker image inspect "$IMAGE" >/dev/null 2>&1; then
   fi
 fi
 
-echo "Starting: name=${NAME}, image=${IMAGE}, resolution=${RESOLUTION}, DPI=${DPI}, host ports https=${HOST_PORT_SSL}->3001, http=${HOST_PORT_HTTP}->3000"
+GPU_VENDOR=$(echo "${GPU_VENDOR:-none}" | tr '[:upper:]' '[:lower:]')
+GPU_FLAGS=()
+GPU_ENV_VARS=()
+
+case "${GPU_VENDOR}" in
+  none|"")
+    GPU_VENDOR="none"
+    VIDEO_ENCODER="x264enc"
+    GPU_ENV_VARS+=(-e ENABLE_NVIDIA=false)
+    ;;
+  intel)
+    VIDEO_ENCODER="vah264enc"
+    GPU_ENV_VARS+=(-e ENABLE_NVIDIA=false -e LIBVA_DRIVER_NAME="${LIBVA_DRIVER_NAME:-iHD}")
+    if [ -d "/dev/dri" ]; then
+      GPU_FLAGS+=(--device=/dev/dri:/dev/dri:rwm)
+    else
+      echo "Warning: /dev/dri not found, Intel VA-API may not be available." >&2
+    fi
+    ;;
+  amd)
+    VIDEO_ENCODER="vah264enc"
+    GPU_ENV_VARS+=(-e ENABLE_NVIDIA=false -e LIBVA_DRIVER_NAME="${LIBVA_DRIVER_NAME:-radeonsi}")
+    if [ -d "/dev/dri" ]; then
+      GPU_FLAGS+=(--device=/dev/dri:/dev/dri:rwm)
+    else
+      echo "Warning: /dev/dri not found, AMD VA-API may not be available." >&2
+    fi
+    if [ -e "/dev/kfd" ]; then
+      GPU_FLAGS+=(--device=/dev/kfd:/dev/kfd:rwm)
+    fi
+    ;;
+  nvidia)
+    VIDEO_ENCODER="nvh264enc"
+    if [ "${GPU_ALL}" = true ]; then
+      GPU_FLAGS+=(--gpus all)
+    elif [ -n "${GPU_NUMS}" ]; then
+      GPU_FLAGS+=(--gpus "device=${GPU_NUMS}")
+    else
+      echo "Error: --gpu nvidia requires --all or --num." >&2
+      exit 1
+    fi
+    if [ -d "/dev/dri" ]; then
+      GPU_FLAGS+=(--device=/dev/dri:/dev/dri:rwm)
+    fi
+    GPU_ENV_VARS+=(-e ENABLE_NVIDIA=true)
+    ;;
+  *)
+    echo "Unsupported GPU vendor: ${GPU_VENDOR}" >&2
+    exit 1
+    ;;
+esac
+
+echo "Starting: name=${NAME}, image=${IMAGE}, resolution=${RESOLUTION}, DPI=${DPI}, gpu=${GPU_VENDOR}, host ports https=${HOST_PORT_SSL}->3001, http=${HOST_PORT_HTTP}->3000"
 
 PLATFORM_FLAGS=()
 if [[ -n "$PLATFORM" ]]; then
@@ -130,6 +210,7 @@ fi
 
 docker run -d \
   ${PLATFORM_FLAGS[@]+"${PLATFORM_FLAGS[@]}"} \
+  ${GPU_FLAGS[@]+"${GPU_FLAGS[@]}"} \
   --name "$NAME" \
   --hostname "${HOSTNAME_VAL}" \
   -e HOSTNAME="${HOSTNAME_VAL}" \
@@ -147,8 +228,10 @@ docker run -d \
   -e USER_NAME="${HOST_USER}" \
   -e PUID="${HOST_UID}" \
   -e PGID="${HOST_GID}" \
+  -e SELKIES_ENCODER="${VIDEO_ENCODER}" \
   --shm-size "${SHM_SIZE}" \
   --privileged \
   -v "${HOME}":"${HOST_HOME_MOUNT}":rw \
+  ${GPU_ENV_VARS[@]+"${GPU_ENV_VARS[@]}"} \
   ${SSL_FLAGS[@]+"${SSL_FLAGS[@]}"} \
   "$IMAGE"
