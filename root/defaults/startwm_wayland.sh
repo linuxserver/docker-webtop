@@ -48,15 +48,8 @@ sudo mv \
   /etc/xdg/menus/applications.menu
 kbuildsycoca6
 
-# Wayland Hacks
-unset DISPLAY
-sudo rm -Rf /etc/xdg/autostart/*
-sudo rm -f /usr/bin/wl-paste /usr/bin/wl-copy
-echo "#! /bin/bash" > /tmp/wl-paste && chmod +x /tmp/wl-paste
-echo "exit 0" > /tmp/wl-copy && chmod +x /tmp/wl-copy
-sudo cp /tmp/wl-* /usr/bin/
-
 # Start DE
+unset DISPLAY
 export QT_QPA_PLATFORM=wayland
 WAYLAND_DISPLAY=wayland-1 dbus-run-session kwin_wayland &
 sleep 2

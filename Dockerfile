@@ -30,6 +30,7 @@ RUN \
   echo "**** cleanup ****" && \
   rm -rf \
     /config/.cache \
+    /etc/xdg/autostart/* \
     /tmp/*
 
 # add local files
