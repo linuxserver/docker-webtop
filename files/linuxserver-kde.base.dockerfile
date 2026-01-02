@@ -154,6 +154,9 @@ RUN \
   locale-gen en_US.UTF-8 && \
   echo "**** prepare shared folders ****" && \
   mkdir -p /app /config /defaults /lsiopy && \
+  echo "**** create video and render groups with standard GIDs ****" && \
+  groupadd -g 44 video 2>/dev/null || groupmod -g 44 video 2>/dev/null || true && \
+  groupadd -g 106 render 2>/dev/null || groupmod -g 106 render 2>/dev/null || true && \
   echo "**** cleanup ****" && \
   userdel ubuntu && \
   apt-get autoremove && \
@@ -308,6 +311,7 @@ ARG LIBVA_DEB_URL="https://launchpad.net/ubuntu/+source/libva/2.22.0-3ubuntu2/+b
 ARG LIBVA_LIBDIR="/usr/lib/x86_64-linux-gnu"
 ARG PROOT_ARCH="x86_64"
 ARG SELKIES_VERSION="1.6.2"
+ARG VIRTUALGL_VERSION="3.1.4"
 
 RUN \
   echo "**** dev deps ****" && \
@@ -334,7 +338,10 @@ RUN \
     libxau6 libxcb1 libxcb-icccm4 libxcb-image0 libxcb-keysyms1 libxcb-render-util0 \
     libxcursor1 libxdmcp6 libxext6 libxfconf-0-3 libxfixes3 libxfont2 libxinerama1 \
     libxkbcommon-dev libxkbcommon-x11-0 libxshmfence1 libxtst6 locales-all make \
-    mesa-libgallium mesa-va-drivers mesa-vulkan-drivers nginx openbox openssh-client \
+    mesa-libgallium mesa-va-drivers mesa-vulkan-drivers mesa-utils vainfo vdpauinfo \
+    libvulkan-dev ocl-icd-libopencl1 clinfo libdrm2 libegl1 libgl1 libopengl0 libgles1 libgles2 \
+    libglvnd0 libglx0 libglu1 libglvnd-dev \
+    nginx openbox openssh-client \
     openssl pciutils procps psmisc pulseaudio pulseaudio-utils python3 python3-venv \
     gstreamer1.0-tools gstreamer1.0-plugins-base gstreamer1.0-plugins-good \
     gstreamer1.0-plugins-bad gstreamer1.0-plugins-ugly gstreamer1.0-libav \
@@ -345,6 +352,17 @@ RUN \
     xserver-common xserver-xorg-core xserver-xorg-video-amdgpu xserver-xorg-video-ati \
     xserver-xorg-video-nouveau xserver-xorg-video-qxl \
     xsettingsd xterm xutils xvfb zlib1g zstd && \
+  echo "**** install coturn (AMD64 only) ****" && \
+  ARCH_CUR=$(dpkg --print-architecture) && \
+  if [ "${ARCH_CUR}" = "amd64" ]; then \
+    apt-get install -y --no-install-recommends coturn; \
+  fi && \
+  echo "**** install Intel VA drivers (AMD64 only) ****" && \
+  ARCH_CUR=$(dpkg --print-architecture) && \
+  if [ "${ARCH_CUR}" = "amd64" ]; then \
+    apt-get install -y --no-install-recommends i965-va-driver-shaders intel-media-va-driver-; \
+    apt-get install -y --no-install-recommends intel-media-va-driver-non-free; \
+  fi && \
   echo "**** install selkies ****" && \
   SELKIES_RELEASE=$(curl -sX GET "https://api.github.com/repos/selkies-project/selkies/releases/latest" \
     | awk '/tag_name/{print $4;exit}' FS='[""]') && \
@@ -400,6 +418,34 @@ RUN \
   chmod +x /usr/local/bin/dind && \
   echo 'hosts: files dns' > /etc/nsswitch.conf && \
   groupadd -f docker && \
+echo "**** install VirtualGL ****" && \
+  cd /tmp && VIRTUALGL_VERSION="$(echo ${VIRTUALGL_VERSION} | sed 's/[^0-9\.\-]*//g')" && \
+  if [ "$(dpkg --print-architecture)" = "amd64" ]; then \
+    dpkg --add-architecture i386 && \
+    apt-get update && \
+    curl -fsSL -O "https://github.com/VirtualGL/virtualgl/releases/download/${VIRTUALGL_VERSION}/virtualgl_${VIRTUALGL_VERSION}_amd64.deb" && \
+    curl -fsSL -O "https://github.com/VirtualGL/virtualgl/releases/download/${VIRTUALGL_VERSION}/virtualgl32_${VIRTUALGL_VERSION}_amd64.deb" && \
+    apt-get install -y --no-install-recommends "./virtualgl_${VIRTUALGL_VERSION}_amd64.deb" "./virtualgl32_${VIRTUALGL_VERSION}_amd64.deb" && \
+    rm -f "virtualgl_${VIRTUALGL_VERSION}_amd64.deb" "virtualgl32_${VIRTUALGL_VERSION}_amd64.deb" && \
+    chmod -f u+s /usr/lib/libvglfaker.so /usr/lib/libvglfaker-nodl.so /usr/lib/libvglfaker-opencl.so /usr/lib/libdlfaker.so /usr/lib/libgefaker.so 2>/dev/null || true && \
+    chmod -f u+s /usr/lib32/libvglfaker.so /usr/lib32/libvglfaker-nodl.so /usr/lib32/libvglfaker-opencl.so /usr/lib32/libdlfaker.so /usr/lib32/libgefaker.so 2>/dev/null || true && \
+    chmod -f u+s /usr/lib/i386-linux-gnu/libvglfaker.so /usr/lib/i386-linux-gnu/libvglfaker-nodl.so /usr/lib/i386-linux-gnu/libvglfaker-opencl.so /usr/lib/i386-linux-gnu/libdlfaker.so /usr/lib/i386-linux-gnu/libgefaker.so 2>/dev/null || true; \
+  elif [ "$(dpkg --print-architecture)" = "arm64" ]; then \
+    curl -fsSL -O "https://github.com/VirtualGL/virtualgl/releases/download/${VIRTUALGL_VERSION}/virtualgl_${VIRTUALGL_VERSION}_arm64.deb" && \
+    apt-get update && apt-get install -y --no-install-recommends ./virtualgl_${VIRTUALGL_VERSION}_arm64.deb && \
+    rm -f "virtualgl_${VIRTUALGL_VERSION}_arm64.deb" && \
+    chmod -f u+s /usr/lib/libvglfaker.so /usr/lib/libvglfaker-nodl.so /usr/lib/libdlfaker.so /usr/lib/libgefaker.so 2>/dev/null || true; \
+  fi && \
+  echo "**** configure OpenCL and EGL for NVIDIA ****" && \
+  mkdir -pm755 /etc/OpenCL/vendors && echo "libnvidia-opencl.so.1" > /etc/OpenCL/vendors/nvidia.icd && \
+  mkdir -pm755 /usr/share/glvnd/egl_vendor.d/ && echo '{\n\
+    "file_format_version" : "1.0.0",\n\
+    "ICD": {\n\
+        "library_path": "libEGL_nvidia.so.0"\n\
+    }\n\
+}' > /usr/share/glvnd/egl_vendor.d/10_nvidia.json && \
+  echo "/usr/local/nvidia/lib" >> /etc/ld.so.conf.d/nvidia.conf && \
+  echo "/usr/local/nvidia/lib64" >> /etc/ld.so.conf.d/nvidia.conf && \
   echo "**** libva hack ****" && \
   mkdir /tmp/libva && \
   curl -o /tmp/libva/libva.deb -L "${LIBVA_DEB_URL}" && \
@@ -415,9 +461,12 @@ RUN \
   echo "**** theme ****" && \
   curl -s https://raw.githubusercontent.com/thelamer/lang-stash/master/theme.tar.gz \
     | tar xzvf - -C /usr/share/themes/Clearlooks/openbox-3/ && \
-  echo "**** enable hardware encoders in selkies settings ****" && \
-  python3 -c "import selkies, pathlib; p = pathlib.Path(selkies.__file__).with_name('settings.py'); t = p.read_text(); old = \"['x264enc', 'x264enc-striped', 'jpeg']\"; new = \"['x264enc', 'x264enc-striped', 'jpeg', 'nvh264enc', 'vah264enc', 'vaapih264enc']\"; \
-assert old in t, f'Expected encoder list not found in {p}'; p.write_text(t.replace(old, new, 1)); print('Updated selkies encoder allowlist:', p)" && \
+  echo "**** enable hardware encoders in selkies settings (arm64 only) ****" && \
+  ARCH_CUR=$(dpkg --print-architecture) && \
+  if [ "${ARCH_CUR}" != "amd64" ]; then \
+    python3 -c "import selkies, pathlib; p = pathlib.Path(selkies.__file__).with_name('settings.py'); t = p.read_text(); old = \"['x264enc', 'x264enc-striped', 'jpeg']\"; new = \"['x264enc', 'x264enc-striped', 'jpeg', 'nvh264enc', 'vah264enc', 'vaapih264enc']\"; \
+assert old in t, f'Expected encoder list not found in {p}'; p.write_text(t.replace(old, new, 1)); print('Updated selkies encoder allowlist:', p)"; \
+  fi && \
   echo "**** selkies-gstreamer (amd64 only) ****" && \
   ARCH_CUR=$(dpkg --print-architecture) && \
   if [ "${ARCH_CUR}" = "amd64" ]; then \
@@ -425,9 +474,9 @@ assert old in t, f'Expected encoder list not found in {p}'; p.write_text(t.repla
     BASE_URL="https://github.com/selkies-project/selkies/releases/download/v${SELKIES_VERSION}"; \
     mkdir -p /opt/gstreamer && \
     curl -fsSL "${BASE_URL}/gstreamer-selkies_gpl_v${SELKIES_VERSION}_ubuntu${UBUNTU_VERSION}_amd64.tar.gz" | tar -xzf - -C /opt && \
-    curl -fsSLo /tmp/selkies_gstreamer.whl "${BASE_URL}/selkies_gstreamer-${SELKIES_VERSION}-py3-none-any.whl" && \
-    pip install --no-cache-dir /tmp/selkies_gstreamer.whl "websockets<14.0" && \
-    rm -f /tmp/selkies_gstreamer.whl && \
+    cd /tmp && curl -O -fsSL "${BASE_URL}/selkies_gstreamer-${SELKIES_VERSION}-py3-none-any.whl" && \
+    pip install --no-cache-dir "selkies_gstreamer-${SELKIES_VERSION}-py3-none-any.whl" "websockets<14.0" && \
+    rm -f "selkies_gstreamer-${SELKIES_VERSION}-py3-none-any.whl" && \
     curl -fsSL "${BASE_URL}/selkies-gstreamer-web_v${SELKIES_VERSION}.tar.gz" | tar -xzf - -C /opt; \
   else \
     echo "Skipping selkies-gstreamer install on arch ${ARCH_CUR}"; \
@@ -441,6 +490,9 @@ assert old in t, f'Expected encoder list not found in {p}'; p.write_text(t.repla
 COPY ubuntu-root/ /
 COPY --from=frontend /buildout /usr/share/selkies
 COPY --from=xvfb-builder /build-out/ /
+
+# Make TURN server script executable (AMD64 only, after final COPY)
+RUN if [ "$(dpkg --print-architecture)" = "amd64" ]; then chmod 755 /etc/start-turnserver.sh; fi
 
 # ports and volumes
 EXPOSE 3000 3001

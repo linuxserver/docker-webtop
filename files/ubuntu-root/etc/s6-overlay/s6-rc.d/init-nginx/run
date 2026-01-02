@@ -55,10 +55,23 @@ fi
 # set dashboard and icon
 rm -Rf \
   /usr/share/selkies/web
-cp -a \
-  /usr/share/selkies/$DASHBOARD \
-  /usr/share/selkies/web
-sed -i "s|REPLACE_DOWNLOADS_PATH|$FILE_MANAGER_PATH|g" /usr/share/selkies/web/nginx/footer.html
+
+# Use gst-web for selkies-gstreamer when GPU is available, otherwise use dashboard
+GPU_VENDOR="${GPU_VENDOR:-none}"
+if [ "${GPU_VENDOR}" != "none" ] && [ -d /opt/gst-web ] && command -v selkies-gstreamer >/dev/null 2>&1; then
+  cp -a \
+    /opt/gst-web \
+    /usr/share/selkies/web
+  mkdir -p /usr/share/selkies/web/nginx
+  cp /defaults/header.html /usr/share/selkies/web/nginx/ 2>/dev/null || true
+  cp /defaults/footer.html /usr/share/selkies/web/nginx/ 2>/dev/null || true
+else
+  cp -a \
+    /usr/share/selkies/$DASHBOARD \
+    /usr/share/selkies/web
+fi
+
+sed -i "s|REPLACE_DOWNLOADS_PATH|$FILE_MANAGER_PATH|g" /usr/share/selkies/web/nginx/footer.html 2>/dev/null || true
 cp \
   /usr/share/selkies/www/icon.png \
   /usr/share/selkies/web/favicon.ico
