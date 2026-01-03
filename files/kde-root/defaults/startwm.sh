@@ -77,5 +77,5 @@ if which nvidia-smi > /dev/null 2>&1 && ls -A /dev/dri 2>/dev/null && [ "${DISAB
   export GALLIUM_DRIVER=zink
 fi
 
-# Start DE
-exec dbus-launch --exit-with-session /usr/bin/startplasma-x11 > /dev/null 2>&1
+# Start DE (without exec to allow dbus-launch to work properly)
+dbus-launch --exit-with-session /usr/bin/startplasma-x11 > /dev/null 2>&1
