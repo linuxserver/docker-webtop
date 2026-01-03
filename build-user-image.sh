@@ -123,7 +123,8 @@ echo "Target arch: ${TARGET_ARCH}, platform: ${PLATFORM}"
 echo "Language: ${USER_LANGUAGE}"
 echo "Version tag: ${VERSION}"
 
-if ! docker image inspect "${BASE_IMAGE}" >/dev/null 2>&1; then
+# Check if base image exists using docker images (more reliable than inspect)
+if ! docker images --format '{{.Repository}}:{{.Tag}}' | grep -q "^${BASE_IMAGE}$"; then
   echo "Base image ${BASE_IMAGE} not found locally. Build it first (e.g. ./build-base-image.sh -a ${TARGET_ARCH} -v ${VERSION})." >&2
   exit 1
 fi

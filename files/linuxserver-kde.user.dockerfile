@@ -1,9 +1,12 @@
-ARG BASE_IMAGE
+# Base image must be provided via --build-arg BASE_IMAGE=<image>
+ARG BASE_IMAGE=scratch
 FROM ${BASE_IMAGE}
 
 ARG USER_NAME
 ARG USER_UID
 ARG USER_GID
+# Note: USER_PASSWORD is used only during image build for initial setup.
+# It is not stored in the image layers. Change password after first login.
 ARG USER_PASSWORD=""
 ARG HOST_HOSTNAME="Docker-Host"
 ARG USER_LANGUAGE="en"
