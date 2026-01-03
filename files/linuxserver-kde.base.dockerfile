@@ -490,6 +490,12 @@ assert old in t, f'Expected encoder list not found in {p}'; p.write_text(t.repla
 
 # add local files - this will overwrite ubuntu-root files if conflicts exist
 COPY ubuntu-root/ /
+
+# Apply websockets 15.x compatibility patch for selkies-gstreamer (amd64 only)
+RUN if [ "$(dpkg --print-architecture)" = "amd64" ] && [ -f /usr/local/bin/patch-selkies-websockets15.py ]; then \
+      chmod +x /usr/local/bin/patch-selkies-websockets15.py && \
+      python3 /usr/local/bin/patch-selkies-websockets15.py; \
+    fi
 COPY --from=frontend /buildout /usr/share/selkies
 COPY --from=xvfb-builder /build-out/ /
 
