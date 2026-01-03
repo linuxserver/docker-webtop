@@ -1,5 +1,10 @@
 #!/usr/bin/env bash
 
+# Setup XDG runtime directory for KDE/Plasma
+export XDG_RUNTIME_DIR="${XDG_RUNTIME_DIR:-/tmp/runtime-$USER}"
+mkdir -p "$XDG_RUNTIME_DIR"
+chmod 700 "$XDG_RUNTIME_DIR"
+
 # GPU detection and configuration for WebGL/Vulkan/OpenGL support
 NVIDIA_PRESENT=false
 GPU_AVAILABLE=false
@@ -39,11 +44,40 @@ if [ -n "${DISPLAY_REFRESH}" ]; then
   export VGL_FPS="${DISPLAY_REFRESH}"
 fi
 
-# Start DE with appropriate GPU acceleration
-if [ "${GPU_AVAILABLE}" = "true" ] && which vglrun > /dev/null 2>&1; then
-  echo "Starting desktop with VirtualGL acceleration"
-  exec vglrun -d "${VGL_DISPLAY:-egl}" +wm dbus-launch --exit-with-session /usr/bin/openbox-session > /dev/null 2>&1
+# Set additional session variables for KDE
+export XDG_SESSION_ID="${DISPLAY#*:}"
+export QT_LOGGING_RULES="${QT_LOGGING_RULES:-*.debug=false;qt.qpa.*=false}"
+
+# Start KDE Plasma desktop with appropriate GPU acceleration
+if which startplasma-x11 > /dev/null 2>&1; then
+  echo "Starting KDE Plasma desktop"
+  if [ "${GPU_AVAILABLE}" = "true" ] && which vglrun > /dev/null 2>&1; then
+    echo "Starting with VirtualGL acceleration"
+    /usr/bin/vglrun -d "${VGL_DISPLAY:-egl}" +wm /usr/bin/dbus-launch --exit-with-session /usr/bin/startplasma-x11 > /tmp/startwm.log 2>&1 &
+  else
+    echo "Starting with software rendering"
+    /usr/bin/dbus-launch --exit-with-session /usr/bin/startplasma-x11 > /tmp/startwm.log 2>&1 &
+  fi
+  
+  # Start fcitx if installed
+  if which fcitx > /dev/null 2>&1; then
+    /usr/bin/fcitx &
+  fi
+  
+  # Keep the script running
+  echo "Session running. Desktop environment started in background."
+  wait
+  
+elif which openbox-session > /dev/null 2>&1; then
+  echo "Starting Openbox desktop"
+  if [ "${GPU_AVAILABLE}" = "true" ] && which vglrun > /dev/null 2>&1; then
+    echo "Starting with VirtualGL acceleration"
+    exec vglrun -d "${VGL_DISPLAY:-egl}" +wm dbus-launch --exit-with-session /usr/bin/openbox-session
+  else
+    echo "Starting with software rendering"
+    exec dbus-launch --exit-with-session /usr/bin/openbox-session
+  fi
 else
-  echo "Starting desktop with software rendering"
-  exec dbus-launch --exit-with-session /usr/bin/openbox-session > /dev/null 2>&1
+  echo "ERROR: No desktop environment found"
+  exit 1
 fi

@@ -179,16 +179,6 @@ RUN set -eux; \
     echo 'LANGUAGE=ja_JP:ja' >> /etc/default/locale; \
     echo 'LC_ALL=ja_JP.UTF-8' >> /etc/default/locale; \
     printf '%s\n' \
-      'export GTK_IM_MODULE=fcitx' \
-      'export QT_IM_MODULE=fcitx' \
-      'export XMODIFIERS=@im=fcitx' \
-      'export INPUT_METHOD=fcitx' \
-      'export SDL_IM_MODULE=fcitx' \
-      'export GLFW_IM_MODULE=fcitx' \
-      'export FCITX_DEFAULT_INPUT_METHOD=mozc' \
-      > /etc/profile.d/fcitx.sh; \
-    chmod 644 /etc/profile.d/fcitx.sh; \
-    printf '%s\n' \
       'XKBMODEL="jp106"' \
       'XKBLAYOUT="jp"' \
       'XKBVARIANT=""' \
@@ -220,16 +210,6 @@ RUN set -eux; \
     cp /etc/xdg/autostart/fcitx-autostart.desktop "/home/${USER_NAME}/.config/autostart/fcitx-autostart.desktop"; \
     chown "${USER_UID}:${USER_GID}" "/home/${USER_NAME}/.config/autostart/fcitx-autostart.desktop"; \
     printf '%s\n' \
-      'export GTK_IM_MODULE=fcitx' \
-      'export QT_IM_MODULE=fcitx' \
-      'export XMODIFIERS=@im=fcitx' \
-      'export INPUT_METHOD=fcitx' \
-      'export SDL_IM_MODULE=fcitx' \
-      'export GLFW_IM_MODULE=fcitx' \
-      'export FCITX_DEFAULT_INPUT_METHOD=mozc' \
-      'fcitx -d >/tmp/fcitx.log 2>&1' \
-      > "/home/${USER_NAME}/.xprofile"; \
-    printf '%s\n' \
       '[Layout]' \
       'DisplayNames=' \
       'LayoutList=jp' \
@@ -238,8 +218,32 @@ RUN set -eux; \
       'ResetOldOptions=true' \
       'Use=true' \
       > "/home/${USER_NAME}/.config/kxkbrc"; \
-    chown "${USER_UID}:${USER_GID}" "/home/${USER_NAME}/.xprofile" "/home/${USER_NAME}/.config/kxkbrc"; \
+    chown "${USER_UID}:${USER_GID}" "/home/${USER_NAME}/.config/kxkbrc"; \
   fi
+
+# Set fcitx environment variables globally when Japanese locale is selected
+ARG USER_LANGUAGE
+RUN LANG_SEL="$(echo "${USER_LANGUAGE}" | tr '[:upper:]' '[:lower:]')" ; \
+  if [ "${LANG_SEL}" = "ja" ] || [ "${LANG_SEL}" = "ja_jp" ] || [ "${LANG_SEL}" = "ja-jp" ]; then \
+    mkdir -p /etc/profile.d && \
+    printf '%s\n' \
+      'export GTK_IM_MODULE=fcitx' \
+      'export QT_IM_MODULE=fcitx' \
+      'export XMODIFIERS="@im=fcitx"' \
+      'export INPUT_METHOD=fcitx' \
+      'export SDL_IM_MODULE=fcitx' \
+      'export GLFW_IM_MODULE=fcitx' \
+      > /etc/profile.d/99-fcitx-env.sh && \
+    chmod 644 /etc/profile.d/99-fcitx-env.sh; \
+  fi
+
+# Apply fcitx ENV globally when USER_LANGUAGE is ja
+ENV GTK_IM_MODULE=fcitx \
+    QT_IM_MODULE=fcitx \
+    XMODIFIERS="@im=fcitx" \
+    INPUT_METHOD=fcitx \
+    SDL_IM_MODULE=fcitx \
+    GLFW_IM_MODULE=fcitx
 
 # create XDG user dirs and desktop shortcuts (Home/Trash)
 RUN set -eux; \
