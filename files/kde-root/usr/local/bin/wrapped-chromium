@@ -1,6 +1,7 @@
 #! /bin/bash
 
 BIN=/usr/bin/chromium
+DEFAULT_FLAGS="--password-store=basic --in-process-gpu"
 EXTRA_FLAGS=(${CHROMIUM_FLAGS:-})
 
 # Cleanup
@@ -8,18 +9,5 @@ if ! pgrep chromium > /dev/null;then
   rm -f $HOME/.config/chromium/Singleton*
 fi
 
-# Detect GPU availability
-if [ "${CHROMIUM_USE_GPU}" = "true" ] || [ -d "/dev/dri" ] || [ -e "/dev/nvidia0" ]; then
-  # Use hardware GPU with WebGL support
-  DEFAULT_FLAGS="--disable-dev-shm-usage --password-store=basic --enable-gpu-rasterization --enable-features=VaapiVideoDecoder,VaapiVideoEncoder --use-gl=angle --use-angle=gl"
-else
-  # Fallback to software rendering
-  DEFAULT_FLAGS="--disable-dev-shm-usage --disable-gpu --use-gl=swiftshader --password-store=basic"
-fi
-
-# Run normally on privved containers or modified un non priv
-if grep -q 'Seccomp:.0' /proc/1/status; then
-  ${BIN} ${DEFAULT_FLAGS} "${EXTRA_FLAGS[@]}" "$@"
-else
-  ${BIN} ${DEFAULT_FLAGS} --no-sandbox --test-type "${EXTRA_FLAGS[@]}" "$@"
-fi
+# Run with --no-sandbox (same as Chrome wrapper)
+${BIN} ${DEFAULT_FLAGS} --no-sandbox "${EXTRA_FLAGS[@]}" "$@"
