@@ -475,9 +475,11 @@ assert old in t, f'Expected encoder list not found in {p}'; p.write_text(t.repla
     mkdir -p /opt/gstreamer && \
     curl -fsSL "${BASE_URL}/gstreamer-selkies_gpl_v${SELKIES_VERSION}_ubuntu${UBUNTU_VERSION}_amd64.tar.gz" | tar -xzf - -C /opt && \
     cd /tmp && curl -O -fsSL "${BASE_URL}/selkies_gstreamer-${SELKIES_VERSION}-py3-none-any.whl" && \
-    pip install --no-cache-dir "selkies_gstreamer-${SELKIES_VERSION}-py3-none-any.whl" "websockets<14.0" && \
+    pip install --no-cache-dir "selkies_gstreamer-${SELKIES_VERSION}-py3-none-any.whl" && \
     rm -f "selkies_gstreamer-${SELKIES_VERSION}-py3-none-any.whl" && \
-    curl -fsSL "${BASE_URL}/selkies-gstreamer-web_v${SELKIES_VERSION}.tar.gz" | tar -xzf - -C /opt; \
+    curl -fsSL "${BASE_URL}/selkies-gstreamer-web_v${SELKIES_VERSION}.tar.gz" | tar -xzf - -C /opt && \
+    echo "**** upgrade websockets to 15.x for selkies compatibility ****" && \
+    pip install --force-reinstall 'websockets>=15.0'; \
   else \
     echo "Skipping selkies-gstreamer install on arch ${ARCH_CUR}"; \
   fi && \
