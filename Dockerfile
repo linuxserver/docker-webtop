@@ -8,7 +8,8 @@ LABEL maintainer="thelamer"
 
 # title
 ENV TITLE="Fedora KDE" \
-    NO_GAMEPAD=true
+    NO_GAMEPAD=true \
+    SELKIES_WAYLAND_SOCKET_INDEX=1
 
 RUN \
   echo "**** add icon ****" && \
@@ -38,6 +39,17 @@ RUN \
   sed -i \
     's#^Exec=.*#Exec=/usr/local/bin/wrapped-chromium#g' \
     /usr/share/applications/chromium-browser.desktop && \
+  setcap -r \
+    /usr/sbin/kwin_wayland && \
+  rm -f \
+    /usr/bin/wl-paste \
+    /usr/bin/wl-copy && \
+  echo "#! /bin/bash" > \
+    /tmp/wl-paste && \
+  echo "#! /bin/bash" > \
+    /tmp/wl-copy && \
+  chmod +x /tmp/wl-* && \
+  cp /tmp/wl-* /usr/bin/ && \
   echo "**** kde tweaks ****" && \
   sed -i \
     's/applications:org.kde.discover.desktop,/applications:org.kde.konsole.desktop,/g' \
