@@ -8,7 +8,8 @@ LABEL build_version="Linuxserver.io version:- ${VERSION} Build-date:- ${BUILD_DA
 LABEL maintainer="thelamer"
 
 # title
-ENV TITLE="Alpine i3"
+ENV TITLE="Alpine i3" \
+    SELKIES_WAYLAND_SOCKET_INDEX=2
 
 RUN \
   echo "**** add icon ****" && \
