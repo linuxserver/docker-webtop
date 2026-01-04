@@ -21,7 +21,7 @@ touch "${HOME}/.local/share/user-places.xbel"
 # Background perm loop
 if [ ! -d $HOME/.config/kde.org ]; then
   (
-    loop_end_time=$((SECONDS + 60000))
+    loop_end_time=$((SECONDS + 60))
     while [ $SECONDS -lt $loop_end_time ]; do
         find "$HOME/.cache" "$HOME/.config" "$HOME/.local" -type f -perm 000 -exec chmod 644 {} + 2>/dev/null
         sleep .1
