@@ -169,8 +169,7 @@ RUN set -eux; \
       fcitx-mozc fcitx-config-gtk \
       fcitx-frontend-gtk2 fcitx-frontend-gtk3 fcitx-frontend-qt5 \
       fcitx-module-dbus fcitx-module-kimpanel fcitx-module-x11 fcitx-module-lua fcitx-ui-classic \
-      kde-config-fcitx \
-      mozc-utils-gui && \
+      kde-config-fcitx && \
     locale-gen ja_JP.UTF-8 && \
     update-locale LANG=ja_JP.UTF-8 LANGUAGE=ja_JP:ja LC_ALL=ja_JP.UTF-8 && \
     apt-get clean && rm -rf /var/lib/apt/lists/*; \
