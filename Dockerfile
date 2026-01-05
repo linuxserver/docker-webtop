@@ -5,14 +5,13 @@ FROM ghcr.io/linuxserver/baseimage-selkies:alpine323
 # set version label
 ARG BUILD_DATE
 ARG VERSION
-ARG XFCE_VERSION
+ARG KDE_VERSION
 LABEL build_version="Linuxserver.io version:- ${VERSION} Build-date:- ${BUILD_DATE}"
 LABEL maintainer="thelamer"
 
 # title
 ENV TITLE="Alpine KDE" \
     PIXELFLUX_WAYLAND=true \
-    SELKIES_WAYLAND_SOCKET_INDEX=1 \
     NO_GAMEPAD=true
 
 RUN \
@@ -20,6 +19,10 @@ RUN \
   curl -o \
     /usr/share/selkies/www/icon.png \
     https://raw.githubusercontent.com/linuxserver/docker-templates/master/linuxserver.io/img/webtop-logo.png && \
+  echo "**** install build packages ****" && \
+  apk add --no-cache --upgrade --virtual=build-dependencies \
+    cargo \
+    rust && \
   echo "**** install packages ****" && \
   apk add --no-cache \
     breeze \
@@ -29,8 +32,17 @@ RUN \
     kde-applications-base \
     plasma-desktop \
     systemsettings && \
+  cargo install \
+    wl-clipboard-rs-tools && \
+  echo "**** replace wl-clipboard with rust ****" && \
+  mv \
+    /config/.cargo/bin/wl-* \
+    /usr/bin/ && \
   echo "**** cleanup ****" && \
+  apk del --purge \
+    build-dependencies && \
   rm -rf \
+    /config/.cargo \
     /config/.cache \
     /etc/xdg/autostart/* \
     /tmp/*
