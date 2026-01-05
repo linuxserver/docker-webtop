@@ -8,8 +8,7 @@ LABEL maintainer="thelamer"
 
 # title
 ENV TITLE="Arch KDE" \
-    NO_GAMEPAD=true \
-    SELKIES_WAYLAND_SOCKET_INDEX=1
+    NO_GAMEPAD=true
 
 RUN \
   echo "**** add icon ****" && \
@@ -18,6 +17,7 @@ RUN \
     https://raw.githubusercontent.com/linuxserver/docker-templates/master/linuxserver.io/img/webtop-logo.png && \
   echo "**** install packages ****" && \
   pacman -Sy --noconfirm --needed \
+    cargo \
     chromium \
     dolphin \
     firefox \
@@ -26,21 +26,18 @@ RUN \
     kwin-x11 \
     plasma-desktop \
     plasma-x11-session && \
+  cargo install \
+    wl-clipboard-rs-tools && \
+  echo "**** replace wl-clipboard with rust ****" && \
+  mv \
+    /config/.cargo/bin/wl-* \
+    /usr/bin/ && \
   echo "**** application tweaks ****" && \
   sed -i \
     's#^Exec=.*#Exec=/usr/local/bin/wrapped-chromium#g' \
     /usr/share/applications/chromium.desktop && \
   setcap -r \
     /usr/sbin/kwin_wayland && \
-  rm -f \
-    /usr/bin/wl-paste \
-    /usr/bin/wl-copy && \
-  echo "#! /bin/bash" > \
-    /tmp/wl-paste && \
-  echo "#! /bin/bash" > \
-    /tmp/wl-copy && \
-  chmod +x /tmp/wl-* && \
-  cp /tmp/wl-* /usr/bin/ && \
   echo "**** kde tweaks ****" && \
   sed -i \
     's/applications:org.kde.discover.desktop,/applications:org.kde.konsole.desktop,/g' \
@@ -48,6 +45,7 @@ RUN \
   echo "**** cleanup ****" && \
   rm -rf \
     /config/.cache \
+    /config/.cargo \
     /tmp/* \
     /var/cache/pacman/pkg/* \
     /var/lib/pacman/sync/*
