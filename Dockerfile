@@ -8,8 +8,7 @@ LABEL maintainer="thelamer"
 
 # title
 ENV TITLE="Fedora KDE" \
-    NO_GAMEPAD=true \
-    SELKIES_WAYLAND_SOCKET_INDEX=1
+    NO_GAMEPAD=true 
 
 RUN \
   echo "**** add icon ****" && \
@@ -19,6 +18,7 @@ RUN \
   echo "**** install packages ****" && \
   dnf install -y --setopt=install_weak_deps=False --best \
     breeze-icon-theme \
+    cargo \
     chromium \
     dolphin \
     firefox \
@@ -35,21 +35,18 @@ RUN \
     plasma-systemmonitor \
     plasma-workspace-xorg \
     qt5-qtscript && \
+  cargo install \
+    wl-clipboard-rs-tools && \
+  echo "**** replace wl-clipboard with rust ****" && \
+  mv \
+    /config/.cargo/bin/wl-* \
+    /usr/bin/ && \
   echo "**** application tweaks ****" && \
   sed -i \
     's#^Exec=.*#Exec=/usr/local/bin/wrapped-chromium#g' \
     /usr/share/applications/chromium-browser.desktop && \
   setcap -r \
     /usr/sbin/kwin_wayland && \
-  rm -f \
-    /usr/bin/wl-paste \
-    /usr/bin/wl-copy && \
-  echo "#! /bin/bash" > \
-    /tmp/wl-paste && \
-  echo "#! /bin/bash" > \
-    /tmp/wl-copy && \
-  chmod +x /tmp/wl-* && \
-  cp /tmp/wl-* /usr/bin/ && \
   echo "**** kde tweaks ****" && \
   sed -i \
     's/applications:org.kde.discover.desktop,/applications:org.kde.konsole.desktop,/g' \
@@ -63,6 +60,7 @@ RUN \
   dnf autoremove -y && \
   dnf clean all && \
   rm -rf \
+    /config/.cargo \
     /config/.cache \
     /tmp/*
 

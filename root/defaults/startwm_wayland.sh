@@ -11,6 +11,38 @@ if [ ! -f $HOME/.config/kdeglobals ]; then
   kwriteconfig6 --file $HOME/.config/kdeglobals --group KDE --key LookAndFeelPackage org.fedoraproject.fedora.desktop
 fi
 
+# Setup permissive clipboard rules
+KWIN_RULES_FILE="$HOME/.config/kwinrulesrc"
+RULE_DESC="wl-clipboard support"
+if ! grep -q "$RULE_DESC" "$KWIN_RULES_FILE" 2>/dev/null; then
+  echo "Applying KWin clipboard rule..."
+  if command -v uuidgen &> /dev/null; then
+    RULE_ID=$(uuidgen)
+  else
+    RULE_ID=$(cat /proc/sys/kernel/random/uuid)
+  fi
+  count=$(kreadconfig6 --file "$KWIN_RULES_FILE" --group General --key count --default 0)
+  new_count=$((count + 1))
+  kwriteconfig6 --file "$KWIN_RULES_FILE" --group General --key count "$new_count"
+  existing_rules=$(kreadconfig6 --file "$KWIN_RULES_FILE" --group General --key rules)
+  if [ -z "$existing_rules" ]; then
+    kwriteconfig6 --file "$KWIN_RULES_FILE" --group General --key rules "$RULE_ID"
+  else
+    kwriteconfig6 --file "$KWIN_RULES_FILE" --group General --key rules "$existing_rules,$RULE_ID"
+  fi
+  kwriteconfig6 --file "$KWIN_RULES_FILE" --group "$RULE_ID" --key Description "$RULE_DESC"
+  kwriteconfig6 --file "$KWIN_RULES_FILE" --group "$RULE_ID" --key wmclass "wl-(copy|paste)"
+  kwriteconfig6 --file "$KWIN_RULES_FILE" --group "$RULE_ID" --key wmclassmatch 3
+  kwriteconfig6 --file "$KWIN_RULES_FILE" --group "$RULE_ID" --key skiptaskbar --type bool "true"
+  kwriteconfig6 --file "$KWIN_RULES_FILE" --group "$RULE_ID" --key skiptaskbarrule 2
+  kwriteconfig6 --file "$KWIN_RULES_FILE" --group "$RULE_ID" --key skipswitcher --type bool "true"
+  kwriteconfig6 --file "$KWIN_RULES_FILE" --group "$RULE_ID" --key skipswitcherrule 2
+  kwriteconfig6 --file "$KWIN_RULES_FILE" --group "$RULE_ID" --key fsplevel 3
+  kwriteconfig6 --file "$KWIN_RULES_FILE" --group "$RULE_ID" --key fsplevelrule 2
+  kwriteconfig6 --file "$KWIN_RULES_FILE" --group "$RULE_ID" --key noborder --type bool "true"
+  kwriteconfig6 --file "$KWIN_RULES_FILE" --group "$RULE_ID" --key noborderrule 2
+fi
+
 # Power related
 setterm blank 0
 setterm powerdown 0
@@ -46,9 +78,11 @@ if [ ! -f "${STARTUP_FILE}" ]; then
 fi
 
 # Setup application DB
-sudo mv \
-  /etc/xdg/menus/plasma-applications.menu \
-  /etc/xdg/menus/applications.menu
+if [ ! -f "/etc/xdg/menus/applications.menu" ]; then
+  sudo mv \
+    /etc/xdg/menus/plasma-applications.menu \
+    /etc/xdg/menus/applications.menu
+fi
 kbuildsycoca6
 
 # Wayland Hacks
