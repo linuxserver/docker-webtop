@@ -6,10 +6,27 @@ websockets 15.x has breaking API changes that require these fixes.
 
 import re
 import sys
+import glob
+
+def get_python_site_packages():
+    """Dynamically find the Python site-packages directory"""
+    patterns = [
+        "/lsiopy/lib/python3.*/site-packages/selkies_gstreamer",
+    ]
+    for pattern in patterns:
+        matches = glob.glob(pattern)
+        if matches:
+            return matches[0]
+    return None
 
 def patch_signalling_web():
     """Patch signalling_web.py for websockets 15.x"""
-    f = "/lsiopy/lib/python3.12/site-packages/selkies_gstreamer/signalling_web.py"
+    base_dir = get_python_site_packages()
+    if not base_dir:
+        print("selkies_gstreamer package directory not found")
+        return False
+    
+    f = f"{base_dir}/signalling_web.py"
     
     try:
         with open(f, "r") as file:
@@ -154,7 +171,12 @@ def _make_response(status, headers, body):
 
 def patch_webrtc_signalling():
     """Patch webrtc_signalling.py for websockets 15.x"""
-    f = "/lsiopy/lib/python3.12/site-packages/selkies_gstreamer/webrtc_signalling.py"
+    base_dir = get_python_site_packages()
+    if not base_dir:
+        print("selkies_gstreamer package directory not found")
+        return False
+    
+    f = f"{base_dir}/webrtc_signalling.py"
     
     try:
         with open(f, "r") as file:

@@ -46,9 +46,11 @@ RUN tar -C /root-out -Jxpf /tmp/s6-overlay-symlinks-arch.tar.xz
 FROM alpine:3 AS ubuntu-rootfs-stage
 
 ARG UBUNTU_ARCH=amd64
-ENV REL=noble
+ARG UBUNTU_REL
+ARG UBUNTU_TAG
+ENV REL=${UBUNTU_REL}
 ENV ARCH=${UBUNTU_ARCH}
-ENV TAG=oci-noble-24.04
+ENV TAG=${UBUNTU_TAG}
 
 # install packages
 RUN \
@@ -120,9 +122,22 @@ ENV HOME="/root" \
     VIRTUAL_ENV=/lsiopy \
     PATH="/lsiopy/bin:$PATH"
 
-# copy sources
-ARG SOURCES_LIST="sources.list"
-COPY ${SOURCES_LIST} /etc/apt/sources.list
+# Generate sources.list dynamically based on UBUNTU_REL
+ARG UBUNTU_REL
+RUN \
+  echo "**** Generating sources.list for ${UBUNTU_REL} ****" && \
+  echo "deb http://archive.ubuntu.com/ubuntu/ ${UBUNTU_REL} main restricted" > /etc/apt/sources.list && \
+  echo "deb-src http://archive.ubuntu.com/ubuntu/ ${UBUNTU_REL} main restricted" >> /etc/apt/sources.list && \
+  echo "deb http://archive.ubuntu.com/ubuntu/ ${UBUNTU_REL}-updates main restricted" >> /etc/apt/sources.list && \
+  echo "deb-src http://archive.ubuntu.com/ubuntu/ ${UBUNTU_REL}-updates main restricted" >> /etc/apt/sources.list && \
+  echo "deb http://archive.ubuntu.com/ubuntu/ ${UBUNTU_REL} universe multiverse" >> /etc/apt/sources.list && \
+  echo "deb-src http://archive.ubuntu.com/ubuntu/ ${UBUNTU_REL} universe multiverse" >> /etc/apt/sources.list && \
+  echo "deb http://archive.ubuntu.com/ubuntu/ ${UBUNTU_REL}-updates universe multiverse" >> /etc/apt/sources.list && \
+  echo "deb-src http://archive.ubuntu.com/ubuntu/ ${UBUNTU_REL}-updates universe multiverse" >> /etc/apt/sources.list && \
+  echo "deb http://archive.ubuntu.com/ubuntu/ ${UBUNTU_REL}-security main restricted" >> /etc/apt/sources.list && \
+  echo "deb-src http://archive.ubuntu.com/ubuntu/ ${UBUNTU_REL}-security main restricted" >> /etc/apt/sources.list && \
+  echo "deb http://archive.ubuntu.com/ubuntu/ ${UBUNTU_REL}-security universe multiverse" >> /etc/apt/sources.list && \
+  echo "deb-src http://archive.ubuntu.com/ubuntu/ ${UBUNTU_REL}-security universe multiverse" >> /etc/apt/sources.list
 
 RUN \
   echo "**** Ripped from Ubuntu Docker Logic ****" && \
@@ -149,7 +164,7 @@ RUN \
   apt-get install -y apt-utils locales && \
   echo "**** install packages ****" && \
   apt-get install -y \
-    catatonit cron curl gnupg jq netcat-openbsd systemd-standalone-sysusers tzdata && \
+    bc catatonit cron curl gnupg jq netcat-openbsd systemd-standalone-sysusers tzdata && \
   echo "**** generate locale ****" && \
   locale-gen en_US.UTF-8 && \
   echo "**** prepare shared folders ****" && \
@@ -158,7 +173,7 @@ RUN \
   groupadd -g 44 video 2>/dev/null || groupmod -g 44 video 2>/dev/null || true && \
   groupadd -g 106 render 2>/dev/null || groupmod -g 106 render 2>/dev/null || true && \
   echo "**** cleanup ****" && \
-  userdel ubuntu && \
+  id ubuntu >/dev/null 2>&1 && userdel ubuntu || echo "ubuntu user does not exist, skipping" && \
   apt-get autoremove && \
   apt-get clean && \
   rm -rf /tmp/* /var/lib/apt/lists/* /var/tmp/* /var/log/*
@@ -308,6 +323,8 @@ ENV DISPLAY=:1 \
 
 ARG APT_EXTRA_PACKAGES=""
 ARG LIBVA_DEB_URL="https://launchpad.net/ubuntu/+source/libva/2.22.0-3ubuntu2/+build/30591127/+files/libva2_2.22.0-3ubuntu2_amd64.deb"
+# Optional: jammy-friendly libva deb (built against glibc 2.35). Leave empty to skip on 22.04.
+ARG LIBVA_DEB_URL_JAMMY="http://launchpadlibrarian.net/587480468/libva2_2.14.0-1_amd64.deb"
 ARG LIBVA_LIBDIR="/usr/lib/x86_64-linux-gnu"
 ARG PROOT_ARCH="x86_64"
 ARG SELKIES_VERSION="1.6.2"
@@ -325,11 +342,20 @@ RUN \
   echo "**** install deps ****" && \
   curl -fsSL https://deb.nodesource.com/setup_22.x | bash - && \
   apt-get update && \
+  echo "**** determine Ubuntu version-specific packages ****" && \
+  UBUNTU_VERSION=$(lsb_release -rs 2>/dev/null || grep VERSION_ID /etc/os-release | cut -d= -f2 | tr -d '"') && \
+  LABWC_PKG="" && \
+  MESA_GALLIUM_PKG="" && \
+  if [ "$(echo "${UBUNTU_VERSION}" | cut -d. -f1)" -ge 24 ]; then \
+    LABWC_PKG="labwc" && \
+    MESA_GALLIUM_PKG="mesa-libgallium"; \
+  fi && \
+  echo "**** Installing packages (Ubuntu ${UBUNTU_VERSION}) ****" && \
   DEBIAN_FRONTEND=noninteractive apt-get install --no-install-recommends -y \
     breeze-cursor-theme ca-certificates cmake console-data dbus-x11 \
     dunst file \
     fonts-noto-cjk fonts-noto-color-emoji fonts-noto-core foot fuse-overlayfs \
-    g++ gcc git ${APT_EXTRA_PACKAGES} kbd labwc libatk1.0-0 libatk-bridge2.0-0 \
+    g++ gcc git ${APT_EXTRA_PACKAGES} kbd ${LABWC_PKG} libatk1.0-0 libatk-bridge2.0-0 \
     libev4 libfontenc1 libfreetype6 libgbm1 libgcrypt20 libgirepository-1.0-1 \
     libgl1-mesa-dri libglu1-mesa libgnutls30 libgtk-3.0 libjpeg-turbo8 \
     libnginx-mod-http-fancyindex libnotify-bin libnss3 libnvidia-egl-wayland1 \
@@ -338,7 +364,7 @@ RUN \
     libxau6 libxcb1 libxcb-icccm4 libxcb-image0 libxcb-keysyms1 libxcb-render-util0 \
     libxcursor1 libxdmcp6 libxext6 libxfconf-0-3 libxfixes3 libxfont2 libxinerama1 \
     libxkbcommon-dev libxkbcommon-x11-0 libxshmfence1 libxtst6 locales-all make \
-    mesa-libgallium mesa-va-drivers mesa-vulkan-drivers mesa-utils vainfo vdpauinfo \
+    ${MESA_GALLIUM_PKG} mesa-va-drivers mesa-vulkan-drivers mesa-utils vainfo vdpauinfo \
     libvulkan-dev ocl-icd-libopencl1 clinfo libdrm2 libegl1 libgl1 libopengl0 libgles1 libgles2 \
     libglvnd0 libglx0 libglu1 libglvnd-dev \
     nginx openbox openssh-client \
@@ -350,7 +376,7 @@ RUN \
     wl-clipboard wtype x11-apps x11-common x11-utils x11-xkb-utils x11-xserver-utils \
     xauth xclip xcvt xdg-utils xdotool xfconf xfonts-base xkb-data xsel \
     xserver-common xserver-xorg-core xserver-xorg-video-amdgpu xserver-xorg-video-ati \
-    xserver-xorg-video-nouveau xserver-xorg-video-qxl \
+    xserver-xorg-video-nouveau xserver-xorg-video-qxl xserver-xorg-video-dummy \
     xsettingsd xterm xutils xvfb zlib1g zstd && \
   echo "**** install coturn (AMD64 only) ****" && \
   ARCH_CUR=$(dpkg --print-architecture) && \
@@ -372,6 +398,11 @@ RUN \
   tar xf selkies.tar.gz && \
   cd selkies-* && \
   sed -i '/cryptography/d' pyproject.toml && \
+  UBUNTU_VERSION="$(. /etc/os-release && echo ${VERSION_ID})" && \
+  if [ "$(echo "${UBUNTU_VERSION}" | cut -d. -f1)" -lt 24 ]; then \
+    echo "**** Ubuntu ${UBUNTU_VERSION}: removing xkbcommon dependency (not compatible) ****" && \
+    sed -i '/xkbcommon/d' pyproject.toml; \
+  fi && \
   python3 -m venv --system-site-packages /lsiopy && \
   pip install . && \
   pip install setuptools && \
@@ -446,14 +477,29 @@ echo "**** install VirtualGL ****" && \
 }' > /usr/share/glvnd/egl_vendor.d/10_nvidia.json && \
   echo "/usr/local/nvidia/lib" >> /etc/ld.so.conf.d/nvidia.conf && \
   echo "/usr/local/nvidia/lib64" >> /etc/ld.so.conf.d/nvidia.conf && \
-  echo "**** libva hack ****" && \
-  mkdir /tmp/libva && \
-  curl -o /tmp/libva/libva.deb -L "${LIBVA_DEB_URL}" && \
-  cd /tmp/libva && \
-  ar x libva.deb && \
-  tar xf data.tar.zst && \
-  rm -f ${LIBVA_LIBDIR}/libva.so.2* && \
-  cp -a usr/lib/${LIBVA_LIBDIR#/usr/lib/}/libva.so.2* ${LIBVA_LIBDIR}/ && \
+  UBUNTU_VERSION="$(. /etc/os-release && echo ${VERSION_ID})" && \
+  UBUNTU_MAJOR="$(echo "${UBUNTU_VERSION}" | cut -d. -f1)" && \
+  if [ "${UBUNTU_MAJOR}" -ge 24 ]; then \
+    echo "**** libva hack (Ubuntu ${UBUNTU_VERSION}) ****" && \
+    mkdir /tmp/libva && \
+    curl -o /tmp/libva/libva.deb -L "${LIBVA_DEB_URL}" && \
+    cd /tmp/libva && \
+    ar x libva.deb && \
+    tar xf data.tar.zst && \
+    rm -f ${LIBVA_LIBDIR}/libva.so.2* && \
+    cp -a usr/lib/${LIBVA_LIBDIR#/usr/lib/}/libva.so.2* ${LIBVA_LIBDIR}/; \
+  elif [ -n "${LIBVA_DEB_URL_JAMMY}" ]; then \
+    echo "**** libva hack (Ubuntu ${UBUNTU_VERSION}, jammy-compatible override) ****" && \
+    mkdir /tmp/libva && \
+    curl -o /tmp/libva/libva.deb -L "${LIBVA_DEB_URL_JAMMY}" && \
+    cd /tmp/libva && \
+    ar x libva.deb && \
+    tar xf data.tar.zst && \
+    rm -f ${LIBVA_LIBDIR}/libva.so.2* && \
+    cp -a usr/lib/${LIBVA_LIBDIR#/usr/lib/}/libva.so.2* ${LIBVA_LIBDIR}/; \
+  else \
+    echo "**** skip libva hack on Ubuntu ${UBUNTU_VERSION} (use distro libva) ****"; \
+  fi && \
   echo "**** locales ****" && \
   for LOCALE in $(curl -sL https://raw.githubusercontent.com/thelamer/lang-stash/master/langs); do \
     localedef -i $LOCALE -f UTF-8 $LOCALE.UTF-8; \

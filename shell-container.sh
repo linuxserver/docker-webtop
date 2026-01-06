@@ -33,13 +33,15 @@ if ! docker exec "$NAME" id "${HOST_USER}" >/dev/null 2>&1; then
     -u "${HOST_UID}:${HOST_GID}" \
     -e USER="${HOST_USER}" \
     -e HOME="/home/${HOST_USER}" \
+    -e TERM="${TERM:-xterm-256color}" \
     -w "${WORKDIR}" \
-    "$NAME" bash -l
+    "$NAME" bash -i -l
 fi
 
 exec docker exec -it \
   --user "${HOST_USER}" \
   -e USER="${HOST_USER}" \
   -e HOME="/home/${HOST_USER}" \
+  -e TERM="${TERM:-xterm-256color}" \
   -w "${WORKDIR}" \
-  "$NAME" bash -l
+  "$NAME" bash -i -l

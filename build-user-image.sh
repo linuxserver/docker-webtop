@@ -7,9 +7,10 @@ DOCKERFILE_USER="${FILES_DIR}/linuxserver-kde.user.dockerfile"
 
 HOST_ARCH=$(uname -m)
 VERSION=${VERSION:-1.0.0}
-USER_NAME=${USER:-$(whoami)}
-USER_UID=${USER_UID_OVERRIDE:-$(id -u "${USER_NAME}")}
-USER_GID=${USER_GID_OVERRIDE:-$(id -g "${USER_NAME}")}
+UBUNTU_VERSION=${UBUNTU_VERSION:-24.04}
+USER_NAME=$(whoami)
+USER_UID=$(id -u)
+USER_GID=$(id -g)
 BASE_IMAGE=${BASE_IMAGE:-}
 IMAGE_NAME_BASE=${IMAGE_NAME:-webtop-kde}
 TARGET_ARCH=${ARCH_OVERRIDE:-}
@@ -24,12 +25,10 @@ NO_CACHE_FLAG=""
 
 usage() {
   cat <<EOF
-Usage: $0 [-b base_image] [-i base_image_name] [-u user] [-U uid] [-G gid] [-a arch] [-p platform] [-l language] [-v version]
-  -b, --base       Base image tag (required; expected: <name>-base-<arch>:<version>)
+Usage: $0 [-b base_image] [-i base_image_name] [-a arch] [-p platform] [-l language] [-v version] [-u ubuntu_version]
+  -b, --base       Base image tag (required; expected: <name>-base-<arch>-u<ubuntu_ver>:<version>)
   -i, --image      Base image name (default: ${IMAGE_NAME_BASE})
-  -u, --user       Username to bake in (default: current user ${USER_NAME})
-  -U, --uid        UID to use (default: host uid for user)
-  -G, --gid        GID to use (default: host gid for user)
+  -u, --ubuntu     Ubuntu version (22.04 or 24.04). Default: ${UBUNTU_VERSION}
   -a, --arch       Arch hint (amd64/arm64) to pick base tag
   -p, --platform   Platform override for buildx (e.g. linux/arm64)
   -l, --language   Language pack to install (en or ja). Default: ${USER_LANGUAGE}
@@ -43,9 +42,7 @@ while [[ $# -gt 0 ]]; do
   case "$1" in
     -b|--base) BASE_IMAGE=$2; shift 2 ;;
     -i|--image) IMAGE_NAME_BASE=$2; shift 2 ;;
-    -u|--user) USER_NAME=$2; shift 2 ;;
-    -U|--uid) USER_UID=$2; shift 2 ;;
-    -G|--gid) USER_GID=$2; shift 2 ;;
+    -u|--ubuntu) UBUNTU_VERSION=$2; shift 2 ;;
     -a|--arch) TARGET_ARCH=$2; shift 2 ;;
     -p|--platform) PLATFORM_OVERRIDE=$2; shift 2 ;;
     -l|--language) USER_LANGUAGE=$2; shift 2 ;;
@@ -81,10 +78,10 @@ if [[ -z "${BASE_IMAGE}" ]]; then
   BASE_CANDIDATES=()
   while IFS= read -r line; do
     BASE_CANDIDATES+=("$line")
-  done < <(docker images --format '{{.Repository}}:{{.Tag}}' | grep "^${IMAGE_NAME_BASE}-base-${TARGET_ARCH}:" || true)
+  done < <(docker images --format '{{.Repository}}:{{.Tag}}' | grep "^${IMAGE_NAME_BASE}-base-${TARGET_ARCH}-u${UBUNTU_VERSION}:" || true)
 
   if [[ ${#BASE_CANDIDATES[@]} -eq 0 ]]; then
-    echo "BASE_IMAGE not provided and no local base found matching ${IMAGE_NAME_BASE}-base-${TARGET_ARCH}:<tag>. Pass -b/--base." >&2
+    echo "BASE_IMAGE not provided and no local base found matching ${IMAGE_NAME_BASE}-base-${TARGET_ARCH}-u${UBUNTU_VERSION}:<tag>. Pass -b/--base." >&2
     exit 1
   fi
   for candidate in "${BASE_CANDIDATES[@]}"; do
@@ -120,12 +117,13 @@ fi
 echo "Building user image from ${BASE_IMAGE}"
 echo "User: ${USER_NAME} (${USER_UID}:${USER_GID})"
 echo "Target arch: ${TARGET_ARCH}, platform: ${PLATFORM}"
+echo "Ubuntu version: ${UBUNTU_VERSION}"
 echo "Language: ${USER_LANGUAGE}"
 echo "Version tag: ${VERSION}"
 
 # Check if base image exists using docker images (more reliable than inspect)
 if ! docker images --format '{{.Repository}}:{{.Tag}}' | grep -q "^${BASE_IMAGE}$"; then
-  echo "Base image ${BASE_IMAGE} not found locally. Build it first (e.g. ./build-base-image.sh -a ${TARGET_ARCH} -v ${VERSION})." >&2
+  echo "Base image ${BASE_IMAGE} not found locally. Build it first (e.g. ./build-base-image.sh -a ${TARGET_ARCH} --ubuntu ${UBUNTU_VERSION} -v ${VERSION})." >&2
   exit 1
 fi
 
@@ -140,6 +138,7 @@ if [[ ! -f "${DOCKERFILE_USER}" ]]; then
 fi
 
 docker buildx build \
+  --builder default \
   --platform "${PLATFORM}" \
   ${NO_CACHE_FLAG} \
   -f "${DOCKERFILE_USER}" \
@@ -154,5 +153,5 @@ docker buildx build \
   --build-arg HOST_HOSTNAME="${HOST_HOSTNAME_DEFAULT}" \
   --progress=plain \
   --load \
-  -t "${IMAGE_NAME_BASE}-${USER_NAME}-${TARGET_ARCH}:${VERSION}" \
+  -t "${IMAGE_NAME_BASE}-${USER_NAME}-${TARGET_ARCH}-u${UBUNTU_VERSION}:${VERSION}" \
   "${FILES_DIR}"

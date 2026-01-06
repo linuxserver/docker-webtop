@@ -1,0 +1,17 @@
+# Global environment variables for all applications
+# This file is sourced by the desktop session and all applications
+
+# DPI will be set dynamically by init-config
+# QT_SCALE_FACTOR will be calculated based on DPI
+# GDK_SCALE will be set based on DPI
+
+# Force Qt and GTK to respect environment DPI
+QT_AUTO_SCREEN_SCALE_FACTOR=1
+QT_SCALE_FACTOR_ROUNDING_POLICY=PassThrough
+
+# Electron/VSCode settings for high DPI
+ELECTRON_FORCE_IS_PACKAGED=0
+ELECTRON_OZONE_PLATFORM_HINT=auto
+
+# Java/SWT settings
+SWT_GTK3=1

@@ -8,6 +8,7 @@ NAME=${CONTAINER_NAME:-linuxserver-kde-${HOST_USER}}
 IMAGE_BASE=${IMAGE_BASE:-webtop-kde}
 IMAGE_TAG=${IMAGE_TAG:-}
 IMAGE_OVERRIDE=${IMAGE_NAME:-}
+UBUNTU_VERSION=${UBUNTU_VERSION:-24.04}
 RESOLUTION=${RESOLUTION:-1920x1080}
 DPI=${DPI:-96}
 SHM_SIZE=${SHM_SIZE:-4g}
@@ -28,18 +29,27 @@ esac
 
 usage() {
   cat <<EOF
-Usage: $0 [-n name] [-i image-base] [-t version] [-r WIDTHxHEIGHT] [-d dpi] [-p platform] [-s ssl_dir]
+Usage: $0 [-n name] [-i image-base] [-t version] [-u ubuntu_version] [-r WIDTHxHEIGHT] [-d dpi] [-p platform] [-s ssl_dir]
   -n  container name (default: ${NAME})
-  -i  image base name; final image becomes <base>-<user>-<arch>:<version> (default base: ${IMAGE_BASE})
+  -i  image base name; final image becomes <base>-<user>-<arch>-u<ubuntu_ver>:<version> (default base: ${IMAGE_BASE})
   -t  image version tag (default: ${IMAGE_VERSION_DEFAULT})
+  -u, --ubuntu  Ubuntu version (22.04 or 24.04). Default: ${UBUNTU_VERSION}
   -r  resolution (e.g. 1920x1080, default: ${RESOLUTION})
   -d  DPI (default: ${DPI})
   -p  platform for docker run (e.g. linux/arm64). Default: host
   -s  host directory containing cert.pem and cert.key to mount at ssl (recommended for WSS)
   -g  GPU vendor: none|nvidia|nvidia-wsl|intel|amd (default: ${GPU_VENDOR})
       --gpu <vendor>   same as -g
-      --all            use all NVIDIA GPUs (requires -g nvidia or nvidia-wsl)
+      --all            use all GPUs (required for nvidia/nvidia-wsl, optional for intel/amd)
       --num <list>     comma-separated NVIDIA GPU list (requires -g nvidia, not supported on WSL)
+
+  GPU Examples:
+    --gpu nvidia --all          # NVIDIA GPU(s) - all available
+    --gpu nvidia --num 0,1      # NVIDIA GPU(s) - specific GPUs
+    --gpu nvidia-wsl --all      # NVIDIA on WSL2
+    --gpu intel                 # Intel integrated/discrete GPU (VA-API)
+    --gpu amd                   # AMD GPU (VA-API + ROCm if available)
+    --gpu none                  # Software rendering only
 EOF
 }
 
@@ -48,6 +58,7 @@ while [[ $# -gt 0 ]]; do
     -n) NAME=$2; shift 2 ;;
     -i) IMAGE_BASE=$2; shift 2 ;;
     -t) IMAGE_TAG=$2; IMAGE_TAG_SET=true; shift 2 ;;
+    -u|--ubuntu) UBUNTU_VERSION=$2; shift 2 ;;
     -r) RESOLUTION=$2; shift 2 ;;
     -d) DPI=$2; shift 2 ;;
     -p) PLATFORM=$2; shift 2 ;;
@@ -97,9 +108,9 @@ TURN_RANDOM_PASSWORD=$(openssl rand -base64 18 | tr -dc 'A-Za-z0-9' | head -c 24
 if [[ -n "${IMAGE_OVERRIDE}" ]]; then
   IMAGE="${IMAGE_OVERRIDE}"
 else
-  IMAGE="${IMAGE_BASE}-${HOST_USER}-${IMAGE_ARCH}:${IMAGE_TAG}"
+  IMAGE="${IMAGE_BASE}-${HOST_USER}-${IMAGE_ARCH}-u${UBUNTU_VERSION}:${IMAGE_TAG}"
 fi
-REPO_PREFIX="${IMAGE_BASE}-${HOST_USER}-${IMAGE_ARCH}"
+REPO_PREFIX="${IMAGE_BASE}-${HOST_USER}-${IMAGE_ARCH}-u${UBUNTU_VERSION}"
 
 if docker ps -a --format '{{.Names}}' | grep -qx "$NAME"; then
   echo "Container ${NAME} already exists. Stop/remove it before starting a new one." >&2
@@ -133,18 +144,50 @@ case "${GPU_VENDOR}" in
     VIDEO_ENCODER="vah264enc"
     GPU_ENV_VARS+=(-e ENABLE_NVIDIA=false -e LIBVA_DRIVER_NAME="${LIBVA_DRIVER_NAME:-iHD}")
     if [ -d "/dev/dri" ]; then
-      GPU_FLAGS+=(--device=/dev/dri:/dev/dri:rwm)
+      # Check if VA-API is actually available (not just /dev/dri existence)
+      if command -v vainfo >/dev/null 2>&1; then
+        if vainfo --display drm --device /dev/dri/renderD128 >/dev/null 2>&1; then
+          GPU_FLAGS+=(--device=/dev/dri:/dev/dri:rwm)
+          echo "Intel VA-API available, using hardware acceleration"
+        else
+          echo "Warning: /dev/dri found but VA-API initialization failed." >&2
+          echo "This is normal on NVIDIA-only systems. Use '--gpu nvidia' instead of '--gpu intel'." >&2
+          echo "Falling back to software encoding (x264enc)..." >&2
+          VIDEO_ENCODER="x264enc"
+        fi
+      else
+        GPU_FLAGS+=(--device=/dev/dri:/dev/dri:rwm)
+        echo "Warning: vainfo not found, cannot verify VA-API availability" >&2
+      fi
     else
-      echo "Warning: /dev/dri not found, Intel VA-API may not be available." >&2
+      echo "Warning: /dev/dri not found, Intel VA-API not available." >&2
+      echo "Falling back to software encoding (x264enc)..." >&2
+      VIDEO_ENCODER="x264enc"
     fi
     ;;
   amd)
     VIDEO_ENCODER="vah264enc"
     GPU_ENV_VARS+=(-e ENABLE_NVIDIA=false -e LIBVA_DRIVER_NAME="${LIBVA_DRIVER_NAME:-radeonsi}")
     if [ -d "/dev/dri" ]; then
-      GPU_FLAGS+=(--device=/dev/dri:/dev/dri:rwm)
+      # Check if VA-API is actually available
+      if command -v vainfo >/dev/null 2>&1; then
+        if vainfo --display drm --device /dev/dri/renderD128 >/dev/null 2>&1; then
+          GPU_FLAGS+=(--device=/dev/dri:/dev/dri:rwm)
+          echo "AMD VA-API available, using hardware acceleration"
+        else
+          echo "Warning: /dev/dri found but VA-API initialization failed." >&2
+          echo "This is normal on NVIDIA-only systems. Use '--gpu nvidia' instead of '--gpu amd'." >&2
+          echo "Falling back to software encoding (x264enc)..." >&2
+          VIDEO_ENCODER="x264enc"
+        fi
+      else
+        GPU_FLAGS+=(--device=/dev/dri:/dev/dri:rwm)
+        echo "Warning: vainfo not found, cannot verify VA-API availability" >&2
+      fi
     else
-      echo "Warning: /dev/dri not found, AMD VA-API may not be available." >&2
+      echo "Warning: /dev/dri not found, AMD VA-API not available." >&2
+      echo "Falling back to software encoding (x264enc)..." >&2
+      VIDEO_ENCODER="x264enc"
     fi
     if [ -e "/dev/kfd" ]; then
       GPU_FLAGS+=(--device=/dev/kfd:/dev/kfd:rwm)
@@ -163,7 +206,7 @@ case "${GPU_VENDOR}" in
     if [ -d "/dev/dri" ]; then
       GPU_FLAGS+=(--device=/dev/dri:/dev/dri:rwm)
     fi
-    GPU_ENV_VARS+=(-e ENABLE_NVIDIA=true)
+    GPU_ENV_VARS+=(-e ENABLE_NVIDIA=true -e DISABLE_ZINK=true)
     ;;
   nvidia-wsl)
     # WSL2 with NVIDIA GPU support
@@ -180,7 +223,7 @@ case "${GPU_VENDOR}" in
       GPU_FLAGS+=(-v /usr/lib/wsl/lib:/usr/lib/wsl/lib:ro)
       GPU_ENV_VARS+=(-e LD_LIBRARY_PATH="/usr/lib/wsl/lib:\${LD_LIBRARY_PATH:-}")
     fi
-    GPU_ENV_VARS+=(-e ENABLE_NVIDIA=true -e WSL_ENVIRONMENT=true)
+    GPU_ENV_VARS+=(-e ENABLE_NVIDIA=true -e WSL_ENVIRONMENT=true -e DISABLE_ZINK=true)
     ;;
   *)
     echo "Unsupported GPU vendor: ${GPU_VENDOR}" >&2

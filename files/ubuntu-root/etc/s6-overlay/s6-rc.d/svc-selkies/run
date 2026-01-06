@@ -120,7 +120,19 @@ fi
 
 if [ "${GPU_VENDOR}" != "none" ] && command -v selkies-gstreamer >/dev/null 2>&1; then
   SELKIES_CMD="selkies-gstreamer"
+  # Build command options for selkies-gstreamer
+  # Note: Resolution and DPI are controlled by Xorg settings (DISPLAY_WIDTH, DISPLAY_HEIGHT, DPI environment variables)
+  # selkies-gstreamer will automatically detect and use the X display configuration
   CMD_OPTS=(--addr="localhost" --port="${PORT}" --enable_basic_auth="false" --enable_resize="true" --enable_metrics_http="true" --metrics_http_port="${SELKIES_METRICS_HTTP_PORT:-9081}" --enable_clipboard="true")
+  
+  if [ -n "${DISPLAY_WIDTH}" ] && [ -n "${DISPLAY_HEIGHT}" ]; then
+    echo "[svc-selkies] X Display resolution: ${DISPLAY_WIDTH}x${DISPLAY_HEIGHT}"
+  fi
+  
+  if [ -n "${DPI}" ]; then
+    echo "[svc-selkies] X Display DPI: ${DPI}"
+  fi
+  
   echo "[svc-selkies] GPU_VENDOR=${GPU_VENDOR}, using selkies-gstreamer with SELKIES_ENCODER=${SELKIES_ENCODER}"
 else
   SELKIES_CMD="selkies"
