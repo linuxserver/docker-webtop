@@ -406,6 +406,15 @@ RUN \
   python3 -m venv --system-site-packages /lsiopy && \
   pip install . && \
   pip install setuptools && \
+  if [ "${UBUNTU_VERSION}" = "22.04" ]; then \
+    echo "Installing pixelflux 1.4.7 for Ubuntu 22.04 (GLIBC 2.35)" && \
+    pip install pixelflux==1.4.7; \
+  elif [ "${UBUNTU_VERSION}" = "24.04" ]; then \
+    echo "Installing pixelflux from selkies dependencies for Ubuntu 24.04" && \
+    echo "pixelflux already installed"; \
+  else \
+    echo "Warning: Unknown Ubuntu version ${UBUNTU_VERSION}, using default pixelflux"; \
+  fi && \
   echo "**** install selkies interposer ****" && \
   cd addons/js-interposer && \
   gcc -shared -fPIC -ldl -o selkies_joystick_interposer.so joystick_interposer.c && \
