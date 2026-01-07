@@ -139,7 +139,7 @@ set -a
 source "${ENV_FILE}"
 set +a
 
-DEVCONTAINER_CONTAINER_NAME="${CONTAINER_NAME}-devcontainer"
+DEVCONTAINER_CONTAINER_NAME="${CONTAINER_NAME}"
 {
     echo ""
     echo "# Dev Container specific"
@@ -207,7 +207,12 @@ ${PORT_ATTRIBUTES_JSON}
     }
   },
   "remoteUser": "${CURRENT_USER}",
-  "containerUser": "${CURRENT_USER}",
+  "containerUser": "root",
+  "updateRemoteUserUID": false,
+  "remoteEnv": {
+    "USER": "${CURRENT_USER}",
+    "HOME": "/home/${CURRENT_USER}"
+  },
   "postCreateCommand": "echo 'Dev container is ready!'"
 }
 EOF
@@ -216,9 +221,9 @@ EOF
 cat > .devcontainer/docker-compose.override.yml << EOF
 services:
   webtop:
+    user: "root"
+    privileged: true
     container_name: \${DEVCONTAINER_CONTAINER_NAME:-${DEVCONTAINER_CONTAINER_NAME}}
-    volumes:
-      - ..:${WORKSPACE_FOLDER}:cached
 EOF
 
 # sync-env helper
