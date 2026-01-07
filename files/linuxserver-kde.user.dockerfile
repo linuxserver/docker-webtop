@@ -177,6 +177,9 @@ RUN set -eux; \
     echo 'LANG=ja_JP.UTF-8' > /etc/default/locale; \
     echo 'LANGUAGE=ja_JP:ja' >> /etc/default/locale; \
     echo 'LC_ALL=ja_JP.UTF-8' >> /etc/default/locale; \
+    rm -f /etc/localtime; \
+    ln -snf /usr/share/zoneinfo/Asia/Tokyo /etc/localtime; \
+    echo "Asia/Tokyo" > /etc/timezone; \
     printf '%s\n' \
       'XKBMODEL="jp106"' \
       'XKBLAYOUT="jp"' \
