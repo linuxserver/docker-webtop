@@ -17,6 +17,7 @@ Options (same as start-container.sh):
   -u, --ubuntu <ver>     Ubuntu version: 22.04 or 24.04 (default: 24.04)
   -r, --resolution <res> Resolution in WIDTHxHEIGHT format (default: 1920x1080)
   -d, --dpi <dpi>        DPI setting (default: 96)
+  -t, --timezone <tz>    Timezone (default: UTC, example: Asia/Tokyo)
   -s, --ssl <dir>        SSL directory path for HTTPS (optional)
       --env-file <path>  Write KEY=VALUE pairs to the specified file instead of exports
   -h, --help             Show this help
@@ -24,6 +25,7 @@ Options (same as start-container.sh):
 Environment overrides:
   Resolution: RESOLUTION
   DPI: DPI
+  Timezone: TIMEZONE
   Ports: PORT_SSL_OVERRIDE, PORT_HTTP_OVERRIDE, PORT_TURN_OVERRIDE
   SSL: SSL_DIR
   Container: CONTAINER_NAME, CONTAINER_HOSTNAME
@@ -40,6 +42,7 @@ GPU_NUMS="${GPU_NUMS:-}"
 UBUNTU_VERSION="${UBUNTU_VERSION:-24.04}"
 RESOLUTION="${RESOLUTION:-1920x1080}"
 DPI="${DPI:-96}"
+TIMEZONE="${TIMEZONE:-UTC}"
 SSL_DIR="${SSL_DIR:-}"
 OUTPUT_MODE="export"
 ENV_FILE=""
@@ -97,6 +100,14 @@ while [[ $# -gt 0 ]]; do
                 exit 1
             fi
             DPI="${2}"
+            shift 2
+            ;;
+        -t|--timezone)
+            if [ -z "${2:-}" ]; then
+                echo "Error: --timezone requires a value (e.g. Asia/Tokyo)" >&2
+                exit 1
+            fi
+            TIMEZONE="${2}"
             shift 2
             ;;
         -s|--ssl)
@@ -249,7 +260,7 @@ ENV_VARS=(
     HOST_USER HOST_UID HOST_GID CONTAINER_NAME USER_IMAGE CONTAINER_HOSTNAME
     IMAGE_BASE IMAGE_TAG IMAGE_VERSION IMAGE_ARCH UBUNTU_VERSION
     HOST_PORT_SSL HOST_PORT_HTTP HOST_PORT_TURN HOST_IP
-    WIDTH HEIGHT DPI SHM_SIZE RESOLUTION
+    WIDTH HEIGHT DPI SHM_SIZE RESOLUTION TIMEZONE
     GPU_VENDOR GPU_ALL GPU_NUMS VIDEO_ENCODER
     SELKIES_ENCODER
     ENABLE_NVIDIA LIBVA_DRIVER_NAME NVIDIA_VISIBLE_DEVICES GPU_DEVICES
