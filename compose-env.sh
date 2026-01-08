@@ -134,7 +134,7 @@ if [[ ! $RESOLUTION =~ ^[0-9]+x[0-9]+$ ]]; then
     exit 1
 fi
 
-if [[ "${GPU_VENDOR}" =~ ^nvidia ]]; then
+if [[ "${GPU_VENDOR}" == "nvidia" ]]; then
     if [[ "${GPU_ALL}" != "true" ]] && [[ -z "${GPU_NUMS}" ]]; then
         echo "Error: --gpu nvidia requires --all or --num" >&2
         exit 1
