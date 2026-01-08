@@ -100,8 +100,27 @@ read -p "DPI (default: 96): " DPI
 DPI="${DPI:-96}"
 echo ""
 
+# Language/Timezone settings
+echo "4. Language/Timezone Settings"
+echo "-----------------------------"
+echo "Select language (affects timezone):"
+echo "  ja) Japanese (Asia/Tokyo)"
+echo "  en) English (UTC)"
+read -p "Select language [ja/en] (default: en): " lang_choice
+case "${lang_choice}" in
+    ja|JA|jp|JP)
+        TIMEZONE="Asia/Tokyo"
+        echo "Japanese selected. Timezone: Asia/Tokyo"
+        ;;
+    *)
+        TIMEZONE="UTC"
+        echo "English selected. Timezone: UTC"
+        ;;
+esac
+echo ""
+
 # SSL directory (optional)
-echo "4. SSL Configuration (Optional)"
+echo "5. SSL Configuration (Optional)"
 echo "-------------------------------"
 read -p "SSL directory path (leave empty to skip): " SSL_DIR
 echo ""
@@ -117,7 +136,7 @@ fi
 mkdir -p .devcontainer
 
 # Build compose-env arguments
-COMPOSE_ARGS=(--gpu "${GPU_VENDOR}" --ubuntu "${UBUNTU_VERSION}" --resolution "${RESOLUTION}" --dpi "${DPI}")
+COMPOSE_ARGS=(--gpu "${GPU_VENDOR}" --ubuntu "${UBUNTU_VERSION}" --resolution "${RESOLUTION}" --dpi "${DPI}" --timezone "${TIMEZONE}")
 if [ "${GPU_VENDOR}" = "nvidia" ]; then
     if [ "${GPU_ALL}" = "true" ]; then
         COMPOSE_ARGS+=(--all)
@@ -272,6 +291,7 @@ cat >> .devcontainer/README.md << EOF
 - Ubuntu Version: ${UBUNTU_VERSION}
 - Resolution: ${RESOLUTION}
 - DPI: ${DPI}
+- Timezone: ${TIMEZONE}
 - HTTPS Port: https://localhost:${HOST_PORT_SSL}
 - HTTP Port: http://localhost:${HOST_PORT_HTTP}
 - TURN Port: ${HOST_PORT_TURN}
@@ -312,6 +332,7 @@ fi
 echo "  - Ubuntu: ${UBUNTU_VERSION}"
 echo "  - Resolution: ${RESOLUTION}"
 echo "  - DPI: ${DPI}"
+echo "  - Timezone: ${TIMEZONE}"
 echo "  - HTTPS Port: ${HOST_PORT_SSL}"
 echo "  - HTTP Port: ${HOST_PORT_HTTP}"
 echo "  - TURN Port: ${HOST_PORT_TURN}"
