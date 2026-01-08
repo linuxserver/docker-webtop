@@ -45,11 +45,6 @@ services:
       - ${HOST_PORT_HTTP}:3000
       - ${HOST_PORT_TURN}:3478/tcp
       - ${HOST_PORT_TURN}:3478/udp
-    deploy:
-      resources:
-        reservations:
-          devices: []
-    devices: []
     restart: unless-stopped
     stdin_open: true
     tty: true
