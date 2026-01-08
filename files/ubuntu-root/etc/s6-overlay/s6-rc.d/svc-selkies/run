@@ -23,22 +23,27 @@ if [ -n "${LIBVA_DRIVER_NAME}" ]; then
   echo "[svc-selkies] Using VA-API driver: ${LIBVA_DRIVER_NAME}"
 fi
 
-# WSL2 specific setup for NVIDIA
-if [ "${WSL_ENVIRONMENT}" = "true" ]; then
-  echo "[svc-selkies] Running in WSL2 environment"
-  # Add WSL library path
-  if [ -d "/usr/lib/wsl/lib" ]; then
-    export LD_LIBRARY_PATH="/usr/lib/wsl/lib:${LD_LIBRARY_PATH:-}"
-    export PATH="/usr/lib/wsl/lib:${PATH}"
-    echo "[svc-selkies] Added WSL library path: /usr/lib/wsl/lib"
-  fi
-fi
-
 # Load GStreamer env if present (for selkies-gstreamer) and export all variables
 if [ -f /opt/gstreamer/gst-env ]; then
   # shellcheck source=/opt/gstreamer/gst-env
   . /opt/gstreamer/gst-env
   export PATH LD_LIBRARY_PATH GST_PLUGIN_PATH GST_PLUGIN_SYSTEM_PATH GI_TYPELIB_PATH PYTHONPATH GSTREAMER_PATH
+fi
+
+# WSL2 specific setup for NVIDIA - add WSL libs to paths AFTER gst-env
+# Must be after gst-env because it prepends /opt/gstreamer to LD_LIBRARY_PATH
+# We need /usr/lib/wsl/lib at the FRONT for CUDA runtime libraries
+if [ "${WSL_ENVIRONMENT}" = "true" ]; then
+  echo "[svc-selkies] Running in WSL2 environment"
+  if [ -d "/usr/lib/wsl/lib" ]; then
+    # Remove /usr/lib/wsl/lib if already present, then add to front
+    LD_LIBRARY_PATH="${LD_LIBRARY_PATH//\/usr\/lib\/wsl\/lib:/}"
+    LD_LIBRARY_PATH="${LD_LIBRARY_PATH//\/usr\/lib\/wsl\/lib/}"
+    export LD_LIBRARY_PATH="/usr/lib/wsl/lib:${LD_LIBRARY_PATH}"
+    export PATH="/usr/lib/wsl/lib:${PATH}"
+    echo "[svc-selkies] Added WSL library path at front: /usr/lib/wsl/lib"
+    echo "[svc-selkies] Final LD_LIBRARY_PATH: ${LD_LIBRARY_PATH}"
+  fi
 fi
 
 # Clear GStreamer cache to ensure encoder changes take effect
@@ -124,6 +129,26 @@ if [ "${GPU_VENDOR}" != "none" ] && command -v selkies-gstreamer >/dev/null 2>&1
   # Note: Resolution and DPI are controlled by Xorg settings (DISPLAY_WIDTH, DISPLAY_HEIGHT, DPI environment variables)
   # selkies-gstreamer will automatically detect and use the X display configuration
   CMD_OPTS=(--addr="localhost" --port="${PORT}" --enable_basic_auth="false" --enable_resize="true" --enable_metrics_http="true" --metrics_http_port="${SELKIES_METRICS_HTTP_PORT:-9081}" --enable_clipboard="true")
+  
+  # Add TURN/STUN configuration if provided
+  if [ -n "${SELKIES_TURN_HOST}" ]; then
+    CMD_OPTS+=(--turn_host="${SELKIES_TURN_HOST}")
+  fi
+  if [ -n "${SELKIES_TURN_PORT}" ]; then
+    CMD_OPTS+=(--turn_port="${SELKIES_TURN_PORT}")
+  fi
+  if [ -n "${SELKIES_TURN_USERNAME}" ]; then
+    CMD_OPTS+=(--turn_username="${SELKIES_TURN_USERNAME}")
+  fi
+  if [ -n "${SELKIES_TURN_PASSWORD}" ]; then
+    CMD_OPTS+=(--turn_password="${SELKIES_TURN_PASSWORD}")
+  fi
+  if [ -n "${SELKIES_TURN_PROTOCOL}" ]; then
+    CMD_OPTS+=(--turn_protocol="${SELKIES_TURN_PROTOCOL}")
+  fi
+  if [ -n "${SELKIES_ENCODER}" ]; then
+    CMD_OPTS+=(--encoder="${SELKIES_ENCODER}")
+  fi
   
   if [ -n "${DISPLAY_WIDTH}" ] && [ -n "${DISPLAY_HEIGHT}" ]; then
     echo "[svc-selkies] X Display resolution: ${DISPLAY_WIDTH}x${DISPLAY_HEIGHT}"
