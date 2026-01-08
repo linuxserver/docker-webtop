@@ -1,0 +1,37 @@
+version: '3.8'
+
+services:
+  webtop:
+    image: ${USER_IMAGE}
+    container_name: ${CONTAINER_NAME}
+    hostname: ${CONTAINER_HOSTNAME}
+    shm_size: ${SHM_SIZE:-4g}
+    security_opt:
+      - seccomp:unconfined
+    environment:
+      - PUID=${HOST_UID}
+      - PGID=${HOST_GID}
+      - CUSTOM_USER=${HOST_USER}
+      - CUSTOM_PORT=3001
+      - DISPLAY_WIDTH=${WIDTH}
+      - DISPLAY_HEIGHT=${HEIGHT}
+      - VIDEO_ENCODER=${VIDEO_ENCODER}
+      - ENABLE_NVIDIA=${ENABLE_NVIDIA}
+      - LIBVA_DRIVER_NAME=${LIBVA_DRIVER_NAME}
+      - HOST_IP=${HOST_IP}
+      - TZ=UTC
+    volumes:
+      - ${HOME}:${HOST_HOME_MOUNT}
+    ports:
+      - ${HOST_PORT_SSL}:3001
+      - ${HOST_PORT_HTTP}:3000
+      - ${HOST_PORT_TURN}:3478/tcp
+      - ${HOST_PORT_TURN}:3478/udp
+    deploy:
+      resources:
+        reservations:
+          devices: []
+    devices: []
+    restart: unless-stopped
+    stdin_open: true
+    tty: true

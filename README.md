@@ -40,6 +40,19 @@ USER_PASSWORD=yourpassword ./build-user-image.sh -u 22.04     # Ubuntu 22.04
 
 以上で完了です！ 🎉
 
+### VS Code Dev Container を使用する場合
+
+```bash
+# 1. Dev Container設定を生成
+./create-devcontainer-config.sh
+
+# 2. VS Codeで開く
+# VS Codeで「F1」→「Dev Containers: Reopen in Container」を選択
+
+# 3. コンテナ内でワークスペースが自動的に開きます
+# ブラウザから https://localhost:<表示されたポート> でデスクトップにアクセス
+```
+
 ---
 
 ## 🚀 このプロジェクトの特徴
