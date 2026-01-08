@@ -185,7 +185,6 @@ cat > .devcontainer/devcontainer.json << EOF
   "service": "webtop",
   "workspaceFolder": "${WORKSPACE_FOLDER}",
   "runServices": ["webtop"],
-  "initializeCommand": "bash .devcontainer/sync-env.sh",
   "overrideCommand": false,
   "shutdownAction": "stopCompose",
   "forwardPorts": [
@@ -226,34 +225,34 @@ services:
     container_name: \${DEVCONTAINER_CONTAINER_NAME:-${DEVCONTAINER_CONTAINER_NAME}}
 EOF
 
-# sync-env helper
-cat > .devcontainer/sync-env.sh << 'EOF'
-#!/usr/bin/env bash
-# Copy .devcontainer/.env to the workspace root for docker compose
-
-set -euo pipefail
-
-ROOT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
-SOURCE_ENV="${ROOT_DIR}/.devcontainer/.env"
-TARGET_ENV="${ROOT_DIR}/.env"
-
-if [ ! -f "${SOURCE_ENV}" ]; then
-    echo "[devcontainer] No .devcontainer/.env found, skipping env sync." >&2
-    exit 0
-fi
-
-if [ ! -f "${TARGET_ENV}" ] || ! cmp -s "${SOURCE_ENV}" "${TARGET_ENV}"; then
-    cp "${SOURCE_ENV}" "${TARGET_ENV}"
-    echo "[devcontainer] Synced .devcontainer/.env to workspace .env for docker compose." >&2
-fi
+# Add GPU configuration based on vendor
+if [ "${GPU_VENDOR}" = "nvidia" ] || [ "${GPU_VENDOR}" = "nvidia-wsl" ]; then
+    cat >> .devcontainer/docker-compose.override.yml << EOF
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: all
+              capabilities: [gpu]
 EOF
-chmod +x .devcontainer/sync-env.sh
+elif [ "${GPU_VENDOR}" = "intel" ] || [ "${GPU_VENDOR}" = "amd" ]; then
+    cat >> .devcontainer/docker-compose.override.yml << EOF
+    device_cgroup_rules:
+      - 'c 226:* rwm'
+    devices:
+      - /dev/dri:/dev/dri
+EOF
+fi
+
+# Copy .env to workspace root for docker-compose
+cp "${ENV_FILE}" .env
 
 # README
 cat > .devcontainer/README.md << EOF
 # VS Code Dev Container Configuration
 
-このディレクトリのファイルは \`./create-devcontainer-config.sh\` によって生成され、\`start-container.sh\` と同じ環境変数を \`.devcontainer/.env\` に書き出します。VS Code は起動前に \`.devcontainer/sync-env.sh\` を実行し、同じ値をリポジトリ直下の \`.env\` にコピーしてから \`docker compose\` を実行します。
+このディレクトリのファイルは \`./create-devcontainer-config.sh\` によって生成され、\`start-container.sh\` と同じ環境変数を \`.devcontainer/.env\` とリポジトリ直下の \`.env\` に書き出します。
 
 ## 生成された設定
 
@@ -283,14 +282,14 @@ cat >> .devcontainer/README.md << EOF
 ## VS Code での利用手順
 1. Dev Containers 拡張機能をインストールする
 2. ワークスペースを開き、\`F1\` → \`Dev Containers: Reopen in Container\` を実行
-3. VS Code が \`.devcontainer/.env\` を同期してから \`docker compose\` を起動
+3. VS Code が \`.env\` を読み込んで \`docker compose\` を起動
 
 ## 再設定
 設定を変更したい場合はリポジトリルートで \`./create-devcontainer-config.sh\` を再実行し、案内に従ってください。スクリプト完了後に VS Code 側で「Rebuild Container」を選択すると新しい設定が反映されます。
 EOF
 
-# Copy .env to workspace root for docker-compose users
-bash .devcontainer/sync-env.sh >/dev/null
+# Copy .env to workspace root for docker-compose
+cp "${ENV_FILE}" .env
 
 echo ""
 echo "========================================"
@@ -301,8 +300,8 @@ echo "Created files:"
 echo "  - .devcontainer/devcontainer.json"
 echo "  - .devcontainer/docker-compose.override.yml"
 echo "  - .devcontainer/.env"
-echo "  - .devcontainer/sync-env.sh"
 echo "  - .devcontainer/README.md"
+echo "  - .env (for docker-compose)"
 echo ""
 echo "Configuration summary:"
 echo "  - GPU: ${GPU_VENDOR}"
