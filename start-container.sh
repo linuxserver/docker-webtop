@@ -221,7 +221,6 @@ case "${GPU_VENDOR}" in
     fi
     if [ -d "/usr/lib/wsl/lib" ]; then
       GPU_FLAGS+=(-v /usr/lib/wsl/lib:/usr/lib/wsl/lib:ro)
-      GPU_ENV_VARS+=(-e LD_LIBRARY_PATH="/usr/lib/wsl/lib:\${LD_LIBRARY_PATH:-}")
     fi
     GPU_ENV_VARS+=(-e ENABLE_NVIDIA=true -e WSL_ENVIRONMENT=true -e DISABLE_ZINK=true)
     ;;
@@ -296,7 +295,7 @@ docker run -d \
   -e PGID="${HOST_GID}" \
   -e SELKIES_ENCODER="${VIDEO_ENCODER}" \
   -e GPU_VENDOR="${GPU_VENDOR}" \
-  -e SELKIES_TURN_HOST="${HOST_IP}" \
+  -e SELKIES_TURN_HOST="$([ "${GPU_VENDOR}" = "nvidia-wsl" ] && echo "localhost" || echo "${HOST_IP}")" \
   -e SELKIES_TURN_PORT="${HOST_PORT_TURN}" \
   -e SELKIES_TURN_USERNAME="selkies" \
   -e SELKIES_TURN_PASSWORD="${TURN_RANDOM_PASSWORD}" \
