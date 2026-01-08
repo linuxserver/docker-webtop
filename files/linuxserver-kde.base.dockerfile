@@ -122,22 +122,28 @@ ENV HOME="/root" \
     VIRTUAL_ENV=/lsiopy \
     PATH="/lsiopy/bin:$PATH"
 
-# Generate sources.list dynamically based on UBUNTU_REL
+# Generate sources.list dynamically based on UBUNTU_REL and arch
 ARG UBUNTU_REL
+ARG UBUNTU_ARCH
 RUN \
-  echo "**** Generating sources.list for ${UBUNTU_REL} ****" && \
-  echo "deb http://archive.ubuntu.com/ubuntu/ ${UBUNTU_REL} main restricted" > /etc/apt/sources.list && \
-  echo "deb-src http://archive.ubuntu.com/ubuntu/ ${UBUNTU_REL} main restricted" >> /etc/apt/sources.list && \
-  echo "deb http://archive.ubuntu.com/ubuntu/ ${UBUNTU_REL}-updates main restricted" >> /etc/apt/sources.list && \
-  echo "deb-src http://archive.ubuntu.com/ubuntu/ ${UBUNTU_REL}-updates main restricted" >> /etc/apt/sources.list && \
-  echo "deb http://archive.ubuntu.com/ubuntu/ ${UBUNTU_REL} universe multiverse" >> /etc/apt/sources.list && \
-  echo "deb-src http://archive.ubuntu.com/ubuntu/ ${UBUNTU_REL} universe multiverse" >> /etc/apt/sources.list && \
-  echo "deb http://archive.ubuntu.com/ubuntu/ ${UBUNTU_REL}-updates universe multiverse" >> /etc/apt/sources.list && \
-  echo "deb-src http://archive.ubuntu.com/ubuntu/ ${UBUNTU_REL}-updates universe multiverse" >> /etc/apt/sources.list && \
-  echo "deb http://archive.ubuntu.com/ubuntu/ ${UBUNTU_REL}-security main restricted" >> /etc/apt/sources.list && \
-  echo "deb-src http://archive.ubuntu.com/ubuntu/ ${UBUNTU_REL}-security main restricted" >> /etc/apt/sources.list && \
-  echo "deb http://archive.ubuntu.com/ubuntu/ ${UBUNTU_REL}-security universe multiverse" >> /etc/apt/sources.list && \
-  echo "deb-src http://archive.ubuntu.com/ubuntu/ ${UBUNTU_REL}-security universe multiverse" >> /etc/apt/sources.list
+  echo "**** Generating sources.list for ${UBUNTU_REL} (${UBUNTU_ARCH}) ****" && \
+  if [ "${UBUNTU_ARCH}" = "amd64" ]; then \
+    MIRROR="http://archive.ubuntu.com/ubuntu"; \
+  else \
+    MIRROR="http://ports.ubuntu.com/ubuntu-ports"; \
+  fi && \
+  echo "deb ${MIRROR} ${UBUNTU_REL} main restricted" > /etc/apt/sources.list && \
+  echo "deb-src ${MIRROR} ${UBUNTU_REL} main restricted" >> /etc/apt/sources.list && \
+  echo "deb ${MIRROR} ${UBUNTU_REL}-updates main restricted" >> /etc/apt/sources.list && \
+  echo "deb-src ${MIRROR} ${UBUNTU_REL}-updates main restricted" >> /etc/apt/sources.list && \
+  echo "deb ${MIRROR} ${UBUNTU_REL} universe multiverse" >> /etc/apt/sources.list && \
+  echo "deb-src ${MIRROR} ${UBUNTU_REL} universe multiverse" >> /etc/apt/sources.list && \
+  echo "deb ${MIRROR} ${UBUNTU_REL}-updates universe multiverse" >> /etc/apt/sources.list && \
+  echo "deb-src ${MIRROR} ${UBUNTU_REL}-updates universe multiverse" >> /etc/apt/sources.list && \
+  echo "deb ${MIRROR} ${UBUNTU_REL}-security main restricted" >> /etc/apt/sources.list && \
+  echo "deb-src ${MIRROR} ${UBUNTU_REL}-security main restricted" >> /etc/apt/sources.list && \
+  echo "deb ${MIRROR} ${UBUNTU_REL}-security universe multiverse" >> /etc/apt/sources.list && \
+  echo "deb-src ${MIRROR} ${UBUNTU_REL}-security universe multiverse" >> /etc/apt/sources.list
 
 RUN \
   echo "**** Ripped from Ubuntu Docker Logic ****" && \
