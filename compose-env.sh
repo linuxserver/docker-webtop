@@ -18,6 +18,7 @@ Options (same as start-container.sh):
   -r, --resolution <res> Resolution in WIDTHxHEIGHT format (default: 1920x1080)
   -d, --dpi <dpi>        DPI setting (default: 96)
   -s, --ssl <dir>        SSL directory path for HTTPS (optional)
+  -a, --arch <arch>      Target architecture: amd64 or arm64 (default: host)
       --env-file <path>  Write KEY=VALUE pairs to the specified file instead of exports
   -h, --help             Show this help
 
@@ -43,6 +44,7 @@ DPI="${DPI:-96}"
 SSL_DIR="${SSL_DIR:-}"
 OUTPUT_MODE="export"
 ENV_FILE=""
+ARCH_OVERRIDE=""
 
 # Option parsing
 while [[ $# -gt 0 ]]; do
@@ -107,6 +109,14 @@ while [[ $# -gt 0 ]]; do
             SSL_DIR="${2}"
             shift 2
             ;;
+        -a|--arch)
+            if [ -z "${2:-}" ]; then
+                echo "Error: --arch requires a value (amd64 or arm64)" >&2
+                exit 1
+            fi
+            ARCH_OVERRIDE="${2}"
+            shift 2
+            ;;
         --env-file)
             if [ -z "${2:-}" ]; then
                 echo "Error: --env-file requires a path" >&2
@@ -158,6 +168,16 @@ case "${HOST_ARCH_RAW}" in
   aarch64|arm64) IMAGE_ARCH="arm64" ;;
   *) IMAGE_ARCH="${HOST_ARCH_RAW}" ;;
 esac
+if [ -n "${ARCH_OVERRIDE}" ]; then
+    case "${ARCH_OVERRIDE}" in
+        amd64|x86_64) IMAGE_ARCH="amd64" ;;
+        arm64|aarch64) IMAGE_ARCH="arm64" ;;
+        *)
+            echo "Error: Unsupported arch override: ${ARCH_OVERRIDE}" >&2
+            exit 1
+            ;;
+    esac
+fi
 
 if [ -z "${IMAGE_TAG}" ]; then
     IMAGE_TAG="${IMAGE_VERSION}"

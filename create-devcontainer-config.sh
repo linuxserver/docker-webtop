@@ -31,6 +31,13 @@ UBUNTU_VERSION="24.04"
 RESOLUTION="1920x1080"
 DPI="96"
 SSL_DIR=""
+HOST_ARCH_RAW=$(uname -m)
+case "${HOST_ARCH_RAW}" in
+    x86_64|amd64) DETECTED_ARCH="amd64" ;;
+    aarch64|arm64) DETECTED_ARCH="arm64" ;;
+    *) DETECTED_ARCH="${HOST_ARCH_RAW}" ;;
+esac
+TARGET_ARCH="${DETECTED_ARCH}"
 
 # Interactive configuration
 echo "========================================"
@@ -91,8 +98,23 @@ read -p "Ubuntu version (22.04 or 24.04, default: 24.04): " UBUNTU_VERSION
 UBUNTU_VERSION="${UBUNTU_VERSION:-24.04}"
 echo ""
 
+# Architecture
+echo "3. Architecture"
+echo "---------------"
+read -p "Target architecture (amd64 or arm64, default: ${DETECTED_ARCH}): " TARGET_ARCH_INPUT
+TARGET_ARCH_INPUT="${TARGET_ARCH_INPUT:-${DETECTED_ARCH}}"
+case "${TARGET_ARCH_INPUT}" in
+    amd64|x86_64) TARGET_ARCH="amd64" ;;
+    arm64|aarch64) TARGET_ARCH="arm64" ;;
+    *)
+        echo "Unsupported architecture: ${TARGET_ARCH_INPUT}" >&2
+        exit 1
+        ;;
+esac
+echo ""
+
 # Display settings
-echo "3. Display Settings"
+echo "4. Display Settings"
 echo "-------------------"
 read -p "Display resolution (default: 1920x1080): " RESOLUTION
 RESOLUTION="${RESOLUTION:-1920x1080}"
@@ -101,7 +123,7 @@ DPI="${DPI:-96}"
 echo ""
 
 # SSL directory (optional)
-echo "4. SSL Configuration (Optional)"
+echo "5. SSL Configuration (Optional)"
 echo "-------------------------------"
 read -p "SSL directory path (leave empty to skip): " SSL_DIR
 echo ""
@@ -126,7 +148,7 @@ fi
 mkdir -p .devcontainer
 
 # Build compose-env arguments
-COMPOSE_ARGS=(--gpu "${GPU_VENDOR}" --ubuntu "${UBUNTU_VERSION}" --resolution "${RESOLUTION}" --dpi "${DPI}")
+COMPOSE_ARGS=(--gpu "${GPU_VENDOR}" --ubuntu "${UBUNTU_VERSION}" --resolution "${RESOLUTION}" --dpi "${DPI}" --arch "${TARGET_ARCH}")
 if [ "${GPU_VENDOR}" = "nvidia" ]; then
     if [ "${GPU_ALL}" = "true" ]; then
         COMPOSE_ARGS+=(--all)
