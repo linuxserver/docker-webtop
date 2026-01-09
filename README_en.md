@@ -168,7 +168,7 @@ That's it! 🎉
 | **Linux + NVIDIA GPU** | ✅ Full | ✅ Native | ✅ NVENC | Best performance |
 | **Linux + Intel GPU** | ✅ Full | ✅ Native | ✅ VA-API (QSV) | Integrated GPU OK |
 | **Linux + AMD GPU** | ✅ Full | ✅ Native | ✅ VA-API | RDNA/GCN supported |
-| **WSL2 + NVIDIA GPU** | ✅ Supported | ✅ Supported | ✅ NVENC | Windows integration |
+| **WSL2 + NVIDIA GPU** | ❌ Software | ❌ Software only | ✅ NVENC | Tested on WSL2 |
 | **macOS (Docker)** | ❌ Not supported | ❌ Software only | ❌ Not supported | VM limitation |
 
 ---
@@ -631,10 +631,10 @@ docker exec linuxserver-kde-$(whoami) pactl list sinks short
 - WebGL/Vulkan runs via software rendering (llvmpipe)
 - Use Linux native or WSL2 if hardware acceleration is needed
 
-### WSL2 Intel/AMD GPU Limitation
+### WSL2 GPU Notes
 
-- WSL2 Intel/AMD GPUs do not support VA-API
-- Only NVIDIA GPUs are fully supported on WSL2
+- Only NVIDIA is supported on WSL2
+- Rendering is software (llvmpipe), so WebGL/Vulkan are software-only
 
 ---
 

@@ -168,7 +168,7 @@ USER_PASSWORD=yourpassword ./build-user-image.sh -u 22.04     # Ubuntu 22.04
 | **Linux + NVIDIA GPU** | ✅ 完全対応 | ✅ ネイティブ | ✅ NVENC | 最高のパフォーマンス |
 | **Linux + Intel GPU** | ✅ 完全対応 | ✅ ネイティブ | ✅ VA-API (QSV) | 統合GPU可 |
 | **Linux + AMD GPU** | ✅ 完全対応 | ✅ ネイティブ | ✅ VA-API | RDNA/GCN対応 |
-| **WSL2 + NVIDIA GPU** | ✅ 対応 | ✅ 対応 | ✅ NVENC | Windows統合 |
+| **WSL2 + NVIDIA GPU** | ❌ ソフトウェア | ❌ ソフトウェアのみ | ✅ NVENC | WSL2で動作確認済み |
 | **macOS (Docker)** | ❌ 非対応 | ❌ ソフトウェアのみ | ❌ 非対応 | VM制限 |
 
 ---
@@ -631,10 +631,10 @@ docker exec linuxserver-kde-$(whoami) pactl list sinks short
 - WebGL/Vulkanはソフトウェアレンダリング（llvmpipe）で動作
 - ハードウェアアクセラレーションが必要な場合はLinux実機またはWSL2を使用
 
-### WSL2 Intel/AMD GPUの制限
+### WSL2 GPUメモ
 
-- WSL2のIntel/AMD GPUはVA-APIをサポートしていません
-- NVIDIA GPUのみWSL2で完全サポート
+- WSL2はNVIDIAのみ対応
+- WSL2ではレンダリングはソフトウェア（llvmpipe）になり、WebGL/Vulkanもソフトウェア動作
 
 ---
 
