@@ -197,7 +197,10 @@ cat > .devcontainer/devcontainer.json << EOF
   "workspaceFolder": "${WORKSPACE_FOLDER}",
   "runServices": ["webtop"],
   "overrideCommand": false,
-  "shutdownAction": "stopCompose"
+  "shutdownAction": "stopCompose",
+  "remoteUser": "${CURRENT_USER}",
+  "containerUser": "root",
+  "updateRemoteUserUID": false
 }
 EOF
 

@@ -5,6 +5,8 @@ FROM ${BASE_IMAGE}
 ARG USER_NAME
 ARG USER_UID
 ARG USER_GID
+ARG VIDEO_GID=""
+ARG RENDER_GID=""
 # Note: USER_PASSWORD is used only during image build for initial setup.
 # It is not stored in the image layers. Change password after first login.
 ARG USER_PASSWORD=""
@@ -33,6 +35,20 @@ RUN set -eux; \
     groupmod -g "${TARGET_GID}" "${TARGET_USER}" || true; \
   else \
     groupadd -o -g "${TARGET_GID}" "${TARGET_USER}" 2>/dev/null || true; \
+  fi; \
+  if [ -n "${VIDEO_GID}" ]; then \
+    if getent group video >/dev/null; then \
+      groupmod -o -g "${VIDEO_GID}" video || true; \
+    else \
+      groupadd -o -g "${VIDEO_GID}" video || true; \
+    fi; \
+  fi; \
+  if [ -n "${RENDER_GID}" ]; then \
+    if getent group render >/dev/null; then \
+      groupmod -o -g "${RENDER_GID}" render || true; \
+    else \
+      groupadd -o -g "${RENDER_GID}" render || true; \
+    fi; \
   fi; \
   # remove any user that already has the desired UID to avoid conflicts \
   if getent passwd "${TARGET_UID}" >/dev/null; then \

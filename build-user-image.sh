@@ -11,6 +11,8 @@ UBUNTU_VERSION=${UBUNTU_VERSION:-24.04}
 USER_NAME=$(whoami)
 USER_UID=$(id -u)
 USER_GID=$(id -g)
+VIDEO_GID=$(getent group video 2>/dev/null | cut -d: -f3 || true)
+RENDER_GID=$(getent group render 2>/dev/null | cut -d: -f3 || true)
 BASE_IMAGE=${BASE_IMAGE:-}
 IMAGE_NAME_BASE=${IMAGE_NAME:-webtop-kde}
 TARGET_ARCH=${ARCH_OVERRIDE:-}
@@ -116,6 +118,9 @@ fi
 
 echo "Building user image from ${BASE_IMAGE}"
 echo "User: ${USER_NAME} (${USER_UID}:${USER_GID})"
+if [[ -n "${VIDEO_GID}" ]] || [[ -n "${RENDER_GID}" ]]; then
+  echo "Video/render GIDs: ${VIDEO_GID:-N/A}/${RENDER_GID:-N/A}"
+fi
 echo "Target arch: ${TARGET_ARCH}, platform: ${PLATFORM}"
 echo "Ubuntu version: ${UBUNTU_VERSION}"
 echo "Language: ${USER_LANGUAGE}"
@@ -146,6 +151,8 @@ docker buildx build \
   --build-arg USER_NAME="${USER_NAME}" \
   --build-arg USER_UID="${USER_UID}" \
   --build-arg USER_GID="${USER_GID}" \
+  --build-arg VIDEO_GID="${VIDEO_GID}" \
+  --build-arg RENDER_GID="${RENDER_GID}" \
   --build-arg USER_PASSWORD="${USER_PASSWORD}" \
   --build-arg USER_LANGUAGE="${USER_LANGUAGE}" \
   --build-arg USER_LANG_ENV="${LANG_ARG}" \
