@@ -201,7 +201,7 @@ cat > .devcontainer/devcontainer.json << EOF
   "remoteUser": "${CURRENT_USER}",
   "containerUser": "root",
   "updateRemoteUserUID": false,
-  "postCreateCommand": "echo 'Dev container is ready.' && echo 'Desktop access:' && echo '  HTTPS: https://localhost:${HOST_PORT_SSL}' && echo '  HTTP : http://localhost:${HOST_PORT_HTTP}' && echo 'TURN: ${HOST_PORT_TURN} (if you use WebRTC outside localhost)' && echo 'If HTTPS fails, confirm your SSL certs or use HTTP.'"
+  "postCreateCommand": "echo '===== Dev Container Ready =====' && echo 'Desktop access' && echo '  HTTPS: https://localhost:${HOST_PORT_SSL}' && echo '  HTTP : http://localhost:${HOST_PORT_HTTP}' && echo 'If HTTPS fails, confirm your SSL certs or use HTTP.' && echo '==============================='"
 }
 EOF
 

@@ -35,6 +35,7 @@ services:
       - TURN_EXTERNAL_IP=${TURN_EXTERNAL_IP}
     volumes:
       - ${HOME}:${HOST_HOME_MOUNT}
+      - ${HOME}/.ssh:/home/${HOST_USER}/.ssh
     ports:
       - ${HOST_PORT_SSL}:3001
       - ${HOST_PORT_HTTP}:3000

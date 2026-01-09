@@ -309,6 +309,7 @@ docker run -d \
   --shm-size "${SHM_SIZE}" \
   --privileged \
   -v "${HOME}":"${HOST_HOME_MOUNT}":rw \
+  -v "${HOME}/.ssh":"/home/${HOST_USER}/.ssh":rw \
   ${GPU_ENV_VARS[@]+"${GPU_ENV_VARS[@]}"} \
   ${SSL_FLAGS[@]+"${SSL_FLAGS[@]}"} \
   "$IMAGE"
