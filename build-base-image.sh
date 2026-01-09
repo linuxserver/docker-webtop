@@ -7,16 +7,18 @@ DOCKERFILE_BASE="${FILES_DIR}/linuxserver-kde.base.dockerfile"
 
 IMAGE_NAME=${IMAGE_NAME:-webtop-kde}
 VERSION=${VERSION:-1.0.0}
+UBUNTU_VERSION=${UBUNTU_VERSION:-24.04}
 ARCH_OVERRIDE=${ARCH_OVERRIDE:-}
 PLATFORM_OVERRIDE=${PLATFORM_OVERRIDE:-}
 NO_CACHE_FLAG=""
 
 usage() {
   cat <<EOF
-Usage: $0 [-a arch] [-i image] [-v version] [--no-cache]
+Usage: $0 [-a arch] [-i image] [-v version] [-u ubuntu_version] [--no-cache]
   -a, --arch     Target arch (amd64 or arm64). Default: host arch
   -i, --image    Image name (default: ${IMAGE_NAME})
   -v, --version  Version tag (default: ${VERSION})
+  -u, --ubuntu   Ubuntu version (22.04 or 24.04). Default: ${UBUNTU_VERSION}
   -p, --platform Docker platform (e.g. linux/amd64 or linux/arm64). Default: derived from arch
   -n, --no-cache Build without using cache (passes --no-cache to docker buildx)
 EOF
@@ -27,6 +29,7 @@ while [[ $# -gt 0 ]]; do
     -a|--arch) ARCH_OVERRIDE=$2; shift 2 ;;
     -i|--image) IMAGE_NAME=$2; shift 2 ;;
     -v|--version) VERSION=$2; shift 2 ;;
+    -u|--ubuntu) UBUNTU_VERSION=$2; shift 2 ;;
     -p|--platform) PLATFORM_OVERRIDE=$2; shift 2 ;;
     -n|--no-cache) NO_CACHE_FLAG="--no-cache"; shift ;;
     -h|--help) usage; exit 0 ;;
@@ -52,13 +55,28 @@ else
   ARCH_INPUT=${HOST_ARCH}
 fi
 
+# Validate and set Ubuntu version parameters
+case "${UBUNTU_VERSION}" in
+  22.04)
+    UBUNTU_REL=jammy
+    UBUNTU_TAG=oci-jammy-22.04
+    ;;
+  24.04)
+    UBUNTU_REL=noble
+    UBUNTU_TAG=oci-noble-24.04
+    ;;
+  *)
+    echo "Unsupported Ubuntu version: ${UBUNTU_VERSION}. Use 22.04 or 24.04" >&2
+    exit 1
+    ;;
+esac
+
 case "$ARCH_INPUT" in
   x86_64|amd64)
     TARGET_ARCH=amd64
     ALPINE_ARCH=x86_64
     UBUNTU_ARCH=amd64
     S6_OVERLAY_ARCH=x86_64
-    SOURCES_LIST=sources.list
     LIBVA_DEB_URL="https://launchpad.net/ubuntu/+source/libva/2.22.0-3ubuntu2/+build/30591127/+files/libva2_2.22.0-3ubuntu2_amd64.deb"
     LIBVA_LIBDIR="/usr/lib/x86_64-linux-gnu"
     APT_EXTRA_PACKAGES="intel-media-va-driver xserver-xorg-video-intel"
@@ -69,7 +87,6 @@ case "$ARCH_INPUT" in
     ALPINE_ARCH=aarch64
     UBUNTU_ARCH=arm64
     S6_OVERLAY_ARCH=aarch64
-    SOURCES_LIST=sources.list.arm
     LIBVA_DEB_URL="https://launchpad.net/ubuntu/+source/libva/2.22.0-3ubuntu2/+build/30591128/+files/libva2_2.22.0-3ubuntu2_arm64.deb"
     LIBVA_LIBDIR="/usr/lib/aarch64-linux-gnu"
     APT_EXTRA_PACKAGES=""
@@ -90,11 +107,12 @@ fi
 
 PROOT_ARCH=${PROOT_ARCH_OVERRIDE:-x86_64}
 
-LOG_FILE="${FILES_DIR}/build-${TARGET_ARCH}-${VERSION}.log"
+LOG_FILE="${FILES_DIR}/build-${TARGET_ARCH}-${UBUNTU_VERSION}-${VERSION}.log"
 
 echo "=========================================="
-echo "Building ${IMAGE_NAME}-base-${TARGET_ARCH}:${VERSION}"
+echo "Building ${IMAGE_NAME}-base-${TARGET_ARCH}-u${UBUNTU_VERSION}:${VERSION}"
 echo "Platform: ${PLATFORM}"
+echo "Ubuntu Version: ${UBUNTU_VERSION} (${UBUNTU_REL})"
 echo "Dockerfile: ${FILES_DIR}/linuxserver-kde.dockerfile"
 echo "=========================================="
 
@@ -103,7 +121,6 @@ REQUIRED_FILES=(
   "${FILES_DIR}/alpine-root"
   "${FILES_DIR}/ubuntu-root"
   "${FILES_DIR}/kde-root"
-  "${FILES_DIR}/${SOURCES_LIST}"
   "${FILES_DIR}/patches/21-xvfb-dri3.patch"
 )
 
@@ -123,15 +140,16 @@ docker buildx build \
   --build-arg VERSION="${VERSION}" \
   --build-arg ALPINE_ARCH="${ALPINE_ARCH}" \
   --build-arg UBUNTU_ARCH="${UBUNTU_ARCH}" \
+  --build-arg UBUNTU_REL="${UBUNTU_REL}" \
+  --build-arg UBUNTU_TAG="${UBUNTU_TAG}" \
   --build-arg S6_OVERLAY_ARCH="${S6_OVERLAY_ARCH}" \
-  --build-arg SOURCES_LIST="${SOURCES_LIST}" \
   --build-arg APT_EXTRA_PACKAGES="${APT_EXTRA_PACKAGES}" \
   --build-arg LIBVA_DEB_URL="${LIBVA_DEB_URL}" \
   --build-arg LIBVA_LIBDIR="${LIBVA_LIBDIR}" \
   --build-arg PROOT_ARCH="${PROOT_ARCH}" \
   --progress=plain \
   --load \
-  -t ${IMAGE_NAME}-base-${TARGET_ARCH}:${VERSION} \
+  -t ${IMAGE_NAME}-base-${TARGET_ARCH}-u${UBUNTU_VERSION}:${VERSION} \
   "${FILES_DIR}" 2>&1 | tee "${LOG_FILE}"
 
 BUILD_STATUS=${PIPESTATUS[0]}

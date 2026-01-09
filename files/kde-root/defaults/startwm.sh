@@ -71,11 +71,46 @@ if [ ! -f "${STARTUP_FILE}" ]; then
 fi
 
 # Enable Nvidia GPU support if detected
-if which nvidia-smi > /dev/null 2>&1 && ls -A /dev/dri 2>/dev/null && [ "${DISABLE_ZINK}" == "false" ]; then
+NVIDIA_PRESENT=false
+if which nvidia-smi > /dev/null 2>&1 && nvidia-smi --query-gpu=uuid --format=csv,noheader 2>/dev/null | head -n1 | grep -q .; then
+  NVIDIA_PRESENT=true
+  echo "NVIDIA GPU detected"
+fi
+
+if [ "${NVIDIA_PRESENT}" = "true" ] && [ "${DISABLE_ZINK}" == "false" ]; then
   export LIBGL_KOPPER_DRI2=1
   export MESA_LOADER_DRIVER_OVERRIDE=zink
   export GALLIUM_DRIVER=zink
 fi
 
+# Configure GPU acceleration
+# If USE_XORG=true, use native OpenGL (no VirtualGL needed)
+# If USE_XORG=false (Xvfb), use VirtualGL for GPU acceleration
+USE_VGL=false
+if [ "${USE_XORG}" = "true" ]; then
+  # Xorg mode: direct GPU access, no VirtualGL needed
+  if [ "${NVIDIA_PRESENT}" = "true" ]; then
+    echo "Xorg mode with NVIDIA GPU - using native OpenGL"
+    export __GLX_VENDOR_LIBRARY_NAME=nvidia
+    export __NV_PRIME_RENDER_OFFLOAD=1
+  fi
+elif [ "${NVIDIA_PRESENT}" = "true" ] && which vglrun > /dev/null 2>&1; then
+  # Xvfb mode with NVIDIA: use VirtualGL
+  export VGL_DISPLAY="${VGL_DISPLAY:-egl}"
+  export __GLX_VENDOR_LIBRARY_NAME=nvidia
+  export __NV_PRIME_RENDER_OFFLOAD=1
+  USE_VGL=true
+  echo "Xvfb mode with NVIDIA GPU - using VirtualGL"
+fi
+
 # Start DE (without exec to allow dbus-launch to work properly)
-dbus-launch --exit-with-session /usr/bin/startplasma-x11 > /dev/null 2>&1
+# Export XDG_RUNTIME_DIR for the session
+export XDG_RUNTIME_DIR
+eval "$(dbus-launch --sh-syntax)"
+if [ "${USE_VGL}" = "true" ]; then
+  echo "Starting KDE Plasma with VirtualGL (VGL_DISPLAY=${VGL_DISPLAY})"
+  vglrun -d "${VGL_DISPLAY}" /usr/bin/startplasma-x11 > /dev/null 2>&1
+else
+  echo "Starting KDE Plasma (native rendering)"
+  /usr/bin/startplasma-x11 > /dev/null 2>&1
+fi

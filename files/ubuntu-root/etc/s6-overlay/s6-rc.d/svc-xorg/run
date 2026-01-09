@@ -21,7 +21,7 @@ if [ "${DISABLE_DRI3}" != "false" ]; then
 fi
 
 # Clamp virtual screen max size based on env
-DEFAULT_RES="15360x8640"
+DEFAULT_RES="7680x4320"
 if [ ! -z ${MAX_RES+x} ]; then
   DEFAULT_RES="${MAX_RES}"
 fi

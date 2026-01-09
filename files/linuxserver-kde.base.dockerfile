@@ -46,9 +46,11 @@ RUN tar -C /root-out -Jxpf /tmp/s6-overlay-symlinks-arch.tar.xz
 FROM alpine:3 AS ubuntu-rootfs-stage
 
 ARG UBUNTU_ARCH=amd64
-ENV REL=noble
+ARG UBUNTU_REL
+ARG UBUNTU_TAG
+ENV REL=${UBUNTU_REL}
 ENV ARCH=${UBUNTU_ARCH}
-ENV TAG=oci-noble-24.04
+ENV TAG=${UBUNTU_TAG}
 
 # install packages
 RUN \
@@ -120,9 +122,28 @@ ENV HOME="/root" \
     VIRTUAL_ENV=/lsiopy \
     PATH="/lsiopy/bin:$PATH"
 
-# copy sources
-ARG SOURCES_LIST="sources.list"
-COPY ${SOURCES_LIST} /etc/apt/sources.list
+# Generate sources.list dynamically based on UBUNTU_REL and arch
+ARG UBUNTU_REL
+ARG UBUNTU_ARCH
+RUN \
+  echo "**** Generating sources.list for ${UBUNTU_REL} (${UBUNTU_ARCH}) ****" && \
+  if [ "${UBUNTU_ARCH}" = "amd64" ]; then \
+    MIRROR="http://archive.ubuntu.com/ubuntu"; \
+  else \
+    MIRROR="http://ports.ubuntu.com/ubuntu-ports"; \
+  fi && \
+  echo "deb ${MIRROR} ${UBUNTU_REL} main restricted" > /etc/apt/sources.list && \
+  echo "deb-src ${MIRROR} ${UBUNTU_REL} main restricted" >> /etc/apt/sources.list && \
+  echo "deb ${MIRROR} ${UBUNTU_REL}-updates main restricted" >> /etc/apt/sources.list && \
+  echo "deb-src ${MIRROR} ${UBUNTU_REL}-updates main restricted" >> /etc/apt/sources.list && \
+  echo "deb ${MIRROR} ${UBUNTU_REL} universe multiverse" >> /etc/apt/sources.list && \
+  echo "deb-src ${MIRROR} ${UBUNTU_REL} universe multiverse" >> /etc/apt/sources.list && \
+  echo "deb ${MIRROR} ${UBUNTU_REL}-updates universe multiverse" >> /etc/apt/sources.list && \
+  echo "deb-src ${MIRROR} ${UBUNTU_REL}-updates universe multiverse" >> /etc/apt/sources.list && \
+  echo "deb ${MIRROR} ${UBUNTU_REL}-security main restricted" >> /etc/apt/sources.list && \
+  echo "deb-src ${MIRROR} ${UBUNTU_REL}-security main restricted" >> /etc/apt/sources.list && \
+  echo "deb ${MIRROR} ${UBUNTU_REL}-security universe multiverse" >> /etc/apt/sources.list && \
+  echo "deb-src ${MIRROR} ${UBUNTU_REL}-security universe multiverse" >> /etc/apt/sources.list
 
 RUN \
   echo "**** Ripped from Ubuntu Docker Logic ****" && \
@@ -149,13 +170,16 @@ RUN \
   apt-get install -y apt-utils locales && \
   echo "**** install packages ****" && \
   apt-get install -y \
-    catatonit cron curl gnupg jq netcat-openbsd systemd-standalone-sysusers tzdata && \
+    bc catatonit cron curl gnupg jq netcat-openbsd systemd-standalone-sysusers tzdata && \
   echo "**** generate locale ****" && \
   locale-gen en_US.UTF-8 && \
   echo "**** prepare shared folders ****" && \
   mkdir -p /app /config /defaults /lsiopy && \
+  echo "**** create video and render groups with standard GIDs ****" && \
+  groupadd -g 44 video 2>/dev/null || groupmod -g 44 video 2>/dev/null || true && \
+  groupadd -g 106 render 2>/dev/null || groupmod -g 106 render 2>/dev/null || true && \
   echo "**** cleanup ****" && \
-  userdel ubuntu && \
+  id ubuntu >/dev/null 2>&1 && userdel ubuntu || echo "ubuntu user does not exist, skipping" && \
   apt-get autoremove && \
   apt-get clean && \
   rm -rf /tmp/* /var/lib/apt/lists/* /var/tmp/* /var/log/*
@@ -305,9 +329,14 @@ ENV DISPLAY=:1 \
 
 ARG APT_EXTRA_PACKAGES=""
 ARG LIBVA_DEB_URL="https://launchpad.net/ubuntu/+source/libva/2.22.0-3ubuntu2/+build/30591127/+files/libva2_2.22.0-3ubuntu2_amd64.deb"
+# Optional: jammy-friendly libva deb (built against glibc 2.35). Leave empty to skip on 22.04.
+ARG LIBVA_DEB_URL_JAMMY="http://launchpadlibrarian.net/587480468/libva2_2.14.0-1_amd64.deb"
 ARG LIBVA_LIBDIR="/usr/lib/x86_64-linux-gnu"
 ARG PROOT_ARCH="x86_64"
+ARG SELKIES_VERSION="1.6.2"
+ARG VIRTUALGL_VERSION="3.1.4"
 
+# Step 1: Install base system packages and Docker
 RUN \
   echo "**** dev deps ****" && \
   apt-get update && \
@@ -320,11 +349,20 @@ RUN \
   echo "**** install deps ****" && \
   curl -fsSL https://deb.nodesource.com/setup_22.x | bash - && \
   apt-get update && \
+  echo "**** determine Ubuntu version-specific packages ****" && \
+  UBUNTU_VERSION=$(lsb_release -rs 2>/dev/null || grep VERSION_ID /etc/os-release | cut -d= -f2 | tr -d '"') && \
+  LABWC_PKG="" && \
+  MESA_GALLIUM_PKG="" && \
+  if [ "$(echo "${UBUNTU_VERSION}" | cut -d. -f1)" -ge 24 ]; then \
+    LABWC_PKG="labwc" && \
+    MESA_GALLIUM_PKG="mesa-libgallium"; \
+  fi && \
+  echo "**** Installing packages (Ubuntu ${UBUNTU_VERSION}) ****" && \
   DEBIAN_FRONTEND=noninteractive apt-get install --no-install-recommends -y \
     breeze-cursor-theme ca-certificates cmake console-data dbus-x11 \
     dunst file \
     fonts-noto-cjk fonts-noto-color-emoji fonts-noto-core foot fuse-overlayfs \
-    g++ gcc git ${APT_EXTRA_PACKAGES} kbd labwc libatk1.0-0 libatk-bridge2.0-0 \
+    g++ gcc git ${APT_EXTRA_PACKAGES} kbd ${LABWC_PKG} libatk1.0-0 libatk-bridge2.0-0 \
     libev4 libfontenc1 libfreetype6 libgbm1 libgcrypt20 libgirepository-1.0-1 \
     libgl1-mesa-dri libglu1-mesa libgnutls30 libgtk-3.0 libjpeg-turbo8 \
     libnginx-mod-http-fancyindex libnotify-bin libnss3 libnvidia-egl-wayland1 \
@@ -333,14 +371,36 @@ RUN \
     libxau6 libxcb1 libxcb-icccm4 libxcb-image0 libxcb-keysyms1 libxcb-render-util0 \
     libxcursor1 libxdmcp6 libxext6 libxfconf-0-3 libxfixes3 libxfont2 libxinerama1 \
     libxkbcommon-dev libxkbcommon-x11-0 libxshmfence1 libxtst6 locales-all make \
-    mesa-libgallium mesa-va-drivers mesa-vulkan-drivers nginx openbox openssh-client \
+    ${MESA_GALLIUM_PKG} mesa-va-drivers mesa-vulkan-drivers mesa-utils vainfo vdpauinfo \
+    libvulkan-dev ocl-icd-libopencl1 clinfo libdrm2 libegl1 libgl1 libopengl0 libgles1 libgles2 \
+    libglvnd0 libglx0 libglu1 libglvnd-dev \
+    nginx openbox openssh-client \
     openssl pciutils procps psmisc pulseaudio pulseaudio-utils python3 python3-venv \
+    gstreamer1.0-tools gstreamer1.0-plugins-base gstreamer1.0-plugins-good \
+    gstreamer1.0-plugins-bad gstreamer1.0-plugins-ugly gstreamer1.0-libav \
+    gstreamer1.0-vaapi \
     bash-completion software-properties-common ssl-cert stterm sudo tar util-linux vulkan-tools \
     wl-clipboard wtype x11-apps x11-common x11-utils x11-xkb-utils x11-xserver-utils \
     xauth xclip xcvt xdg-utils xdotool xfconf xfonts-base xkb-data xsel \
     xserver-common xserver-xorg-core xserver-xorg-video-amdgpu xserver-xorg-video-ati \
-    xserver-xorg-video-nouveau xserver-xorg-video-qxl \
+    xserver-xorg-video-nouveau xserver-xorg-video-qxl xserver-xorg-video-dummy \
     xsettingsd xterm xutils xvfb zlib1g zstd && \
+  echo "**** install coturn (AMD64 only) ****" && \
+  ARCH_CUR=$(dpkg --print-architecture) && \
+  if [ "${ARCH_CUR}" = "amd64" ]; then \
+    apt-get install -y --no-install-recommends coturn; \
+  fi && \
+  echo "**** install Intel VA drivers (AMD64 only) ****" && \
+  ARCH_CUR=$(dpkg --print-architecture) && \
+  if [ "${ARCH_CUR}" = "amd64" ]; then \
+    apt-get install -y --no-install-recommends i965-va-driver-shaders intel-media-va-driver-; \
+    apt-get install -y --no-install-recommends intel-media-va-driver-non-free; \
+  fi && \
+  apt-get clean && \
+  rm -rf /var/lib/apt/lists/*
+
+# Step 2: Install selkies and related components
+RUN \
   echo "**** install selkies ****" && \
   SELKIES_RELEASE=$(curl -sX GET "https://api.github.com/repos/selkies-project/selkies/releases/latest" \
     | awk '/tag_name/{print $4;exit}' FS='[""]') && \
@@ -350,9 +410,23 @@ RUN \
   tar xf selkies.tar.gz && \
   cd selkies-* && \
   sed -i '/cryptography/d' pyproject.toml && \
+  UBUNTU_VERSION="$(. /etc/os-release && echo ${VERSION_ID})" && \
+  if [ "$(echo "${UBUNTU_VERSION}" | cut -d. -f1)" -lt 24 ]; then \
+    echo "**** Ubuntu ${UBUNTU_VERSION}: removing xkbcommon dependency (not compatible) ****" && \
+    sed -i '/xkbcommon/d' pyproject.toml; \
+  fi && \
   python3 -m venv --system-site-packages /lsiopy && \
   pip install . && \
   pip install setuptools && \
+  if [ "${UBUNTU_VERSION}" = "22.04" ]; then \
+    echo "Installing pixelflux 1.4.7 for Ubuntu 22.04 (GLIBC 2.35)" && \
+    pip install pixelflux==1.4.7; \
+  elif [ "${UBUNTU_VERSION}" = "24.04" ]; then \
+    echo "Installing pixelflux from selkies dependencies for Ubuntu 24.04" && \
+    echo "pixelflux already installed"; \
+  else \
+    echo "Warning: Unknown Ubuntu version ${UBUNTU_VERSION}, using default pixelflux"; \
+  fi && \
   echo "**** install selkies interposer ****" && \
   cd addons/js-interposer && \
   gcc -shared -fPIC -ldl -o selkies_joystick_interposer.so joystick_interposer.c && \
@@ -368,6 +442,10 @@ RUN \
     https://raw.githubusercontent.com/linuxserver/docker-templates/master/linuxserver.io/img/selkies-logo.png && \
   curl -o /usr/share/selkies/www/favicon.ico \
     https://raw.githubusercontent.com/linuxserver/docker-templates/refs/heads/master/linuxserver.io/img/selkies-icon.ico && \
+  rm -rf /tmp/*
+
+# Step 3: System configuration and tools
+RUN \
   echo "**** openbox tweaks ****" && \
   sed -i \
     -e 's/NLIMC/NLMC/g' \
@@ -396,14 +474,65 @@ RUN \
   chmod +x /usr/local/bin/dind && \
   echo 'hosts: files dns' > /etc/nsswitch.conf && \
   groupadd -f docker && \
-  echo "**** libva hack ****" && \
-  mkdir /tmp/libva && \
-  curl -o /tmp/libva/libva.deb -L "${LIBVA_DEB_URL}" && \
-  cd /tmp/libva && \
-  ar x libva.deb && \
-  tar xf data.tar.zst && \
-  rm -f ${LIBVA_LIBDIR}/libva.so.2* && \
-  cp -a usr/lib/${LIBVA_LIBDIR#/usr/lib/}/libva.so.2* ${LIBVA_LIBDIR}/ && \
+echo "**** install VirtualGL ****" && \
+  cd /tmp && VIRTUALGL_VERSION="$(echo ${VIRTUALGL_VERSION} | sed 's/[^0-9\.\-]*//g')" && \
+  if [ "$(dpkg --print-architecture)" = "amd64" ]; then \
+    dpkg --add-architecture i386 && \
+    apt-get update && \
+    curl -fsSL -O "https://github.com/VirtualGL/virtualgl/releases/download/${VIRTUALGL_VERSION}/virtualgl_${VIRTUALGL_VERSION}_amd64.deb" && \
+    curl -fsSL -O "https://github.com/VirtualGL/virtualgl/releases/download/${VIRTUALGL_VERSION}/virtualgl32_${VIRTUALGL_VERSION}_amd64.deb" && \
+    apt-get install -y --no-install-recommends "./virtualgl_${VIRTUALGL_VERSION}_amd64.deb" "./virtualgl32_${VIRTUALGL_VERSION}_amd64.deb" && \
+    rm -f "virtualgl_${VIRTUALGL_VERSION}_amd64.deb" "virtualgl32_${VIRTUALGL_VERSION}_amd64.deb" && \
+    chmod -f u+s /usr/lib/libvglfaker.so /usr/lib/libvglfaker-nodl.so /usr/lib/libvglfaker-opencl.so /usr/lib/libdlfaker.so /usr/lib/libgefaker.so 2>/dev/null || true && \
+    chmod -f u+s /usr/lib32/libvglfaker.so /usr/lib32/libvglfaker-nodl.so /usr/lib32/libvglfaker-opencl.so /usr/lib32/libdlfaker.so /usr/lib32/libgefaker.so 2>/dev/null || true && \
+    chmod -f u+s /usr/lib/i386-linux-gnu/libvglfaker.so /usr/lib/i386-linux-gnu/libvglfaker-nodl.so /usr/lib/i386-linux-gnu/libvglfaker-opencl.so /usr/lib/i386-linux-gnu/libdlfaker.so /usr/lib/i386-linux-gnu/libgefaker.so 2>/dev/null || true; \
+  elif [ "$(dpkg --print-architecture)" = "arm64" ]; then \
+    curl -fsSL -O "https://github.com/VirtualGL/virtualgl/releases/download/${VIRTUALGL_VERSION}/virtualgl_${VIRTUALGL_VERSION}_arm64.deb" && \
+    apt-get update && apt-get install -y --no-install-recommends ./virtualgl_${VIRTUALGL_VERSION}_arm64.deb && \
+    rm -f "virtualgl_${VIRTUALGL_VERSION}_arm64.deb" && \
+    chmod -f u+s /usr/lib/libvglfaker.so /usr/lib/libvglfaker-nodl.so /usr/lib/libdlfaker.so /usr/lib/libgefaker.so 2>/dev/null || true; \
+  fi && \
+  echo "**** configure OpenCL and EGL for NVIDIA ****" && \
+  mkdir -pm755 /etc/OpenCL/vendors && echo "libnvidia-opencl.so.1" > /etc/OpenCL/vendors/nvidia.icd && \
+  mkdir -pm755 /usr/share/glvnd/egl_vendor.d/ && echo '{\n\
+    "file_format_version" : "1.0.0",\n\
+    "ICD": {\n\
+        "library_path": "libEGL_nvidia.so.0"\n\
+    }\n\
+}' > /usr/share/glvnd/egl_vendor.d/10_nvidia.json && \
+  echo "/usr/local/nvidia/lib" >> /etc/ld.so.conf.d/nvidia.conf && \
+  echo "/usr/local/nvidia/lib64" >> /etc/ld.so.conf.d/nvidia.conf && \
+  apt-get clean && \
+  rm -rf /var/lib/apt/lists/* /tmp/*
+
+# Step 5: Install libva, locales, and theme
+ARG LIBVA_DEB_URL
+ARG LIBVA_DEB_URL_JAMMY
+ARG LIBVA_LIBDIR
+RUN \
+  UBUNTU_VERSION="$(. /etc/os-release && echo ${VERSION_ID})" && \
+  UBUNTU_MAJOR="$(echo "${UBUNTU_VERSION}" | cut -d. -f1)" && \
+  if [ "${UBUNTU_MAJOR}" -ge 24 ]; then \
+    echo "**** libva hack (Ubuntu ${UBUNTU_VERSION}) ****" && \
+    mkdir /tmp/libva && \
+    curl -o /tmp/libva/libva.deb -L "${LIBVA_DEB_URL}" && \
+    cd /tmp/libva && \
+    ar x libva.deb && \
+    tar xf data.tar.zst && \
+    rm -f ${LIBVA_LIBDIR}/libva.so.2* && \
+    cp -a usr/lib/${LIBVA_LIBDIR#/usr/lib/}/libva.so.2* ${LIBVA_LIBDIR}/; \
+  elif [ -n "${LIBVA_DEB_URL_JAMMY}" ]; then \
+    echo "**** libva hack (Ubuntu ${UBUNTU_VERSION}, jammy-compatible override) ****" && \
+    mkdir /tmp/libva && \
+    curl -o /tmp/libva/libva.deb -L "${LIBVA_DEB_URL_JAMMY}" && \
+    cd /tmp/libva && \
+    ar x libva.deb && \
+    tar xf data.tar.zst && \
+    rm -f ${LIBVA_LIBDIR}/libva.so.2* && \
+    cp -a usr/lib/${LIBVA_LIBDIR#/usr/lib/}/libva.so.2* ${LIBVA_LIBDIR}/; \
+  else \
+    echo "**** skip libva hack on Ubuntu ${UBUNTU_VERSION} (use distro libva) ****"; \
+  fi && \
   echo "**** locales ****" && \
   for LOCALE in $(curl -sL https://raw.githubusercontent.com/thelamer/lang-stash/master/langs); do \
     localedef -i $LOCALE -f UTF-8 $LOCALE.UTF-8; \
@@ -411,6 +540,53 @@ RUN \
   echo "**** theme ****" && \
   curl -s https://raw.githubusercontent.com/thelamer/lang-stash/master/theme.tar.gz \
     | tar xzvf - -C /usr/share/themes/Clearlooks/openbox-3/ && \
+  echo "**** enable hardware encoders in selkies settings (arm64 only) ****" && \
+  ARCH_CUR=$(dpkg --print-architecture) && \
+  if [ "${ARCH_CUR}" != "amd64" ]; then \
+    python3 -c "import selkies, pathlib; p = pathlib.Path(selkies.__file__).with_name('settings.py'); t = p.read_text(); old = \"['x264enc', 'x264enc-striped', 'jpeg']\"; new = \"['x264enc', 'x264enc-striped', 'jpeg', 'nvh264enc', 'vah264enc', 'vaapih264enc']\"; \
+assert old in t, f'Expected encoder list not found in {p}'; p.write_text(t.replace(old, new, 1)); print('Updated selkies encoder allowlist:', p)"; \
+  fi && \
+  rm -rf /tmp/*
+
+# Step 6: Install selkies-gstreamer (AMD64 only)
+ARG SELKIES_VERSION
+RUN \
+  echo "**** selkies-gstreamer (amd64 only) ****" && \
+  ARCH_CUR=$(dpkg --print-architecture) && \
+  if [ "${ARCH_CUR}" = "amd64" ]; then \
+    UBUNTU_VERSION="$(. /etc/os-release && echo ${VERSION_ID})"; \
+    BASE_URL="https://github.com/selkies-project/selkies/releases/download/v${SELKIES_VERSION}"; \
+    mkdir -p /opt/gstreamer && \
+    curl -fsSL "${BASE_URL}/gstreamer-selkies_gpl_v${SELKIES_VERSION}_ubuntu${UBUNTU_VERSION}_amd64.tar.gz" | tar -xzf - -C /opt && \
+    cd /tmp && curl -O -fsSL "${BASE_URL}/selkies_gstreamer-${SELKIES_VERSION}-py3-none-any.whl" && \
+    pip install --no-cache-dir "selkies_gstreamer-${SELKIES_VERSION}-py3-none-any.whl" && \
+    rm -f "selkies_gstreamer-${SELKIES_VERSION}-py3-none-any.whl" && \
+    curl -fsSL "${BASE_URL}/selkies-gstreamer-web_v${SELKIES_VERSION}.tar.gz" | tar -xzf - -C /opt && \
+    echo "**** upgrade websockets to 15.x for selkies compatibility ****" && \
+    pip install --force-reinstall 'websockets>=15.0'; \
+  else \
+    echo "Skipping selkies-gstreamer install on arch ${ARCH_CUR}"; \
+  fi && \
+  rm -rf /tmp/*
+
+# Step 7: Install CUDA NVRTC for WSL2 support (AMD64 only)
+RUN \
+  echo "**** install CUDA NVRTC for WSL2 cudaconvert support (amd64 only) ****" && \
+  ARCH_CUR=$(dpkg --print-architecture) && \
+  if [ "${ARCH_CUR}" = "amd64" ]; then \
+    UBUNTU_VERSION="$(. /etc/os-release && echo ${VERSION_ID})"; \
+    UBUNTU_VERSION_NODOT=$(echo "${UBUNTU_VERSION}" | tr -d '.'); \
+    CUDA_VERSION="12-6"; \
+    CUDA_KEYRING_VERSION="1.1"; \
+    curl -fsSL "https://developer.download.nvidia.com/compute/cuda/repos/ubuntu${UBUNTU_VERSION_NODOT}/x86_64/cuda-keyring_${CUDA_KEYRING_VERSION}-1_all.deb" -o /tmp/cuda-keyring.deb && \
+    dpkg -i /tmp/cuda-keyring.deb && rm /tmp/cuda-keyring.deb && \
+    apt-get update && \
+    apt-get install -y --no-install-recommends cuda-nvrtc-${CUDA_VERSION} && \
+    rm -rf /var/lib/apt/lists/*; \
+  fi
+
+# Step 8: Final cleanup
+RUN \
   echo "**** cleanup ****" && \
   apt-get purge -y --autoremove python3-dev && \
   apt-get autoclean && \
@@ -418,14 +594,21 @@ RUN \
 
 # add local files - this will overwrite ubuntu-root files if conflicts exist
 COPY ubuntu-root/ /
+
+# Apply websockets 15.x compatibility patch for selkies-gstreamer (amd64 only)
+RUN if [ "$(dpkg --print-architecture)" = "amd64" ] && [ -f /usr/local/bin/patch-selkies-websockets15.py ]; then \
+      chmod +x /usr/local/bin/patch-selkies-websockets15.py && \
+      python3 /usr/local/bin/patch-selkies-websockets15.py; \
+    fi
 COPY --from=frontend /buildout /usr/share/selkies
 COPY --from=xvfb-builder /build-out/ /
+
+# Make TURN server script executable (AMD64 only, after final COPY)
+RUN if [ "$(dpkg --print-architecture)" = "amd64" ]; then chmod 755 /etc/start-turnserver.sh; fi
 
 # ports and volumes
 EXPOSE 3000 3001
 VOLUME /config
-
-
 ###########################################
 # Stage 8: Final webtop image
 ###########################################

@@ -35,6 +35,11 @@ do
     fi
 done
 
+# set default encoder to software x264enc unless user overrides
+if [ -z "${SELKIES_ENCODER+x}" ]; then
+    echo "SELKIES_ENCODER=x264enc" > /run/s6/container_environment/SELKIES_ENCODER
+fi
+
 # check if nvidia gpu is present
 if which nvidia-smi > /dev/null 2>&1 && ls -A /dev/dri 2>/dev/null; then
     # nvidia-container-toolkit may not place files correctly, so we set them up here

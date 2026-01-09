@@ -1,0 +1,50 @@
+version: '3.8'
+
+services:
+  webtop:
+    image: ${USER_IMAGE}
+    container_name: ${CONTAINER_NAME}
+    hostname: ${CONTAINER_HOSTNAME}
+    shm_size: ${SHM_SIZE:-4g}
+    security_opt:
+      - seccomp:unconfined
+    environment:
+      - PUID=${HOST_UID}
+      - PGID=${HOST_GID}
+      - USER_UID=${USER_UID}
+      - USER_GID=${USER_GID}
+      - USER_NAME=${USER_NAME}
+      - CUSTOM_USER=${HOST_USER}
+      - CUSTOM_PORT=3000
+      - CUSTOM_HTTPS_PORT=3001
+      - HOSTNAME=${CONTAINER_HOSTNAME}
+      - HOST_HOSTNAME=${CONTAINER_HOSTNAME}
+      - DISPLAY=:1
+      - DPI=${DPI}
+      - DISPLAY_WIDTH=${WIDTH}
+      - DISPLAY_HEIGHT=${HEIGHT}
+      - CUSTOM_RESOLUTION=${RESOLUTION}
+      - SELKIES_ENCODER=${SELKIES_ENCODER}
+      - GPU_VENDOR=${GPU_VENDOR}
+      - VIDEO_ENCODER=${VIDEO_ENCODER}
+      - ENABLE_NVIDIA=${ENABLE_NVIDIA}
+      - LIBVA_DRIVER_NAME=${LIBVA_DRIVER_NAME}
+      - HOST_IP=${HOST_IP}
+      - SELKIES_TURN_HOST=${SELKIES_TURN_HOST}
+      - SELKIES_TURN_PORT=${SELKIES_TURN_PORT}
+      - SELKIES_TURN_USERNAME=${SELKIES_TURN_USERNAME}
+      - SELKIES_TURN_PASSWORD=${SELKIES_TURN_PASSWORD}
+      - SELKIES_TURN_PROTOCOL=${SELKIES_TURN_PROTOCOL}
+      - TURN_RANDOM_PASSWORD=${TURN_RANDOM_PASSWORD}
+      - TURN_EXTERNAL_IP=${TURN_EXTERNAL_IP}
+      - TZ=UTC
+    volumes:
+      - ${HOME}:${HOST_HOME_MOUNT}
+    ports:
+      - ${HOST_PORT_SSL}:3001
+      - ${HOST_PORT_HTTP}:3000
+      - ${HOST_PORT_TURN}:3478/tcp
+      - ${HOST_PORT_TURN}:3478/udp
+    restart: unless-stopped
+    stdin_open: true
+    tty: true
