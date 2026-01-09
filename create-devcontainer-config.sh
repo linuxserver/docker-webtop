@@ -100,30 +100,20 @@ read -p "DPI (default: 96): " DPI
 DPI="${DPI:-96}"
 echo ""
 
-# Language/Timezone settings
-echo "4. Language/Timezone Settings"
-echo "-----------------------------"
-echo "Select language (affects timezone):"
-echo "  ja) Japanese (Asia/Tokyo)"
-echo "  en) English (UTC)"
-read -p "Select language [ja/en] (default: en): " lang_choice
-case "${lang_choice}" in
-    ja|JA|jp|JP)
-        TIMEZONE="Asia/Tokyo"
-        echo "Japanese selected. Timezone: Asia/Tokyo"
-        ;;
-    *)
-        TIMEZONE="UTC"
-        echo "English selected. Timezone: UTC"
-        ;;
-esac
-echo ""
-
 # SSL directory (optional)
-echo "5. SSL Configuration (Optional)"
+echo "4. SSL Configuration (Optional)"
 echo "-------------------------------"
 read -p "SSL directory path (leave empty to skip): " SSL_DIR
 echo ""
+
+# Default SSL dir fallback (same as start-container.sh)
+if [ -z "${SSL_DIR}" ]; then
+    DEFAULT_SSL_DIR="$(pwd)/ssl"
+    if [ -d "${DEFAULT_SSL_DIR}" ]; then
+        SSL_DIR="${DEFAULT_SSL_DIR}"
+        echo "Using SSL dir: ${SSL_DIR}"
+    fi
+fi
 
 CURRENT_USER=$(whoami)
 COMPOSE_ENV_SCRIPT="./compose-env.sh"
@@ -136,7 +126,7 @@ fi
 mkdir -p .devcontainer
 
 # Build compose-env arguments
-COMPOSE_ARGS=(--gpu "${GPU_VENDOR}" --ubuntu "${UBUNTU_VERSION}" --resolution "${RESOLUTION}" --dpi "${DPI}" --timezone "${TIMEZONE}")
+COMPOSE_ARGS=(--gpu "${GPU_VENDOR}" --ubuntu "${UBUNTU_VERSION}" --resolution "${RESOLUTION}" --dpi "${DPI}")
 if [ "${GPU_VENDOR}" = "nvidia" ]; then
     if [ "${GPU_ALL}" = "true" ]; then
         COMPOSE_ARGS+=(--all)
@@ -168,30 +158,32 @@ export DEVCONTAINER_CONTAINER_NAME
 
 WORKSPACE_FOLDER="/home/${CURRENT_USER}/host_home"
 
-# Build forward port list
-FORWARD_PORTS=("${HOST_PORT_SSL}" "${HOST_PORT_HTTP}" "${HOST_PORT_TURN}")
-
-FORWARD_PORTS_JSON=""
-for PORT in "${FORWARD_PORTS[@]}"; do
-    if [ -n "${FORWARD_PORTS_JSON}" ]; then
-        FORWARD_PORTS_JSON="${FORWARD_PORTS_JSON},
-"
-    fi
-    FORWARD_PORTS_JSON="${FORWARD_PORTS_JSON}    ${PORT}"
-done
-
-PORT_ATTRIBUTES_JSON="    \"${HOST_PORT_SSL}\": {
-      \"label\": \"HTTPS Web UI\",
-      \"onAutoForward\": \"notify\"
-    },
-    \"${HOST_PORT_HTTP}\": {
-      \"label\": \"HTTP Web UI\",
-      \"onAutoForward\": \"silent\"
-    },
-    \"${HOST_PORT_TURN}\": {
-      \"label\": \"TURN Server\",
-      \"onAutoForward\": \"silent\"
-    }"
+GPU_DEVICES=""
+case "${GPU_VENDOR}" in
+    intel)
+        if [ -d "/dev/dri" ]; then
+            GPU_DEVICES="/dev/dri:/dev/dri:rwm"
+        fi
+        ;;
+    amd)
+        if [ -d "/dev/dri" ]; then
+            GPU_DEVICES="/dev/dri:/dev/dri:rwm"
+        fi
+        if [ -e "/dev/kfd" ]; then
+            GPU_DEVICES="${GPU_DEVICES:+${GPU_DEVICES},}/dev/kfd:/dev/kfd:rwm"
+        fi
+        ;;
+    nvidia)
+        if [ -d "/dev/dri" ]; then
+            GPU_DEVICES="/dev/dri:/dev/dri:rwm"
+        fi
+        ;;
+    nvidia-wsl)
+        if [ -e "/dev/dxg" ]; then
+            GPU_DEVICES="/dev/dxg:/dev/dxg:rwm"
+        fi
+        ;;
+esac
 
 # devcontainer.json
 cat > .devcontainer/devcontainer.json << EOF
@@ -205,33 +197,7 @@ cat > .devcontainer/devcontainer.json << EOF
   "workspaceFolder": "${WORKSPACE_FOLDER}",
   "runServices": ["webtop"],
   "overrideCommand": false,
-  "shutdownAction": "stopCompose",
-  "forwardPorts": [
-${FORWARD_PORTS_JSON}
-  ],
-  "portsAttributes": {
-${PORT_ATTRIBUTES_JSON}
-  },
-  "customizations": {
-    "vscode": {
-      "extensions": [
-        "ms-vscode-remote.remote-containers",
-        "ms-python.python",
-        "ms-python.vscode-pylance"
-      ],
-      "settings": {
-        "terminal.integrated.defaultProfile.linux": "bash"
-      }
-    }
-  },
-  "remoteUser": "${CURRENT_USER}",
-  "containerUser": "root",
-  "updateRemoteUserUID": false,
-  "remoteEnv": {
-    "USER": "${CURRENT_USER}",
-    "HOME": "/home/${CURRENT_USER}"
-  },
-  "postCreateCommand": "echo 'Dev container is ready!'"
+  "shutdownAction": "stopCompose"
 }
 EOF
 
@@ -244,21 +210,96 @@ services:
     container_name: \${DEVCONTAINER_CONTAINER_NAME:-${DEVCONTAINER_CONTAINER_NAME}}
 EOF
 
+VOLUME_ENTRIES=()
+ENV_OVERRIDE_ENTRIES=()
+
+# Add host group mappings (match start-container.sh)
+GROUPS_TO_ADD=()
+VIDEO_GID=$(getent group video 2>/dev/null | cut -d: -f3 || true)
+RENDER_GID=$(getent group render 2>/dev/null | cut -d: -f3 || true)
+if [ -n "${VIDEO_GID}" ]; then
+    GROUPS_TO_ADD+=("${VIDEO_GID}")
+fi
+if [ -n "${RENDER_GID}" ]; then
+    GROUPS_TO_ADD+=("${RENDER_GID}")
+fi
+if [ "${#GROUPS_TO_ADD[@]}" -gt 0 ]; then
+    {
+        echo "    group_add:"
+        for GID in "${GROUPS_TO_ADD[@]}"; do
+            echo "      - \"${GID}\""
+        done
+    } >> .devcontainer/docker-compose.override.yml
+fi
+
 # Add GPU configuration based on vendor
 if [ "${GPU_VENDOR}" = "nvidia" ] || [ "${GPU_VENDOR}" = "nvidia-wsl" ]; then
     cat >> .devcontainer/docker-compose.override.yml << EOF
-    runtime: nvidia
-    environment:
-      - NVIDIA_VISIBLE_DEVICES=all
-      - NVIDIA_DRIVER_CAPABILITIES=all
+    device_requests:
+      - driver: nvidia
+        capabilities: ["gpu"]
 EOF
-elif [ "${GPU_VENDOR}" = "intel" ] || [ "${GPU_VENDOR}" = "amd" ]; then
-    cat >> .devcontainer/docker-compose.override.yml << EOF
-    device_cgroup_rules:
-      - 'c 226:* rwm'
-    devices:
-      - /dev/dri:/dev/dri
-EOF
+    if [ "${GPU_VENDOR}" = "nvidia-wsl" ] || [ "${GPU_ALL}" = "true" ]; then
+        echo "        count: all" >> .devcontainer/docker-compose.override.yml
+    elif [ -n "${GPU_NUMS}" ]; then
+        {
+            echo "        device_ids:"
+            IFS=',' read -r -a GPU_ID_LIST <<< "${GPU_NUMS}"
+            for GPU_ID in "${GPU_ID_LIST[@]}"; do
+                echo "          - \"${GPU_ID}\""
+            done
+        } >> .devcontainer/docker-compose.override.yml
+    fi
+    ENV_OVERRIDE_ENTRIES+=("DISABLE_ZINK=true")
+    if [ "${GPU_VENDOR}" = "nvidia-wsl" ]; then
+        ENV_OVERRIDE_ENTRIES+=("WSL_ENVIRONMENT=true")
+    fi
+fi
+
+# Collect WSL2 specific mounts (match start-container.sh)
+if [ "${GPU_VENDOR}" = "nvidia-wsl" ]; then
+    if [ -d "/usr/lib/wsl/lib" ]; then
+        VOLUME_ENTRIES+=("/usr/lib/wsl/lib:/usr/lib/wsl/lib:ro")
+    fi
+    if [ -d "/mnt/wslg" ]; then
+        VOLUME_ENTRIES+=("/mnt/wslg:/mnt/wslg:ro")
+    fi
+fi
+
+# Add GPU device mappings when available
+if [ -n "${GPU_DEVICES}" ]; then
+    {
+        echo "    devices:"
+        IFS=',' read -r -a GPU_DEVICE_LIST <<< "${GPU_DEVICES}"
+        for DEVICE in "${GPU_DEVICE_LIST[@]}"; do
+            echo "      - ${DEVICE}"
+        done
+    } >> .devcontainer/docker-compose.override.yml
+fi
+
+# Add SSL mount when available (match start-container.sh)
+if [ -n "${SSL_DIR}" ] && [ -f "${SSL_DIR}/cert.pem" ] && [ -f "${SSL_DIR}/cert.key" ]; then
+    VOLUME_ENTRIES+=("\${SSL_DIR}:/config/ssl:ro")
+fi
+
+# Add volumes when available
+if [ "${#VOLUME_ENTRIES[@]}" -gt 0 ]; then
+    {
+        echo "    volumes:"
+        for VOLUME in "${VOLUME_ENTRIES[@]}"; do
+            echo "      - ${VOLUME}"
+        done
+    } >> .devcontainer/docker-compose.override.yml
+fi
+
+# Add environment overrides when available
+if [ "${#ENV_OVERRIDE_ENTRIES[@]}" -gt 0 ]; then
+    {
+        echo "    environment:"
+        for ENV_ENTRY in "${ENV_OVERRIDE_ENTRIES[@]}"; do
+            echo "      - ${ENV_ENTRY}"
+        done
+    } >> .devcontainer/docker-compose.override.yml
 fi
 
 # Copy .env to workspace root for docker-compose
@@ -291,7 +332,6 @@ cat >> .devcontainer/README.md << EOF
 - Ubuntu Version: ${UBUNTU_VERSION}
 - Resolution: ${RESOLUTION}
 - DPI: ${DPI}
-- Timezone: ${TIMEZONE}
 - HTTPS Port: https://localhost:${HOST_PORT_SSL}
 - HTTP Port: http://localhost:${HOST_PORT_HTTP}
 - TURN Port: ${HOST_PORT_TURN}
@@ -332,7 +372,6 @@ fi
 echo "  - Ubuntu: ${UBUNTU_VERSION}"
 echo "  - Resolution: ${RESOLUTION}"
 echo "  - DPI: ${DPI}"
-echo "  - Timezone: ${TIMEZONE}"
 echo "  - HTTPS Port: ${HOST_PORT_SSL}"
 echo "  - HTTP Port: ${HOST_PORT_HTTP}"
 echo "  - TURN Port: ${HOST_PORT_TURN}"
