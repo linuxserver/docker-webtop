@@ -512,24 +512,37 @@ ARG LIBVA_LIBDIR
 RUN \
   UBUNTU_VERSION="$(. /etc/os-release && echo ${VERSION_ID})" && \
   UBUNTU_MAJOR="$(echo "${UBUNTU_VERSION}" | cut -d. -f1)" && \
-  if [ "${UBUNTU_MAJOR}" -ge 24 ]; then \
+  ARCH_CUR="$(dpkg --print-architecture)" && \
+  LIBVA_TARGET_LIBDIR="${LIBVA_LIBDIR}" && \
+  if [ "${ARCH_CUR}" = "arm64" ] && [ "${LIBVA_TARGET_LIBDIR}" = "/usr/lib/x86_64-linux-gnu" ]; then \
+    LIBVA_TARGET_LIBDIR="/usr/lib/aarch64-linux-gnu"; \
+  fi && \
+  if [ "${UBUNTU_MAJOR}" -ge 24 ] && [ "${ARCH_CUR}" = "amd64" ] && [ -n "${LIBVA_DEB_URL}" ]; then \
     echo "**** libva hack (Ubuntu ${UBUNTU_VERSION}) ****" && \
     mkdir /tmp/libva && \
     curl -o /tmp/libva/libva.deb -L "${LIBVA_DEB_URL}" && \
     cd /tmp/libva && \
     ar x libva.deb && \
     tar xf data.tar.zst && \
-    rm -f ${LIBVA_LIBDIR}/libva.so.2* && \
-    cp -a usr/lib/${LIBVA_LIBDIR#/usr/lib/}/libva.so.2* ${LIBVA_LIBDIR}/; \
-  elif [ -n "${LIBVA_DEB_URL_JAMMY}" ]; then \
+    if ls "usr/lib/${LIBVA_TARGET_LIBDIR#/usr/lib/}/libva.so.2"* >/dev/null 2>&1; then \
+      rm -f ${LIBVA_TARGET_LIBDIR}/libva.so.2* && \
+      cp -a usr/lib/${LIBVA_TARGET_LIBDIR#/usr/lib/}/libva.so.2* ${LIBVA_TARGET_LIBDIR}/; \
+    else \
+      echo "**** libva hack skipped (libva.so.2 not found in ${LIBVA_TARGET_LIBDIR}) ****"; \
+    fi; \
+  elif [ "${ARCH_CUR}" = "amd64" ] && [ -n "${LIBVA_DEB_URL_JAMMY}" ]; then \
     echo "**** libva hack (Ubuntu ${UBUNTU_VERSION}, jammy-compatible override) ****" && \
     mkdir /tmp/libva && \
     curl -o /tmp/libva/libva.deb -L "${LIBVA_DEB_URL_JAMMY}" && \
     cd /tmp/libva && \
     ar x libva.deb && \
     tar xf data.tar.zst && \
-    rm -f ${LIBVA_LIBDIR}/libva.so.2* && \
-    cp -a usr/lib/${LIBVA_LIBDIR#/usr/lib/}/libva.so.2* ${LIBVA_LIBDIR}/; \
+    if ls "usr/lib/${LIBVA_TARGET_LIBDIR#/usr/lib/}/libva.so.2"* >/dev/null 2>&1; then \
+      rm -f ${LIBVA_TARGET_LIBDIR}/libva.so.2* && \
+      cp -a usr/lib/${LIBVA_TARGET_LIBDIR#/usr/lib/}/libva.so.2* ${LIBVA_TARGET_LIBDIR}/; \
+    else \
+      echo "**** libva hack skipped (libva.so.2 not found in ${LIBVA_TARGET_LIBDIR}) ****"; \
+    fi; \
   else \
     echo "**** skip libva hack on Ubuntu ${UBUNTU_VERSION} (use distro libva) ****"; \
   fi && \
