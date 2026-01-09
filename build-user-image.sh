@@ -24,6 +24,7 @@ PLATFORM_ARCH_HINT=""
 LANG_ARG="en_US.UTF-8"
 LANGUAGE_ARG="en_US:en"
 NO_CACHE_FLAG=""
+DOCKER_CMD=(docker)
 
 usage() {
   cat <<EOF
@@ -55,6 +56,15 @@ while [[ $# -gt 0 ]]; do
   esac
 done
 
+if command -v docker >/dev/null 2>&1; then
+  CURRENT_CONTEXT="$(docker context show 2>/dev/null || true)"
+  if [[ -n "${CURRENT_CONTEXT}" && "${CURRENT_CONTEXT}" != "default" ]]; then
+    if docker context inspect default >/dev/null 2>&1; then
+      DOCKER_CMD=(docker --context=default)
+    fi
+  fi
+fi
+
 if [[ -n "${PLATFORM_OVERRIDE}" ]]; then
   case "${PLATFORM_OVERRIDE}" in
     linux/amd64) PLATFORM_ARCH_HINT=amd64 ;;
@@ -80,7 +90,7 @@ if [[ -z "${BASE_IMAGE}" ]]; then
   BASE_CANDIDATES=()
   while IFS= read -r line; do
     BASE_CANDIDATES+=("$line")
-  done < <(docker images --format '{{.Repository}}:{{.Tag}}' | grep "^${IMAGE_NAME_BASE}-base-${TARGET_ARCH}-u${UBUNTU_VERSION}:" || true)
+  done < <("${DOCKER_CMD[@]}" images --format '{{.Repository}}:{{.Tag}}' | grep "^${IMAGE_NAME_BASE}-base-${TARGET_ARCH}-u${UBUNTU_VERSION}:" || true)
 
   if [[ ${#BASE_CANDIDATES[@]} -eq 0 ]]; then
     echo "BASE_IMAGE not provided and no local base found matching ${IMAGE_NAME_BASE}-base-${TARGET_ARCH}-u${UBUNTU_VERSION}:<tag>. Pass -b/--base." >&2
@@ -127,7 +137,7 @@ echo "Language: ${USER_LANGUAGE}"
 echo "Version tag: ${VERSION}"
 
 # Check if base image exists using docker images (more reliable than inspect)
-if ! docker images --format '{{.Repository}}:{{.Tag}}' | grep -q "^${BASE_IMAGE}$"; then
+if ! "${DOCKER_CMD[@]}" images --format '{{.Repository}}:{{.Tag}}' | grep -q "^${BASE_IMAGE}$"; then
   echo "Base image ${BASE_IMAGE} not found locally. Build it first (e.g. ./build-base-image.sh -a ${TARGET_ARCH} --ubuntu ${UBUNTU_VERSION} -v ${VERSION})." >&2
   exit 1
 fi
@@ -142,8 +152,7 @@ if [[ ! -f "${DOCKERFILE_USER}" ]]; then
   exit 1
 fi
 
-docker buildx build \
-  --builder default \
+"${DOCKER_CMD[@]}" buildx build \
   --platform "${PLATFORM}" \
   ${NO_CACHE_FLAG} \
   -f "${DOCKERFILE_USER}" \
