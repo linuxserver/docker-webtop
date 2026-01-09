@@ -222,6 +222,10 @@ case "${GPU_VENDOR}" in
     if [ -d "/usr/lib/wsl/lib" ]; then
       GPU_FLAGS+=(-v /usr/lib/wsl/lib:/usr/lib/wsl/lib:ro)
     fi
+    # WSLg support
+    if [ -d "/mnt/wslg" ]; then
+      GPU_FLAGS+=(-v /mnt/wslg:/mnt/wslg:ro)
+    fi
     GPU_ENV_VARS+=(-e ENABLE_NVIDIA=true -e WSL_ENVIRONMENT=true -e DISABLE_ZINK=true)
     ;;
   *)
