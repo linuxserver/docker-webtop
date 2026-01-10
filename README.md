@@ -21,9 +21,9 @@
 ```bash
 # 1. ユーザーイメージをビルド（1-2分）
 # ベースイメージはGHCRから自動取得されます
-USER_PASSWORD=yourpassword ./build-user-image.sh              # 英語環境
-USER_PASSWORD=yourpassword ./build-user-image.sh -l ja        # 日本語環境
-USER_PASSWORD=yourpassword ./build-user-image.sh -u 22.04     # Ubuntu 22.04
+./build-user-image.sh                                         # 英語環境
+./build-user-image.sh -l ja                                   # 日本語環境
+./build-user-image.sh -u 22.04                                # Ubuntu 22.04
 
 # 2. コンテナを起動
 ./start-container.sh                                          # ソフトウェアレンダリング
@@ -267,23 +267,25 @@ UID/GIDが一致するパーソナルイメージを作成（1-2分）：
 
 ```bash
 # 英語（デフォルト）
-USER_PASSWORD=yourpassword ./build-user-image.sh
+./build-user-image.sh
 
 # 日本語
-USER_PASSWORD=yourpassword ./build-user-image.sh -l ja
+./build-user-image.sh -l ja
 ```
+
+※ `USER_PASSWORD=...` を先に付けると対話プロンプトを省略できます。
 
 **オプション: カスタマイズ**
 
 ```bash
 # Ubuntu 22.04を使用
-USER_PASSWORD=yourpassword ./build-user-image.sh -u 22.04
+./build-user-image.sh -u 22.04
 
 # 別バージョン
-USER_PASSWORD=yourpassword ./build-user-image.sh -v 2.0.0
+./build-user-image.sh -v 2.0.0
 
 # 別のベースイメージを使用
-USER_PASSWORD=yourpassword ./build-user-image.sh -b my-custom-base:1.0.0
+./build-user-image.sh -b my-custom-base:1.0.0
 ```
 
 ---
@@ -427,7 +429,7 @@ IMAGE_NAME=ghcr.io/tatsuyai713/your-base ./files/push-base-image.sh
 | スクリプト | 説明 | 使い方 |
 |--------|-------------|-------|
 | `files/build-base-image.sh` | ベースイメージをビルド | `./files/build-base-image.sh [-a arch]` |
-| `build-user-image.sh` | ユーザー固有イメージをビルド | `USER_PASSWORD=xxx ./build-user-image.sh [-l ja]` |
+| `build-user-image.sh` | ユーザー固有イメージをビルド | `./build-user-image.sh [-l ja]` |
 | `start-container.sh` | デスクトップコンテナを起動 | `./start-container.sh [--gpu <type>]` |
 | `stop-container.sh` | コンテナを停止 | `./stop-container.sh [--rm]` |
 
@@ -548,7 +550,7 @@ docker logs linuxserver-kde-$(whoami)
 docker images | grep webtop-kde
 
 # ユーザーイメージを再ビルド
-USER_PASSWORD=yourpassword ./build-user-image.sh
+./build-user-image.sh
 
 # ポートが使用中か確認
 sudo netstat -tulpn | grep -E "11000|21000"
@@ -579,7 +581,7 @@ id  # ホスト上
 id  # コンテナ内
 
 # UID/GID不一致の場合、ユーザーイメージを再ビルド
-USER_PASSWORD=yourpassword ./build-user-image.sh
+./build-user-image.sh
 ```
 
 ### 黒画面 / デスクトップが表示されない

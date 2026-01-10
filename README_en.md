@@ -21,9 +21,9 @@ A containerized Kubuntu (KDE Plasma) desktop environment accessible via browser.
 ```bash
 # 1. Build user image (1-2 minutes)
 # The base image is pulled automatically from GHCR
-USER_PASSWORD=yourpassword ./build-user-image.sh              # English environment
-USER_PASSWORD=yourpassword ./build-user-image.sh -l ja        # Japanese environment
-USER_PASSWORD=yourpassword ./build-user-image.sh -u 22.04     # Ubuntu 22.04
+./build-user-image.sh                                         # English environment
+./build-user-image.sh -l ja                                   # Japanese environment
+./build-user-image.sh -u 22.04                                # Ubuntu 22.04
 
 # 2. Start container
 ./start-container.sh                                          # Software rendering
@@ -267,23 +267,25 @@ Create your personal image with matching UID/GID (1-2 minutes):
 
 ```bash
 # English (default)
-USER_PASSWORD=yourpassword ./build-user-image.sh
+./build-user-image.sh
 
 # Japanese
-USER_PASSWORD=yourpassword ./build-user-image.sh -l ja
+./build-user-image.sh -l ja
 ```
+
+Note: Prefix with `USER_PASSWORD=...` to skip the interactive prompt.
 
 **Optional: Customization**
 
 ```bash
 # Use Ubuntu 22.04
-USER_PASSWORD=yourpassword ./build-user-image.sh -u 22.04
+./build-user-image.sh -u 22.04
 
 # Different version
-USER_PASSWORD=yourpassword ./build-user-image.sh -v 2.0.0
+./build-user-image.sh -v 2.0.0
 
 # Use a different base image
-USER_PASSWORD=yourpassword ./build-user-image.sh -b my-custom-base:1.0.0
+./build-user-image.sh -b my-custom-base:1.0.0
 ```
 
 ---
@@ -427,7 +429,7 @@ IMAGE_NAME=ghcr.io/tatsuyai713/your-base ./files/push-base-image.sh
 | Script | Description | Usage |
 |--------|-------------|-------|
 | `files/build-base-image.sh` | Build the base image | `./files/build-base-image.sh [-a arch]` |
-| `build-user-image.sh` | Build user-specific image | `USER_PASSWORD=xxx ./build-user-image.sh [-l ja]` |
+| `build-user-image.sh` | Build user-specific image | `./build-user-image.sh [-l ja]` |
 | `start-container.sh` | Start the desktop container | `./start-container.sh [--gpu <type>]` |
 | `stop-container.sh` | Stop the container | `./stop-container.sh [--rm]` |
 
@@ -548,7 +550,7 @@ docker logs linuxserver-kde-$(whoami)
 docker images | grep webtop-kde
 
 # Rebuild user image
-USER_PASSWORD=yourpassword ./build-user-image.sh
+./build-user-image.sh
 
 # Check if port is in use
 sudo netstat -tulpn | grep -E "11000|21000"
@@ -579,7 +581,7 @@ id  # on host
 id  # inside container
 
 # If UID/GID mismatch, rebuild user image
-USER_PASSWORD=yourpassword ./build-user-image.sh
+./build-user-image.sh
 ```
 
 ### Black Screen / Desktop Not Showing
