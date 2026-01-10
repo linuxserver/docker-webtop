@@ -19,16 +19,13 @@ A containerized Kubuntu (KDE Plasma) desktop environment accessible via browser.
 ## Quick Start
 
 ```bash
-# 1. Build base image (first time only, 30-60 minutes)
-./files/build-base-image.sh                         # Ubuntu 24.04 (default)
-./files/build-base-image.sh -u 22.04                # Ubuntu 22.04
-
-# 2. Build user image (1-2 minutes)
+# 1. Build user image (1-2 minutes)
+# The base image is pulled automatically from GHCR
 USER_PASSWORD=yourpassword ./build-user-image.sh              # English environment
 USER_PASSWORD=yourpassword ./build-user-image.sh -l ja        # Japanese environment
 USER_PASSWORD=yourpassword ./build-user-image.sh -u 22.04     # Ubuntu 22.04
 
-# 3. Start container
+# 2. Start container
 ./start-container.sh                                          # Software rendering
 ./start-container.sh --gpu nvidia --all                       # NVIDIA GPU (all GPUs)
 ./start-container.sh --gpu nvidia --num 0                     # NVIDIA GPU (GPU 0 only)
@@ -36,14 +33,14 @@ USER_PASSWORD=yourpassword ./build-user-image.sh -u 22.04     # Ubuntu 22.04
 ./start-container.sh --gpu amd                                # AMD GPU
 ./start-container.sh --gpu nvidia-wsl --all                   # WSL2 + NVIDIA
 
-# 4. Access via browser
+# 3. Access via browser
 # → https://localhost:<10000+UID> (e.g., UID=1000 → https://localhost:11000)
 # → http://localhost:<20000+UID>  (e.g., UID=1000 → http://localhost:21000)
 
-# 5. Save your changes (IMPORTANT! Always do this before removing container)
+# 4. Save your changes (IMPORTANT! Always do this before removing container)
 ./commit-container.sh
 
-# 6. Stop
+# 5. Stop
 ./stop-container.sh                    # Stop (container persists, can restart)
 ./stop-container.sh --rm               # Stop and remove (only after commit!)
 ```
@@ -138,14 +135,15 @@ That's it! 🎉
 - [System Requirements](#system-requirements)
 - [Two-Stage Build System](#two-stage-build-system)
 - [Intel/AMD GPU Host Setup](#intelamd-gpu-host-setup)
-- [Installation](#installation)
+- [Setup (Typical Use)](#setup-typical-use)
 - [Usage](#usage)
-- [Scripts Reference](#scripts-reference)
-- [Configuration](#configuration)
-- [HTTPS/SSL](#httpsssl)
+- [Appendix: Build Base Image (For Developers)](#appendix-build-base-image-for-developers)
+- [Appendix: Scripts Reference](#appendix-scripts-reference)
+- [Appendix: Configuration](#appendix-configuration)
+- [Appendix: HTTPS/SSL](#appendix-httpsssl)
 - [Troubleshooting](#troubleshooting)
 - [Known Limitations](#known-limitations)
-- [Advanced Topics](#advanced-topics)
+- [Appendix: Advanced Topics](#appendix-advanced-topics)
 
 ---
 
@@ -259,35 +257,11 @@ vainfo
 
 ---
 
-## Installation
+## Setup (Typical Use)
 
-### 1. Build Base Image
+The base image is pulled automatically from GHCR, so no build is required for normal use.
 
-The base image only needs to be built once (30-60 minutes):
-
-```bash
-# Default repository: ghcr.io/tatsuyai713/webtop-kde
-# Auto-detect host architecture
-./files/build-base-image.sh                         # Ubuntu 24.04 (default)
-./files/build-base-image.sh -u 22.04                # Ubuntu 22.04
-
-# Or specify explicitly
-./files/build-base-image.sh -a amd64                # Intel/AMD 64-bit
-./files/build-base-image.sh -a arm64                # Apple Silicon / ARM
-./files/build-base-image.sh -a amd64 -u 22.04       # AMD64 + Ubuntu 22.04
-
-# Build without cache (if having issues)
-./files/build-base-image.sh --no-cache
-
-# Push to GHCR (uses the default repository)
-./files/push-base-image.sh
-
-# Use a custom repository name
-IMAGE_NAME=ghcr.io/tatsuyai713/your-base ./files/build-base-image.sh
-IMAGE_NAME=ghcr.io/tatsuyai713/your-base ./files/push-base-image.sh
-```
-
-### 2. Build User Image
+### Build User Image
 
 Create your personal image with matching UID/GID (1-2 minutes):
 
@@ -418,7 +392,35 @@ exit
 
 ---
 
-## Scripts Reference
+## Appendix: Build Base Image (For Developers)
+
+The base image only needs to be built once (30-60 minutes):
+
+```bash
+# Default repository: ghcr.io/tatsuyai713/webtop-kde
+# Auto-detect host architecture
+./files/build-base-image.sh                         # Ubuntu 24.04 (default)
+./files/build-base-image.sh -u 22.04                # Ubuntu 22.04
+
+# Or specify explicitly
+./files/build-base-image.sh -a amd64                # Intel/AMD 64-bit
+./files/build-base-image.sh -a arm64                # Apple Silicon / ARM
+./files/build-base-image.sh -a amd64 -u 22.04       # AMD64 + Ubuntu 22.04
+
+# Build without cache (if having issues)
+./files/build-base-image.sh --no-cache
+
+# Push to GHCR (uses the default repository)
+./files/push-base-image.sh
+
+# Use a custom repository name
+IMAGE_NAME=ghcr.io/tatsuyai713/your-base ./files/build-base-image.sh
+IMAGE_NAME=ghcr.io/tatsuyai713/your-base ./files/push-base-image.sh
+```
+
+---
+
+## Appendix: Scripts Reference
 
 ### Core Scripts
 
@@ -464,7 +466,7 @@ Other Options:
 
 ---
 
-## Configuration
+## Appendix: Configuration
 
 ### Display Settings
 
@@ -500,7 +502,7 @@ Selkies streams bidirectional audio to the browser via WebRTC.
 
 ---
 
-## HTTPS/SSL
+## Appendix: HTTPS/SSL
 
 ### SSL Certificate Setup
 
@@ -645,7 +647,7 @@ docker exec linuxserver-kde-$(whoami) pactl list sinks short
 
 ---
 
-## Advanced Topics
+## Appendix: Advanced Topics
 
 ### Environment Variables Reference
 
@@ -727,16 +729,6 @@ This project is based on multiple open source projects:
 - [VirtualGL](https://github.com/VirtualGL/virtualgl) - LGPL
 
 See each project's license for details.
-
----
-
-## Contributing
-
-Issues and Pull Requests are welcome!
-
-1. Fork the repository
-2. Create a feature branch
-3. Submit a pull request
 
 ---
 
