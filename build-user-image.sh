@@ -93,19 +93,26 @@ if [[ -z "${BASE_IMAGE}" ]]; then
   done < <("${DOCKER_CMD[@]}" images --format '{{.Repository}}:{{.Tag}}' | grep "^${IMAGE_NAME_BASE}-base-${TARGET_ARCH}-u${UBUNTU_VERSION}:" || true)
 
   if [[ ${#BASE_CANDIDATES[@]} -eq 0 ]]; then
-    echo "BASE_IMAGE not provided and no local base found matching ${IMAGE_NAME_BASE}-base-${TARGET_ARCH}-u${UBUNTU_VERSION}:<tag>. Pass -b/--base." >&2
-    exit 1
-  fi
-  for candidate in "${BASE_CANDIDATES[@]}"; do
-    if [[ "${candidate}" != *":latest" ]]; then
-      BASE_IMAGE="${candidate}"
-      break
+    DEFAULT_BASE_IMAGE="${IMAGE_NAME_BASE}-base-${TARGET_ARCH}-u${UBUNTU_VERSION}:${VERSION}"
+    echo "No local base image found. Attempting to pull ${DEFAULT_BASE_IMAGE}..." >&2
+    if "${DOCKER_CMD[@]}" pull "${DEFAULT_BASE_IMAGE}"; then
+      BASE_IMAGE="${DEFAULT_BASE_IMAGE}"
+    else
+      echo "BASE_IMAGE not provided and no local base found matching ${IMAGE_NAME_BASE}-base-${TARGET_ARCH}-u${UBUNTU_VERSION}:<tag>. Pass -b/--base." >&2
+      exit 1
     fi
-  done
-  if [[ -z "${BASE_IMAGE}" ]]; then
-    BASE_IMAGE="${BASE_CANDIDATES[0]}"
+  else
+    for candidate in "${BASE_CANDIDATES[@]}"; do
+      if [[ "${candidate}" != *":latest" ]]; then
+        BASE_IMAGE="${candidate}"
+        break
+      fi
+    done
+    if [[ -z "${BASE_IMAGE}" ]]; then
+      BASE_IMAGE="${BASE_CANDIDATES[0]}"
+    fi
+    echo "Using detected base image: ${BASE_IMAGE}"
   fi
-  echo "Using detected base image: ${BASE_IMAGE}"
 fi
 
 if [[ "${BASE_IMAGE}" == *":latest" ]]; then
