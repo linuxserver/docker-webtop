@@ -2,7 +2,17 @@
 
 **[日本語版 (README.md)](README.md)**
 
-A containerized Kubuntu (KDE Plasma) desktop environment accessible via browser. Uses Selkies WebRTC streaming to provide a fully functional Linux desktop without VNC/RDP.
+A containerized Kubuntu (KDE Plasma) desktop environment accessible via browser. Uses Selkies WebRTC streaming to provide a fully functional Linux desktop without VNC/RDP. Supports VS Code Dev Containers.
+
+### Feature Support Matrix (Platforms)
+
+| Environment | GPU Rendering | WebGL/Vulkan | Hardware Encoding | Notes |
+|-------------|---------------|--------------|-------------------|-------|
+| **Linux + NVIDIA GPU** | ✅ Supported | ✅ Supported | ✅ NVENC | Best performance |
+| **Linux + Intel GPU** | ✅ Supported | ✅ Supported | ✅ VA-API (QSV) | Integrated GPU OK |
+| **Linux + AMD GPU** | ✅ Supported | ✅ Supported | ✅ VA-API | RDNA/GCN supported |
+| **WSL2 + NVIDIA GPU** | ❌ Software | ❌ Software only | ✅ NVENC | Tested on WSL2 |
+| **macOS (Docker)** | ❌ Not supported | ❌ Software only | ❌ Not supported | VM limitation |
 
 ---
 
@@ -10,8 +20,8 @@ A containerized Kubuntu (KDE Plasma) desktop environment accessible via browser.
 
 ```bash
 # 1. Build base image (first time only, 30-60 minutes)
-./build-base-image.sh                         # Ubuntu 24.04 (default)
-./build-base-image.sh -u 22.04                # Ubuntu 22.04
+./files/build-base-image.sh                         # Ubuntu 24.04 (default)
+./files/build-base-image.sh -u 22.04                # Ubuntu 22.04
 
 # 2. Build user image (1-2 minutes)
 USER_PASSWORD=yourpassword ./build-user-image.sh              # English environment
@@ -161,18 +171,6 @@ That's it! 🎉
   - VA-API drivers included in container
   - **Host setup required** (see below)
 
-### Platform Support
-
-| Environment | GPU Rendering | WebGL/Vulkan | Hardware Encoding | Notes |
-|-------------|---------------|--------------|-------------------|-------|
-| **Linux + NVIDIA GPU** | ✅ Full | ✅ Native | ✅ NVENC | Best performance |
-| **Linux + Intel GPU** | ✅ Full | ✅ Native | ✅ VA-API (QSV) | Integrated GPU OK |
-| **Linux + AMD GPU** | ✅ Full | ✅ Native | ✅ VA-API | RDNA/GCN supported |
-| **WSL2 + NVIDIA GPU** | ❌ Software | ❌ Software only | ✅ NVENC | Tested on WSL2 |
-| **macOS (Docker)** | ❌ Not supported | ❌ Software only | ❌ Not supported | VM limitation |
-
----
-
 ## Two-Stage Build System
 
 This project uses a two-stage build approach for fast setup and proper file permissions:
@@ -268,17 +266,25 @@ vainfo
 The base image only needs to be built once (30-60 minutes):
 
 ```bash
+# Default repository: ghcr.io/tatsuyai713/webtop-kde
 # Auto-detect host architecture
-./build-base-image.sh                         # Ubuntu 24.04 (default)
-./build-base-image.sh -u 22.04                # Ubuntu 22.04
+./files/build-base-image.sh                         # Ubuntu 24.04 (default)
+./files/build-base-image.sh -u 22.04                # Ubuntu 22.04
 
 # Or specify explicitly
-./build-base-image.sh -a amd64                # Intel/AMD 64-bit
-./build-base-image.sh -a arm64                # Apple Silicon / ARM
-./build-base-image.sh -a amd64 -u 22.04       # AMD64 + Ubuntu 22.04
+./files/build-base-image.sh -a amd64                # Intel/AMD 64-bit
+./files/build-base-image.sh -a arm64                # Apple Silicon / ARM
+./files/build-base-image.sh -a amd64 -u 22.04       # AMD64 + Ubuntu 22.04
 
 # Build without cache (if having issues)
-./build-base-image.sh --no-cache
+./files/build-base-image.sh --no-cache
+
+# Push to GHCR (uses the default repository)
+./files/push-base-image.sh
+
+# Use a custom repository name
+IMAGE_NAME=ghcr.io/tatsuyai713/your-base ./files/build-base-image.sh
+IMAGE_NAME=ghcr.io/tatsuyai713/your-base ./files/push-base-image.sh
 ```
 
 ### 2. Build User Image
@@ -418,7 +424,7 @@ exit
 
 | Script | Description | Usage |
 |--------|-------------|-------|
-| `build-base-image.sh` | Build the base image | `./build-base-image.sh [-a arch]` |
+| `files/build-base-image.sh` | Build the base image | `./files/build-base-image.sh [-a arch]` |
 | `build-user-image.sh` | Build user-specific image | `USER_PASSWORD=xxx ./build-user-image.sh [-l ja]` |
 | `start-container.sh` | Start the desktop container | `./start-container.sh [--gpu <type>]` |
 | `stop-container.sh` | Stop the container | `./stop-container.sh [--rm]` |
@@ -429,6 +435,7 @@ exit
 |--------|-------------|-------|
 | `shell-container.sh` | Access container shell | `./shell-container.sh` |
 | `commit-container.sh` | Save container changes to image | `./commit-container.sh` |
+| `files/push-base-image.sh` | Push base image to GHCR | `./files/push-base-image.sh` |
 
 ### GPU Options Details
 
@@ -681,7 +688,6 @@ docker exec linuxserver-kde-$(whoami) pactl list sinks short
 
 ```
 devcontainer-ubuntu-kde-selkies-for-mac/
-├── build-base-image.sh           # Build base image
 ├── build-user-image.sh           # Build user image
 ├── start-container.sh            # Start container
 ├── stop-container.sh             # Stop container
@@ -691,6 +697,8 @@ devcontainer-ubuntu-kde-selkies-for-mac/
 │   ├── cert.pem
 │   └── cert.key
 └── files/                        # System files
+    ├── build-base-image.sh       # Build base image
+    ├── push-base-image.sh        # Push base image
     ├── linuxserver-kde.base.dockerfile   # Base image definition
     ├── linuxserver-kde.user.dockerfile   # User image definition
     ├── alpine-root/              # s6-overlay configuration

@@ -14,7 +14,7 @@ USER_GID=$(id -g)
 VIDEO_GID=$(getent group video 2>/dev/null | cut -d: -f3 || true)
 RENDER_GID=$(getent group render 2>/dev/null | cut -d: -f3 || true)
 BASE_IMAGE=${BASE_IMAGE:-}
-IMAGE_NAME_BASE=${IMAGE_NAME:-webtop-kde}
+IMAGE_NAME_BASE=${IMAGE_NAME:-ghcr.io/tatsuyai713/webtop-kde}
 TARGET_ARCH=${ARCH_OVERRIDE:-}
 PLATFORM_OVERRIDE=${PLATFORM_OVERRIDE:-}
 USER_PASSWORD=${USER_PASSWORD:-}
@@ -138,7 +138,7 @@ echo "Version tag: ${VERSION}"
 
 # Check if base image exists using docker images (more reliable than inspect)
 if ! "${DOCKER_CMD[@]}" images --format '{{.Repository}}:{{.Tag}}' | grep -q "^${BASE_IMAGE}$"; then
-  echo "Base image ${BASE_IMAGE} not found locally. Build it first (e.g. ./build-base-image.sh -a ${TARGET_ARCH} --ubuntu ${UBUNTU_VERSION} -v ${VERSION})." >&2
+  echo "Base image ${BASE_IMAGE} not found locally. Build it first (e.g. ./files/build-base-image.sh -a ${TARGET_ARCH} --ubuntu ${UBUNTU_VERSION} -v ${VERSION})." >&2
   exit 1
 fi
 

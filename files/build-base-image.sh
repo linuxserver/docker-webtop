@@ -2,10 +2,14 @@
 set -euo pipefail
 
 SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
-FILES_DIR="${SCRIPT_DIR}/files"
+if [[ -f "${SCRIPT_DIR}/linuxserver-kde.base.dockerfile" ]]; then
+  FILES_DIR="${SCRIPT_DIR}"
+else
+  FILES_DIR="${SCRIPT_DIR}/files"
+fi
 DOCKERFILE_BASE="${FILES_DIR}/linuxserver-kde.base.dockerfile"
 
-IMAGE_NAME=${IMAGE_NAME:-webtop-kde}
+IMAGE_NAME=${IMAGE_NAME:-ghcr.io/tatsuyai713/webtop-kde}
 VERSION=${VERSION:-1.0.0}
 UBUNTU_VERSION=${UBUNTU_VERSION:-24.04}
 ARCH_OVERRIDE=${ARCH_OVERRIDE:-}

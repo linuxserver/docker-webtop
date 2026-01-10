@@ -2,7 +2,17 @@
 
 **[English Version (README_en.md)](README_en.md)**
 
-ブラウザからアクセス可能なコンテナ化されたKubuntu (KDE Plasma) デスクトップ環境。Selkies WebRTCストリーミングを使用し、VNC/RDPなしでフル機能のLinuxデスクトップを提供します。
+ブラウザからアクセス可能なコンテナ化されたKubuntu (KDE Plasma) デスクトップ環境。Selkies WebRTCストリーミングを使用し、VNC/RDPなしでフル機能のLinuxデスクトップを提供します。VS Code Dev Containerにも対応。
+
+### 機能対応表（プラットフォーム）
+
+| 環境 | GPUレンダリング | WebGL/Vulkan | ハードウェアエンコード | 備考 |
+|------|----------------|--------------|----------------------|------|
+| **Linux + NVIDIA GPU** | ✅ 対応 | ✅ ネイティブ | ✅ NVENC | 最高のパフォーマンス |
+| **Linux + Intel GPU** | ✅ 対応 | ✅ ネイティブ | ✅ VA-API (QSV) | 統合GPU可 |
+| **Linux + AMD GPU** | ✅ 対応 | ✅ ネイティブ | ✅ VA-API | RDNA/GCN対応 |
+| **WSL2 + NVIDIA GPU** | ❌ ソフトウェア | ❌ ソフトウェアのみ | ✅ NVENC | WSL2で動作確認済み |
+| **macOS (Docker)** | ❌ 非対応 | ❌ ソフトウェアのみ | ❌ 非対応 | VM制限 |
 
 ---
 
@@ -10,8 +20,8 @@
 
 ```bash
 # 1. ベースイメージをビルド（初回のみ、30-60分）
-./build-base-image.sh                         # Ubuntu 24.04 (デフォルト)
-./build-base-image.sh -u 22.04                # Ubuntu 22.04
+./files/build-base-image.sh                         # Ubuntu 24.04 (デフォルト)
+./files/build-base-image.sh -u 22.04                # Ubuntu 22.04
 
 # 2. ユーザーイメージをビルド（1-2分）
 USER_PASSWORD=yourpassword ./build-user-image.sh              # 英語環境
@@ -161,18 +171,6 @@ USER_PASSWORD=yourpassword ./build-user-image.sh -u 22.04     # Ubuntu 22.04
   - VA-APIドライバはコンテナに含む
   - **ホストセットアップ必要**（下記参照）
 
-### プラットフォーム
-
-| 環境 | GPUレンダリング | WebGL/Vulkan | ハードウェアエンコード | 備考 |
-|------|----------------|--------------|----------------------|------|
-| **Linux + NVIDIA GPU** | ✅ 完全対応 | ✅ ネイティブ | ✅ NVENC | 最高のパフォーマンス |
-| **Linux + Intel GPU** | ✅ 完全対応 | ✅ ネイティブ | ✅ VA-API (QSV) | 統合GPU可 |
-| **Linux + AMD GPU** | ✅ 完全対応 | ✅ ネイティブ | ✅ VA-API | RDNA/GCN対応 |
-| **WSL2 + NVIDIA GPU** | ❌ ソフトウェア | ❌ ソフトウェアのみ | ✅ NVENC | WSL2で動作確認済み |
-| **macOS (Docker)** | ❌ 非対応 | ❌ ソフトウェアのみ | ❌ 非対応 | VM制限 |
-
----
-
 ## 2段階ビルドシステム
 
 このプロジェクトは高速セットアップと適切なファイル権限のために2段階ビルドアプローチを使用：
@@ -268,17 +266,25 @@ vainfo
 ベースイメージは初回のみビルドが必要（30-60分）：
 
 ```bash
+# デフォルトのリポジトリ: ghcr.io/tatsuyai713/webtop-kde
 # ホストアーキテクチャに合わせて自動検出
-./build-base-image.sh                         # Ubuntu 24.04 (デフォルト)
-./build-base-image.sh -u 22.04                # Ubuntu 22.04
+./files/build-base-image.sh                         # Ubuntu 24.04 (デフォルト)
+./files/build-base-image.sh -u 22.04                # Ubuntu 22.04
 
 # または明示的に指定
-./build-base-image.sh -a amd64                # Intel/AMD 64-bit
-./build-base-image.sh -a arm64                # Apple Silicon / ARM
-./build-base-image.sh -a amd64 -u 22.04       # AMD64 + Ubuntu 22.04
+./files/build-base-image.sh -a amd64                # Intel/AMD 64-bit
+./files/build-base-image.sh -a arm64                # Apple Silicon / ARM
+./files/build-base-image.sh -a amd64 -u 22.04       # AMD64 + Ubuntu 22.04
 
 # キャッシュなしでビルド（問題がある場合）
-./build-base-image.sh --no-cache
+./files/build-base-image.sh --no-cache
+
+# GHCRに保存する場合（デフォルトのリポジトリ名を使用）
+./files/push-base-image.sh
+
+# リポジトリ名を変える場合
+IMAGE_NAME=ghcr.io/tatsuyai713/your-base ./files/build-base-image.sh
+IMAGE_NAME=ghcr.io/tatsuyai713/your-base ./files/push-base-image.sh
 ```
 
 ### 2. ユーザーイメージのビルド
@@ -418,7 +424,7 @@ exit
 
 | スクリプト | 説明 | 使い方 |
 |--------|-------------|-------|
-| `build-base-image.sh` | ベースイメージをビルド | `./build-base-image.sh [-a arch]` |
+| `files/build-base-image.sh` | ベースイメージをビルド | `./files/build-base-image.sh [-a arch]` |
 | `build-user-image.sh` | ユーザー固有イメージをビルド | `USER_PASSWORD=xxx ./build-user-image.sh [-l ja]` |
 | `start-container.sh` | デスクトップコンテナを起動 | `./start-container.sh [--gpu <type>]` |
 | `stop-container.sh` | コンテナを停止 | `./stop-container.sh [--rm]` |
@@ -429,6 +435,7 @@ exit
 |--------|-------------|-------|
 | `shell-container.sh` | コンテナシェルにアクセス | `./shell-container.sh` |
 | `commit-container.sh` | コンテナ変更をイメージに保存 | `./commit-container.sh` |
+| `files/push-base-image.sh` | ベースイメージをGHCRへPush | `./files/push-base-image.sh` |
 
 ### GPUオプション詳細
 
@@ -681,7 +688,6 @@ docker exec linuxserver-kde-$(whoami) pactl list sinks short
 
 ```
 devcontainer-ubuntu-kde-selkies-for-mac/
-├── build-base-image.sh           # ベースイメージビルド
 ├── build-user-image.sh           # ユーザーイメージビルド
 ├── start-container.sh            # コンテナ起動
 ├── stop-container.sh             # コンテナ停止
@@ -691,6 +697,8 @@ devcontainer-ubuntu-kde-selkies-for-mac/
 │   ├── cert.pem
 │   └── cert.key
 └── files/                        # システムファイル
+    ├── build-base-image.sh       # ベースイメージビルド
+    ├── push-base-image.sh        # ベースイメージをPush
     ├── linuxserver-kde.base.dockerfile   # ベースイメージ定義
     ├── linuxserver-kde.user.dockerfile   # ユーザーイメージ定義
     ├── alpine-root/              # s6-overlay設定
@@ -952,18 +960,34 @@ GPUがない環境やmacOSでは自動的にソフトウェアレンダリング
 
 ## スクリプトリファレンス
 
-### build-base-image.sh
+### files/build-base-image.sh
 
 ベースイメージをビルドします。
 
 ```bash
-./build-base-image.sh [オプション]
+./files/build-base-image.sh [オプション]
 
 オプション:
   -a, --arch <arch>     アーキテクチャ (amd64|arm64) [デフォルト: ホストに合わせる]
   -p, --platform <plat> Dockerプラットフォーム (例: linux/arm64)
   -v, --version <ver>   イメージバージョン [デフォルト: 1.0.0]
   --no-cache            キャッシュなしでビルド
+  -h, --help            ヘルプ表示
+```
+
+### files/push-base-image.sh
+
+ベースイメージをGHCRにPushします。
+
+```bash
+./files/push-base-image.sh [オプション]
+
+オプション:
+  -a, --arch <arch>     アーキテクチャ (amd64|arm64) [デフォルト: ホストに合わせる]
+  -p, --platform <plat> Dockerプラットフォーム (例: linux/arm64)
+  -v, --version <ver>   イメージバージョン [デフォルト: 1.0.0]
+  -u, --ubuntu <ver>    Ubuntuバージョン (22.04|24.04)
+  -i, --image <name>    リポジトリ名 [デフォルト: ghcr.io/tatsuyai713/webtop-kde]
   -h, --help            ヘルプ表示
 ```
 
