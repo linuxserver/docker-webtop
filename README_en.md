@@ -8,9 +8,9 @@ A containerized Kubuntu (KDE Plasma) desktop environment accessible via browser.
 
 | Environment | GPU Rendering | WebGL/Vulkan | Hardware Encoding | Notes |
 |-------------|---------------|--------------|-------------------|-------|
-| **Linux + NVIDIA GPU** | ✅ Supported | ✅ Supported | ✅ NVENC | Best performance |
-| **Linux + Intel GPU** | ✅ Supported | ✅ Supported | ✅ VA-API (QSV) | Integrated GPU OK |
-| **Linux + AMD GPU** | ✅ Supported | ✅ Supported | ✅ VA-API | RDNA/GCN supported |
+| **Ubuntu + NVIDIA GPU** | ✅ Supported | ✅ Supported | ✅ NVENC | Best performance |
+| **Ubuntu + Intel GPU** | ✅ Supported | ✅ Supported | ✅ VA-API (QSV) | Integrated GPU OK |
+| **Ubuntu + AMD GPU** | ✅ Supported | ✅ Supported | ✅ VA-API | RDNA/GCN supported |
 | **WSL2 + NVIDIA GPU** | ❌ Software | ❌ Software only | ✅ NVENC | Tested on WSL2 |
 | **macOS (Docker)** | ❌ Not supported | ❌ Software only | ❌ Not supported | VM limitation |
 

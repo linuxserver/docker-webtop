@@ -8,9 +8,9 @@
 
 | 環境 | GPUレンダリング | WebGL/Vulkan | ハードウェアエンコード | 備考 |
 |------|----------------|--------------|----------------------|------|
-| **Linux + NVIDIA GPU** | ✅ 対応 | ✅ 対応 | ✅ NVENC | 高パフォーマンス |
-| **Linux + Intel GPU** | ✅ 対応 | ✅ 対応 | ✅ VA-API (QSV) | 統合GPU可 |
-| **Linux + AMD GPU** | ✅ 対応 | ✅ 対応 | ✅ VA-API | RDNA/GCN対応 |
+| **Ubuntu + NVIDIA GPU** | ✅ 対応 | ✅ 対応 | ✅ NVENC | 高パフォーマンス |
+| **Ubuntu + Intel GPU** | ✅ 対応 | ✅ 対応 | ✅ VA-API (QSV) | 統合GPU可 |
+| **Ubuntu + AMD GPU** | ✅ 対応 | ✅ 対応 | ✅ VA-API | RDNA/GCN対応 |
 | **WSL2 + NVIDIA GPU** | ❌ ソフトウェア | ❌ ソフトウェアのみ | ✅ NVENC | WSL2で動作確認済み |
 | **macOS (Docker)** | ❌ 非対応 | ❌ ソフトウェアのみ | ❌ 非対応 | VM制限 |
 
