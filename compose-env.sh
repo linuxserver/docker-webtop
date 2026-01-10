@@ -184,7 +184,19 @@ if [ -z "${IMAGE_TAG}" ]; then
 fi
 
 USER_IMAGE="${IMAGE_BASE}-${HOST_USER}-${IMAGE_ARCH}-u${UBUNTU_VERSION}:${IMAGE_TAG}"
-CONTAINER_HOSTNAME="${CONTAINER_HOSTNAME:-Docker-$(hostname)}"
+HOSTNAME_RAW="$(hostname)"
+if [[ "$(uname -s)" == "Darwin" ]]; then
+    HOSTNAME_RAW="$(scutil --get HostName 2>/dev/null || true)"
+    if [[ -z "${HOSTNAME_RAW}" ]]; then
+        HOSTNAME_RAW="$(scutil --get LocalHostName 2>/dev/null || true)"
+    fi
+    if [[ -z "${HOSTNAME_RAW}" ]]; then
+        HOSTNAME_RAW="$(scutil --get ComputerName 2>/dev/null || hostname)"
+    fi
+fi
+HOSTNAME_RAW="$(printf '%s' "${HOSTNAME_RAW}" | tr '[:upper:]' '[:lower:]' | sed 's/[^a-z0-9-]/-/g; s/--*/-/g; s/^-//; s/-$//')"
+HOSTNAME_RAW="${HOSTNAME_RAW:-host}"
+CONTAINER_HOSTNAME="${CONTAINER_HOSTNAME:-Docker-${HOSTNAME_RAW}}"
 
 # Extract width and height from resolution
 WIDTH=${RESOLUTION%x*}

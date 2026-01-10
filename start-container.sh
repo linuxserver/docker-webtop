@@ -98,7 +98,20 @@ HEIGHT=${RESOLUTION#*x}
 HOST_PORT_SSL=${PORT_SSL_OVERRIDE:-$((HOST_UID + 10000))}
 HOST_PORT_HTTP=${PORT_HTTP_OVERRIDE:-$((HOST_UID + 20000))}
 HOST_PORT_TURN=${PORT_TURN_OVERRIDE:-$((HOST_UID + 3000))}
-HOSTNAME_VAL=${CONTAINER_HOSTNAME:-Docker-$(hostname)}
+HOSTNAME_RAW="$(hostname)"
+if [[ "$(uname -s)" == "Darwin" ]]; then
+  HOSTNAME_RAW="$(scutil --get HostName 2>/dev/null || true)"
+  if [[ -z "${HOSTNAME_RAW}" ]]; then
+    HOSTNAME_RAW="$(scutil --get LocalHostName 2>/dev/null || true)"
+  fi
+  if [[ -z "${HOSTNAME_RAW}" ]]; then
+    HOSTNAME_RAW="$(scutil --get ComputerName 2>/dev/null || hostname)"
+  fi
+fi
+HOSTNAME_RAW="$(printf '%s' "${HOSTNAME_RAW}" | tr '[:upper:]' '[:lower:]' | sed 's/[^a-z0-9-]/-/g; s/--*/-/g; s/^-//; s/-$//')"
+HOSTNAME_RAW="${HOSTNAME_RAW:-host}"
+HOSTNAME_VAL=${CONTAINER_HOSTNAME:-Docker-${HOSTNAME_RAW}}
+echo "Using container hostname: ${HOSTNAME_VAL}"
 HOST_HOME_MOUNT="/home/${HOST_USER}/host_home"
 
 # Get host IP for TURN server (try multiple methods)
