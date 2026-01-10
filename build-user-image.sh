@@ -15,6 +15,7 @@ VIDEO_GID=$(getent group video 2>/dev/null | cut -d: -f3 || true)
 RENDER_GID=$(getent group render 2>/dev/null | cut -d: -f3 || true)
 BASE_IMAGE=${BASE_IMAGE:-}
 IMAGE_NAME_BASE=${IMAGE_NAME:-ghcr.io/tatsuyai713/webtop-kde}
+OUTPUT_IMAGE_BASE=""
 TARGET_ARCH=${ARCH_OVERRIDE:-}
 PLATFORM_OVERRIDE=${PLATFORM_OVERRIDE:-}
 USER_PASSWORD=${USER_PASSWORD:-}
@@ -73,6 +74,10 @@ if [[ -n "${PLATFORM_OVERRIDE}" ]]; then
   esac
 fi
 
+if [[ -z "${OUTPUT_IMAGE_BASE}" ]]; then
+  OUTPUT_IMAGE_BASE="${IMAGE_NAME_BASE##*/}"
+fi
+
 if [[ -z "${TARGET_ARCH}" ]]; then
   if [[ -n "${PLATFORM_ARCH_HINT}" ]]; then
     TARGET_ARCH="${PLATFORM_ARCH_HINT}"
@@ -91,6 +96,9 @@ if [[ -z "${BASE_IMAGE}" ]]; then
   while IFS= read -r line; do
     BASE_CANDIDATES+=("$line")
   done < <("${DOCKER_CMD[@]}" images --format '{{.Repository}}:{{.Tag}}' | grep "^${IMAGE_NAME_BASE}-base-${TARGET_ARCH}-u${UBUNTU_VERSION}:" || true)
+  while IFS= read -r line; do
+    BASE_CANDIDATES+=("$line")
+  done < <("${DOCKER_CMD[@]}" images --format '{{.Repository}}:{{.Tag}}' | grep "/${OUTPUT_IMAGE_BASE}-base-${TARGET_ARCH}-u${UBUNTU_VERSION}:" || true)
 
   if [[ ${#BASE_CANDIDATES[@]} -eq 0 ]]; then
     DEFAULT_BASE_IMAGE="${IMAGE_NAME_BASE}-base-${TARGET_ARCH}-u${UBUNTU_VERSION}:${VERSION}"
@@ -176,5 +184,5 @@ fi
   --build-arg HOST_HOSTNAME="${HOST_HOSTNAME_DEFAULT}" \
   --progress=plain \
   --load \
-  -t "${IMAGE_NAME_BASE}-${USER_NAME}-${TARGET_ARCH}-u${UBUNTU_VERSION}:${VERSION}" \
+  -t "${OUTPUT_IMAGE_BASE}-${USER_NAME}-${TARGET_ARCH}-u${UBUNTU_VERSION}:${VERSION}" \
   "${FILES_DIR}"

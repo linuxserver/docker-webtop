@@ -119,7 +119,13 @@ fi
 
 if ! docker image inspect "$IMAGE" >/dev/null 2>&1; then
   echo "Image ${IMAGE} not found. Searching for fallback tags under ${REPO_PREFIX}:*" >&2
-  mapfile -t REPO_IMAGES < <(docker images --format '{{.Repository}}:{{.Tag}}' | grep "^${REPO_PREFIX}:" || true)
+  REPO_IMAGES=()
+  while IFS= read -r line; do
+    REPO_IMAGES+=("$line")
+  done < <(docker images --format '{{.Repository}}:{{.Tag}}' | grep "^${REPO_PREFIX}:" || true)
+  while IFS= read -r line; do
+    REPO_IMAGES+=("$line")
+  done < <(docker images --format '{{.Repository}}:{{.Tag}}' | grep "/${REPO_PREFIX}:" || true)
   if [[ ${#REPO_IMAGES[@]} -gt 0 ]]; then
     FALLBACK_IMAGE="${REPO_IMAGES[0]}"
     echo "Using fallback image: ${FALLBACK_IMAGE}" >&2
