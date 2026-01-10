@@ -1,4 +1,4 @@
-# devcontainer-ubuntu-kde-selkies-for-mac
+# kde-selkies-webtop-devcontainer
 
 **[English Version (README_en.md)](README_en.md)**
 
