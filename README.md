@@ -635,6 +635,7 @@ docker exec linuxserver-kde-$(whoami) pactl list sinks short
 
 - XvfbはDRI3をサポートしていないため、Vulkanアプリケーションはフレームをプレゼントできず動作しません
 - VirtualGLを使用したOpenGLアプリケーションは正常に動作します
+- 環境によってはXvfb上でもvkcubeが動作しNVIDIA GPUを認識します（ただし表示/presentの挙動は構成依存です）
 
 ### macOSの制限
 

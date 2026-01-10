@@ -635,6 +635,7 @@ docker exec linuxserver-kde-$(whoami) pactl list sinks short
 
 - Xvfb does not support DRI3, so Vulkan applications cannot present frames
 - VirtualGL-based OpenGL applications work normally
+- In some setups, vkcube runs under Xvfb and detects the NVIDIA GPU, but presentation behavior depends on the configuration
 
 ### macOS Limitation
 
