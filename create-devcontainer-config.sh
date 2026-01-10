@@ -261,18 +261,21 @@ fi
 # Add GPU configuration based on vendor
 if [ "${GPU_VENDOR}" = "nvidia" ] || [ "${GPU_VENDOR}" = "nvidia-wsl" ]; then
     cat >> .devcontainer/docker-compose.override.yml << EOF
-    device_requests:
-      - driver: nvidia
-        capabilities: ["gpu"]
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              capabilities: ["gpu"]
 EOF
     if [ "${GPU_VENDOR}" = "nvidia-wsl" ] || [ "${GPU_ALL}" = "true" ]; then
-        echo "        count: all" >> .devcontainer/docker-compose.override.yml
+        echo "              count: all" >> .devcontainer/docker-compose.override.yml
     elif [ -n "${GPU_NUMS}" ]; then
         {
-            echo "        device_ids:"
+            echo "              device_ids:"
             IFS=',' read -r -a GPU_ID_LIST <<< "${GPU_NUMS}"
             for GPU_ID in "${GPU_ID_LIST[@]}"; do
-                echo "          - \"${GPU_ID}\""
+                echo "                - \"${GPU_ID}\""
             done
         } >> .devcontainer/docker-compose.override.yml
     fi
