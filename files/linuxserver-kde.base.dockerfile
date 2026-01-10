@@ -329,6 +329,7 @@ ENV DISPLAY=:1 \
 
 ARG APT_EXTRA_PACKAGES=""
 ARG LIBVA_DEB_URL="https://launchpad.net/ubuntu/+source/libva/2.22.0-3ubuntu2/+build/30591127/+files/libva2_2.22.0-3ubuntu2_amd64.deb"
+ARG LIBVA_DEB_URL_ARM64="http://ports.ubuntu.com/ubuntu-ports/pool/main/libv/libva/libva2_2.22.0-3ubuntu2_arm64.deb"
 # Optional: jammy-friendly libva deb (built against glibc 2.35). Leave empty to skip on 22.04.
 ARG LIBVA_DEB_URL_JAMMY="http://launchpadlibrarian.net/587480468/libva2_2.14.0-1_amd64.deb"
 ARG LIBVA_LIBDIR="/usr/lib/x86_64-linux-gnu"
@@ -507,6 +508,7 @@ echo "**** install VirtualGL ****" && \
 
 # Step 5: Install libva, locales, and theme
 ARG LIBVA_DEB_URL
+ARG LIBVA_DEB_URL_ARM64
 ARG LIBVA_DEB_URL_JAMMY
 ARG LIBVA_LIBDIR
 RUN \
@@ -521,6 +523,19 @@ RUN \
     echo "**** libva hack (Ubuntu ${UBUNTU_VERSION}) ****" && \
     mkdir /tmp/libva && \
     curl -o /tmp/libva/libva.deb -L "${LIBVA_DEB_URL}" && \
+    cd /tmp/libva && \
+    ar x libva.deb && \
+    tar xf data.tar.zst && \
+    if ls "usr/lib/${LIBVA_TARGET_LIBDIR#/usr/lib/}/libva.so.2"* >/dev/null 2>&1; then \
+      rm -f ${LIBVA_TARGET_LIBDIR}/libva.so.2* && \
+      cp -a usr/lib/${LIBVA_TARGET_LIBDIR#/usr/lib/}/libva.so.2* ${LIBVA_TARGET_LIBDIR}/; \
+    else \
+      echo "**** libva hack skipped (libva.so.2 not found in ${LIBVA_TARGET_LIBDIR}) ****"; \
+    fi; \
+  elif [ "${UBUNTU_MAJOR}" -ge 24 ] && [ "${ARCH_CUR}" = "arm64" ] && [ -n "${LIBVA_DEB_URL_ARM64}" ]; then \
+    echo "**** libva hack (Ubuntu ${UBUNTU_VERSION}, arm64) ****" && \
+    mkdir /tmp/libva && \
+    curl -o /tmp/libva/libva.deb -L "${LIBVA_DEB_URL_ARM64}" && \
     cd /tmp/libva && \
     ar x libva.deb && \
     tar xf data.tar.zst && \
