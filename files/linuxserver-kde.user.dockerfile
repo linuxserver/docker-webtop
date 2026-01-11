@@ -334,11 +334,7 @@ RUN set -eux; \
     if [ -x /usr/bin/google-chrome-stable ]; then \
       printf '%s\n' \
         '#!/bin/bash' \
-        'if [ -x /usr/bin/google-chrome-stable.distrib ]; then' \
-        '  CHROME_BIN="/usr/bin/google-chrome-stable.distrib"' \
-        'else' \
-        '  CHROME_BIN="/usr/bin/google-chrome-stable"' \
-        'fi' \
+        'CHROME_BIN="/usr/bin/google-chrome-stable"' \
         'exec "${CHROME_BIN}" --password-store=basic --in-process-gpu --no-sandbox ${CHROME_EXTRA_FLAGS} "$@"' \
         > /usr/local/bin/google-chrome-wrapped && \
       chmod 755 /usr/local/bin/google-chrome-wrapped; \
