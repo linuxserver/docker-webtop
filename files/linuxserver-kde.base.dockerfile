@@ -631,6 +631,12 @@ RUN if [ "$(dpkg --print-architecture)" = "amd64" ] && [ -f /usr/local/bin/patch
 COPY --from=frontend /buildout /usr/share/selkies
 COPY --from=xvfb-builder /build-out/ /
 
+# Apply Safari keyboard input patch for Selkies web UIs
+RUN if [ -f /usr/local/bin/patch-selkies-safari-keyboard.py ]; then \
+      chmod +x /usr/local/bin/patch-selkies-safari-keyboard.py && \
+      python3 /usr/local/bin/patch-selkies-safari-keyboard.py; \
+    fi
+
 # Make TURN server script executable (AMD64 only, after final COPY)
 RUN if [ "$(dpkg --print-architecture)" = "amd64" ]; then chmod 755 /etc/start-turnserver.sh; fi
 

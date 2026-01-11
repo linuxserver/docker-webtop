@@ -71,6 +71,12 @@ else
     /usr/share/selkies/web
 fi
 
+# Ensure Safari keyboard fix is applied after runtime copy
+if [ -f /usr/local/bin/patch-selkies-safari-keyboard.py ]; then
+  chmod +x /usr/local/bin/patch-selkies-safari-keyboard.py
+  python3 /usr/local/bin/patch-selkies-safari-keyboard.py
+fi
+
 sed -i "s|REPLACE_DOWNLOADS_PATH|$FILE_MANAGER_PATH|g" /usr/share/selkies/web/nginx/footer.html 2>/dev/null || true
 cp \
   /usr/share/selkies/www/icon.png \
