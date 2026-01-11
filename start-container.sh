@@ -13,6 +13,7 @@ RESOLUTION=${RESOLUTION:-1920x1080}
 DPI=${DPI:-96}
 SHM_SIZE=${SHM_SIZE:-4g}
 PLATFORM=${PLATFORM:-}
+ARCH_OVERRIDE=${ARCH_OVERRIDE:-}
 SSL_DIR=${SSL_DIR:-}
 GPU_VENDOR=${GPU_VENDOR:-none} # none|nvidia|nvidia-wsl|intel|amd
 GPU_ALL=false
@@ -29,7 +30,7 @@ esac
 
 usage() {
   cat <<EOF
-Usage: $0 [-n name] [-i image-base] [-t version] [-u ubuntu_version] [-r WIDTHxHEIGHT] [-d dpi] [-p platform] [-s ssl_dir]
+Usage: $0 [-n name] [-i image-base] [-t version] [-u ubuntu_version] [-r WIDTHxHEIGHT] [-d dpi] [-p platform] [-a arch] [-s ssl_dir]
   -n  container name (default: ${NAME})
   -i  image base name; final image becomes <base>-<user>-<arch>-u<ubuntu_ver>:<version> (default base: ${IMAGE_BASE})
   -t  image version tag (default: ${IMAGE_VERSION_DEFAULT})
@@ -37,6 +38,7 @@ Usage: $0 [-n name] [-i image-base] [-t version] [-u ubuntu_version] [-r WIDTHxH
   -r  resolution (e.g. 1920x1080, default: ${RESOLUTION})
   -d  DPI (default: ${DPI})
   -p  platform for docker run (e.g. linux/arm64). Default: host
+  -a  image arch for tag (amd64/arm64). Overrides auto-detect
   -s  host directory containing cert.pem and cert.key to mount at ssl (recommended for WSS)
   -g  GPU vendor: none|nvidia|nvidia-wsl|intel|amd (default: ${GPU_VENDOR})
       --gpu <vendor>   same as -g
@@ -62,6 +64,7 @@ while [[ $# -gt 0 ]]; do
     -r) RESOLUTION=$2; shift 2 ;;
     -d) DPI=$2; shift 2 ;;
     -p) PLATFORM=$2; shift 2 ;;
+    -a|--arch) ARCH_OVERRIDE=$2; shift 2 ;;
     -s) SSL_DIR=$2; shift 2 ;;
     -g|--gpu) GPU_VENDOR=$2; shift 2 ;;
     --all) GPU_ALL=true; shift ;;
@@ -85,6 +88,8 @@ if [[ -n "${PLATFORM}" ]]; then
     arm64|aarch64) IMAGE_ARCH="arm64" ;;
     *) IMAGE_ARCH="${DETECTED_ARCH}" ;;
   esac
+elif [[ -n "${ARCH_OVERRIDE}" ]]; then
+  IMAGE_ARCH="${ARCH_OVERRIDE}"
 else
   IMAGE_ARCH="${DETECTED_ARCH}"
 fi
