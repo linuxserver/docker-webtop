@@ -97,9 +97,64 @@ SCRIPT_V2 = f"""
   if (!isSafari) return;
 
   // Safari blocks clipboard read on focus without a user gesture.
+  // Keep clipboard enabled so user-initiated copy/paste still works.
   if (typeof window.clipboard_enabled !== "undefined") {{
-    window.clipboard_enabled = false;
+    window.clipboard_enabled = true;
   }}
+
+  if (navigator.clipboard) {{
+    if (typeof navigator.clipboard.readText === "function") {{
+      var origReadText = navigator.clipboard.readText.bind(navigator.clipboard);
+      navigator.clipboard.readText = function () {{
+        return origReadText().catch(function (err) {{
+          if (err && err.name === "NotAllowedError") {{
+            return "";
+          }}
+          throw err;
+        }});
+      }};
+    }}
+    if (typeof navigator.clipboard.read === "function") {{
+      var origRead = navigator.clipboard.read.bind(navigator.clipboard);
+      navigator.clipboard.read = function () {{
+        return origRead().catch(function (err) {{
+          if (err && err.name === "NotAllowedError") {{
+            return [];
+          }}
+          throw err;
+        }});
+      }};
+    }}
+  }}
+
+  function sendClipboardText(text) {{
+    if (!text) return;
+    window.postMessage(
+      {{ type: "clipboardUpdateFromUI", text: text }},
+      window.location.origin
+    );
+  }}
+
+  document.addEventListener("paste", function (e) {{
+    if (!e || !e.clipboardData) return;
+    var text = e.clipboardData.getData("text/plain");
+    if (text) {{
+      sendClipboardText(text);
+      e.preventDefault();
+    }}
+  }}, true);
+
+  document.addEventListener("keydown", function (e) {{
+    if (!e) return;
+    var isPasteKey = (e.metaKey || e.ctrlKey) && (e.key === "v" || e.key === "V");
+    if (!isPasteKey) return;
+    if (navigator.clipboard && typeof navigator.clipboard.readText === "function") {{
+      navigator.clipboard.readText().then(function (text) {{
+        sendClipboardText(text);
+      }}).catch(function () {{
+      }});
+    }}
+  }}, true);
 
   function focusAssist() {{
     var input = document.getElementById("keyboard-input-assist");
@@ -299,6 +354,122 @@ SCRIPT_V3 = f"""
 </script>
 """.strip()
 
+MARKER_V4 = "selkies-safari-clipboard-toolbar"
+SCRIPT_V4 = f"""
+<script>
+// {MARKER_V4}
+(function () {{
+  var ua = navigator.userAgent || "";
+  var isSafari = /^((?!chrome|android).)*safari/i.test(ua);
+  if (!isSafari) return;
+
+  var lastServerClipboard = "";
+
+  function sendClipboardText(text) {{
+    if (!text) return;
+    window.postMessage(
+      {{ type: "clipboardUpdateFromUI", text: text }},
+      window.location.origin
+    );
+  }}
+
+  function copyToClipboard(text) {{
+    if (!text) return;
+    if (navigator.clipboard && typeof navigator.clipboard.writeText === "function") {{
+      navigator.clipboard.writeText(text).catch(function () {{
+        fallbackCopy(text);
+      }});
+    }} else {{
+      fallbackCopy(text);
+    }}
+  }}
+
+  function fallbackCopy(text) {{
+    var textarea = document.createElement("textarea");
+    textarea.value = text;
+    textarea.setAttribute("readonly", "true");
+    textarea.style.position = "fixed";
+    textarea.style.opacity = "0";
+    textarea.style.pointerEvents = "none";
+    document.body.appendChild(textarea);
+    textarea.select();
+    try {{
+      document.execCommand("copy");
+    }} catch (e) {{
+    }}
+    document.body.removeChild(textarea);
+  }}
+
+  function ensureToolbar() {{
+    if (document.getElementById("safari-clipboard-toolbar")) return;
+    var bar = document.createElement("div");
+    bar.id = "safari-clipboard-toolbar";
+    bar.style.position = "fixed";
+    bar.style.right = "10px";
+    bar.style.top = "10px";
+    bar.style.zIndex = "9999";
+    bar.style.display = "flex";
+    bar.style.gap = "8px";
+    bar.style.padding = "6px";
+    bar.style.background = "rgba(0,0,0,0.5)";
+    bar.style.borderRadius = "6px";
+    bar.style.fontFamily = "sans-serif";
+
+    var pasteBtn = document.createElement("button");
+    pasteBtn.type = "button";
+    pasteBtn.textContent = "Paste to Session";
+    pasteBtn.style.fontSize = "12px";
+    pasteBtn.style.cursor = "pointer";
+    pasteBtn.addEventListener("click", function () {{
+      if (navigator.clipboard && typeof navigator.clipboard.readText === "function") {{
+        navigator.clipboard.readText().then(function (text) {{
+          sendClipboardText(text);
+        }}).catch(function () {{
+          var manual = window.prompt("Paste text to send to session:");
+          if (manual) sendClipboardText(manual);
+        }});
+      }} else {{
+        var manual = window.prompt("Paste text to send to session:");
+        if (manual) sendClipboardText(manual);
+      }}
+    }});
+
+    var copyBtn = document.createElement("button");
+    copyBtn.type = "button";
+    copyBtn.textContent = "Copy from Session";
+    copyBtn.style.fontSize = "12px";
+    copyBtn.style.cursor = "pointer";
+    copyBtn.addEventListener("click", function () {{
+      if (!lastServerClipboard) {{
+        window.alert("No clipboard text from session yet.");
+        return;
+      }}
+      copyToClipboard(lastServerClipboard);
+    }});
+
+    bar.appendChild(pasteBtn);
+    bar.appendChild(copyBtn);
+    document.body.appendChild(bar);
+  }}
+
+  window.addEventListener("message", function (e) {{
+    if (e.origin !== window.location.origin) return;
+    var data = e.data;
+    if (!data || data.type !== "clipboardContentUpdate") return;
+    if (typeof data.text === "string") {{
+      lastServerClipboard = data.text;
+    }}
+  }});
+
+  if (document.readyState === "loading") {{
+    document.addEventListener("DOMContentLoaded", ensureToolbar);
+  }} else {{
+    ensureToolbar();
+  }}
+}})();
+</script>
+""".strip()
+
 JS_MARKER = f"// {MARKER} (selkies-core)"
 JS_SNIPPET = f"""
 {JS_MARKER}
@@ -349,6 +520,8 @@ def patch_html(path: Path) -> bool:
         scripts.append(SCRIPT_V2)
     if MARKER_V3 not in text:
         scripts.append(SCRIPT_V3)
+    if MARKER_V4 not in text:
+        scripts.append(SCRIPT_V4)
     if not scripts:
         return False
 
