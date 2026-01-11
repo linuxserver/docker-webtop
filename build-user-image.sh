@@ -90,6 +90,11 @@ if [[ -z "${TARGET_ARCH}" ]]; then
   fi
 fi
 
+PLATFORM="linux/${TARGET_ARCH}"
+if [[ -n "${PLATFORM_OVERRIDE}" ]]; then
+  PLATFORM="${PLATFORM_OVERRIDE}"
+fi
+
 if [[ -z "${BASE_IMAGE}" ]]; then
   # macOS bash (3.x) lacks mapfile; use a portable read loop
   BASE_CANDIDATES=()
@@ -103,7 +108,7 @@ if [[ -z "${BASE_IMAGE}" ]]; then
   if [[ ${#BASE_CANDIDATES[@]} -eq 0 ]]; then
     DEFAULT_BASE_IMAGE="${IMAGE_NAME_BASE}-base-${TARGET_ARCH}-u${UBUNTU_VERSION}:${VERSION}"
     echo "No local base image found. Attempting to pull ${DEFAULT_BASE_IMAGE}..." >&2
-    if "${DOCKER_CMD[@]}" pull "${DEFAULT_BASE_IMAGE}"; then
+    if "${DOCKER_CMD[@]}" pull --platform "${PLATFORM}" "${DEFAULT_BASE_IMAGE}"; then
       BASE_IMAGE="${DEFAULT_BASE_IMAGE}"
     else
       echo "BASE_IMAGE not provided and no local base found matching ${IMAGE_NAME_BASE}-base-${TARGET_ARCH}-u${UBUNTU_VERSION}:<tag>. Pass -b/--base." >&2
@@ -125,11 +130,6 @@ fi
 
 if [[ "${BASE_IMAGE}" == *":latest" ]]; then
   echo "Warning: BASE_IMAGE uses ':latest' (${BASE_IMAGE}); consider pinning a version." >&2
-fi
-
-PLATFORM="linux/${TARGET_ARCH}"
-if [[ -n "${PLATFORM_OVERRIDE}" ]]; then
-  PLATFORM="${PLATFORM_OVERRIDE}"
 fi
 
 if [[ -z "${USER_PASSWORD}" ]]; then
