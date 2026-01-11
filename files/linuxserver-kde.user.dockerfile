@@ -338,7 +338,7 @@ RUN set -eux; \
         'exec "${CHROME_BIN}" --password-store=basic --in-process-gpu --no-sandbox ${CHROME_EXTRA_FLAGS} "$@"' \
         > /usr/local/bin/google-chrome-wrapped && \
       chmod 755 /usr/local/bin/google-chrome-wrapped; \
-      for chrome_bin in google-chrome google-chrome-beta google-chrome-unstable; do \
+      for chrome_bin in google-chrome-beta google-chrome-unstable; do \
         if [ -x "/usr/bin/${chrome_bin}" ]; then \
           printf '%s\n' '#!/bin/bash' 'exec /usr/local/bin/google-chrome-wrapped "$@"' > "/usr/local/bin/${chrome_bin}-wrapped" && \
           chmod 755 "/usr/local/bin/${chrome_bin}-wrapped"; \
@@ -346,14 +346,14 @@ RUN set -eux; \
       done; \
       for desktop in /usr/share/applications/google-chrome*.desktop; do \
         [ -f "$desktop" ] || continue; \
-        sed -i -E 's#Exec=/usr/bin/google-chrome-stable([^\\n]*)#Exec=/usr/local/bin/google-chrome-wrapped#g' "$desktop"; \
+        sed -i -E 's#^Exec=/usr/bin/google-chrome-stable(.*)#Exec=/usr/local/bin/google-chrome-wrapped\1#g' "$desktop"; \
       done; \
       mkdir -p /home/${USER_NAME}/.local/share/applications; \
       for desktop in /usr/share/applications/google-chrome*.desktop; do \
         [ -f "$desktop" ] || continue; \
         base=$(basename "$desktop"); \
         cp "$desktop" "/home/${USER_NAME}/.local/share/applications/$base"; \
-        sed -i -E 's#Exec=/usr/bin/google-chrome-stable([^\\n]*)#Exec=/usr/local/bin/google-chrome-wrapped#g' "/home/${USER_NAME}/.local/share/applications/$base"; \
+        sed -i -E 's#^Exec=/usr/bin/google-chrome-stable(.*)#Exec=/usr/local/bin/google-chrome-wrapped\1#g' "/home/${USER_NAME}/.local/share/applications/$base"; \
         chown ${USER_UID}:${USER_GID} "/home/${USER_NAME}/.local/share/applications/$base"; \
       done; \
     fi; \
