@@ -352,10 +352,11 @@ def patch_html(path: Path) -> bool:
     if not scripts:
         return False
 
+    injection = "\n".join(scripts)
     if "</body>" in text:
-        updated = text.replace("</body>", f"{'\n'.join(scripts)}\n</body>", 1)
+        updated = text.replace("</body>", f"{injection}\n</body>", 1)
     elif "</html>" in text:
-        updated = text.replace("</html>", f"{'\n'.join(scripts)}\n</html>", 1)
+        updated = text.replace("</html>", f"{injection}\n</html>", 1)
     else:
         return False
 

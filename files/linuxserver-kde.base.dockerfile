@@ -416,8 +416,37 @@ RUN \
     echo "**** Ubuntu ${UBUNTU_VERSION}: removing xkbcommon dependency (not compatible) ****" && \
     sed -i '/xkbcommon/d' pyproject.toml; \
   fi && \
+  echo "**** install PyAV build tools (all versions) ****" && \
+  apt-get update && \
+  apt-get install -y --no-install-recommends \
+    build-essential python3-dev pkg-config cython3 \
+    ffmpeg \
+    libavcodec-dev libavdevice-dev libavfilter-dev libavformat-dev \
+    libavutil-dev libswresample-dev libswscale-dev && \
+  if ! ffmpeg -version 2>/dev/null | head -n 1 | grep -q "ffmpeg version 7"; then \
+    echo "**** build FFmpeg 7 for PyAV ****" && \
+    apt-get update && \
+    apt-get install -y --no-install-recommends \
+      yasm nasm libssl-dev zlib1g-dev && \
+    SELKIES_DIR="$(pwd)" && \
+    cd /tmp && \
+    curl -fsSL https://ffmpeg.org/releases/ffmpeg-7.0.2.tar.xz | tar -xJ && \
+    cd ffmpeg-7.0.2 && \
+    ./configure --prefix=/usr/local --enable-shared --disable-static --disable-debug --disable-doc && \
+    make -j"$(nproc)" && \
+    make install && \
+    ldconfig && \
+    cd "${SELKIES_DIR}" && \
+    rm -rf /var/lib/apt/lists/*; \
+  fi && \
   python3 -m venv --system-site-packages /lsiopy && \
-  pip install . && \
+  export PKG_CONFIG_PATH="/usr/local/lib/$(dpkg-architecture -qDEB_HOST_MULTIARCH)/pkgconfig:/usr/local/lib/pkgconfig:/usr/local/lib64/pkgconfig:/usr/lib/$(dpkg-architecture -qDEB_HOST_MULTIARCH)/pkgconfig:/usr/lib/pkgconfig" && \
+  if [ "${UBUNTU_VERSION}" = "22.04" ] || [ "${UBUNTU_VERSION}" = "24.04" ]; then \
+    echo "av==14.4.0" > /tmp/selkies-constraints.txt; \
+    pip install -c /tmp/selkies-constraints.txt .; \
+  else \
+    pip install .; \
+  fi && \
   pip install setuptools && \
   if [ "${UBUNTU_VERSION}" = "22.04" ]; then \
     echo "Installing pixelflux 1.4.7 for Ubuntu 22.04 (GLIBC 2.35)" && \
