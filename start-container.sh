@@ -95,6 +95,8 @@ fi
 
 WIDTH=${RESOLUTION%x*}
 HEIGHT=${RESOLUTION#*x}
+SCALE_FACTOR=$(awk "BEGIN { printf \"%.2f\", ${DPI} / 96 }")
+CHROMIUM_FLAGS_COMBINED="--force-device-scale-factor=${SCALE_FACTOR} ${CHROMIUM_FLAGS:-}"
 HOST_PORT_SSL=${PORT_SSL_OVERRIDE:-$((HOST_UID + 10000))}
 HOST_PORT_HTTP=${PORT_HTTP_OVERRIDE:-$((HOST_UID + 20000))}
 HOST_PORT_TURN=${PORT_TURN_OVERRIDE:-$((HOST_UID + 3000))}
@@ -254,6 +256,7 @@ case "${GPU_VENDOR}" in
 esac
 
 echo "Starting: name=${NAME}, image=${IMAGE}, resolution=${RESOLUTION}, DPI=${DPI}, gpu=${GPU_VENDOR}, host ports https=${HOST_PORT_SSL}->3001, http=${HOST_PORT_HTTP}->3000, turn=${HOST_PORT_TURN}->3478"
+echo "Chromium scale: ${SCALE_FACTOR} (CHROMIUM_FLAGS=${CHROMIUM_FLAGS_COMBINED})"
 
 # Add video and render groups for GPU access (use host GIDs)
 GROUP_FLAGS=()
@@ -308,6 +311,9 @@ docker run -d \
   -p ${HOST_PORT_TURN}:3478/udp \
   -e DISPLAY=:1 \
   -e DPI="$DPI" \
+  -e SCALE_FACTOR="${SCALE_FACTOR}" \
+  -e FORCE_DEVICE_SCALE_FACTOR="${SCALE_FACTOR}" \
+  -e CHROMIUM_FLAGS="${CHROMIUM_FLAGS_COMBINED}" \
   -e DISPLAY_WIDTH="$WIDTH" \
   -e DISPLAY_HEIGHT="$HEIGHT" \
   -e CUSTOM_RESOLUTION="$RESOLUTION" \

@@ -305,28 +305,47 @@ RUN set -eux; \
   ARCH="$(dpkg --print-architecture)"; \
   if [ "${ARCH}" = "arm64" ]; then \
     if [ -x /usr/bin/chromium ]; then \
-      echo '#!/bin/bash' > /usr/local/bin/chromium-wrapped && \
-      echo 'CHROME_BIN=\"/usr/bin/chromium\"' >> /usr/local/bin/chromium-wrapped && \
-      echo 'exec \"${CHROME_BIN}\" --password-store=basic --in-process-gpu --no-sandbox ${CHROME_EXTRA_FLAGS} \"$@\"' >> /usr/local/bin/chromium-wrapped && \
-      chmod 755 /usr/local/bin/chromium-wrapped; \
-      if [ -f /usr/share/applications/chromium.desktop ]; then \
-        mkdir -p /home/${USER_NAME}/.local/share/applications && \
-        cp /usr/share/applications/chromium.desktop /home/${USER_NAME}/.local/share/applications/chromium.desktop && \
-        sed -i -e 's#Exec=/usr/bin/chromium#Exec=/usr/local/bin/chromium-wrapped#g' /home/${USER_NAME}/.local/share/applications/chromium.desktop && \
-        chown ${USER_UID}:${USER_GID} /home/${USER_NAME}/.local/share/applications/chromium.desktop; \
+      if command -v dpkg-divert >/dev/null 2>&1; then \
+        dpkg-divert --add --rename --divert /usr/bin/chromium.distrib /usr/bin/chromium || true; \
+        printf '%s\n' '#!/bin/bash' 'exec /usr/local/bin/wrapped-chromium "$@"' > /usr/bin/chromium && \
+        chmod 755 /usr/bin/chromium; \
+      fi; \
+      if [ -x /usr/local/bin/wrapped-chromium ]; then \
+        printf '%s\n' \
+          '#!/bin/bash' \
+          'if [ -x /usr/bin/chromium.distrib ]; then' \
+          '  BIN=/usr/bin/chromium.distrib' \
+          'else' \
+          '  BIN=/usr/bin/chromium' \
+          'fi' \
+          'DEFAULT_FLAGS="--password-store=basic --in-process-gpu"' \
+          'EXTRA_FLAGS=(${CHROMIUM_FLAGS:-})' \
+          '' \
+          'if ! pgrep chromium > /dev/null; then' \
+          '  rm -f $HOME/.config/chromium/Singleton*' \
+          'fi' \
+          '' \
+          '${BIN} ${DEFAULT_FLAGS} --no-sandbox "${EXTRA_FLAGS[@]}" "$@"' \
+          > /usr/local/bin/wrapped-chromium; \
+        chmod 755 /usr/local/bin/wrapped-chromium; \
       fi; \
     fi; \
   else \
     if [ -x /usr/bin/google-chrome-stable ]; then \
-      echo '#!/bin/bash' > /usr/local/bin/google-chrome-wrapped && \
-      echo 'CHROME_BIN="/usr/bin/google-chrome-stable"' >> /usr/local/bin/google-chrome-wrapped && \
-      echo 'exec "${CHROME_BIN}" --password-store=basic --in-process-gpu --no-sandbox ${CHROME_EXTRA_FLAGS} "$@"' >> /usr/local/bin/google-chrome-wrapped && \
+      printf '%s\n' \
+        '#!/bin/bash' \
+        'if [ -x /usr/bin/google-chrome-stable.distrib ]; then' \
+        '  CHROME_BIN="/usr/bin/google-chrome-stable.distrib"' \
+        'else' \
+        '  CHROME_BIN="/usr/bin/google-chrome-stable"' \
+        'fi' \
+        'exec "${CHROME_BIN}" --password-store=basic --in-process-gpu --no-sandbox ${CHROME_EXTRA_FLAGS} "$@"' \
+        > /usr/local/bin/google-chrome-wrapped && \
       chmod 755 /usr/local/bin/google-chrome-wrapped; \
       for chrome_bin in google-chrome google-chrome-beta google-chrome-unstable; do \
-        if [ -x \"/usr/bin/${chrome_bin}\" ]; then \
-          echo '#!/bin/bash' > \"/usr/local/bin/${chrome_bin}-wrapped\" && \
-          echo 'exec /usr/local/bin/google-chrome-wrapped \"$@\"' >> \"/usr/local/bin/${chrome_bin}-wrapped\" && \
-          chmod 755 \"/usr/local/bin/${chrome_bin}-wrapped\"; \
+        if [ -x "/usr/bin/${chrome_bin}" ]; then \
+          printf '%s\n' '#!/bin/bash' 'exec /usr/local/bin/google-chrome-wrapped "$@"' > "/usr/local/bin/${chrome_bin}-wrapped" && \
+          chmod 755 "/usr/local/bin/${chrome_bin}-wrapped"; \
         fi; \
       done; \
       for desktop in /usr/share/applications/google-chrome*.desktop; do \
