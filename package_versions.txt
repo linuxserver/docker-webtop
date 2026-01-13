@@ -4,7 +4,7 @@ adobe-source-code-pro-fonts                                                   2.
 adwaita-cursor-theme                                                          40.1.1-3.el9                            rpm                         
 adwaita-icon-theme                                                            40.1.1-3.el9                            rpm                         
 aiohappyeyeballs                                                              2.6.1                                   python                      
-aiohttp                                                                       3.13.2                                  python                      
+aiohttp                                                                       3.13.3                                  python                      
 aioice                                                                        0.10.2                                  python                      
 aiosignal                                                                     1.4.0                                   python                      
 alsa-lib                                                                      1.2.14-1.el9                            rpm                         
@@ -33,8 +33,8 @@ catatonit                                                                     3:
 cffi                                                                          2.0.0                                   python                      
 chardet                                                                       4.0.0                                   python                      
 checkpolicy                                                                   3.6-1.el9                               rpm                         
-chromium                                                                      143.0.7499.40-1.el9                     rpm                         
-chromium-common                                                               143.0.7499.40-1.el9                     rpm                         
+chromium                                                                      143.0.7499.169-1.el9                    rpm                         
+chromium-common                                                               143.0.7499.169-1.el9                    rpm                         
 cloud.google.com/go/auth                                                      v0.16.5                                 go-module                   
 cloud.google.com/go/auth/oauth2adapt                                          v0.2.8                                  go-module                   
 cloud.google.com/go/compute/metadata                                          v0.8.0                                  go-module                   
@@ -56,7 +56,7 @@ cracklib-dicts                                                                2.
 crypto-policies                                                               20250905-1.git377cc42.el9_7             rpm                         
 crypto-policies-scripts                                                       20250905-1.git377cc42.el9_7             rpm                         
 cryptography                                                                  46.0.3                                  python                      
-cups-libs                                                                     1:2.3.3op2-34.el9_7                     rpm                         
+cups-libs                                                                     1:2.3.3op2-34.el9_7.2                   rpm                         
 curl                                                                          7.76.1-34.el9                           rpm                         
 cyrus-sasl-lib                                                                2.1.27-22.el9                           rpm                         
 dario.cat/mergo                                                               v1.0.2                                  go-module  (+2 duplicates)  
@@ -81,8 +81,8 @@ dnf-data                                                                      4.
 dnf-plugins-core                                                              4.3.0-24.el9_7                          rpm                         
 dnspython                                                                     2.7.0                                   python                      
 docker-buildx-plugin                                                          0:0.30.1-1.el9                          rpm                         
-docker-ce                                                                     3:29.1.3-1.el9                          rpm                         
-docker-ce-cli                                                                 1:29.1.3-1.el9                          rpm                         
+docker-ce                                                                     3:29.1.4-1.el9                          rpm                         
+docker-ce-cli                                                                 1:29.1.4-1.el9                          rpm                         
 docker-compose-plugin                                                         0:5.0.1-1.el9                           rpm                         
 double-conversion                                                             3.1.5-6.el9                             rpm                         
 elfutils-default-yama-scope                                                   0.193-1.el9                             rpm                         
@@ -325,14 +325,13 @@ github.com/mitchellh/go-wordwrap                                              v1
 github.com/mitchellh/hashstructure/v2                                         v2.0.2                                  go-module  (+2 duplicates)  
 github.com/mitchellh/reflectwalk                                              v1.0.2                                  go-module                   
 github.com/moby/buildkit                                                      v0.26.1                                 go-module                   
-github.com/moby/buildkit                                                      v0.26.2                                 go-module                   
-github.com/moby/buildkit                                                      v0.26.3                                 go-module                   
+github.com/moby/buildkit                                                      v0.26.3                                 go-module  (+1 duplicate)   
 github.com/moby/docker-image-spec                                             v1.3.1                                  go-module  (+2 duplicates)  
 github.com/moby/go-archive                                                    v0.1.0                                  go-module  (+2 duplicates)  
 github.com/moby/ipvs                                                          v1.1.0                                  go-module                   
 github.com/moby/locker                                                        v1.0.1                                  go-module  (+5 duplicates)  
 github.com/moby/moby/api                                                      v1.52.0                                 go-module                   
-github.com/moby/moby/v2                                                       v29.1.3                                 go-module  (+1 duplicate)   
+github.com/moby/moby/v2                                                       v29.1.4                                 go-module  (+1 duplicate)   
 github.com/moby/patternmatcher                                                v0.6.0                                  go-module  (+2 duplicates)  
 github.com/moby/policy-helpers                                                v0.0.0-20251105011237-bcaa71c99f14      go-module                   
 github.com/moby/profiles/apparmor                                             v0.1.0                                  go-module                   
@@ -699,7 +698,7 @@ libogg                                                                        2:
 libopenmpt                                                                    0.8.4-1.el9                             rpm                         
 libpciaccess                                                                  0.16-7.el9                              rpm                         
 libpkgconf                                                                    1.7.3-10.el9                            rpm                         
-libpng                                                                        2:1.6.37-12.el9                         rpm                         
+libpng                                                                        2:1.6.37-12.el9_7.1                     rpm                         
 libproxy                                                                      0.4.15-35.el9                           rpm                         
 libpsl                                                                        0.21.1-5.el9                            rpm                         
 libpwquality                                                                  1.4.4-8.el9                             rpm                         
@@ -720,7 +719,7 @@ libsigsegv                                                                    2.
 libsmartcols                                                                  2.37.4-21.0.1.el9                       rpm                         
 libsndfile                                                                    1.0.31-9.el9                            rpm                         
 libsolv                                                                       0.7.24-3.el9                            rpm                         
-libsoup                                                                       2.72.0-12.el9_7.1                       rpm                         
+libsoup                                                                       2.72.0-12.el9_7.3                       rpm                         
 libssh                                                                        0.10.4-17.el9_7                         rpm                         
 libssh-config                                                                 0.10.4-17.el9_7                         rpm                         
 libstdc++                                                                     11.5.0-11.0.1.el9                       rpm                         
@@ -982,7 +981,7 @@ python3-six                                                                   1.
 python3-subscription-manager-rhsm                                             1.29.47.1-1.el9_7                       rpm                         
 python3-systemd                                                               234-19.el9                              rpm                         
 python3-urllib3                                                               1.26.5-6.el9                            rpm                         
-python3-virtualenv                                                            20.21.1-15.el9                          rpm                         
+python3-virtualenv                                                            20.21.1-16.el9                          rpm                         
 python3-wheel-wheel                                                           1:0.36.2-8.el9                          rpm                         
 pyxdg                                                                         0.27                                    python                      
 readline                                                                      8.1-4.el9                               rpm                         
@@ -1047,7 +1046,7 @@ tags.cncf.io/container-device-interface                                       v1
 tags.cncf.io/container-device-interface                                       v1.1.0                                  go-module  (+3 duplicates)  
 tags.cncf.io/container-device-interface/specs-go                              v1.0.0                                  go-module                   
 tags.cncf.io/container-device-interface/specs-go                              v1.1.0                                  go-module  (+2 duplicates)  
-tar                                                                           2:1.34-7.el9                            rpm                         
+tar                                                                           2:1.34-9.el9_7                          rpm                         
 tpm2-tss                                                                      3.2.3-1.el9                             rpm                         
 typing-extensions                                                             4.15.0                                  python                      
 tzdata                                                                        2025c-1.el9                             rpm                         
