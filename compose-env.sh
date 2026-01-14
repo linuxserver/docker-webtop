@@ -212,6 +212,14 @@ CONTAINER_HOSTNAME="${CONTAINER_HOSTNAME:-Docker-${HOSTNAME_RAW}}"
 # Extract width and height from resolution
 WIDTH=${RESOLUTION%x*}
 HEIGHT=${RESOLUTION#*x}
+SCALE_FACTOR=$(awk "BEGIN { printf \"%.2f\", ${DPI} / 96 }")
+FORCE_DEVICE_SCALE_FACTOR="${SCALE_FACTOR}"
+ORIG_CHROMIUM_FLAGS="${CHROMIUM_FLAGS:-}"
+if [ -n "${ORIG_CHROMIUM_FLAGS}" ]; then
+    CHROMIUM_FLAGS="--force-device-scale-factor=${SCALE_FACTOR} ${ORIG_CHROMIUM_FLAGS}"
+else
+    CHROMIUM_FLAGS="--force-device-scale-factor=${SCALE_FACTOR}"
+fi
 
 # Ports (UID-based, but allow overrides)
 HOST_PORT_SSL="${PORT_SSL_OVERRIDE:-$((HOST_UID + 10000))}"
@@ -220,6 +228,13 @@ HOST_PORT_TURN="${PORT_TURN_OVERRIDE:-$((HOST_UID + 3000))}"
 
 # Get host IP for TURN server
 HOST_IP="${HOST_IP:-$(hostname -I 2>/dev/null | awk '{print $1}' || ip route get 1 2>/dev/null | awk '{print $7; exit}' || echo "127.0.0.1")}"
+if [ -z "${HOST_IP}" ]; then
+    if [ "$(uname -s)" = "Darwin" ]; then
+        HOST_IP="$(ipconfig getifaddr en0 2>/dev/null || ipconfig getifaddr en1 2>/dev/null || echo "127.0.0.1")"
+    else
+        HOST_IP="127.0.0.1"
+    fi
+fi
 TURN_RANDOM_PASSWORD=$(openssl rand -base64 18 | tr -dc 'A-Za-z0-9' | head -c 24 || echo "defaultpassword12345678")
 
 # Home mount path
@@ -343,7 +358,7 @@ ENV_VARS=(
     HOST_USER HOST_UID HOST_GID CONTAINER_NAME USER_IMAGE CONTAINER_HOSTNAME
     IMAGE_BASE IMAGE_TAG IMAGE_VERSION IMAGE_ARCH UBUNTU_VERSION
     HOST_PORT_SSL HOST_PORT_HTTP HOST_PORT_TURN HOST_IP
-    WIDTH HEIGHT DPI SHM_SIZE RESOLUTION TIMEZONE
+    WIDTH HEIGHT DPI SCALE_FACTOR FORCE_DEVICE_SCALE_FACTOR CHROMIUM_FLAGS SHM_SIZE RESOLUTION TIMEZONE
     GPU_VENDOR GPU_ALL GPU_NUMS VIDEO_ENCODER
     SELKIES_ENCODER
     ENABLE_NVIDIA LIBVA_DRIVER_NAME NVIDIA_VISIBLE_DEVICES GPU_DEVICES
