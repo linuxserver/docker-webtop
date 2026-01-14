@@ -17,6 +17,7 @@ Options (same as start-container.sh):
   -u, --ubuntu <ver>     Ubuntu version: 22.04 or 24.04 (default: 24.04)
   -r, --resolution <res> Resolution in WIDTHxHEIGHT format (default: 1920x1080)
   -d, --dpi <dpi>        DPI setting (default: 96)
+  -t, --timezone <tz>    Timezone (default: UTC, example: Asia/Tokyo)
   -s, --ssl <dir>        SSL directory path for HTTPS (optional)
   -a, --arch <arch>      Target architecture: amd64 or arm64 (default: host)
       --env-file <path>  Write KEY=VALUE pairs to the specified file instead of exports
@@ -25,6 +26,7 @@ Options (same as start-container.sh):
 Environment overrides:
   Resolution: RESOLUTION
   DPI: DPI
+  Timezone: TIMEZONE
   Ports: PORT_SSL_OVERRIDE, PORT_HTTP_OVERRIDE, PORT_TURN_OVERRIDE
   SSL: SSL_DIR
   Container: CONTAINER_NAME, CONTAINER_HOSTNAME
@@ -41,6 +43,7 @@ GPU_NUMS="${GPU_NUMS:-}"
 UBUNTU_VERSION="${UBUNTU_VERSION:-24.04}"
 RESOLUTION="${RESOLUTION:-1920x1080}"
 DPI="${DPI:-96}"
+TIMEZONE="${TIMEZONE:-UTC}"
 SSL_DIR="${SSL_DIR:-}"
 OUTPUT_MODE="export"
 ENV_FILE=""
@@ -99,6 +102,14 @@ while [[ $# -gt 0 ]]; do
                 exit 1
             fi
             DPI="${2}"
+            shift 2
+            ;;
+        -t|--timezone)
+            if [ -z "${2:-}" ]; then
+                echo "Error: --timezone requires a value (e.g. Asia/Tokyo)" >&2
+                exit 1
+            fi
+            TIMEZONE="${2}"
             shift 2
             ;;
         -s|--ssl)
@@ -218,25 +229,82 @@ HOST_HOME_MOUNT="/home/${HOST_USER}/host_home"
 VIDEO_ENCODER="x264enc"
 ENABLE_NVIDIA="false"
 LIBVA_DRIVER_NAME=""
-DISABLE_ZINK=""
-WSL_ENVIRONMENT=""
+NVIDIA_VISIBLE_DEVICES=""
+GPU_DEVICES=""
+WSL_ENVIRONMENT="false"
+DISABLE_ZINK="false"
 
 case "${GPU_VENDOR}" in
-    nvidia|nvidia-wsl)
+    nvidia)
         VIDEO_ENCODER="nvh264enc"
         ENABLE_NVIDIA="true"
         DISABLE_ZINK="true"
-        if [ "${GPU_VENDOR}" = "nvidia-wsl" ]; then
-            WSL_ENVIRONMENT="true"
+        if [ "${GPU_ALL}" = "true" ]; then
+            NVIDIA_VISIBLE_DEVICES="all"
+        else
+            NVIDIA_VISIBLE_DEVICES="${GPU_NUMS}"
+        fi
+        if [ -d "/dev/dri" ]; then
+            GPU_DEVICES="/dev/dri:/dev/dri:rwm"
+        fi
+        ;;
+    nvidia-wsl)
+        VIDEO_ENCODER="nvh264enc"
+        ENABLE_NVIDIA="true"
+        WSL_ENVIRONMENT="true"
+        DISABLE_ZINK="true"
+        if [ "${GPU_ALL}" = "true" ]; then
+            NVIDIA_VISIBLE_DEVICES="all"
+        else
+            NVIDIA_VISIBLE_DEVICES="${GPU_NUMS}"
         fi
         ;;
     intel)
         VIDEO_ENCODER="vah264enc"
         LIBVA_DRIVER_NAME="${LIBVA_DRIVER_NAME:-iHD}"
+        if [ -d "/dev/dri" ]; then
+            if command -v vainfo >/dev/null 2>&1; then
+                if vainfo --display drm --device /dev/dri/renderD128 >/dev/null 2>&1; then
+                    GPU_DEVICES="/dev/dri:/dev/dri:rwm"
+                else
+                    echo "Warning: /dev/dri found but VA-API initialization failed." >&2
+                    echo "Falling back to software encoding (x264enc)..." >&2
+                    VIDEO_ENCODER="x264enc"
+                fi
+            else
+                GPU_DEVICES="/dev/dri:/dev/dri:rwm"
+                echo "Warning: vainfo not found, cannot verify VA-API availability" >&2
+            fi
+        else
+            echo "Warning: /dev/dri not found, Intel VA-API not available." >&2
+            echo "Falling back to software encoding (x264enc)..." >&2
+            VIDEO_ENCODER="x264enc"
+        fi
         ;;
     amd)
         VIDEO_ENCODER="vah264enc"
         LIBVA_DRIVER_NAME="${LIBVA_DRIVER_NAME:-radeonsi}"
+        if [ -d "/dev/dri" ]; then
+            if command -v vainfo >/dev/null 2>&1; then
+                if vainfo --display drm --device /dev/dri/renderD128 >/dev/null 2>&1; then
+                    GPU_DEVICES="/dev/dri:/dev/dri:rwm"
+                else
+                    echo "Warning: /dev/dri found but VA-API initialization failed." >&2
+                    echo "Falling back to software encoding (x264enc)..." >&2
+                    VIDEO_ENCODER="x264enc"
+                fi
+            else
+                GPU_DEVICES="/dev/dri:/dev/dri:rwm"
+                echo "Warning: vainfo not found, cannot verify VA-API availability" >&2
+            fi
+        else
+            echo "Warning: /dev/dri not found, AMD VA-API not available." >&2
+            echo "Falling back to software encoding (x264enc)..." >&2
+            VIDEO_ENCODER="x264enc"
+        fi
+        if [ -e "/dev/kfd" ]; then
+            GPU_DEVICES="${GPU_DEVICES:+${GPU_DEVICES},}/dev/kfd:/dev/kfd:rwm"
+        fi
         ;;
     none|"")
         VIDEO_ENCODER="x264enc"
@@ -274,11 +342,12 @@ fi
 ENV_VARS=(
     HOST_USER HOST_UID HOST_GID CONTAINER_NAME USER_IMAGE CONTAINER_HOSTNAME
     IMAGE_BASE IMAGE_TAG IMAGE_VERSION IMAGE_ARCH UBUNTU_VERSION
-    HOST_PORT_SSL HOST_PORT_HTTP HOST_PORT_TURN
-    WIDTH HEIGHT DPI SHM_SIZE RESOLUTION
+    HOST_PORT_SSL HOST_PORT_HTTP HOST_PORT_TURN HOST_IP
+    WIDTH HEIGHT DPI SHM_SIZE RESOLUTION TIMEZONE
     GPU_VENDOR GPU_ALL GPU_NUMS VIDEO_ENCODER
     SELKIES_ENCODER
-    ENABLE_NVIDIA LIBVA_DRIVER_NAME
+    ENABLE_NVIDIA LIBVA_DRIVER_NAME NVIDIA_VISIBLE_DEVICES GPU_DEVICES
+    WSL_ENVIRONMENT DISABLE_ZINK
     SSL_DIR SSL_CERT_PATH SSL_KEY_PATH
     HOST_HOME_MOUNT TURN_RANDOM_PASSWORD
     SELKIES_TURN_HOST SELKIES_TURN_PORT SELKIES_TURN_USERNAME SELKIES_TURN_PASSWORD SELKIES_TURN_PROTOCOL TURN_EXTERNAL_IP

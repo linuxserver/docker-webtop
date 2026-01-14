@@ -122,6 +122,25 @@ read -p "DPI (default: 96): " DPI
 DPI="${DPI:-96}"
 echo ""
 
+# Language/Timezone settings
+echo "5. Language/Timezone Settings"
+echo "-----------------------------"
+echo "Select language (affects timezone):"
+echo "  ja) Japanese (Asia/Tokyo)"
+echo "  en) English (UTC)"
+read -p "Select language [ja/en] (default: en): " lang_choice
+case "${lang_choice}" in
+    ja|JA|jp|JP)
+        TIMEZONE="Asia/Tokyo"
+        echo "Japanese selected. Timezone: Asia/Tokyo"
+        ;;
+    *)
+        TIMEZONE="UTC"
+        echo "English selected. Timezone: UTC"
+        ;;
+esac
+echo ""
+
 # SSL directory (optional)
 echo "5. SSL Configuration (Optional)"
 echo "-------------------------------"
@@ -148,7 +167,7 @@ fi
 mkdir -p .devcontainer
 
 # Build compose-env arguments
-COMPOSE_ARGS=(--gpu "${GPU_VENDOR}" --ubuntu "${UBUNTU_VERSION}" --resolution "${RESOLUTION}" --dpi "${DPI}" --arch "${TARGET_ARCH}")
+COMPOSE_ARGS=(--gpu "${GPU_VENDOR}" --ubuntu "${UBUNTU_VERSION}" --resolution "${RESOLUTION}" --dpi "${DPI}" --arch "${TARGET_ARCH}" --timezone "${TIMEZONE}")
 if [ "${GPU_VENDOR}" = "nvidia" ]; then
     if [ "${GPU_ALL}" = "true" ]; then
         COMPOSE_ARGS+=(--all)
@@ -190,7 +209,7 @@ case "${GPU_VENDOR}" in
     amd)
         if [ -d "/dev/dri" ]; then
             GPU_DEVICES="/dev/dri:/dev/dri:rwm"
-        fi
+                    fi
         if [ -e "/dev/kfd" ]; then
             GPU_DEVICES="${GPU_DEVICES:+${GPU_DEVICES},}/dev/kfd:/dev/kfd:rwm"
         fi
@@ -207,40 +226,151 @@ case "${GPU_VENDOR}" in
         ;;
 esac
 
+# Build forward port list
+FORWARD_PORTS=("${HOST_PORT_SSL}" "${HOST_PORT_HTTP}" "${HOST_PORT_TURN}")
+
+FORWARD_PORTS_JSON=""
+for PORT in "${FORWARD_PORTS[@]}"; do
+    if [ -n "${FORWARD_PORTS_JSON}" ]; then
+        FORWARD_PORTS_JSON="${FORWARD_PORTS_JSON},
+"
+    fi
+    FORWARD_PORTS_JSON="${FORWARD_PORTS_JSON}    ${PORT}"
+done
+
+PORT_ATTRIBUTES_JSON="    \"${HOST_PORT_SSL}\": {
+      \"label\": \"HTTPS Web UI\",
+      \"onAutoForward\": \"notify\"
+    },
+    \"${HOST_PORT_HTTP}\": {
+      \"label\": \"HTTP Web UI\",
+      \"onAutoForward\": \"silent\"
+    },
+    \"${HOST_PORT_TURN}\": {
+      \"label\": \"TURN Server\",
+      \"onAutoForward\": \"silent\"
+    }"
+
 # devcontainer.json
 cat > .devcontainer/devcontainer.json << EOF
 {
   "name": "KDE Desktop (${GPU_VENDOR})",
   "dockerComposeFile": [
-    "../docker-compose.user.yml",
+    "docker-compose.base.yml",
     "docker-compose.override.yml"
   ],
   "service": "webtop",
   "workspaceFolder": "${WORKSPACE_FOLDER}",
   "runServices": ["webtop"],
   "overrideCommand": false,
-  "shutdownAction": "stopCompose",
+  "shutdownAction": "none",
+  "initializeCommand": "cd \${localWorkspaceFolder:-${PWD}} && if [ -f .devcontainer/.env ]; then CN=\$(sed -n 's/^CONTAINER_NAME=//p' .devcontainer/.env | head -n1); fi; if [ -n \"\$CN\" ]; then docker rm -f \"\$CN\" >/dev/null 2>&1 || true; fi",
+  "forwardPorts": [
+${FORWARD_PORTS_JSON}
+  ],
+  "portsAttributes": {
+${PORT_ATTRIBUTES_JSON}
+  },
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "ms-vscode-remote.remote-containers",
+        "ms-vscode.cpptools-extension-pack",
+        "ms-vscode.cmake-tools",
+        "ms-vscode.makefile-tools",
+        "redhat.vscode-yaml",
+        "redhat.vscode-xml",
+        "ms-vscode.hexeditor",
+        "ms-python.python",
+        "ms-python.vscode-pylance",
+        "nordic-semiconductor.nrf-connect-extension-pack",
+        "vscode-icons-team.vscode-icons",
+        "donjayamanne.git-extension-pack"
+      ],
+      "settings": {
+        "terminal.integrated.defaultProfile.linux": "bash"
+      }
+    }
+  },
   "remoteUser": "${CURRENT_USER}",
   "containerUser": "root",
   "updateRemoteUserUID": false,
   "postCreateCommand": "echo '===== Dev Container Ready =====' && echo 'Desktop access' && echo '  HTTPS: https://localhost:${HOST_PORT_SSL}' && echo '  HTTP : http://localhost:${HOST_PORT_HTTP}' && echo 'If HTTPS fails, confirm your SSL certs or use HTTP.' && echo '==============================='"
+  "remoteEnv": {
+    "USER": "${CURRENT_USER}",
+    "HOME": "/home/${CURRENT_USER}"
+  },
+EOF
+    # Add GPU hostRequirements if applicable
+    if [ "${GPU_VENDOR}" = "nvidia" ] || [ "${GPU_VENDOR}" = "nvidia-wsl" ]; then
+        cat >> .devcontainer/devcontainer.json << 'EOF'
+  "hostRequirements": {
+    "gpu": "optional"
+  },
+EOF
+    fi
+    
+    cat >> .devcontainer/devcontainer.json << 'EOF'
+  "postCreateCommand": "echo 'Dev container is ready!'"
 }
+EOF
+
+# docker-compose base (match start-container.sh)
+cat > .devcontainer/docker-compose.base.yml << EOF
+services:
+  webtop:
+    image: \${USER_IMAGE}
+    container_name: \${CONTAINER_NAME}
+    hostname: \${CONTAINER_HOSTNAME}
+    shm_size: \${SHM_SIZE:-4g}
+    privileged: true
+    environment:
+      - HOSTNAME=\${CONTAINER_HOSTNAME}
+      - HOST_HOSTNAME=\${CONTAINER_HOSTNAME}
+      - SHELL=/bin/bash
+      - DISPLAY=:1
+      - DPI=\${DPI}
+      - DISPLAY_WIDTH=\${WIDTH}
+      - DISPLAY_HEIGHT=\${HEIGHT}
+      - CUSTOM_RESOLUTION=\${RESOLUTION}
+      - USER_UID=\${USER_UID}
+      - USER_GID=\${USER_GID}
+      - USER_NAME=\${USER_NAME}
+      - PUID=\${HOST_UID}
+      - PGID=\${HOST_GID}
+      - SELKIES_ENCODER=\${SELKIES_ENCODER}
+      - GPU_VENDOR=\${GPU_VENDOR}
+      - ENABLE_NVIDIA=\${ENABLE_NVIDIA}
+      - LIBVA_DRIVER_NAME=\${LIBVA_DRIVER_NAME}
+      - WSL_ENVIRONMENT=\${WSL_ENVIRONMENT}
+      - DISABLE_ZINK=\${DISABLE_ZINK}
+      - SELKIES_TURN_HOST=\${SELKIES_TURN_HOST}
+      - SELKIES_TURN_PORT=\${SELKIES_TURN_PORT}
+      - SELKIES_TURN_USERNAME=\${SELKIES_TURN_USERNAME}
+      - SELKIES_TURN_PASSWORD=\${SELKIES_TURN_PASSWORD}
+      - SELKIES_TURN_PROTOCOL=\${SELKIES_TURN_PROTOCOL}
+      - TURN_RANDOM_PASSWORD=\${TURN_RANDOM_PASSWORD}
+      - TURN_EXTERNAL_IP=\${TURN_EXTERNAL_IP}
+    volumes:
+      - \${HOME}:\${HOST_HOME_MOUNT}:rw
+    ports:
+      - \${HOST_PORT_HTTP}:3000
+      - \${HOST_PORT_SSL}:3001
+      - \${HOST_PORT_TURN}:3478/tcp
+      - \${HOST_PORT_TURN}:3478/udp
 EOF
 
 # docker-compose override for devcontainer
 cat > .devcontainer/docker-compose.override.yml << EOF
 services:
   webtop:
-    user: "root"
-    privileged: true
-    container_name: \${DEVCONTAINER_CONTAINER_NAME:-${DEVCONTAINER_CONTAINER_NAME}}
 EOF
 
+DEVICE_ENTRIES=()
 VOLUME_ENTRIES=()
-ENV_OVERRIDE_ENTRIES=()
+GROUPS_TO_ADD=()
 
 # Add host group mappings (match start-container.sh)
-GROUPS_TO_ADD=()
 VIDEO_GID=$(getent group video 2>/dev/null | cut -d: -f3 || true)
 RENDER_GID=$(getent group render 2>/dev/null | cut -d: -f3 || true)
 if [ -n "${VIDEO_GID}" ]; then
@@ -249,6 +379,7 @@ fi
 if [ -n "${RENDER_GID}" ]; then
     GROUPS_TO_ADD+=("${RENDER_GID}")
 fi
+
 if [ "${#GROUPS_TO_ADD[@]}" -gt 0 ]; then
     {
         echo "    group_add:"
@@ -258,35 +389,23 @@ if [ "${#GROUPS_TO_ADD[@]}" -gt 0 ]; then
     } >> .devcontainer/docker-compose.override.yml
 fi
 
-# Add GPU configuration based on vendor
 if [ "${GPU_VENDOR}" = "nvidia" ] || [ "${GPU_VENDOR}" = "nvidia-wsl" ]; then
-    cat >> .devcontainer/docker-compose.override.yml << EOF
-    deploy:
-      resources:
-        reservations:
-          devices:
-            - driver: nvidia
-              capabilities: ["gpu"]
-EOF
     if [ "${GPU_VENDOR}" = "nvidia-wsl" ] || [ "${GPU_ALL}" = "true" ]; then
-        echo "              count: all" >> .devcontainer/docker-compose.override.yml
+        echo "    gpus: all" >> .devcontainer/docker-compose.override.yml
     elif [ -n "${GPU_NUMS}" ]; then
-        {
-            echo "              device_ids:"
-            IFS=',' read -r -a GPU_ID_LIST <<< "${GPU_NUMS}"
-            for GPU_ID in "${GPU_ID_LIST[@]}"; do
-                echo "                - \"${GPU_ID}\""
-            done
-        } >> .devcontainer/docker-compose.override.yml
-    fi
-    ENV_OVERRIDE_ENTRIES+=("DISABLE_ZINK=true")
-    if [ "${GPU_VENDOR}" = "nvidia-wsl" ]; then
-        ENV_OVERRIDE_ENTRIES+=("WSL_ENVIRONMENT=true")
+        echo "    gpus: \"device=${GPU_NUMS}\"" >> .devcontainer/docker-compose.override.yml
     fi
 fi
 
-# Collect WSL2 specific mounts (match start-container.sh)
 if [ "${GPU_VENDOR}" = "nvidia-wsl" ]; then
+    # Add WSL-specific devices if they exist
+    if [ -e "/dev/dxg" ]; then
+        DEVICE_ENTRIES+=("/dev/dxg:/dev/dxg:rwm")
+    fi
+    # Add WSL-specific volumes
+    if [ -d "/usr/lib/wsl/lib" ] || [ -d "/mnt/wslg" ]; then
+        :
+    fi
     if [ -d "/usr/lib/wsl/lib" ]; then
         VOLUME_ENTRIES+=("/usr/lib/wsl/lib:/usr/lib/wsl/lib:ro")
     fi
@@ -295,15 +414,11 @@ if [ "${GPU_VENDOR}" = "nvidia-wsl" ]; then
     fi
 fi
 
-# Add GPU device mappings when available
 if [ -n "${GPU_DEVICES}" ]; then
-    {
-        echo "    devices:"
-        IFS=',' read -r -a GPU_DEVICE_LIST <<< "${GPU_DEVICES}"
-        for DEVICE in "${GPU_DEVICE_LIST[@]}"; do
-            echo "      - ${DEVICE}"
-        done
-    } >> .devcontainer/docker-compose.override.yml
+    IFS=',' read -r -a GPU_DEVICE_LIST <<< "${GPU_DEVICES}"
+    for DEVICE in "${GPU_DEVICE_LIST[@]}"; do
+        DEVICE_ENTRIES+=("${DEVICE}")
+    done
 fi
 
 # Add SSL mount when available (match start-container.sh)
@@ -311,22 +426,20 @@ if [ -n "${SSL_DIR}" ] && [ -f "${SSL_DIR}/cert.pem" ] && [ -f "${SSL_DIR}/cert.
     VOLUME_ENTRIES+=("\${SSL_DIR}:/config/ssl:ro")
 fi
 
-# Add volumes when available
+if [ "${#DEVICE_ENTRIES[@]}" -gt 0 ]; then
+    {
+        echo "    devices:"
+        for DEVICE in "${DEVICE_ENTRIES[@]}"; do
+            echo "      - ${DEVICE}"
+        done
+    } >> .devcontainer/docker-compose.override.yml
+fi
+
 if [ "${#VOLUME_ENTRIES[@]}" -gt 0 ]; then
     {
         echo "    volumes:"
         for VOLUME in "${VOLUME_ENTRIES[@]}"; do
             echo "      - ${VOLUME}"
-        done
-    } >> .devcontainer/docker-compose.override.yml
-fi
-
-# Add environment overrides when available
-if [ "${#ENV_OVERRIDE_ENTRIES[@]}" -gt 0 ]; then
-    {
-        echo "    environment:"
-        for ENV_ENTRY in "${ENV_OVERRIDE_ENTRIES[@]}"; do
-            echo "      - ${ENV_ENTRY}"
         done
     } >> .devcontainer/docker-compose.override.yml
 fi
@@ -361,6 +474,7 @@ cat >> .devcontainer/README.md << EOF
 - Ubuntu Version: ${UBUNTU_VERSION}
 - Resolution: ${RESOLUTION}
 - DPI: ${DPI}
+- Timezone: ${TIMEZONE}
 - HTTPS Port: https://localhost:${HOST_PORT_SSL}
 - HTTP Port: http://localhost:${HOST_PORT_HTTP}
 - TURN Port: ${HOST_PORT_TURN}
@@ -370,8 +484,10 @@ cat >> .devcontainer/README.md << EOF
 2. Open the workspace and run \`F1\` → \`Dev Containers: Reopen in Container\`
 3. VS Code reads \`.env\` and starts \`docker compose\`
 
-## Reconfigure
-If you want to change settings, rerun \`./create-devcontainer-config.sh\` at the repository root and follow the prompts. After it finishes, choose "Rebuild Container" in VS Code to apply the new settings.
+## How to use in VS Code
+1. Install the Dev Containers extension
+2. Open the workspace and run \`F1\` → \`Dev Containers: Reopen in Container\`
+3. VS Code reads \`.env\` and starts \`docker compose\`
 EOF
 
 # Copy .env to workspace root for docker-compose
@@ -384,6 +500,7 @@ echo "========================================"
 echo ""
 echo "Created files:"
 echo "  - .devcontainer/devcontainer.json"
+echo "  - .devcontainer/docker-compose.base.yml"
 echo "  - .devcontainer/docker-compose.override.yml"
 echo "  - .devcontainer/.env"
 echo "  - .devcontainer/README.md"
@@ -401,6 +518,7 @@ fi
 echo "  - Ubuntu: ${UBUNTU_VERSION}"
 echo "  - Resolution: ${RESOLUTION}"
 echo "  - DPI: ${DPI}"
+echo "  - Timezone: ${TIMEZONE}"
 echo "  - HTTPS Port: ${HOST_PORT_SSL}"
 echo "  - HTTP Port: ${HOST_PORT_HTTP}"
 echo "  - TURN Port: ${HOST_PORT_TURN}"

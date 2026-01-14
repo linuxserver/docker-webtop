@@ -11,22 +11,26 @@ usage() {
   echo "  -r, --rm  remove container after stopping"
 }
 
-# parse short options
-while getopts ":n:rh" opt; do
-  case "$opt" in
-    n) NAME=$OPTARG ;;
-    r) REMOVE=1 ;;
-    h) usage; exit 0 ;;
-    *) usage; exit 1 ;;
-  esac
-done
-
-# parse long option --rm
-shift $((OPTIND - 1))
-for arg in "$@"; do
-  case "$arg" in
-    --rm) REMOVE=1 ;;
-    *) echo "Unknown argument: $arg"; usage; exit 1 ;;
+# parse options (short and long)
+while [[ $# -gt 0 ]]; do
+  case "$1" in
+    -n)
+      NAME=$2
+      shift 2
+      ;;
+    -r|--rm)
+      REMOVE=1
+      shift
+      ;;
+    -h|--help)
+      usage
+      exit 0
+      ;;
+    *)
+      echo "Unknown argument: $1" >&2
+      usage
+      exit 1
+      ;;
   esac
 done
 
