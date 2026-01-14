@@ -283,7 +283,6 @@ ${PORT_ATTRIBUTES_JSON}
         "ms-vscode.hexeditor",
         "ms-python.python",
         "ms-python.vscode-pylance",
-        "nordic-semiconductor.nrf-connect-extension-pack",
         "vscode-icons-team.vscode-icons",
         "donjayamanne.git-extension-pack"
       ],
