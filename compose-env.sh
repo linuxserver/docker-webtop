@@ -205,8 +205,8 @@ if [[ "$(uname -s)" == "Darwin" ]]; then
         HOSTNAME_RAW="$(scutil --get ComputerName 2>/dev/null || hostname)"
     fi
 fi
-HOSTNAME_RAW="$(printf '%s' "${HOSTNAME_RAW}" | tr '[:upper:]' '[:lower:]' | sed 's/[^a-z0-9-]/-/g; s/--*/-/g; s/^-//; s/-$//')"
-HOSTNAME_RAW="${HOSTNAME_RAW:-host}"
+HOSTNAME_RAW="$(printf '%s' "${HOSTNAME_RAW}" | tr ' ' '-' | sed 's/[^A-Za-z0-9._-]/-/g; s/--*/-/g; s/^-//; s/-$//')"
+HOSTNAME_RAW="${HOSTNAME_RAW:-Host}"
 CONTAINER_HOSTNAME="${CONTAINER_HOSTNAME:-Docker-${HOSTNAME_RAW}}"
 
 # Extract width and height from resolution
