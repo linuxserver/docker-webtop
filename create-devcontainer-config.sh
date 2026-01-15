@@ -294,7 +294,6 @@ ${PORT_ATTRIBUTES_JSON}
   "remoteUser": "${CURRENT_USER}",
   "containerUser": "root",
   "updateRemoteUserUID": false,
-  "postCreateCommand": "echo '===== Dev Container Ready =====' && echo 'Desktop access' && echo '  HTTPS: https://localhost:${HOST_PORT_SSL}' && echo '  HTTP : http://localhost:${HOST_PORT_HTTP}' && echo 'If HTTPS fails, confirm your SSL certs or use HTTP.' && echo '==============================='"
   "remoteEnv": {
     "USER": "${CURRENT_USER}",
     "HOME": "/home/${CURRENT_USER}"
@@ -309,8 +308,8 @@ EOF
 EOF
     fi
     
-    cat >> .devcontainer/devcontainer.json << 'EOF'
-  "postCreateCommand": "echo 'Dev container is ready!'"
+    cat >> .devcontainer/devcontainer.json << EOF
+  "postCreateCommand": "echo '===== Dev Container Ready =====' && echo 'Desktop access' && echo '  HTTPS: https://localhost:${HOST_PORT_SSL}' && echo '  HTTP : http://localhost:${HOST_PORT_HTTP}' && echo 'If HTTPS fails, confirm your SSL certs or use HTTP.' && echo '==============================='"
 }
 EOF
 
