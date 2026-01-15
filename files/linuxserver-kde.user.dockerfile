@@ -301,70 +301,122 @@ RUN set -eux; \
   chown "${USER_UID}:${USER_GID}" /home/${USER_NAME}/Desktop/home.desktop /home/${USER_NAME}/Desktop/trash.desktop
 
 # browser wrappers (Chromium on arm64, Chrome on amd64) to enforce flags even after package updates
-RUN set -eux; \
-  ARCH="$(dpkg --print-architecture)"; \
-  if [ "${ARCH}" = "arm64" ]; then \
-    if [ -x /usr/bin/chromium ]; then \
-      if command -v dpkg-divert >/dev/null 2>&1; then \
-        dpkg-divert --add --rename --divert /usr/bin/chromium.distrib /usr/bin/chromium || true; \
-        printf '%s\n' '#!/bin/bash' 'exec /usr/local/bin/wrapped-chromium "$@"' > /usr/bin/chromium && \
-        chmod 755 /usr/bin/chromium; \
-      fi; \
-      if [ -x /usr/local/bin/wrapped-chromium ]; then \
-        printf '%s\n' \
-          '#!/bin/bash' \
-          'if [ -x /usr/bin/chromium.distrib ]; then' \
-          '  BIN=/usr/bin/chromium.distrib' \
-          'else' \
-          '  BIN=/usr/bin/chromium' \
-          'fi' \
-          'DEFAULT_FLAGS="--password-store=basic --in-process-gpu"' \
-          'EXTRA_FLAGS=(${CHROMIUM_FLAGS:-})' \
-          '' \
-          'if ! pgrep chromium > /dev/null; then' \
-          '  rm -f $HOME/.config/chromium/Singleton*' \
-          'fi' \
-          '' \
-          '${BIN} ${DEFAULT_FLAGS} --no-sandbox "${EXTRA_FLAGS[@]}" "$@"' \
-          > /usr/local/bin/wrapped-chromium; \
-        chmod 755 /usr/local/bin/wrapped-chromium; \
-      fi; \
-      if [ -f /usr/share/applications/chromium.desktop ]; then \
-        sed -i -E 's#^Exec=.*#Exec=/usr/local/bin/wrapped-chromium#g' /usr/share/applications/chromium.desktop; \
-      fi; \
-      mkdir -p /home/${USER_NAME}/.local/share/applications; \
-      if [ -f /usr/share/applications/chromium.desktop ]; then \
-        cp /usr/share/applications/chromium.desktop /home/${USER_NAME}/.local/share/applications/chromium.desktop; \
-        chown ${USER_UID}:${USER_GID} /home/${USER_NAME}/.local/share/applications/chromium.desktop; \
-      fi; \
-    fi; \
-  else \
-    if [ -x /usr/bin/google-chrome-stable ]; then \
-      printf '%s\n' \
-        '#!/bin/bash' \
-        'CHROME_BIN="/usr/bin/google-chrome-stable"' \
-        'exec "${CHROME_BIN}" --password-store=basic --in-process-gpu --no-sandbox ${CHROME_EXTRA_FLAGS} "$@"' \
-        > /usr/local/bin/google-chrome-wrapped && \
-      chmod 755 /usr/local/bin/google-chrome-wrapped; \
-      for chrome_bin in google-chrome-beta google-chrome-unstable; do \
-        if [ -x "/usr/bin/${chrome_bin}" ]; then \
-          printf '%s\n' '#!/bin/bash' 'exec /usr/local/bin/google-chrome-wrapped "$@"' > "/usr/local/bin/${chrome_bin}-wrapped" && \
-          chmod 755 "/usr/local/bin/${chrome_bin}-wrapped"; \
-        fi; \
-      done; \
-      for desktop in /usr/share/applications/google-chrome*.desktop; do \
-        [ -f "$desktop" ] || continue; \
-        sed -i -E 's#^Exec=/usr/bin/google-chrome-stable(.*)#Exec=/usr/local/bin/google-chrome-wrapped\1#g' "$desktop"; \
-      done; \
-      mkdir -p /home/${USER_NAME}/.local/share/applications; \
-      for desktop in /usr/share/applications/google-chrome*.desktop; do \
-        [ -f "$desktop" ] || continue; \
-        base=$(basename "$desktop"); \
-        cp "$desktop" "/home/${USER_NAME}/.local/share/applications/$base"; \
-        sed -i -E 's#^Exec=/usr/bin/google-chrome-stable(.*)#Exec=/usr/local/bin/google-chrome-wrapped\1#g' "/home/${USER_NAME}/.local/share/applications/$base"; \
-        chown ${USER_UID}:${USER_GID} "/home/${USER_NAME}/.local/share/applications/$base"; \
-      done; \
-    fi; \
+RUN <<'EOF'
+set -eux
+
+ARCH="$(dpkg --print-architecture)"
+if [ -x /usr/lib/chromium/chromium ] || [ -x /usr/bin/chromium ] || [ -x /usr/bin/chromium.distrib ]; then
+  cat > /usr/local/bin/wrapped-chromium <<'EOF_WRAPPED_CHROMIUM'
+#!/bin/bash
+
+if [ -x /usr/bin/chromium.distrib ]; then
+  BIN=/usr/bin/chromium.distrib
+elif [ -x /usr/lib/chromium/chromium ]; then
+  BIN=/usr/lib/chromium/chromium
+elif [ -x /usr/lib/chromium-browser/chromium-browser ]; then
+  BIN=/usr/lib/chromium-browser/chromium-browser
+else
+  BIN=/usr/bin/chromium
+fi
+DEFAULT_FLAGS="--password-store=basic --in-process-gpu"
+EXTRA_FLAGS=(${CHROMIUM_FLAGS:-})
+
+# Cleanup
+if ! pgrep chromium > /dev/null; then
+  rm -f $HOME/.config/chromium/Singleton*
+fi
+
+# Run with --no-sandbox (same as Chrome wrapper)
+${BIN} ${DEFAULT_FLAGS} --no-sandbox "${EXTRA_FLAGS[@]}" "$@"
+EOF_WRAPPED_CHROMIUM
+  chmod 755 /usr/local/bin/wrapped-chromium
+fi
+if [ -x /usr/bin/chromium ]; then
+  cat > /usr/local/bin/ensure-chromium-wrap <<'EOF_CHROMIUM'
+#!/bin/bash
+set -e
+
+if [ -x /usr/bin/chromium ]; then
+  printf '%s\n' '#!/bin/bash' 'exec /usr/local/bin/wrapped-chromium "$@"' > /usr/bin/chromium
+  chmod 755 /usr/bin/chromium
+fi
+
+if [ -f /usr/share/applications/chromium.desktop ]; then
+  sed -i -E 's#^Exec=.*#Exec=/usr/local/bin/wrapped-chromium#g' /usr/share/applications/chromium.desktop || true
+fi
+
+if [ -n "${USER_NAME:-}" ]; then
+  USER_HOME="/home/${USER_NAME}"
+  mkdir -p "${USER_HOME}/.local/share/applications"
+  if [ -f /usr/share/applications/chromium.desktop ]; then
+    cp /usr/share/applications/chromium.desktop "${USER_HOME}/.local/share/applications/chromium.desktop"
+    sed -i -E 's#^Exec=.*#Exec=/usr/local/bin/wrapped-chromium#g' "${USER_HOME}/.local/share/applications/chromium.desktop" || true
+    chown "${USER_UID:-0}:${USER_GID:-0}" "${USER_HOME}/.local/share/applications/chromium.desktop" || true
   fi
+fi
+EOF_CHROMIUM
+  chmod 755 /usr/local/bin/ensure-chromium-wrap
+  /usr/local/bin/ensure-chromium-wrap
+  printf '%s\n' 'DPkg::Post-Invoke {"/usr/local/bin/ensure-chromium-wrap || true";};' \
+    > /etc/apt/apt.conf.d/99-chromium-wrap
+fi
+
+if [ "${ARCH}" != "arm64" ]; then
+  if [ -x /usr/bin/google-chrome-stable ]; then
+    printf '%s\n' \
+      '#!/bin/bash' \
+      'CHROME_BIN="/usr/bin/google-chrome-stable"' \
+      'exec "${CHROME_BIN}" --password-store=basic --in-process-gpu --no-sandbox ${CHROME_EXTRA_FLAGS} "$@"' \
+      > /usr/local/bin/google-chrome-wrapped
+    chmod 755 /usr/local/bin/google-chrome-wrapped
+    for chrome_bin in google-chrome-beta google-chrome-unstable; do
+      if [ -x "/usr/bin/${chrome_bin}" ]; then
+        printf '%s\n' '#!/bin/bash' 'exec /usr/local/bin/google-chrome-wrapped "$@"' \
+          > "/usr/local/bin/${chrome_bin}-wrapped"
+        chmod 755 "/usr/local/bin/${chrome_bin}-wrapped"
+      fi
+    done
+    for desktop in /usr/share/applications/google-chrome*.desktop; do
+      [ -f "$desktop" ] || continue
+      sed -i -E 's#^Exec=/usr/bin/google-chrome-stable(.*)#Exec=/usr/local/bin/google-chrome-wrapped\1#g' "$desktop"
+    done
+    if [ -n "${USER_NAME:-}" ]; then
+      USER_HOME="/home/${USER_NAME}"
+      mkdir -p "${USER_HOME}/.local/share/applications"
+      for desktop in /usr/share/applications/google-chrome*.desktop; do
+        [ -f "$desktop" ] || continue
+        base=$(basename "$desktop")
+        cp "$desktop" "${USER_HOME}/.local/share/applications/$base"
+        sed -i -E 's#^Exec=/usr/bin/google-chrome-stable(.*)#Exec=/usr/local/bin/google-chrome-wrapped\1#g' \
+          "${USER_HOME}/.local/share/applications/$base"
+        chown "${USER_UID:-0}:${USER_GID:-0}" "${USER_HOME}/.local/share/applications/$base"
+      done
+    fi
+    cat > /usr/local/bin/ensure-google-chrome-wrap <<'EOF_CHROME'
+#!/bin/bash
+set -e
+
+if [ -f /usr/share/applications/google-chrome.desktop ]; then
+  sed -i -E 's#^Exec=/usr/bin/google-chrome-stable(.*)#Exec=/usr/local/bin/google-chrome-wrapped\1#g' /usr/share/applications/google-chrome.desktop || true
+fi
+
+if [ -n "${USER_NAME:-}" ]; then
+  USER_HOME="/home/${USER_NAME}"
+  mkdir -p "${USER_HOME}/.local/share/applications"
+  if [ -f /usr/share/applications/google-chrome.desktop ]; then
+    cp /usr/share/applications/google-chrome.desktop "${USER_HOME}/.local/share/applications/google-chrome.desktop"
+    sed -i -E 's#^Exec=/usr/bin/google-chrome-stable(.*)#Exec=/usr/local/bin/google-chrome-wrapped\1#g' \
+      "${USER_HOME}/.local/share/applications/google-chrome.desktop" || true
+    chown "${USER_UID:-0}:${USER_GID:-0}" "${USER_HOME}/.local/share/applications/google-chrome.desktop" || true
+  fi
+fi
+EOF_CHROME
+    chmod 755 /usr/local/bin/ensure-google-chrome-wrap
+    /usr/local/bin/ensure-google-chrome-wrap
+    printf '%s\n' 'DPkg::Post-Invoke {"/usr/local/bin/ensure-google-chrome-wrap || true";};' \
+      > /etc/apt/apt.conf.d/99-google-chrome-wrap
+  fi
+fi
+EOF
 
 # Keep default USER=root so s6 init can modify system paths.
