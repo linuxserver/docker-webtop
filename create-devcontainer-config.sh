@@ -323,6 +323,8 @@ services:
     hostname: \${CONTAINER_HOSTNAME}
     shm_size: \${SHM_SIZE:-4g}
     privileged: true
+    security_opt:
+      - seccomp:unconfined
     environment:
       - HOSTNAME=\${CONTAINER_HOSTNAME}
       - HOST_HOSTNAME=\${CONTAINER_HOSTNAME}
@@ -360,12 +362,14 @@ services:
       - \${HOST_PORT_SSL}:3001
       - \${HOST_PORT_TURN}:3478/tcp
       - \${HOST_PORT_TURN}:3478/udp
+    restart: unless-stopped
 EOF
 
 # docker-compose override for devcontainer
 cat > .devcontainer/docker-compose.override.yml << EOF
 services:
   webtop:
+    network_mode: bridge
 EOF
 
 DEVICE_ENTRIES=()
