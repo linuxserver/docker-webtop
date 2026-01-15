@@ -329,6 +329,14 @@ RUN set -eux; \
           > /usr/local/bin/wrapped-chromium; \
         chmod 755 /usr/local/bin/wrapped-chromium; \
       fi; \
+      if [ -f /usr/share/applications/chromium.desktop ]; then \
+        sed -i -E 's#^Exec=.*#Exec=/usr/local/bin/wrapped-chromium#g' /usr/share/applications/chromium.desktop; \
+      fi; \
+      mkdir -p /home/${USER_NAME}/.local/share/applications; \
+      if [ -f /usr/share/applications/chromium.desktop ]; then \
+        cp /usr/share/applications/chromium.desktop /home/${USER_NAME}/.local/share/applications/chromium.desktop; \
+        chown ${USER_UID}:${USER_GID} /home/${USER_NAME}/.local/share/applications/chromium.desktop; \
+      fi; \
     fi; \
   else \
     if [ -x /usr/bin/google-chrome-stable ]; then \
