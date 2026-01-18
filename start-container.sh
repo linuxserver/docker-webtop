@@ -120,6 +120,7 @@ HOSTNAME_RAW="${HOSTNAME_RAW:-Host}"
 HOSTNAME_VAL=${CONTAINER_HOSTNAME:-Docker-${HOSTNAME_RAW}}
 echo "Using container hostname: ${HOSTNAME_VAL}"
 HOST_HOME_MOUNT="/home/${HOST_USER}/host_home"
+HOST_MNT_MOUNT="/home/${HOST_USER}/host_mnt"
 
 # Get host IP for TURN server (try multiple methods)
 HOST_IP=${HOST_IP:-$(hostname -I 2>/dev/null | awk '{print $1}' || ip route get 1 2>/dev/null | awk '{print $7; exit}' || echo "127.0.0.1")}
@@ -339,6 +340,7 @@ docker run -d \
   --shm-size "${SHM_SIZE}" \
   --privileged \
   -v "${HOME}":"${HOST_HOME_MOUNT}":rw \
+  -v "/mnt":"${HOST_MNT_MOUNT}":rw \
   -v "${HOME}/.ssh":"/home/${HOST_USER}/.ssh":rw \
   ${GPU_ENV_VARS[@]+"${GPU_ENV_VARS[@]}"} \
   ${SSL_FLAGS[@]+"${SSL_FLAGS[@]}"} \

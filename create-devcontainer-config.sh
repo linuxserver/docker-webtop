@@ -356,6 +356,7 @@ services:
       - TURN_EXTERNAL_IP=\${TURN_EXTERNAL_IP}
     volumes:
       - \${HOME}:\${HOST_HOME_MOUNT}:rw
+      - /mnt:\${HOST_MNT_MOUNT}:rw
     ports:
       - \${HOST_PORT_HTTP}:3000
       - \${HOST_PORT_SSL}:3001
