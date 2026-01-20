@@ -302,6 +302,12 @@ else
   echo "Warning: No SSL dir mounted. Using image self-signed cert (CN=*), browsers may reject WSS." >&2
 fi
 
+# Only mount /mnt on non-mac hosts (Docker Desktop for Mac does not share /mnt by default)
+MNT_MOUNT_FLAG=()
+if [ "$(uname -s)" != "Darwin" ] && [ -d "/mnt" ]; then
+  MNT_MOUNT_FLAG=(-v "/mnt":"${HOST_MNT_MOUNT}":rw)
+fi
+
 docker run -d \
   ${PLATFORM_FLAGS[@]+"${PLATFORM_FLAGS[@]}"} \
   ${GPU_FLAGS[@]+"${GPU_FLAGS[@]}"} \
@@ -340,7 +346,7 @@ docker run -d \
   --shm-size "${SHM_SIZE}" \
   --privileged \
   -v "${HOME}":"${HOST_HOME_MOUNT}":rw \
-  -v "/mnt":"${HOST_MNT_MOUNT}":rw \
+  ${MNT_MOUNT_FLAG[@]+"${MNT_MOUNT_FLAG[@]}"} \
   -v "${HOME}/.ssh":"/home/${HOST_USER}/.ssh":rw \
   ${GPU_ENV_VARS[@]+"${GPU_ENV_VARS[@]}"} \
   ${SSL_FLAGS[@]+"${SSL_FLAGS[@]}"} \

@@ -356,7 +356,6 @@ services:
       - TURN_EXTERNAL_IP=\${TURN_EXTERNAL_IP}
     volumes:
       - \${HOME}:\${HOST_HOME_MOUNT}:rw
-      - /mnt:\${HOST_MNT_MOUNT}:rw
     ports:
       - \${HOST_PORT_HTTP}:3000
       - \${HOST_PORT_SSL}:3001
@@ -430,6 +429,11 @@ fi
 # Add SSL mount when available (match start-container.sh)
 if [ -n "${SSL_DIR}" ] && [ -f "${SSL_DIR}/cert.pem" ] && [ -f "${SSL_DIR}/cert.key" ]; then
     VOLUME_ENTRIES+=("\${SSL_DIR}:/config/ssl:ro")
+fi
+
+# Add /mnt mount on non-mac hosts (Docker Desktop for Mac does not share /mnt by default)
+if [ "$(uname -s)" != "Darwin" ] && [ -d "/mnt" ]; then
+    VOLUME_ENTRIES+=("/mnt:\${HOST_MNT_MOUNT}:rw")
 fi
 
 if [ "${#DEVICE_ENTRIES[@]}" -gt 0 ]; then
