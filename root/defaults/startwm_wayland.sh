@@ -1,4 +1,5 @@
 #!/bin/bash
+ulimit -c 0
 
 # Launch DE
 setterm blank 0
