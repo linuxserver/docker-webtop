@@ -1,4 +1,5 @@
 #!/bin/bash
+ulimit -c 0
 
 setterm blank 0
 setterm powerdown 0
