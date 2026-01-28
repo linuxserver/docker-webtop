@@ -1,4 +1,5 @@
 #!/bin/bash
+ulimit -c 0
 
 # Disable compositing and screen locking
 if [ ! -f $HOME/.config/kwinrc ]; then
