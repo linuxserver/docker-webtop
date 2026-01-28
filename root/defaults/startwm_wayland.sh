@@ -1,4 +1,5 @@
 #!/bin/bash
+ulimit -c 0
 
 # Disable blanking
 setterm blank 0
