@@ -34,8 +34,8 @@
 ./start-container.sh --gpu nvidia-wsl --all                   # WSL2 + NVIDIA
 
 # 3. ブラウザでアクセス
-# → https://localhost:<10000+UID> (例: UID=1000 → https://localhost:11000)
-# → http://localhost:<20000+UID>  (例: UID=1000 → http://localhost:21000)
+# → https://localhost:<30000+UID> (例: UID=1000 → https://localhost:41000)
+# → http://localhost:<40000+UID>  (例: UID=1000 → http://localhost:41000)
 
 # 4. 変更を保存（重要！コンテナ削除前に必ず実行）
 ./commit-container.sh
@@ -325,11 +325,11 @@ UID/GIDが一致するパーソナルイメージを作成（1-2分）：
 
 ポートは自動的にユーザーIDに基づいて割り当てられ、同一ホストで複数ユーザーが使用可能：
 
-- **HTTPSポート**: `10000 + UID`（例: UID 1000 → ポート 11000）
-- **HTTPポート**: `20000 + UID`（例: UID 1000 → ポート 21000）
-- **TURNポート**: `3000 + UID`（例: UID 1000 → ポート 4000）
+- **HTTPSポート**: `30000 + UID`（例: UID 1000 → ポート 31000）
+- **HTTPポート**: `40000 + UID`（例: UID 1000 → ポート 41000）
+- **TURNポート**: `50000 + UID`（例: UID 1000 → ポート 51000）
 
-アクセス: `https://localhost:${HTTPS_PORT}`（例: UID 1000で `https://localhost:11000`）
+アクセス: `https://localhost:${HTTPS_PORT}`（例: UID 1000で `https://localhost:31000`）
 
 **リモートアクセス（LAN/WAN）:**
 
@@ -553,7 +553,7 @@ docker images | grep webtop-kde
 ./build-user-image.sh
 
 # ポートが使用中か確認
-sudo netstat -tulpn | grep -E "11000|21000"
+sudo netstat -tulpn | grep -E "31000|41000"
 ```
 
 ### GPUが検出されない
@@ -682,9 +682,9 @@ docker exec linuxserver-kde-$(whoami) pactl list sinks short
 
 | 変数 | 説明 | デフォルト |
 |------|------|----------|
-| `PORT_SSL_OVERRIDE` | HTTPSポート上書き | `UID+10000` |
-| `PORT_HTTP_OVERRIDE` | HTTPポート上書き | `UID+20000` |
-| `PORT_TURN_OVERRIDE` | TURNポート上書き | `UID+3000` |
+| `PORT_SSL_OVERRIDE` | HTTPSポート上書き | `UID+30000` |
+| `PORT_HTTP_OVERRIDE` | HTTPポート上書き | `UID+40000` |
+| `PORT_TURN_OVERRIDE` | TURNポート上書き | `UID+50000` |
 | `HOST_IP` | TURNサーバー用ホストIP | 自動検出 |
 
 </details>
