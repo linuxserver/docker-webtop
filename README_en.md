@@ -34,8 +34,8 @@ A containerized Kubuntu (KDE Plasma) desktop environment accessible via browser.
 ./start-container.sh --gpu nvidia-wsl --all                   # WSL2 + NVIDIA
 
 # 3. Access via browser
-# → https://localhost:<10000+UID> (e.g., UID=1000 → https://localhost:11000)
-# → http://localhost:<20000+UID>  (e.g., UID=1000 → http://localhost:21000)
+# → https://localhost:<30000+UID> (e.g., UID=1000 → https://localhost:31000)
+# → http://localhost:<40000+UID>  (e.g., UID=1000 → http://localhost:41000)
 
 # 4. Save your changes (IMPORTANT! Always do this before removing container)
 ./commit-container.sh
@@ -325,11 +325,11 @@ The `start-container.sh` script uses GPU and optional arguments:
 
 Ports are automatically assigned based on your user ID to enable multiple users on the same host:
 
-- **HTTPS Port**: `10000 + UID` (e.g., UID 1000 → port 11000)
-- **HTTP Port**: `20000 + UID` (e.g., UID 1000 → port 21000)
-- **TURN Port**: `3000 + UID` (e.g., UID 1000 → port 4000)
+- **HTTPS Port**: `30000 + UID` (e.g., UID 1000 → port 31000)
+- **HTTP Port**: `40000 + UID` (e.g., UID 1000 → port 41000)
+- **TURN Port**: `50000 + UID` (e.g., UID 1000 → port 51000)
 
-Access via: `https://localhost:${HTTPS_PORT}` (e.g., `https://localhost:11000` for UID 1000)
+Access via: `https://localhost:${HTTPS_PORT}` (e.g., `https://localhost:31000` for UID 1000)
 
 **Remote Access (LAN/WAN):**
 
@@ -553,7 +553,7 @@ docker images | grep webtop-kde
 ./build-user-image.sh
 
 # Check if port is in use
-sudo netstat -tulpn | grep -E "11000|21000"
+sudo netstat -tulpn | grep -E "31000|41000"
 ```
 
 ### GPU Not Detected
@@ -682,9 +682,9 @@ docker exec linuxserver-kde-$(whoami) pactl list sinks short
 
 | Variable | Description | Default |
 |----------|-------------|---------|
-| `PORT_SSL_OVERRIDE` | HTTPS port override | `UID+10000` |
-| `PORT_HTTP_OVERRIDE` | HTTP port override | `UID+20000` |
-| `PORT_TURN_OVERRIDE` | TURN port override | `UID+3000` |
+| `PORT_SSL_OVERRIDE` | HTTPS port override | `UID+30000` |
+| `PORT_HTTP_OVERRIDE` | HTTP port override | `UID+40000` |
+| `PORT_TURN_OVERRIDE` | TURN port override | `UID+50000` |
 | `HOST_IP` | Host IP for TURN server | Auto-detect |
 
 </details>
