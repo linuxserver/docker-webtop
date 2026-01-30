@@ -327,7 +327,7 @@ UID/GIDが一致するパーソナルイメージを作成（1-2分）：
 
 - **HTTPSポート**: `30000 + UID`（例: UID 1000 → ポート 31000）
 - **HTTPポート**: `40000 + UID`（例: UID 1000 → ポート 41000）
-- **TURNポート**: `50000 + UID`（例: UID 1000 → ポート 51000）
+- **TURNポート**: `45000 + UID`（例: UID 1000 → ポート 46000）
 
 アクセス: `https://localhost:${HTTPS_PORT}`（例: UID 1000で `https://localhost:31000`）
 
@@ -684,7 +684,7 @@ docker exec linuxserver-kde-$(whoami) pactl list sinks short
 |------|------|----------|
 | `PORT_SSL_OVERRIDE` | HTTPSポート上書き | `UID+30000` |
 | `PORT_HTTP_OVERRIDE` | HTTPポート上書き | `UID+40000` |
-| `PORT_TURN_OVERRIDE` | TURNポート上書き | `UID+50000` |
+| `PORT_TURN_OVERRIDE` | TURNポート上書き | `UID+45000` |
 | `HOST_IP` | TURNサーバー用ホストIP | 自動検出 |
 
 </details>
