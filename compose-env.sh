@@ -224,7 +224,7 @@ fi
 # Ports (UID-based, but allow overrides)
 HOST_PORT_SSL="${PORT_SSL_OVERRIDE:-$((HOST_UID + 30000))}"
 HOST_PORT_HTTP="${PORT_HTTP_OVERRIDE:-$((HOST_UID + 40000))}"
-HOST_PORT_TURN="${PORT_TURN_OVERRIDE:-$((HOST_UID + 50000))}"
+HOST_PORT_TURN="${PORT_TURN_OVERRIDE:-$((HOST_UID + 45000))}"
 
 # Get host IP for TURN server
 HOST_IP="${HOST_IP:-$(hostname -I 2>/dev/null | awk '{print $1}' || ip route get 1 2>/dev/null | awk '{print $7; exit}' || echo "127.0.0.1")}"
