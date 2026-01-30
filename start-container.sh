@@ -102,9 +102,9 @@ WIDTH=${RESOLUTION%x*}
 HEIGHT=${RESOLUTION#*x}
 SCALE_FACTOR=$(awk "BEGIN { printf \"%.2f\", ${DPI} / 96 }")
 CHROMIUM_FLAGS_COMBINED="--force-device-scale-factor=${SCALE_FACTOR} ${CHROMIUM_FLAGS:-}"
-HOST_PORT_SSL=${PORT_SSL_OVERRIDE:-$((HOST_UID + 10000))}
-HOST_PORT_HTTP=${PORT_HTTP_OVERRIDE:-$((HOST_UID + 20000))}
-HOST_PORT_TURN=${PORT_TURN_OVERRIDE:-$((HOST_UID + 3000))}
+HOST_PORT_SSL=${PORT_SSL_OVERRIDE:-$((HOST_UID + 30000))}
+HOST_PORT_HTTP=${PORT_HTTP_OVERRIDE:-$((HOST_UID + 40000))}
+HOST_PORT_TURN=${PORT_TURN_OVERRIDE:-$((HOST_UID + 50000))}
 HOSTNAME_RAW="$(hostname)"
 if [[ "$(uname -s)" == "Darwin" ]]; then
   HOSTNAME_RAW="$(scutil --get HostName 2>/dev/null || true)"
@@ -251,9 +251,11 @@ case "${GPU_VENDOR}" in
     fi
     # WSLg support
     if [ -d "/mnt/wslg" ]; then
-      GPU_FLAGS+=(-v /mnt/wslg:/mnt/wslg:ro)
+      GPU_FLAGS+=(-v /mnt/wslg:/mnt/wslg:rw)
+      GPU_FLAGS+=(-v /mnt/wslg/.X11-unix:/tmp/.X11-unix:rw)
+      GPU_FLAGS+=(-v /usr/lib/wsl/drivers:/usr/lib/wsl/drivers:ro)
     fi
-    GPU_ENV_VARS+=(-e ENABLE_NVIDIA=true -e WSL_ENVIRONMENT=true -e DISABLE_ZINK=true)
+    GPU_ENV_VARS+=(-e ENABLE_NVIDIA=true -e WSL_ENVIRONMENT=true -e DISABLE_ZINK=true -e XDG_RUNTIME_DIR=/mnt/wslg/runtime-dir -e LD_LIBRARY_PATH=/usr/lib/wsl/lib:${LD_LIBRARY_PATH:-})
     ;;
   *)
     echo "Unsupported GPU vendor: ${GPU_VENDOR}" >&2
