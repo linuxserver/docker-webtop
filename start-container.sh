@@ -104,7 +104,7 @@ SCALE_FACTOR=$(awk "BEGIN { printf \"%.2f\", ${DPI} / 96 }")
 CHROMIUM_FLAGS_COMBINED="--force-device-scale-factor=${SCALE_FACTOR} ${CHROMIUM_FLAGS:-}"
 HOST_PORT_SSL=${PORT_SSL_OVERRIDE:-$((HOST_UID + 30000))}
 HOST_PORT_HTTP=${PORT_HTTP_OVERRIDE:-$((HOST_UID + 40000))}
-HOST_PORT_TURN=${PORT_TURN_OVERRIDE:-$((HOST_UID + 50000))}
+HOST_PORT_TURN=${PORT_TURN_OVERRIDE:-$((HOST_UID + 45000))}
 HOSTNAME_RAW="$(hostname)"
 if [[ "$(uname -s)" == "Darwin" ]]; then
   HOSTNAME_RAW="$(scutil --get HostName 2>/dev/null || true)"
