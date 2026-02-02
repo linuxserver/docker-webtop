@@ -18,7 +18,6 @@ SSL_DIR=${SSL_DIR:-}
 GPU_VENDOR=${GPU_VENDOR:-none} # none|nvidia|nvidia-wsl|intel|amd
 GPU_ALL=false
 GPU_NUMS=""
-VIDEO_ENCODER="x264enc"
 IMAGE_TAG_SET=false
 IMAGE_VERSION_DEFAULT=${IMAGE_VERSION:-1.0.0}
 HOST_ARCH_RAW=$(uname -m)
@@ -104,7 +103,6 @@ SCALE_FACTOR=$(awk "BEGIN { printf \"%.2f\", ${DPI} / 96 }")
 CHROMIUM_FLAGS_COMBINED="--force-device-scale-factor=${SCALE_FACTOR} ${CHROMIUM_FLAGS:-}"
 HOST_PORT_SSL=${PORT_SSL_OVERRIDE:-$((HOST_UID + 30000))}
 HOST_PORT_HTTP=${PORT_HTTP_OVERRIDE:-$((HOST_UID + 40000))}
-HOST_PORT_TURN=${PORT_TURN_OVERRIDE:-$((HOST_UID + 45000))}
 HOSTNAME_RAW="$(hostname)"
 if [[ "$(uname -s)" == "Darwin" ]]; then
   HOSTNAME_RAW="$(scutil --get HostName 2>/dev/null || true)"
@@ -121,10 +119,6 @@ HOSTNAME_VAL=${CONTAINER_HOSTNAME:-Docker-${HOSTNAME_RAW}}
 echo "Using container hostname: ${HOSTNAME_VAL}"
 HOST_HOME_MOUNT="/home/${HOST_USER}/host_home"
 HOST_MNT_MOUNT="/home/${HOST_USER}/host_mnt"
-
-# Get host IP for TURN server (try multiple methods)
-HOST_IP=${HOST_IP:-$(hostname -I 2>/dev/null | awk '{print $1}' || ip route get 1 2>/dev/null | awk '{print $7; exit}' || echo "127.0.0.1")}
-TURN_RANDOM_PASSWORD=$(openssl rand -base64 18 | tr -dc 'A-Za-z0-9' | head -c 24 || echo "defaultpassword12345678")
 
 if [[ -n "${IMAGE_OVERRIDE}" ]]; then
   IMAGE="${IMAGE_OVERRIDE}"
@@ -164,11 +158,9 @@ GPU_ENV_VARS=()
 case "${GPU_VENDOR}" in
   none|"")
     GPU_VENDOR="none"
-    VIDEO_ENCODER="x264enc"
     GPU_ENV_VARS+=(-e ENABLE_NVIDIA=false)
     ;;
   intel)
-    VIDEO_ENCODER="vah264enc"
     GPU_ENV_VARS+=(-e ENABLE_NVIDIA=false -e LIBVA_DRIVER_NAME="${LIBVA_DRIVER_NAME:-iHD}")
     if [ -d "/dev/dri" ]; then
       # Check if VA-API is actually available (not just /dev/dri existence)
@@ -179,8 +171,7 @@ case "${GPU_VENDOR}" in
         else
           echo "Warning: /dev/dri found but VA-API initialization failed." >&2
           echo "This is normal on NVIDIA-only systems. Use '--gpu nvidia' instead of '--gpu intel'." >&2
-          echo "Falling back to software encoding (x264enc)..." >&2
-          VIDEO_ENCODER="x264enc"
+          echo "Falling back to software encoding..." >&2
         fi
       else
         GPU_FLAGS+=(--device=/dev/dri:/dev/dri:rwm)
@@ -188,12 +179,10 @@ case "${GPU_VENDOR}" in
       fi
     else
       echo "Warning: /dev/dri not found, Intel VA-API not available." >&2
-      echo "Falling back to software encoding (x264enc)..." >&2
-      VIDEO_ENCODER="x264enc"
+      echo "Falling back to software encoding..." >&2
     fi
     ;;
   amd)
-    VIDEO_ENCODER="vah264enc"
     GPU_ENV_VARS+=(-e ENABLE_NVIDIA=false -e LIBVA_DRIVER_NAME="${LIBVA_DRIVER_NAME:-radeonsi}")
     if [ -d "/dev/dri" ]; then
       # Check if VA-API is actually available
@@ -204,8 +193,7 @@ case "${GPU_VENDOR}" in
         else
           echo "Warning: /dev/dri found but VA-API initialization failed." >&2
           echo "This is normal on NVIDIA-only systems. Use '--gpu nvidia' instead of '--gpu amd'." >&2
-          echo "Falling back to software encoding (x264enc)..." >&2
-          VIDEO_ENCODER="x264enc"
+          echo "Falling back to software encoding..." >&2
         fi
       else
         GPU_FLAGS+=(--device=/dev/dri:/dev/dri:rwm)
@@ -213,15 +201,13 @@ case "${GPU_VENDOR}" in
       fi
     else
       echo "Warning: /dev/dri not found, AMD VA-API not available." >&2
-      echo "Falling back to software encoding (x264enc)..." >&2
-      VIDEO_ENCODER="x264enc"
+      echo "Falling back to software encoding..." >&2
     fi
     if [ -e "/dev/kfd" ]; then
       GPU_FLAGS+=(--device=/dev/kfd:/dev/kfd:rwm)
     fi
     ;;
   nvidia)
-    VIDEO_ENCODER="nvh264enc"
     if [ "${GPU_ALL}" = true ]; then
       GPU_FLAGS+=(--gpus all)
     elif [ -n "${GPU_NUMS}" ]; then
@@ -237,7 +223,6 @@ case "${GPU_VENDOR}" in
     ;;
   nvidia-wsl)
     # WSL2 with NVIDIA GPU support
-    VIDEO_ENCODER="nvh264enc"
     # WSL2 only supports --gpus all (no individual GPU selection)
     GPU_FLAGS+=(--gpus all)
     # Mount WSL-specific devices and libraries
@@ -251,11 +236,9 @@ case "${GPU_VENDOR}" in
     fi
     # WSLg support
     if [ -d "/mnt/wslg" ]; then
-      GPU_FLAGS+=(-v /mnt/wslg:/mnt/wslg:rw)
-      GPU_FLAGS+=(-v /mnt/wslg/.X11-unix:/tmp/.X11-unix:rw)
-      GPU_FLAGS+=(-v /usr/lib/wsl/drivers:/usr/lib/wsl/drivers:ro)
+      GPU_FLAGS+=(-v /mnt/wslg:/mnt/wslg:ro)
     fi
-    GPU_ENV_VARS+=(-e ENABLE_NVIDIA=true -e WSL_ENVIRONMENT=true -e DISABLE_ZINK=true -e XDG_RUNTIME_DIR=/mnt/wslg/runtime-dir -e LD_LIBRARY_PATH=/usr/lib/wsl/lib:${LD_LIBRARY_PATH:-})
+    GPU_ENV_VARS+=(-e ENABLE_NVIDIA=true -e WSL_ENVIRONMENT=true -e DISABLE_ZINK=true)
     ;;
   *)
     echo "Unsupported GPU vendor: ${GPU_VENDOR}" >&2
@@ -263,7 +246,7 @@ case "${GPU_VENDOR}" in
     ;;
 esac
 
-echo "Starting: name=${NAME}, image=${IMAGE}, resolution=${RESOLUTION}, DPI=${DPI}, gpu=${GPU_VENDOR}, host ports https=${HOST_PORT_SSL}->3001, http=${HOST_PORT_HTTP}->3000, turn=${HOST_PORT_TURN}->3478"
+echo "Starting: name=${NAME}, image=${IMAGE}, resolution=${RESOLUTION}, DPI=${DPI}, gpu=${GPU_VENDOR}, host ports https=${HOST_PORT_SSL}->3001, http=${HOST_PORT_HTTP}->3000"
 echo "Chromium scale: ${SCALE_FACTOR} (CHROMIUM_FLAGS=${CHROMIUM_FLAGS_COMBINED})"
 
 # Add video and render groups for GPU access (use host GIDs)
@@ -304,12 +287,6 @@ else
   echo "Warning: No SSL dir mounted. Using image self-signed cert (CN=*), browsers may reject WSS." >&2
 fi
 
-# Only mount /mnt on non-mac hosts (Docker Desktop for Mac does not share /mnt by default)
-MNT_MOUNT_FLAG=()
-if [ "$(uname -s)" != "Darwin" ] && [ -d "/mnt" ]; then
-  MNT_MOUNT_FLAG=(-v "/mnt":"${HOST_MNT_MOUNT}":rw)
-fi
-
 docker run -d \
   ${PLATFORM_FLAGS[@]+"${PLATFORM_FLAGS[@]}"} \
   ${GPU_FLAGS[@]+"${GPU_FLAGS[@]}"} \
@@ -321,8 +298,6 @@ docker run -d \
   -e SHELL=/bin/bash \
   -p ${HOST_PORT_HTTP}:3000 \
   -p ${HOST_PORT_SSL}:3001 \
-  -p ${HOST_PORT_TURN}:3478/tcp \
-  -p ${HOST_PORT_TURN}:3478/udp \
   -e DISPLAY=:1 \
   -e DPI="$DPI" \
   -e SCALE_FACTOR="${SCALE_FACTOR}" \
@@ -336,19 +311,11 @@ docker run -d \
   -e USER_NAME="${HOST_USER}" \
   -e PUID="${HOST_UID}" \
   -e PGID="${HOST_GID}" \
-  -e SELKIES_ENCODER="${VIDEO_ENCODER}" \
   -e GPU_VENDOR="${GPU_VENDOR}" \
-  -e SELKIES_TURN_HOST="$([ "${GPU_VENDOR}" = "nvidia-wsl" ] && echo "localhost" || echo "${HOST_IP}")" \
-  -e SELKIES_TURN_PORT="${HOST_PORT_TURN}" \
-  -e SELKIES_TURN_USERNAME="selkies" \
-  -e SELKIES_TURN_PASSWORD="${TURN_RANDOM_PASSWORD}" \
-  -e SELKIES_TURN_PROTOCOL="tcp" \
-  -e TURN_RANDOM_PASSWORD="${TURN_RANDOM_PASSWORD}" \
-  -e TURN_EXTERNAL_IP="${HOST_IP}" \
   --shm-size "${SHM_SIZE}" \
   --privileged \
   -v "${HOME}":"${HOST_HOME_MOUNT}":rw \
-  ${MNT_MOUNT_FLAG[@]+"${MNT_MOUNT_FLAG[@]}"} \
+  -v "/mnt":"${HOST_MNT_MOUNT}":rw \
   -v "${HOME}/.ssh":"/home/${HOST_USER}/.ssh":rw \
   ${GPU_ENV_VARS[@]+"${GPU_ENV_VARS[@]}"} \
   ${SSL_FLAGS[@]+"${SSL_FLAGS[@]}"} \

@@ -35,10 +35,10 @@ do
     fi
 done
 
-# set default encoder to software x264enc unless user overrides
-if [ -z "${SELKIES_ENCODER+x}" ]; then
-    echo "SELKIES_ENCODER=x264enc" > /run/s6/container_environment/SELKIES_ENCODER
-fi
+# pixelflux handles encoding internally based on GPU availability
+# NVIDIA: auto-detects NVENC
+# Intel/AMD: uses VA-API via vaapi_render_node_index
+# No explicit encoder setting needed
 
 # check if nvidia gpu is present
 if which nvidia-smi > /dev/null 2>&1 && ls -A /dev/dri 2>/dev/null; then

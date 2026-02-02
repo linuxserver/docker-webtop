@@ -56,20 +56,11 @@ fi
 rm -Rf \
   /usr/share/selkies/web
 
-# Use gst-web for selkies-gstreamer when GPU is available, otherwise use dashboard
-GPU_VENDOR="${GPU_VENDOR:-none}"
-if [ "${GPU_VENDOR}" != "none" ] && [ -d /opt/gst-web ] && command -v selkies-gstreamer >/dev/null 2>&1; then
-  cp -a \
-    /opt/gst-web \
-    /usr/share/selkies/web
-  mkdir -p /usr/share/selkies/web/nginx
-  cp /defaults/header.html /usr/share/selkies/web/nginx/ 2>/dev/null || true
-  cp /defaults/footer.html /usr/share/selkies/web/nginx/ 2>/dev/null || true
-else
-  cp -a \
-    /usr/share/selkies/$DASHBOARD \
-    /usr/share/selkies/web
-fi
+# Always use dashboard (selkies with pixelflux)
+# pixelflux handles hardware encoding internally via NVENC/VA-API
+cp -a \
+  /usr/share/selkies/$DASHBOARD \
+  /usr/share/selkies/web
 
 # Ensure Safari keyboard fix is applied after runtime copy
 if [ -f /usr/local/bin/patch-selkies-safari-keyboard.py ]; then

@@ -481,15 +481,17 @@ Other Options:
 
 ### Video Encoding
 
-**Available Encoders:**
+**Hardware Encoding (Pixelflux):**
 
-| Encoder | GPU | Quality | CPU Load |
-|---------|-----|---------|----------|
-| `nvh264enc` | NVIDIA NVENC | High | Low |
-| `vah264enc` | Intel/AMD VA-API | High | Low |
-| `x264enc` | Software | Medium | High |
+| GPU | Encoder | Quality | CPU Load |
+|-----|---------|---------|----------|
+| NVIDIA | NVENC | High | Low |
+| Intel | VA-API (Quick Sync) | High | Low |
+| AMD | VA-API | High | Low |
+| None | Software (libx264) | Medium | High |
 
-Encoder is automatically selected based on `--gpu` option.
+Encoder is automatically selected by Pixelflux based on `--gpu` option.
+Hardware encoding achieves low latency through zero-copy pipeline.
 
 ### Audio Settings
 
@@ -716,7 +718,12 @@ devcontainer-ubuntu-kde-selkies-for-mac/
 External dependencies are pinned to specific versions for reproducible builds:
 
 - **VirtualGL:** 3.1.4
-- **Selkies GStreamer:** 1.6.2
+- **Selkies + Pixelflux:** Selkies WebRTC streaming with Pixelflux encoder
+
+**Hardware Encoding:**
+- **NVIDIA GPU:** NVENC auto-detection via Pixelflux
+- **Intel GPU:** VA-API (Quick Sync Video) via Pixelflux
+- **AMD GPU:** VA-API via Pixelflux
 
 These are defined in [files/linuxserver-kde.base.dockerfile](files/linuxserver-kde.base.dockerfile) as build arguments.
 

@@ -481,15 +481,17 @@ GPU使用例:
 
 ### ビデオエンコード
 
-**利用可能エンコーダー:**
+**ハードウェアエンコード (Pixelflux):**
 
-| エンコーダー | GPU | 品質 | CPU負荷 |
-|-------------|-----|------|---------|
-| `nvh264enc` | NVIDIA NVENC | 高 | 低 |
-| `vah264enc` | Intel/AMD VA-API | 高 | 低 |
-| `x264enc` | ソフトウェア | 中 | 高 |
+| GPU | エンコーダー | 品質 | CPU負荷 |
+|-----|-------------|------|---------|
+| NVIDIA | NVENC | 高 | 低 |
+| Intel | VA-API (Quick Sync) | 高 | 低 |
+| AMD | VA-API | 高 | 低 |
+| なし | Software (libx264) | 中 | 高 |
 
-エンコーダーは`--gpu`オプションに基づいて自動選択されます。
+エンコーダーは`--gpu`オプションに基づいてPixelfluxが自動選択します。
+ハードウェアエンコードはゼロコピーパイプラインにより低遅延を実現します。
 
 ### オーディオ設定
 
@@ -716,7 +718,12 @@ devcontainer-ubuntu-kde-selkies-for-mac/
 再現可能なビルドのため、外部依存関係は特定バージョンに固定：
 
 - **VirtualGL:** 3.1.4
-- **Selkies GStreamer:** 1.6.2
+- **Selkies + Pixelflux:** Selkies WebRTCストリーミングとPixelfluxエンコーダー
+
+**ハードウェアエンコード:**
+- **NVIDIA GPU:** Pixelflux経由でNVENC自動検出
+- **Intel GPU:** Pixelflux経由でVA-API (Quick Sync Video)
+- **AMD GPU:** Pixelflux経由でVA-API
 
 これらは [files/linuxserver-kde.base.dockerfile](files/linuxserver-kde.base.dockerfile) でビルド引数として定義。
 

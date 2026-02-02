@@ -334,7 +334,7 @@ ARG LIBVA_DEB_URL_ARM64="http://ports.ubuntu.com/ubuntu-ports/pool/main/libv/lib
 ARG LIBVA_DEB_URL_JAMMY="http://launchpadlibrarian.net/587480468/libva2_2.14.0-1_amd64.deb"
 ARG LIBVA_LIBDIR="/usr/lib/x86_64-linux-gnu"
 ARG PROOT_ARCH="x86_64"
-ARG SELKIES_VERSION="1.6.2"
+ARG PROOT_APPS_VERSION="0.3.1"
 ARG VIRTUALGL_VERSION="3.1.4"
 
 # Step 1: Install base system packages and Docker
@@ -377,9 +377,6 @@ RUN \
     libglvnd0 libglx0 libglu1 libglvnd-dev \
     nginx openbox openssh-client \
     openssl pciutils procps psmisc pulseaudio pulseaudio-utils python3 python3-venv \
-    gstreamer1.0-tools gstreamer1.0-plugins-base gstreamer1.0-plugins-good \
-    gstreamer1.0-plugins-bad gstreamer1.0-plugins-ugly gstreamer1.0-libav \
-    gstreamer1.0-vaapi \
     bash-completion software-properties-common ssl-cert stterm sudo tar util-linux vulkan-tools \
     wl-clipboard wtype x11-apps x11-common x11-utils x11-xkb-utils x11-xserver-utils \
     xauth xclip xcvt xdg-utils xdotool xfconf xfonts-base xkb-data xsel \
@@ -489,11 +486,9 @@ RUN \
   sed -e 's/%sudo	ALL=(ALL:ALL) ALL/%sudo ALL=(ALL:ALL) NOPASSWD: ALL/g' -i /etc/sudoers && \
   echo "**** proot-apps ****" && \
   mkdir /proot-apps/ && \
-  PAPPS_RELEASE=$(curl -sX GET "https://api.github.com/repos/linuxserver/proot-apps/releases/latest" \
-    | awk '/tag_name/{print $4;exit}' FS='[""]') && \
-  curl -L https://github.com/linuxserver/proot-apps/releases/download/${PAPPS_RELEASE}/proot-apps-${PROOT_ARCH}.tar.gz \
+  curl -L https://github.com/linuxserver/proot-apps/releases/download/${PROOT_APPS_VERSION}/proot-apps-${PROOT_ARCH}.tar.gz \
     | tar -xzf - -C /proot-apps/ && \
-  echo "${PAPPS_RELEASE}" > /proot-apps/pversion && \
+  echo "${PROOT_APPS_VERSION}" > /proot-apps/pversion && \
   echo "**** dind support ****" && \
   useradd -U dockremap && \
   usermod -G dockremap dockremap && \
@@ -597,36 +592,10 @@ RUN \
   echo "**** theme ****" && \
   curl -s https://raw.githubusercontent.com/thelamer/lang-stash/master/theme.tar.gz \
     | tar xzvf - -C /usr/share/themes/Clearlooks/openbox-3/ && \
-  echo "**** enable hardware encoders in selkies settings (arm64 only) ****" && \
-  ARCH_CUR=$(dpkg --print-architecture) && \
-  if [ "${ARCH_CUR}" != "amd64" ]; then \
-    python3 -c "import selkies, pathlib; p = pathlib.Path(selkies.__file__).with_name('settings.py'); t = p.read_text(); old = \"['x264enc', 'x264enc-striped', 'jpeg']\"; new = \"['x264enc', 'x264enc-striped', 'jpeg', 'nvh264enc', 'vah264enc', 'vaapih264enc']\"; \
-assert old in t, f'Expected encoder list not found in {p}'; p.write_text(t.replace(old, new, 1)); print('Updated selkies encoder allowlist:', p)"; \
-  fi && \
   rm -rf /tmp/*
 
-# Step 6: Install selkies-gstreamer (AMD64 only)
-ARG SELKIES_VERSION
-RUN \
-  echo "**** selkies-gstreamer (amd64 only) ****" && \
-  ARCH_CUR=$(dpkg --print-architecture) && \
-  if [ "${ARCH_CUR}" = "amd64" ]; then \
-    UBUNTU_VERSION="$(. /etc/os-release && echo ${VERSION_ID})"; \
-    BASE_URL="https://github.com/selkies-project/selkies/releases/download/v${SELKIES_VERSION}"; \
-    mkdir -p /opt/gstreamer && \
-    curl -fsSL "${BASE_URL}/gstreamer-selkies_gpl_v${SELKIES_VERSION}_ubuntu${UBUNTU_VERSION}_amd64.tar.gz" | tar -xzf - -C /opt && \
-    cd /tmp && curl -O -fsSL "${BASE_URL}/selkies_gstreamer-${SELKIES_VERSION}-py3-none-any.whl" && \
-    pip install --no-cache-dir "selkies_gstreamer-${SELKIES_VERSION}-py3-none-any.whl" && \
-    rm -f "selkies_gstreamer-${SELKIES_VERSION}-py3-none-any.whl" && \
-    curl -fsSL "${BASE_URL}/selkies-gstreamer-web_v${SELKIES_VERSION}.tar.gz" | tar -xzf - -C /opt && \
-    echo "**** upgrade websockets to 15.x for selkies compatibility ****" && \
-    pip install --force-reinstall 'websockets>=15.0'; \
-  else \
-    echo "Skipping selkies-gstreamer install on arch ${ARCH_CUR}"; \
-  fi && \
-  rm -rf /tmp/*
-
-# Step 7: Install CUDA NVRTC for WSL2 support (AMD64 only)
+# Step 6: Install CUDA NVRTC for WSL2 support (AMD64 only)
+# Note: selkies-gstreamer has been removed. GPU encoding now uses pixelflux with VA-API/NVENC
 RUN \
   echo "**** install CUDA NVRTC for WSL2 cudaconvert support (amd64 only) ****" && \
   ARCH_CUR=$(dpkg --print-architecture) && \
@@ -652,11 +621,7 @@ RUN \
 # add local files - this will overwrite ubuntu-root files if conflicts exist
 COPY ubuntu-root/ /
 
-# Apply websockets 15.x compatibility patch for selkies-gstreamer (amd64 only)
-RUN if [ "$(dpkg --print-architecture)" = "amd64" ] && [ -f /usr/local/bin/patch-selkies-websockets15.py ]; then \
-      chmod +x /usr/local/bin/patch-selkies-websockets15.py && \
-      python3 /usr/local/bin/patch-selkies-websockets15.py; \
-    fi
+# selkies-gstreamer is no longer used; websockets 15.x patch is not needed
 COPY --from=frontend /buildout /usr/share/selkies
 COPY --from=xvfb-builder /build-out/ /
 
@@ -665,9 +630,6 @@ RUN if [ -f /usr/local/bin/patch-selkies-safari-keyboard.py ]; then \
       chmod +x /usr/local/bin/patch-selkies-safari-keyboard.py && \
       python3 /usr/local/bin/patch-selkies-safari-keyboard.py; \
     fi
-
-# Make TURN server script executable (AMD64 only, after final COPY)
-RUN if [ "$(dpkg --print-architecture)" = "amd64" ]; then chmod 755 /etc/start-turnserver.sh; fi
 
 # ports and volumes
 EXPOSE 3000 3001

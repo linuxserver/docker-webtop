@@ -27,7 +27,7 @@ Environment overrides:
   Resolution: RESOLUTION
   DPI: DPI
   Timezone: TIMEZONE
-  Ports: PORT_SSL_OVERRIDE, PORT_HTTP_OVERRIDE, PORT_TURN_OVERRIDE
+  Ports: PORT_SSL_OVERRIDE, PORT_HTTP_OVERRIDE
   SSL: SSL_DIR
   Container: CONTAINER_NAME, CONTAINER_HOSTNAME
   Image: IMAGE_BASE, IMAGE_TAG
@@ -224,9 +224,8 @@ fi
 # Ports (UID-based, but allow overrides)
 HOST_PORT_SSL="${PORT_SSL_OVERRIDE:-$((HOST_UID + 30000))}"
 HOST_PORT_HTTP="${PORT_HTTP_OVERRIDE:-$((HOST_UID + 40000))}"
-HOST_PORT_TURN="${PORT_TURN_OVERRIDE:-$((HOST_UID + 45000))}"
 
-# Get host IP for TURN server
+# Get host IP
 HOST_IP="${HOST_IP:-$(hostname -I 2>/dev/null | awk '{print $1}' || ip route get 1 2>/dev/null | awk '{print $7; exit}' || echo "127.0.0.1")}"
 if [ -z "${HOST_IP}" ]; then
     if [ "$(uname -s)" = "Darwin" ]; then
@@ -235,14 +234,13 @@ if [ -z "${HOST_IP}" ]; then
         HOST_IP="127.0.0.1"
     fi
 fi
-TURN_RANDOM_PASSWORD=$(openssl rand -base64 18 | tr -dc 'A-Za-z0-9' | head -c 24 || echo "defaultpassword12345678")
 
 # Home mount path
 HOST_HOME_MOUNT="/home/${HOST_USER}/host_home"
 HOST_MNT_MOUNT="/home/${HOST_USER}/host_mnt"
 
 # GPU configuration
-VIDEO_ENCODER="x264enc"
+# Note: pixelflux handles hardware encoding automatically based on GPU_VENDOR
 ENABLE_NVIDIA="false"
 LIBVA_DRIVER_NAME=""
 NVIDIA_VISIBLE_DEVICES=""
@@ -254,7 +252,6 @@ LD_LIBRARY_PATH=""
 
 case "${GPU_VENDOR}" in
     nvidia)
-        VIDEO_ENCODER="nvh264enc"
         ENABLE_NVIDIA="true"
         DISABLE_ZINK="true"
         if [ "${GPU_ALL}" = "true" ]; then
@@ -267,7 +264,6 @@ case "${GPU_VENDOR}" in
         fi
         ;;
     nvidia-wsl)
-        VIDEO_ENCODER="nvh264enc"
         ENABLE_NVIDIA="true"
         WSL_ENVIRONMENT="true"
         DISABLE_ZINK="true"
@@ -280,69 +276,28 @@ case "${GPU_VENDOR}" in
         fi
         ;;
     intel)
-        VIDEO_ENCODER="vah264enc"
         LIBVA_DRIVER_NAME="${LIBVA_DRIVER_NAME:-iHD}"
         if [ -d "/dev/dri" ]; then
-            if command -v vainfo >/dev/null 2>&1; then
-                if vainfo --display drm --device /dev/dri/renderD128 >/dev/null 2>&1; then
-                    GPU_DEVICES="/dev/dri:/dev/dri:rwm"
-                else
-                    echo "Warning: /dev/dri found but VA-API initialization failed." >&2
-                    echo "Falling back to software encoding (x264enc)..." >&2
-                    VIDEO_ENCODER="x264enc"
-                fi
-            else
-                GPU_DEVICES="/dev/dri:/dev/dri:rwm"
-                echo "Warning: vainfo not found, cannot verify VA-API availability" >&2
-            fi
+            GPU_DEVICES="/dev/dri:/dev/dri:rwm"
         else
             echo "Warning: /dev/dri not found, Intel VA-API not available." >&2
-            echo "Falling back to software encoding (x264enc)..." >&2
-            VIDEO_ENCODER="x264enc"
         fi
         ;;
     amd)
-        VIDEO_ENCODER="vah264enc"
         LIBVA_DRIVER_NAME="${LIBVA_DRIVER_NAME:-radeonsi}"
         if [ -d "/dev/dri" ]; then
-            if command -v vainfo >/dev/null 2>&1; then
-                if vainfo --display drm --device /dev/dri/renderD128 >/dev/null 2>&1; then
-                    GPU_DEVICES="/dev/dri:/dev/dri:rwm"
-                else
-                    echo "Warning: /dev/dri found but VA-API initialization failed." >&2
-                    echo "Falling back to software encoding (x264enc)..." >&2
-                    VIDEO_ENCODER="x264enc"
-                fi
-            else
-                GPU_DEVICES="/dev/dri:/dev/dri:rwm"
-                echo "Warning: vainfo not found, cannot verify VA-API availability" >&2
-            fi
+            GPU_DEVICES="/dev/dri:/dev/dri:rwm"
         else
             echo "Warning: /dev/dri not found, AMD VA-API not available." >&2
-            echo "Falling back to software encoding (x264enc)..." >&2
-            VIDEO_ENCODER="x264enc"
         fi
         if [ -e "/dev/kfd" ]; then
             GPU_DEVICES="${GPU_DEVICES:+${GPU_DEVICES},}/dev/kfd:/dev/kfd:rwm"
         fi
         ;;
     none|"")
-        VIDEO_ENCODER="x264enc"
         ENABLE_NVIDIA="false"
         ;;
 esac
-
-SELKIES_ENCODER="${VIDEO_ENCODER}"
-if [ "${GPU_VENDOR}" = "nvidia-wsl" ]; then
-    SELKIES_TURN_HOST="localhost"
-else
-    SELKIES_TURN_HOST="${HOST_IP}"
-fi
-SELKIES_TURN_PORT="${HOST_PORT_TURN}"
-SELKIES_TURN_USERNAME="selkies"
-SELKIES_TURN_PASSWORD="${TURN_RANDOM_PASSWORD}"
-SELKIES_TURN_PROTOCOL="tcp"
-TURN_EXTERNAL_IP="${HOST_IP}"
 
 USER_UID="${HOST_UID}"
 USER_GID="${HOST_GID}"
@@ -359,18 +314,17 @@ if [ -n "${SSL_DIR}" ] && [ -d "${SSL_DIR}" ]; then
 fi
 
 # Environment variables for docker-compose
+# Note: VIDEO_ENCODER, SELKIES_ENCODER, TURN-related variables removed (pixelflux handles encoding)
 ENV_VARS=(
     HOST_USER HOST_UID HOST_GID CONTAINER_NAME USER_IMAGE CONTAINER_HOSTNAME
     IMAGE_BASE IMAGE_TAG IMAGE_VERSION IMAGE_ARCH UBUNTU_VERSION
-    HOST_PORT_SSL HOST_PORT_HTTP HOST_PORT_TURN HOST_IP
+    HOST_PORT_SSL HOST_PORT_HTTP HOST_IP
     WIDTH HEIGHT DPI SCALE_FACTOR FORCE_DEVICE_SCALE_FACTOR CHROMIUM_FLAGS SHM_SIZE RESOLUTION TIMEZONE
-    GPU_VENDOR GPU_ALL GPU_NUMS VIDEO_ENCODER
-    SELKIES_ENCODER
+    GPU_VENDOR GPU_ALL GPU_NUMS
     ENABLE_NVIDIA LIBVA_DRIVER_NAME NVIDIA_VISIBLE_DEVICES GPU_DEVICES
     WSL_ENVIRONMENT DISABLE_ZINK XDG_RUNTIME_DIR LD_LIBRARY_PATH
     SSL_DIR SSL_CERT_PATH SSL_KEY_PATH
-    HOST_HOME_MOUNT HOST_MNT_MOUNT TURN_RANDOM_PASSWORD
-    SELKIES_TURN_HOST SELKIES_TURN_PORT SELKIES_TURN_USERNAME SELKIES_TURN_PASSWORD SELKIES_TURN_PROTOCOL TURN_EXTERNAL_IP
+    HOST_HOME_MOUNT HOST_MNT_MOUNT
     USER_UID USER_GID USER_NAME
 )
 
