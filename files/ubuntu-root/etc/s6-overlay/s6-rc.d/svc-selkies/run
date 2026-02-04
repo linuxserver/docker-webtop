@@ -3,8 +3,9 @@
 TARGET_USER="${CUSTOM_USER:-${USER_NAME:-root}}"
 PORT="${SELKIES_PORT:-8082}"
 
-# GPU_VENDOR is passed from start-container.sh: none|nvidia|nvidia-wsl|intel|amd
-GPU_VENDOR="${GPU_VENDOR:-none}"
+# ENCODER is passed from start-container.sh: software|nvidia|nvidia-wsl|intel|amd
+ENCODER="${ENCODER:-}"
+GPU_VENDOR="${ENCODER:-${GPU_VENDOR:-software}}"
 
 # Check if running in WSL environment
 WSL_ENVIRONMENT="${WSL_ENVIRONMENT:-false}"
@@ -63,24 +64,46 @@ if [ "${GPU_VENDOR}" = "nvidia" ] || [ "${GPU_VENDOR}" = "nvidia-wsl" ]; then
   fi
 elif [ "${GPU_VENDOR}" = "intel" ] || [ "${GPU_VENDOR}" = "amd" ]; then
   # Intel/AMD: Use VA-API with render node
-  # DRI_NODE is set by init-selkies-config if /dev/dri/renderD128 exists
-  if [ -n "${DRI_NODE}" ]; then
-    # Extract render node index from path (e.g., /dev/dri/renderD128 -> 0)
+  # Need to find the correct render node for the specified GPU vendor
+  VAAPI_INDEX=""
+  
+  # Find the correct render node by checking the driver
+  for renderD in /dev/dri/renderD*; do
+    if [ -e "$renderD" ]; then
+      RENDER_NUM=$(echo "$renderD" | grep -oP 'renderD\K[0-9]+')
+      DRIVER_LINK="/sys/class/drm/renderD${RENDER_NUM}/device/driver"
+      if [ -L "$DRIVER_LINK" ]; then
+        DRIVER_NAME=$(basename "$(readlink -f "$DRIVER_LINK")")
+        if [ "${GPU_VENDOR}" = "intel" ] && [ "$DRIVER_NAME" = "i915" ]; then
+          VAAPI_INDEX=$((RENDER_NUM - 128))
+          echo "[svc-selkies] Found Intel GPU at renderD${RENDER_NUM} (driver: ${DRIVER_NAME})"
+          break
+        elif [ "${GPU_VENDOR}" = "amd" ] && [ "$DRIVER_NAME" = "amdgpu" ]; then
+          VAAPI_INDEX=$((RENDER_NUM - 128))
+          echo "[svc-selkies] Found AMD GPU at renderD${RENDER_NUM} (driver: ${DRIVER_NAME})"
+          break
+        fi
+      fi
+    fi
+  done
+  
+  if [ -n "${VAAPI_INDEX}" ]; then
+    export PIXELFLUX_VAAPI_RENDER_NODE_INDEX="${VAAPI_INDEX}"
+    echo "[svc-selkies] GPU_VENDOR=${GPU_VENDOR}: pixelflux will use VA-API hardware encoding (index ${VAAPI_INDEX})"
+  elif [ -n "${DRI_NODE}" ]; then
+    # Fallback to DRI_NODE if set
     RENDER_NUM=$(echo "${DRI_NODE}" | grep -oP 'renderD\K[0-9]+')
     if [ -n "${RENDER_NUM}" ]; then
       VAAPI_INDEX=$((RENDER_NUM - 128))
       export PIXELFLUX_VAAPI_RENDER_NODE_INDEX="${VAAPI_INDEX}"
-      echo "[svc-selkies] GPU_VENDOR=${GPU_VENDOR}: pixelflux will use VA-API hardware encoding on ${DRI_NODE} (index ${VAAPI_INDEX})"
+      echo "[svc-selkies] GPU_VENDOR=${GPU_VENDOR}: pixelflux will use VA-API on ${DRI_NODE} (index ${VAAPI_INDEX})"
     else
-      export PIXELFLUX_VAAPI_RENDER_NODE_INDEX="0"
-      echo "[svc-selkies] GPU_VENDOR=${GPU_VENDOR}: pixelflux will use VA-API hardware encoding (default index 0)"
+      export PIXELFLUX_VAAPI_RENDER_NODE_INDEX="-1"
+      echo "[svc-selkies] GPU_VENDOR=${GPU_VENDOR}: Could not determine render node, falling back to software encoding"
     fi
-  elif [ -e "/dev/dri/renderD128" ]; then
-    export PIXELFLUX_VAAPI_RENDER_NODE_INDEX="0"
-    echo "[svc-selkies] GPU_VENDOR=${GPU_VENDOR}: pixelflux will use VA-API hardware encoding on /dev/dri/renderD128"
   else
     export PIXELFLUX_VAAPI_RENDER_NODE_INDEX="-1"
-    echo "[svc-selkies] GPU_VENDOR=${GPU_VENDOR}: No render node found, falling back to software encoding"
+    echo "[svc-selkies] GPU_VENDOR=${GPU_VENDOR}: No matching render node found, falling back to software encoding"
   fi
 else
   # No GPU or unknown: software encoding
@@ -91,7 +114,45 @@ fi
 # Always use selkies with pixelflux (WebSocket mode)
 SELKIES_CMD="selkies"
 CMD_OPTS=(--addr="localhost" --mode="websockets" --port="${PORT}")
-echo "[svc-selkies] Using selkies with pixelflux (GPU_VENDOR=${GPU_VENDOR})"
+
+# Configure encoder based on GPU vendor
+ENCODER_TYPE="x264enc"  # Default to software encoder
+
+if [ "${GPU_VENDOR}" = "nvidia" ] || [ "${GPU_VENDOR}" = "nvidia-wsl" ]; then
+  ENCODER_TYPE="nvh264enc"
+  CMD_OPTS+=(--encoder="${ENCODER_TYPE}")
+  echo "[svc-selkies] Using NVIDIA NVENC encoder: ${ENCODER_TYPE}"
+elif [ "${GPU_VENDOR}" = "intel" ] || [ "${GPU_VENDOR}" = "amd" ]; then
+  # VA-API hardware encoder
+  ENCODER_TYPE="vah264enc"
+  CMD_OPTS+=(--encoder="${ENCODER_TYPE}")
+  
+  if [ -n "${VAAPI_INDEX}" ]; then
+    DRI_NODE_PATH="/dev/dri/renderD$((128 + VAAPI_INDEX))"
+    if [ -e "${DRI_NODE_PATH}" ]; then
+      CMD_OPTS+=(--dri-node="${DRI_NODE_PATH}")
+      echo "[svc-selkies] Added --dri-node=${DRI_NODE_PATH} for VA-API encoding"
+    fi
+  fi
+  echo "[svc-selkies] Using VA-API encoder: ${ENCODER_TYPE}"
+else
+  # Software encoder (x264)
+  CMD_OPTS+=(--encoder="${ENCODER_TYPE}")
+  echo "[svc-selkies] Using software encoder: ${ENCODER_TYPE}"
+fi
+
+# Enable H.264 streaming mode for lower latency (crucial for responsiveness!)
+# This enables low-latency encoding with reduced buffering
+CMD_OPTS+=(--h264-streaming-mode=true)
+echo "[svc-selkies] H.264 streaming mode enabled for low latency"
+
+# Optimize CRF for better quality/latency balance (lower = better quality, more bandwidth)
+# Default is 25, we use 18-20 for better responsiveness
+SELKIES_H264_CRF="${SELKIES_H264_CRF:-18}"
+CMD_OPTS+=(--h264-crf="${SELKIES_H264_CRF}")
+echo "[svc-selkies] H.264 CRF set to: ${SELKIES_H264_CRF}"
+
+echo "[svc-selkies] Using selkies with pixelflux (GPU_VENDOR=${GPU_VENDOR}, Encoder=${ENCODER_TYPE})"
 
 # Default sink setup (wait until pulseaudio is ready, then create virtual sinks)
 if [ ! -f '/dev/shm/audio.lock' ]; then

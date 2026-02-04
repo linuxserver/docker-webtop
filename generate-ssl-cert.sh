@@ -151,7 +151,7 @@ EOF
   echo "     → Authorities → Import → Select ${SSL_DIR}/ca.crt"
   echo ""
   echo "2. Start the container (SSL auto-detected from ./ssl/):"
-  echo "     ./start-container.sh --gpu nvidia --all"
+  echo "     ./start-container.sh --encoder nvidia --gpu all"
   echo ""
   
 else

@@ -26,12 +26,12 @@ A containerized Kubuntu (KDE Plasma) desktop environment accessible via browser.
 ./build-user-image.sh -u 22.04                                # Ubuntu 22.04
 
 # 2. Start container
-./start-container.sh                                          # Software rendering
-./start-container.sh --gpu nvidia --all                       # NVIDIA GPU (all GPUs)
-./start-container.sh --gpu nvidia --num 0                     # NVIDIA GPU (GPU 0 only)
-./start-container.sh --gpu intel                              # Intel GPU
-./start-container.sh --gpu amd                                # AMD GPU
-./start-container.sh --gpu nvidia-wsl --all                   # WSL2 + NVIDIA
+./start-container.sh --encoder software                       # Software encoding
+./start-container.sh --encoder nvidia --gpu all               # NVIDIA NVENC (all GPUs)
+./start-container.sh --encoder nvidia --num 0                 # NVIDIA NVENC (GPU 0 only)
+./start-container.sh --encoder intel                          # Intel VA-API
+./start-container.sh --encoder amd                            # AMD VA-API
+./start-container.sh --encoder nvidia-wsl --gpu all           # WSL2 + NVIDIA NVENC
 
 # 3. Access via browser
 # → https://localhost:<30000+UID> (e.g., UID=1000 → https://localhost:31000)
@@ -92,10 +92,13 @@ That's it! 🎉
   - History optimization (ignoredups, append mode, timestamps)
   - Useful aliases (ll, la, grep colors, etc.)
 
-- **🎮 Flexible GPU Selection:** Clear command arguments
-  - `--all` - Use all available GPUs
+- **🎮 Flexible Encoder/GPU Selection:** Clear command arguments
+  - `--encoder nvidia` - NVIDIA NVENC
+  - `--encoder intel` - Intel VA-API
+  - `--encoder amd` - AMD VA-API
+  - `--encoder software` - Software encoding
+  - `--gpu all` - Use all Docker GPUs (NVIDIA)
   - `--num 0,1` - Specific GPU devices
-  - `--gpu none` - Software rendering
 
 ### Developer Experience
 
@@ -105,7 +108,7 @@ That's it! 🎉
 
 - **🛠️ Complete Management Scripts:** Shell scripts for all operations
   - `build-user-image.sh` - Build with password
-  - `start-container.sh [--gpu <type>]` - Start with GPU selection
+  - `start-container.sh --encoder <type>` - Start with encoder selection
   - `stop/shell-container.sh` - Lifecycle management
   - `commit-container.sh` - Save your changes
 
@@ -124,7 +127,7 @@ That's it! 🎉
 | Manual UID/GID setup | Automatic matching |
 | Password in command | Environment variable |
 | Generic bash | Ubuntu Desktop bash |
-| GPU auto-detected | GPU explicitly selected |
+| GPU auto-detected | Encoder/GPU explicitly selected |
 | Version drift | Version pinned |
 | English only | Multi-language (EN/JP) |
 
@@ -327,15 +330,13 @@ Ports are automatically assigned based on your user ID to enable multiple users 
 
 - **HTTPS Port**: `30000 + UID` (e.g., UID 1000 → port 31000)
 - **HTTP Port**: `40000 + UID` (e.g., UID 1000 → port 41000)
-- **TURN Port**: `45000 + UID` (e.g., UID 1000 → port 46000)
 
 Access via: `https://localhost:${HTTPS_PORT}` (e.g., `https://localhost:31000` for UID 1000)
 
 **Remote Access (LAN/WAN):**
 
-TURN server is **enabled by default** for remote access without additional options:
+WebRTC remote access is available:
 
-- TURN server relays WebRTC connections
 - Auto-detects LAN IP address
 - Access from remote PC: `https://<host-ip>:<https-port>`
 
@@ -686,8 +687,7 @@ docker exec linuxserver-kde-$(whoami) pactl list sinks short
 |----------|-------------|---------|
 | `PORT_SSL_OVERRIDE` | HTTPS port override | `UID+30000` |
 | `PORT_HTTP_OVERRIDE` | HTTP port override | `UID+40000` |
-| `PORT_TURN_OVERRIDE` | TURN port override | `UID+45000` |
-| `HOST_IP` | Host IP for TURN server | Auto-detect |
+
 
 </details>
 

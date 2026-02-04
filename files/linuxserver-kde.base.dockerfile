@@ -383,11 +383,6 @@ RUN \
     xserver-common xserver-xorg-core xserver-xorg-video-amdgpu xserver-xorg-video-ati \
     xserver-xorg-video-nouveau xserver-xorg-video-qxl xserver-xorg-video-dummy \
     xsettingsd xterm xutils xvfb zlib1g zstd && \
-  echo "**** install coturn (AMD64 only) ****" && \
-  ARCH_CUR=$(dpkg --print-architecture) && \
-  if [ "${ARCH_CUR}" = "amd64" ]; then \
-    apt-get install -y --no-install-recommends coturn; \
-  fi && \
   echo "**** install Intel VA drivers (AMD64 only) ****" && \
   ARCH_CUR=$(dpkg --print-architecture) && \
   if [ "${ARCH_CUR}" = "amd64" ]; then \

@@ -26,15 +26,15 @@
 ./build-user-image.sh -u 22.04                                # Ubuntu 22.04
 
 # 2. コンテナを起動
-./start-container.sh                                          # ソフトウェアレンダリング
-./start-container.sh --gpu nvidia --all                       # NVIDIA GPU（全GPU使用）
-./start-container.sh --gpu nvidia --num 0                     # NVIDIA GPU（GPU 0のみ）
-./start-container.sh --gpu intel                              # Intel GPU
-./start-container.sh --gpu amd                                # AMD GPU
-./start-container.sh --gpu nvidia-wsl --all                   # WSL2 + NVIDIA
+./start-container.sh --encoder software                       # ソフトウェアエンコード
+./start-container.sh --encoder nvidia --gpu all               # NVIDIA NVENC（全GPU）
+./start-container.sh --encoder nvidia --num 0                 # NVIDIA NVENC（GPU 0のみ）
+./start-container.sh --encoder intel                          # Intel VA-API
+./start-container.sh --encoder amd                            # AMD VA-API
+./start-container.sh --encoder nvidia-wsl --gpu all           # WSL2 + NVIDIA NVENC
 
 # 3. ブラウザでアクセス
-# → https://localhost:<30000+UID> (例: UID=1000 → https://localhost:41000)
+# → https://localhost:<30000+UID> (例: UID=1000 → https://localhost:31000)
 # → http://localhost:<40000+UID>  (例: UID=1000 → http://localhost:41000)
 
 # 4. 変更を保存（重要！コンテナ削除前に必ず実行）
@@ -92,10 +92,13 @@
   - ヒストリー最適化（重複無視、追記モード、タイムスタンプ）
   - 便利なエイリアス（ll, la, grep色付けなど）
 
-- **🎮 柔軟なGPU選択**: 明確なコマンド引数
-  - `--all` - 全利用可能GPU使用
-  - `--num 0,1` - 特定GPUデバイス
-  - `--gpu none` - ソフトウェアレンダリング
+- **🎮 柔軟なエンコーダー/GPU選択**: 明確なコマンド引数
+  - `--encoder nvidia` - NVIDIA NVENC
+  - `--encoder intel` - Intel VA-API
+  - `--encoder amd` - AMD VA-API
+  - `--encoder software` - ソフトウェアエンコード
+  - `--gpu all` - Docker全GPU使用（NVIDIA）
+  - `--num 0,1` - 特定GPUデバイス指定
 
 ### 開発者体験
 
@@ -105,7 +108,7 @@
 
 - **🛠️ 完全な管理スクリプト**: 全操作用シェルスクリプト
   - `build-user-image.sh` - パスワード付きビルド
-  - `start-container.sh [--gpu <type>]` - GPU選択で起動
+  - `start-container.sh --encoder <type>` - エンコーダー選択で起動
   - `stop/shell-container.sh` - ライフサイクル管理
   - `commit-container.sh` - 変更を保存
 
@@ -124,7 +127,7 @@
 | 手動UID/GID設定 | 自動マッチング |
 | コマンドにパスワード | 環境変数で安全に |
 | 汎用bash | Ubuntu Desktop bash |
-| GPU自動検出 | GPU明示的選択 |
+| GPU自動検出 | エンコーダー/GPU明示的選択 |
 | バージョンドリフト | バージョン固定 |
 | 英語のみ | 多言語（EN/JP） |
 
@@ -327,15 +330,13 @@ UID/GIDが一致するパーソナルイメージを作成（1-2分）：
 
 - **HTTPSポート**: `30000 + UID`（例: UID 1000 → ポート 31000）
 - **HTTPポート**: `40000 + UID`（例: UID 1000 → ポート 41000）
-- **TURNポート**: `45000 + UID`（例: UID 1000 → ポート 46000）
 
 アクセス: `https://localhost:${HTTPS_PORT}`（例: UID 1000で `https://localhost:31000`）
 
 **リモートアクセス（LAN/WAN）:**
 
-TURNサーバーは**デフォルトで有効**で、追加オプションなしでリモートアクセス可能：
+WebRTCによるリモートアクセスが可能：
 
-- TURNサーバーがWebRTC接続を中継
 - LAN IPアドレスを自動検出
 - リモートPCからアクセス: `https://<host-ip>:<https-port>`
 
@@ -686,8 +687,6 @@ docker exec linuxserver-kde-$(whoami) pactl list sinks short
 |------|------|----------|
 | `PORT_SSL_OVERRIDE` | HTTPSポート上書き | `UID+30000` |
 | `PORT_HTTP_OVERRIDE` | HTTPポート上書き | `UID+40000` |
-| `PORT_TURN_OVERRIDE` | TURNポート上書き | `UID+45000` |
-| `HOST_IP` | TURNサーバー用ホストIP | 自動検出 |
 
 </details>
 

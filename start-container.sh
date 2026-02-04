@@ -15,9 +15,12 @@ SHM_SIZE=${SHM_SIZE:-4g}
 PLATFORM=${PLATFORM:-}
 ARCH_OVERRIDE=${ARCH_OVERRIDE:-}
 SSL_DIR=${SSL_DIR:-}
-GPU_VENDOR=${GPU_VENDOR:-none} # none|nvidia|nvidia-wsl|intel|amd
+ENCODER=${ENCODER:-}
+GPU_VENDOR=${GPU_VENDOR:-} # deprecated (use ENCODER)
 GPU_ALL=false
 GPU_NUMS=""
+DOCKER_GPUS=""
+DRI_NODE=""
 IMAGE_TAG_SET=false
 IMAGE_VERSION_DEFAULT=${IMAGE_VERSION:-1.0.0}
 HOST_ARCH_RAW=$(uname -m)
@@ -39,18 +42,24 @@ Usage: $0 [-n name] [-i image-base] [-t version] [-u ubuntu_version] [-r WIDTHxH
   -p  platform for docker run (e.g. linux/arm64). Default: host
   -a  image arch for tag (amd64/arm64). Overrides auto-detect
   -s  host directory containing cert.pem and cert.key to mount at ssl (recommended for WSS)
-  -g  GPU vendor: none|nvidia|nvidia-wsl|intel|amd (default: ${GPU_VENDOR})
-      --gpu <vendor>   same as -g
-      --all            use all GPUs (required for nvidia/nvidia-wsl, optional for intel/amd)
-      --num <list>     comma-separated NVIDIA GPU list (requires -g nvidia, not supported on WSL)
+  -e, --encoder <type>  Encoder: software|nvidia|nvidia-wsl|intel|amd (required)
+  -g, --gpu <value>     Docker --gpus value (optional): all or device=0,1
+      --all             shortcut for --gpu all
+      --num <list>      shortcut for --gpu device=<list>
+      --dri-node <path> DRI render node for VA-API (e.g. /dev/dri/renderD129)
 
-  GPU Examples:
-    --gpu nvidia --all          # NVIDIA GPU(s) - all available
-    --gpu nvidia --num 0,1      # NVIDIA GPU(s) - specific GPUs
-    --gpu nvidia-wsl --all      # NVIDIA on WSL2
-    --gpu intel                 # Intel integrated/discrete GPU (VA-API)
-    --gpu amd                   # AMD GPU (VA-API + ROCm if available)
-    --gpu none                  # Software rendering only
+  Encoder Examples:
+    --encoder software                      # Software encoding
+    --encoder intel                         # Intel VA-API
+    --encoder amd                           # AMD VA-API
+    --encoder nvidia                        # NVIDIA NVENC
+    --encoder nvidia-wsl                    # NVIDIA NVENC on WSL2
+
+  Docker GPU Examples (optional):
+    --gpu all                               # Use all GPUs (NVIDIA)
+    --gpu device=0,1                        # Use GPU 0 and 1 (NVIDIA)
+    --all                                   # Same as --gpu all
+    --num 0,1                               # Same as --gpu device=0,1
 EOF
 }
 
@@ -65,9 +74,11 @@ while [[ $# -gt 0 ]]; do
     -p) PLATFORM=$2; shift 2 ;;
     -a|--arch) ARCH_OVERRIDE=$2; shift 2 ;;
     -s) SSL_DIR=$2; shift 2 ;;
-    -g|--gpu) GPU_VENDOR=$2; shift 2 ;;
+    -e|--encoder) ENCODER=$2; shift 2 ;;
+    -g|--gpu) DOCKER_GPUS=$2; shift 2 ;;
     --all) GPU_ALL=true; shift ;;
     --num) GPU_NUMS=$2; shift 2 ;;
+    --dri-node) DRI_NODE=$2; shift 2 ;;
     -h|--help) usage; exit 0 ;;
     --) shift; break ;;
     -*) echo "Unknown option: $1" >&2; usage; exit 1 ;;
@@ -78,6 +89,43 @@ done
 if [[ ! $RESOLUTION =~ ^[0-9]+x[0-9]+$ ]]; then
   echo "Resolution must be WIDTHxHEIGHT (e.g. 1920x1080)" >&2
   exit 1
+fi
+
+if [[ -z "${ENCODER}" ]]; then
+  echo "Error: --encoder is required." >&2
+  usage
+  exit 1
+fi
+
+ENCODER=$(echo "${ENCODER}" | tr '[:upper:]' '[:lower:]')
+case "${ENCODER}" in
+  software|none|cpu)
+    ENCODER="software"
+    ;;
+  nvidia|nvidia-wsl|intel|amd)
+    ;;
+  *)
+    echo "Unsupported encoder: ${ENCODER}" >&2
+    usage
+    exit 1
+    ;;
+esac
+
+GPU_VENDOR="${ENCODER}"
+
+if [[ -z "${DOCKER_GPUS}" ]]; then
+  if [[ "${GPU_ALL}" = true ]]; then
+    DOCKER_GPUS="all"
+  elif [[ -n "${GPU_NUMS}" ]]; then
+    DOCKER_GPUS="device=${GPU_NUMS}"
+  fi
+fi
+
+if [[ -n "${DOCKER_GPUS}" ]]; then
+  if [[ "${DOCKER_GPUS}" != "all" && ! "${DOCKER_GPUS}" =~ ^device=[0-9,]+$ ]]; then
+    echo "Error: --gpu value must be 'all' or 'device=0,1'." >&2
+    exit 1
+  fi
 fi
 
 if [[ -n "${PLATFORM}" ]]; then
@@ -119,6 +167,12 @@ HOSTNAME_VAL=${CONTAINER_HOSTNAME:-Docker-${HOSTNAME_RAW}}
 echo "Using container hostname: ${HOSTNAME_VAL}"
 HOST_HOME_MOUNT="/home/${HOST_USER}/host_home"
 HOST_MNT_MOUNT="/home/${HOST_USER}/host_mnt"
+MNT_FLAGS=()
+if [[ "$(uname -s)" != "Darwin" ]]; then
+  MNT_FLAGS=(-v "/mnt":"${HOST_MNT_MOUNT}":rw)
+else
+  echo "Info: Skipping /mnt mount on macOS (Docker Desktop file sharing restriction)." >&2
+fi
 
 if [[ -n "${IMAGE_OVERRIDE}" ]]; then
   IMAGE="${IMAGE_OVERRIDE}"
@@ -151,31 +205,128 @@ if ! docker image inspect "$IMAGE" >/dev/null 2>&1; then
   fi
 fi
 
-GPU_VENDOR=$(echo "${GPU_VENDOR:-none}" | tr '[:upper:]' '[:lower:]')
+GPU_VENDOR="${ENCODER}"
 GPU_FLAGS=()
 GPU_ENV_VARS=()
 
+# Function to detect GPU vendor from render node
+# Returns: intel, amd, nvidia, or unknown
+detect_gpu_vendor() {
+  local render_node="$1"
+  local node_name
+  node_name=$(basename "$render_node")
+  local vendor_file="/sys/class/drm/${node_name}/device/vendor"
+  
+  if [ -f "$vendor_file" ]; then
+    local vendor_id
+    vendor_id=$(cat "$vendor_file" 2>/dev/null)
+    case "$vendor_id" in
+      0x8086) echo "intel" ;;
+      0x10de) echo "nvidia" ;;
+      0x1002) echo "amd" ;;
+      *) echo "unknown" ;;
+    esac
+  else
+    echo "unknown"
+  fi
+}
+
+# Function to find all render nodes for a specific vendor
+# Outputs nodes sorted by number (smallest first)
+find_vendor_render_nodes() {
+  local target_vendor="$1"
+  local nodes=()
+  
+  for node in /dev/dri/renderD*; do
+    if [ -e "$node" ]; then
+      local vendor
+      vendor=$(detect_gpu_vendor "$node")
+      if [ "$vendor" = "$target_vendor" ]; then
+        nodes+=("$node")
+      fi
+    fi
+  done
+  
+  # Sort by render node number (renderD128 < renderD129)
+  printf '%s\n' "${nodes[@]}" | sort -t 'D' -k2 -n
+}
+
+# Function to list all detected GPUs
+list_detected_gpus() {
+  echo "Detected GPUs:"
+  for node in /dev/dri/renderD*; do
+    if [ -e "$node" ]; then
+      local vendor
+      vendor=$(detect_gpu_vendor "$node")
+      echo "  $node: $vendor"
+    fi
+  done
+}
+
 case "${GPU_VENDOR}" in
-  none|"")
-    GPU_VENDOR="none"
-    GPU_ENV_VARS+=(-e ENABLE_NVIDIA=false)
+  software|"")
+    GPU_VENDOR="software"
+    # Support --gpu option to still pass NVIDIA GPUs for other purposes (CUDA, ML, etc.)
+    if [ -n "${DOCKER_GPUS}" ]; then
+      GPU_FLAGS+=(--gpus "${DOCKER_GPUS}")
+      GPU_ENV_VARS+=(-e ENABLE_NVIDIA=true)
+      echo "NVIDIA GPUs enabled (--gpus ${DOCKER_GPUS}) even with software encoding"
+    else
+      GPU_ENV_VARS+=(-e ENABLE_NVIDIA=false)
+    fi
     ;;
   intel)
-    GPU_ENV_VARS+=(-e ENABLE_NVIDIA=false -e LIBVA_DRIVER_NAME="${LIBVA_DRIVER_NAME:-iHD}")
+    GPU_ENV_VARS+=(-e LIBVA_DRIVER_NAME="${LIBVA_DRIVER_NAME:-iHD}")
+    # Support --gpu option to also pass NVIDIA GPUs for other purposes (CUDA, ML, etc.)
+    if [ -n "${DOCKER_GPUS}" ]; then
+      GPU_FLAGS+=(--gpus "${DOCKER_GPUS}")
+      GPU_ENV_VARS+=(-e ENABLE_NVIDIA=true)
+      echo "NVIDIA GPUs enabled (--gpus ${DOCKER_GPUS}) for non-encoding purposes"
+    else
+      GPU_ENV_VARS+=(-e ENABLE_NVIDIA=false)
+    fi
     if [ -d "/dev/dri" ]; then
-      # Check if VA-API is actually available (not just /dev/dri existence)
-      if command -v vainfo >/dev/null 2>&1; then
-        if vainfo --display drm --device /dev/dri/renderD128 >/dev/null 2>&1; then
-          GPU_FLAGS+=(--device=/dev/dri:/dev/dri:rwm)
-          echo "Intel VA-API available, using hardware acceleration"
-        else
-          echo "Warning: /dev/dri found but VA-API initialization failed." >&2
-          echo "This is normal on NVIDIA-only systems. Use '--gpu nvidia' instead of '--gpu intel'." >&2
-          echo "Falling back to software encoding..." >&2
-        fi
+      # List detected GPUs for debugging
+      list_detected_gpus
+      
+      # Determine which render node to use
+      if [ -n "${DRI_NODE}" ]; then
+        # User specified a node
+        VAAPI_CHECK_NODE="${DRI_NODE}"
+        echo "Using user-specified DRI node: ${DRI_NODE}"
       else
+        # Auto-detect Intel GPU render node
+        INTEL_NODES=$(find_vendor_render_nodes "intel")
+        if [ -n "$INTEL_NODES" ]; then
+          # Use the first (smallest numbered) Intel GPU
+          VAAPI_CHECK_NODE=$(echo "$INTEL_NODES" | head -n1)
+          echo "Auto-detected Intel GPU: ${VAAPI_CHECK_NODE}"
+        else
+          echo "Warning: No Intel GPU found in /dev/dri." >&2
+          echo "Available GPUs:" >&2
+          list_detected_gpus >&2
+          echo "Falling back to software encoding..." >&2
+          VAAPI_CHECK_NODE=""
+        fi
+      fi
+      
+      if [ -n "${VAAPI_CHECK_NODE}" ]; then
+        # Always mount /dev/dri and set DRI_NODE if we detected an Intel GPU
         GPU_FLAGS+=(--device=/dev/dri:/dev/dri:rwm)
-        echo "Warning: vainfo not found, cannot verify VA-API availability" >&2
+        GPU_ENV_VARS+=(-e DRI_NODE="${VAAPI_CHECK_NODE}")
+        
+        # Optionally verify VA-API on host (may fail due to permissions)
+        if command -v vainfo >/dev/null 2>&1; then
+          if LIBVA_DRIVER_NAME=iHD vainfo --display drm --device "${VAAPI_CHECK_NODE}" >/dev/null 2>&1; then
+            echo "Intel VA-API verified on ${VAAPI_CHECK_NODE}, using hardware acceleration"
+          else
+            echo "Note: VA-API verification failed on host (may work in container with proper permissions)" >&2
+            echo "Using ${VAAPI_CHECK_NODE} for Intel VA-API encoding" >&2
+          fi
+        else
+          echo "Note: vainfo not found on host, VA-API will be verified in container" >&2
+          echo "Using ${VAAPI_CHECK_NODE} for Intel VA-API encoding" >&2
+        fi
       fi
     else
       echo "Warning: /dev/dri not found, Intel VA-API not available." >&2
@@ -183,21 +334,57 @@ case "${GPU_VENDOR}" in
     fi
     ;;
   amd)
-    GPU_ENV_VARS+=(-e ENABLE_NVIDIA=false -e LIBVA_DRIVER_NAME="${LIBVA_DRIVER_NAME:-radeonsi}")
+    GPU_ENV_VARS+=(-e LIBVA_DRIVER_NAME="${LIBVA_DRIVER_NAME:-radeonsi}")
+    # Support --gpu option to also pass NVIDIA GPUs for other purposes (CUDA, ML, etc.)
+    if [ -n "${DOCKER_GPUS}" ]; then
+      GPU_FLAGS+=(--gpus "${DOCKER_GPUS}")
+      GPU_ENV_VARS+=(-e ENABLE_NVIDIA=true)
+      echo "NVIDIA GPUs enabled (--gpus ${DOCKER_GPUS}) for non-encoding purposes"
+    else
+      GPU_ENV_VARS+=(-e ENABLE_NVIDIA=false)
+    fi
     if [ -d "/dev/dri" ]; then
-      # Check if VA-API is actually available
-      if command -v vainfo >/dev/null 2>&1; then
-        if vainfo --display drm --device /dev/dri/renderD128 >/dev/null 2>&1; then
-          GPU_FLAGS+=(--device=/dev/dri:/dev/dri:rwm)
-          echo "AMD VA-API available, using hardware acceleration"
-        else
-          echo "Warning: /dev/dri found but VA-API initialization failed." >&2
-          echo "This is normal on NVIDIA-only systems. Use '--gpu nvidia' instead of '--gpu amd'." >&2
-          echo "Falling back to software encoding..." >&2
-        fi
+      # List detected GPUs for debugging
+      list_detected_gpus
+      
+      # Determine which render node to use
+      if [ -n "${DRI_NODE}" ]; then
+        # User specified a node
+        VAAPI_CHECK_NODE="${DRI_NODE}"
+        echo "Using user-specified DRI node: ${DRI_NODE}"
       else
+        # Auto-detect AMD GPU render node
+        AMD_NODES=$(find_vendor_render_nodes "amd")
+        if [ -n "$AMD_NODES" ]; then
+          # Use the first (smallest numbered) AMD GPU
+          VAAPI_CHECK_NODE=$(echo "$AMD_NODES" | head -n1)
+          echo "Auto-detected AMD GPU: ${VAAPI_CHECK_NODE}"
+        else
+          echo "Warning: No AMD GPU found in /dev/dri." >&2
+          echo "Available GPUs:" >&2
+          list_detected_gpus >&2
+          echo "Falling back to software encoding..." >&2
+          VAAPI_CHECK_NODE=""
+        fi
+      fi
+      
+      if [ -n "${VAAPI_CHECK_NODE}" ]; then
+        # Always mount /dev/dri and set DRI_NODE if we detected an AMD GPU
         GPU_FLAGS+=(--device=/dev/dri:/dev/dri:rwm)
-        echo "Warning: vainfo not found, cannot verify VA-API availability" >&2
+        GPU_ENV_VARS+=(-e DRI_NODE="${VAAPI_CHECK_NODE}")
+        
+        # Optionally verify VA-API on host (may fail due to permissions)
+        if command -v vainfo >/dev/null 2>&1; then
+          if LIBVA_DRIVER_NAME=radeonsi vainfo --display drm --device "${VAAPI_CHECK_NODE}" >/dev/null 2>&1; then
+            echo "AMD VA-API verified on ${VAAPI_CHECK_NODE}, using hardware acceleration"
+          else
+            echo "Note: VA-API verification failed on host (may work in container with proper permissions)" >&2
+            echo "Using ${VAAPI_CHECK_NODE} for AMD VA-API encoding" >&2
+          fi
+        else
+          echo "Note: vainfo not found on host, VA-API will be verified in container" >&2
+          echo "Using ${VAAPI_CHECK_NODE} for AMD VA-API encoding" >&2
+        fi
       fi
     else
       echo "Warning: /dev/dri not found, AMD VA-API not available." >&2
@@ -208,13 +395,10 @@ case "${GPU_VENDOR}" in
     fi
     ;;
   nvidia)
-    if [ "${GPU_ALL}" = true ]; then
-      GPU_FLAGS+=(--gpus all)
-    elif [ -n "${GPU_NUMS}" ]; then
-      GPU_FLAGS+=(--gpus "device=${GPU_NUMS}")
+    if [ -n "${DOCKER_GPUS}" ]; then
+      GPU_FLAGS+=(--gpus "${DOCKER_GPUS}")
     else
-      echo "Error: --gpu nvidia requires --all or --num." >&2
-      exit 1
+      echo "Warning: --encoder nvidia selected but no --gpu value provided; NVENC may be unavailable." >&2
     fi
     if [ -d "/dev/dri" ]; then
       GPU_FLAGS+=(--device=/dev/dri:/dev/dri:rwm)
@@ -224,7 +408,11 @@ case "${GPU_VENDOR}" in
   nvidia-wsl)
     # WSL2 with NVIDIA GPU support
     # WSL2 only supports --gpus all (no individual GPU selection)
-    GPU_FLAGS+=(--gpus all)
+    if [ -n "${DOCKER_GPUS}" ]; then
+      GPU_FLAGS+=(--gpus "${DOCKER_GPUS}")
+    else
+      echo "Warning: --encoder nvidia-wsl selected but no --gpu value provided; NVENC may be unavailable." >&2
+    fi
     # Mount WSL-specific devices and libraries
     if [ -e "/dev/dxg" ]; then
       GPU_FLAGS+=(--device=/dev/dxg:/dev/dxg:rwm)
@@ -246,7 +434,7 @@ case "${GPU_VENDOR}" in
     ;;
 esac
 
-echo "Starting: name=${NAME}, image=${IMAGE}, resolution=${RESOLUTION}, DPI=${DPI}, gpu=${GPU_VENDOR}, host ports https=${HOST_PORT_SSL}->3001, http=${HOST_PORT_HTTP}->3000"
+echo "Starting: name=${NAME}, image=${IMAGE}, resolution=${RESOLUTION}, DPI=${DPI}, encoder=${ENCODER}, docker-gpus=${DOCKER_GPUS:-none}, host ports https=${HOST_PORT_SSL}->3001, http=${HOST_PORT_HTTP}->3000"
 echo "Chromium scale: ${SCALE_FACTOR} (CHROMIUM_FLAGS=${CHROMIUM_FLAGS_COMBINED})"
 
 # Add video and render groups for GPU access (use host GIDs)
@@ -311,11 +499,12 @@ docker run -d \
   -e USER_NAME="${HOST_USER}" \
   -e PUID="${HOST_UID}" \
   -e PGID="${HOST_GID}" \
+  -e ENCODER="${ENCODER}" \
   -e GPU_VENDOR="${GPU_VENDOR}" \
   --shm-size "${SHM_SIZE}" \
   --privileged \
   -v "${HOME}":"${HOST_HOME_MOUNT}":rw \
-  -v "/mnt":"${HOST_MNT_MOUNT}":rw \
+  ${MNT_FLAGS[@]+"${MNT_FLAGS[@]}"} \
   -v "${HOME}/.ssh":"/home/${HOST_USER}/.ssh":rw \
   ${GPU_ENV_VARS[@]+"${GPU_ENV_VARS[@]}"} \
   ${SSL_FLAGS[@]+"${SSL_FLAGS[@]}"} \

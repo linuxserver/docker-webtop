@@ -1,7 +1,7 @@
 #!/bin/bash
 # Generate environment variables for docker-compose (same settings as start-container.sh)
-# Usage: source <(./compose-env.sh --gpu nvidia --all)
-#        ./compose-env.sh --env-file .env --gpu intel
+# Usage: source <(./compose-env.sh --encoder nvidia --gpu all)
+#        ./compose-env.sh --env-file .env --encoder intel
 
 set -e
 
@@ -10,10 +10,11 @@ show_usage() {
 Usage: compose-env.sh [options]
 
 Options (same as start-container.sh):
-  -g, --gpu <type>       GPU vendor: none (default), nvidia, nvidia-wsl, intel, amd
-                         Note: --gpu nvidia requires --all or --num
-      --all              Use all GPUs (required for nvidia/nvidia-wsl, optional for intel/amd)
-      --num <list>       Comma-separated NVIDIA GPU indices (only with --gpu nvidia)
+  -e, --encoder <type>   Encoder: software, nvidia, nvidia-wsl, intel, amd (required)
+    -g, --gpu <value>      Docker --gpus value (optional): all or device=0,1
+            --all              Shortcut for --gpu all
+            --num <list>       Shortcut for --gpu device=<list>
+        --dri-node <path>  DRI render node for VA-API (e.g. /dev/dri/renderD129)
   -u, --ubuntu <ver>     Ubuntu version: 22.04 or 24.04 (default: 24.04)
   -r, --resolution <res> Resolution in WIDTHxHEIGHT format (default: 1920x1080)
   -d, --dpi <dpi>        DPI setting (default: 96)
@@ -37,9 +38,12 @@ EOF
 PROJECT_ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 
 # Defaults (matching start-container.sh)
-GPU_VENDOR="${GPU_VENDOR:-none}"
+ENCODER="${ENCODER:-}"
+GPU_VENDOR="${GPU_VENDOR:-}"
 GPU_ALL="${GPU_ALL:-false}"
 GPU_NUMS="${GPU_NUMS:-}"
+DOCKER_GPUS="${DOCKER_GPUS:-}"
+DRI_NODE="${DRI_NODE:-}"
 UBUNTU_VERSION="${UBUNTU_VERSION:-24.04}"
 RESOLUTION="${RESOLUTION:-1920x1080}"
 DPI="${DPI:-96}"
@@ -52,20 +56,20 @@ ARCH_OVERRIDE=""
 # Option parsing
 while [[ $# -gt 0 ]]; do
     case $1 in
+        -e|--encoder)
+            if [ -z "${2:-}" ]; then
+                echo "Error: --encoder requires an argument" >&2
+                exit 1
+            fi
+            ENCODER="${2}"
+            shift 2
+            ;;
         -g|--gpu)
             if [ -z "${2:-}" ]; then
                 echo "Error: --gpu requires an argument" >&2
                 exit 1
             fi
-            case "${2}" in
-                nvidia|nvidia-wsl|intel|amd|none)
-                    GPU_VENDOR="${2}"
-                    ;;
-                *)
-                    echo "Error: Unknown GPU vendor: ${2}" >&2
-                    exit 1
-                    ;;
-            esac
+            DOCKER_GPUS="${2}"
             shift 2
             ;;
         --all)
@@ -78,6 +82,14 @@ while [[ $# -gt 0 ]]; do
                 exit 1
             fi
             GPU_NUMS="${2}"
+            shift 2
+            ;;
+        --dri-node)
+            if [ -z "${2:-}" ]; then
+                echo "Error: --dri-node requires a path (e.g. /dev/dri/renderD129)" >&2
+                exit 1
+            fi
+            DRI_NODE="${2}"
             shift 2
             ;;
         -u|--ubuntu)
@@ -155,9 +167,37 @@ if [[ ! $RESOLUTION =~ ^[0-9]+x[0-9]+$ ]]; then
     exit 1
 fi
 
-if [[ "${GPU_VENDOR}" == "nvidia" ]]; then
-    if [[ "${GPU_ALL}" != "true" ]] && [[ -z "${GPU_NUMS}" ]]; then
-        echo "Error: --gpu nvidia requires --all or --num" >&2
+if [ -z "${ENCODER}" ]; then
+    echo "Error: --encoder is required" >&2
+    exit 1
+fi
+
+ENCODER=$(echo "${ENCODER}" | tr '[:upper:]' '[:lower:]')
+case "${ENCODER}" in
+    software|none|cpu)
+        ENCODER="software"
+        ;;
+    nvidia|nvidia-wsl|intel|amd)
+        ;;
+    *)
+        echo "Error: Unknown encoder: ${ENCODER}" >&2
+        exit 1
+        ;;
+esac
+
+GPU_VENDOR="${ENCODER}"
+
+if [ -z "${DOCKER_GPUS}" ]; then
+    if [ "${GPU_ALL}" = "true" ]; then
+        DOCKER_GPUS="all"
+    elif [ -n "${GPU_NUMS}" ]; then
+        DOCKER_GPUS="device=${GPU_NUMS}"
+    fi
+fi
+
+if [ -n "${DOCKER_GPUS}" ]; then
+    if [[ "${DOCKER_GPUS}" != "all" && ! "${DOCKER_GPUS}" =~ ^device=[0-9,]+$ ]]; then
+        echo "Error: --gpu value must be 'all' or 'device=0,1'." >&2
         exit 1
     fi
 fi
@@ -254,10 +294,10 @@ case "${GPU_VENDOR}" in
     nvidia)
         ENABLE_NVIDIA="true"
         DISABLE_ZINK="true"
-        if [ "${GPU_ALL}" = "true" ]; then
+        if [ "${DOCKER_GPUS}" = "all" ]; then
             NVIDIA_VISIBLE_DEVICES="all"
-        else
-            NVIDIA_VISIBLE_DEVICES="${GPU_NUMS}"
+        elif [[ "${DOCKER_GPUS}" =~ ^device= ]]; then
+            NVIDIA_VISIBLE_DEVICES="${DOCKER_GPUS#device=}"
         fi
         if [ -d "/dev/dri" ]; then
             GPU_DEVICES="/dev/dri:/dev/dri:rwm"
@@ -269,10 +309,10 @@ case "${GPU_VENDOR}" in
         DISABLE_ZINK="true"
         XDG_RUNTIME_DIR="/mnt/wslg/runtime-dir"
         LD_LIBRARY_PATH="/usr/lib/wsl/lib"
-        if [ "${GPU_ALL}" = "true" ]; then
+        if [ "${DOCKER_GPUS}" = "all" ]; then
             NVIDIA_VISIBLE_DEVICES="all"
-        else
-            NVIDIA_VISIBLE_DEVICES="${GPU_NUMS}"
+        elif [[ "${DOCKER_GPUS}" =~ ^device= ]]; then
+            NVIDIA_VISIBLE_DEVICES="${DOCKER_GPUS#device=}"
         fi
         ;;
     intel)
@@ -281,6 +321,10 @@ case "${GPU_VENDOR}" in
             GPU_DEVICES="/dev/dri:/dev/dri:rwm"
         else
             echo "Warning: /dev/dri not found, Intel VA-API not available." >&2
+        fi
+        # Pass DRI_NODE if specified
+        if [ -n "${DRI_NODE}" ]; then
+            echo "Using specified DRI node: ${DRI_NODE}" >&2
         fi
         ;;
     amd)
@@ -293,8 +337,12 @@ case "${GPU_VENDOR}" in
         if [ -e "/dev/kfd" ]; then
             GPU_DEVICES="${GPU_DEVICES:+${GPU_DEVICES},}/dev/kfd:/dev/kfd:rwm"
         fi
+        # Pass DRI_NODE if specified
+        if [ -n "${DRI_NODE}" ]; then
+            echo "Using specified DRI node: ${DRI_NODE}" >&2
+        fi
         ;;
-    none|"")
+    software|"")
         ENABLE_NVIDIA="false"
         ;;
 esac
@@ -320,7 +368,7 @@ ENV_VARS=(
     IMAGE_BASE IMAGE_TAG IMAGE_VERSION IMAGE_ARCH UBUNTU_VERSION
     HOST_PORT_SSL HOST_PORT_HTTP HOST_IP
     WIDTH HEIGHT DPI SCALE_FACTOR FORCE_DEVICE_SCALE_FACTOR CHROMIUM_FLAGS SHM_SIZE RESOLUTION TIMEZONE
-    GPU_VENDOR GPU_ALL GPU_NUMS
+    ENCODER GPU_VENDOR GPU_ALL GPU_NUMS DOCKER_GPUS DRI_NODE
     ENABLE_NVIDIA LIBVA_DRIVER_NAME NVIDIA_VISIBLE_DEVICES GPU_DEVICES
     WSL_ENVIRONMENT DISABLE_ZINK XDG_RUNTIME_DIR LD_LIBRARY_PATH
     SSL_DIR SSL_CERT_PATH SSL_KEY_PATH

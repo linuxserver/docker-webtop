@@ -24,9 +24,12 @@ if [ -d ".devcontainer" ]; then
 fi
 
 # Default values
-GPU_VENDOR="none"
+ENCODER="software"
+GPU_VENDOR=""
 GPU_ALL="false"
 GPU_NUMS=""
+DOCKER_GPUS=""
+DRI_NODE=""
 UBUNTU_VERSION="24.04"
 RESOLUTION="1920x1080"
 DPI="96"
@@ -45,50 +48,83 @@ echo "Configuration Questions"
 echo "========================================"
 echo ""
 
-# GPU configuration
-echo "1. GPU Configuration"
-echo "-------------------"
-echo "Select GPU type:"
-echo "  1) No GPU (software rendering)"
-echo "  2) NVIDIA GPU"
-echo "  3) NVIDIA WSL2"
-echo "  4) Intel GPU"
-echo "  5) AMD GPU"
-read -p "Select [1-5] (default: 1): " gpu_choice
+# Encoder configuration
+echo "1. Encoder Configuration"
+echo "------------------------"
+echo "Select encoder type:"
+echo "  1) Software (CPU)"
+echo "  2) NVIDIA (NVENC)"
+echo "  3) NVIDIA WSL2 (NVENC)"
+echo "  4) Intel (VA-API)"
+echo "  5) AMD (VA-API)"
+read -p "Select [1-5] (default: 1): " encoder_choice
 
-case "${gpu_choice}" in
+case "${encoder_choice}" in
     2)
-        GPU_VENDOR="nvidia"
-        echo ""
-        echo "NVIDIA GPU selected."
-        read -p "Use all NVIDIA GPUs? (Y/n): " -n 1 -r
-        echo
-        if [[ $REPLY =~ ^[Nn]$ ]]; then
-            read -p "Enter GPU device numbers (comma-separated, e.g., 0,1): " GPU_NUMS
-            GPU_ALL="false"
-        else
-            GPU_ALL="true"
-            GPU_NUMS=""
-        fi
+        ENCODER="nvidia"
+        echo "NVIDIA encoder selected."
         ;;
     3)
-        GPU_VENDOR="nvidia-wsl"
-        GPU_ALL="true"
-        echo "NVIDIA WSL2 selected."
+        ENCODER="nvidia-wsl"
+        echo "NVIDIA WSL2 encoder selected."
         ;;
     4)
-        GPU_VENDOR="intel"
-        echo "Intel GPU selected."
+        ENCODER="intel"
+        echo "Intel encoder selected."
+        echo ""
+        echo "DRI Node Configuration (for multi-GPU systems)"
+        echo "----------------------------------------------"
+        echo "If you have multiple GPUs (e.g., NVIDIA + Intel), you may need to specify"
+        echo "which render node to use for VA-API encoding."
+        echo "Run 'ls -la /dev/dri/renderD*' to see available nodes."
+        read -p "Specify DRI node? (e.g., /dev/dri/renderD129, or press Enter to skip): " DRI_NODE_INPUT
+        DRI_NODE="${DRI_NODE_INPUT}"
         ;;
     5)
-        GPU_VENDOR="amd"
-        echo "AMD GPU selected."
+        ENCODER="amd"
+        echo "AMD encoder selected."
+        echo ""
+        echo "DRI Node Configuration (for multi-GPU systems)"
+        echo "----------------------------------------------"
+        echo "If you have multiple GPUs (e.g., NVIDIA + AMD), you may need to specify"
+        echo "which render node to use for VA-API encoding."
+        echo "Run 'ls -la /dev/dri/renderD*' to see available nodes."
+        read -p "Specify DRI node? (e.g., /dev/dri/renderD129, or press Enter to skip): " DRI_NODE_INPUT
+        DRI_NODE="${DRI_NODE_INPUT}"
         ;;
     *)
-        GPU_VENDOR="none"
-        echo "No GPU selected (software rendering)."
+        ENCODER="none"
+        echo "Software encoder selected."
         ;;
 esac
+
+GPU_VENDOR="${ENCODER}"
+
+# Docker GPU selection (optional, mostly for NVIDIA)
+if [ "${ENCODER}" = "nvidia" ] || [ "${ENCODER}" = "nvidia-wsl" ]; then
+    echo ""
+    echo "Docker GPU Selection (Optional)"
+    echo "-------------------------------"
+    read -p "Enable Docker --gpus? (Y/n): " -n 1 -r
+    echo
+    if [[ ! $REPLY =~ ^[Nn]$ ]]; then
+        if [ "${ENCODER}" = "nvidia-wsl" ]; then
+            GPU_ALL="true"
+            GPU_NUMS=""
+            echo "WSL2 uses all GPUs (gpus=all)."
+        else
+            read -p "Use all NVIDIA GPUs? (Y/n): " -n 1 -r
+            echo
+            if [[ $REPLY =~ ^[Nn]$ ]]; then
+                read -p "Enter GPU device numbers (comma-separated, e.g., 0,1): " GPU_NUMS
+                GPU_ALL="false"
+            else
+                GPU_ALL="true"
+                GPU_NUMS=""
+            fi
+        fi
+    fi
+fi
 echo ""
 
 # Ubuntu version
@@ -169,13 +205,14 @@ fi
 mkdir -p .devcontainer
 
 # Build compose-env arguments
-COMPOSE_ARGS=(--gpu "${GPU_VENDOR}" --ubuntu "${UBUNTU_VERSION}" --resolution "${RESOLUTION}" --dpi "${DPI}" --arch "${TARGET_ARCH}" --timezone "${TIMEZONE}")
-if [ "${GPU_VENDOR}" = "nvidia" ]; then
-    if [ "${GPU_ALL}" = "true" ]; then
-        COMPOSE_ARGS+=(--all)
-    else
-        COMPOSE_ARGS+=(--num "${GPU_NUMS}")
-    fi
+COMPOSE_ARGS=(--encoder "${ENCODER}" --ubuntu "${UBUNTU_VERSION}" --resolution "${RESOLUTION}" --dpi "${DPI}" --arch "${TARGET_ARCH}" --timezone "${TIMEZONE}")
+if [ "${GPU_ALL}" = "true" ]; then
+    COMPOSE_ARGS+=(--all)
+elif [ -n "${GPU_NUMS}" ]; then
+    COMPOSE_ARGS+=(--num "${GPU_NUMS}")
+fi
+if [ -n "${DRI_NODE}" ]; then
+    COMPOSE_ARGS+=(--dri-node "${DRI_NODE}")
 fi
 if [ -n "${SSL_DIR}" ]; then
     COMPOSE_ARGS+=(--ssl "${SSL_DIR}")
@@ -229,7 +266,7 @@ case "${GPU_VENDOR}" in
 esac
 
 # Build forward port list
-FORWARD_PORTS=("${HOST_PORT_SSL}" "${HOST_PORT_HTTP}" "${HOST_PORT_TURN}")
+FORWARD_PORTS=("${HOST_PORT_SSL}" "${HOST_PORT_HTTP}")
 
 FORWARD_PORTS_JSON=""
 for PORT in "${FORWARD_PORTS[@]}"; do
@@ -247,16 +284,12 @@ PORT_ATTRIBUTES_JSON="    \"${HOST_PORT_SSL}\": {
     \"${HOST_PORT_HTTP}\": {
       \"label\": \"HTTP Web UI\",
       \"onAutoForward\": \"silent\"
-    },
-    \"${HOST_PORT_TURN}\": {
-      \"label\": \"TURN Server\",
-      \"onAutoForward\": \"silent\"
     }"
 
 # devcontainer.json
 cat > .devcontainer/devcontainer.json << EOF
 {
-  "name": "KDE Desktop (${GPU_VENDOR})",
+  "name": "KDE Desktop (encoder: ${ENCODER})",
   "dockerComposeFile": [
     "docker-compose.base.yml",
     "docker-compose.override.yml"
@@ -302,7 +335,7 @@ ${PORT_ATTRIBUTES_JSON}
   },
 EOF
     # Add GPU hostRequirements if applicable
-    if [ "${GPU_VENDOR}" = "nvidia" ] || [ "${GPU_VENDOR}" = "nvidia-wsl" ]; then
+    if [ "${ENCODER}" = "nvidia" ] || [ "${ENCODER}" = "nvidia-wsl" ]; then
         cat >> .devcontainer/devcontainer.json << 'EOF'
   "hostRequirements": {
     "gpu": "optional"
@@ -388,15 +421,15 @@ if [ "${#GROUPS_TO_ADD[@]}" -gt 0 ]; then
     } >> .devcontainer/docker-compose.override.yml
 fi
 
-if [ "${GPU_VENDOR}" = "nvidia" ] || [ "${GPU_VENDOR}" = "nvidia-wsl" ]; then
-    if [ "${GPU_VENDOR}" = "nvidia-wsl" ] || [ "${GPU_ALL}" = "true" ]; then
+if [ "${ENCODER}" = "nvidia" ] || [ "${ENCODER}" = "nvidia-wsl" ]; then
+    if [ "${GPU_ALL}" = "true" ]; then
         echo "    gpus: all" >> .devcontainer/docker-compose.override.yml
     elif [ -n "${GPU_NUMS}" ]; then
         echo "    gpus: \"device=${GPU_NUMS}\"" >> .devcontainer/docker-compose.override.yml
     fi
 fi
 
-if [ "${GPU_VENDOR}" = "nvidia-wsl" ]; then
+if [ "${ENCODER}" = "nvidia-wsl" ]; then
     # Add WSL-specific devices if they exist
     if [ -e "/dev/dxg" ]; then
         DEVICE_ENTRIES+=("/dev/dxg:/dev/dxg:rwm")
@@ -460,17 +493,17 @@ The files in this directory are generated by \`./create-devcontainer-config.sh\`
 
 ## Generated settings
 
-- **GPU**: ${GPU_VENDOR}
+- **Encoder**: ${ENCODER}
 EOF
 
-if [ "${GPU_VENDOR}" = "nvidia" ]; then
+if [ "${ENCODER}" = "nvidia" ] || [ "${ENCODER}" = "nvidia-wsl" ]; then
     if [ "${GPU_ALL}" = "true" ]; then
         cat >> .devcontainer/README.md << 'EOF'
-- **NVIDIA GPUs**: all
+- **Docker GPUs**: all
 EOF
-    else
+    elif [ -n "${GPU_NUMS}" ]; then
         cat >> .devcontainer/README.md << EOF
-- **NVIDIA GPUs**: ${GPU_NUMS}
+- **Docker GPUs**: device=${GPU_NUMS}
 EOF
     fi
 fi
@@ -485,7 +518,6 @@ cat >> .devcontainer/README.md << EOF
 
 - **HTTPS**: https://localhost:${HOST_PORT_SSL}
 - **HTTP**: http://localhost:${HOST_PORT_HTTP}
-- **TURN Port**: ${HOST_PORT_TURN}
 
 ## How to use in VS Code
 1. Install the Dev Containers extension
@@ -515,12 +547,12 @@ echo "  - .devcontainer/README.md"
 echo "  - .env (for docker-compose)"
 echo ""
 echo "Configuration summary:"
-echo "  - GPU: ${GPU_VENDOR}"
-if [ "${GPU_VENDOR}" = "nvidia" ]; then
+echo "  - Encoder: ${ENCODER}"
+if [ "${ENCODER}" = "nvidia" ] || [ "${ENCODER}" = "nvidia-wsl" ]; then
     if [ "${GPU_ALL}" = "true" ]; then
-        echo "    NVIDIA GPUs: all"
-    else
-        echo "    NVIDIA GPUs: ${GPU_NUMS}"
+        echo "    Docker GPUs: all"
+    elif [ -n "${GPU_NUMS}" ]; then
+        echo "    Docker GPUs: device=${GPU_NUMS}"
     fi
 fi
 echo "  - Ubuntu: ${UBUNTU_VERSION}"
@@ -529,7 +561,6 @@ echo "  - DPI: ${DPI}"
 echo "  - Timezone: ${TIMEZONE}"
 echo "  - HTTPS Port: ${HOST_PORT_SSL}"
 echo "  - HTTP Port: ${HOST_PORT_HTTP}"
-echo "  - TURN Port: ${HOST_PORT_TURN}"
 echo ""
 echo "========================================"
 
