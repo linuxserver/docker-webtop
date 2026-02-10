@@ -32,9 +32,9 @@ bsdutils                                                                      1:
 ca-certificates                                                               20250419                                deb                         
 catatonit                                                                     0.2.1-2+b7                              deb                         
 cffi                                                                          2.0.0                                   python                      
-chromium                                                                      144.0.7559.109-1~deb13u1                deb                         
-chromium-common                                                               144.0.7559.109-1~deb13u1                deb                         
-chromium-l10n                                                                 144.0.7559.109-1~deb13u1                deb                         
+chromium                                                                      144.0.7559.109-2~deb13u1                deb                         
+chromium-common                                                               144.0.7559.109-2~deb13u1                deb                         
+chromium-l10n                                                                 144.0.7559.109-2~deb13u1                deb                         
 cli                                                                           UNKNOWN                                 binary                      
 cli-32                                                                        UNKNOWN                                 binary                      
 cli-64                                                                        UNKNOWN                                 binary                      
@@ -78,15 +78,15 @@ dmidecode                                                                     3.
 dmsetup                                                                       2:1.02.205-2                            deb                         
 dnspython                                                                     2.8.0                                   python                      
 docker-buildx-plugin                                                          0.31.1-1~debian.13~trixie               deb                         
-docker-ce                                                                     5:29.2.0-1~debian.13~trixie             deb                         
-docker-ce-cli                                                                 5:29.2.0-1~debian.13~trixie             deb                         
+docker-ce                                                                     5:29.2.1-1~debian.13~trixie             deb                         
+docker-ce-cli                                                                 5:29.2.1-1~debian.13~trixie             deb                         
 docker-compose-plugin                                                         5.0.2-1~debian.13~trixie                deb                         
 dolphin                                                                       4:25.04.3-1                             deb                         
 dolphin-data                                                                  4:25.04.3-1                             deb                         
 dpkg                                                                          1.22.21                                 deb                         
 drkonqi                                                                       6.3.4-1                                 deb                         
 dunst                                                                         1.12.2-1                                deb                         
-evdev                                                                         1.9.2                                   python                      
+evdev                                                                         1.9.3                                   python                      
 exim4-base                                                                    4.98.2-1                                deb                         
 exim4-config                                                                  4.98.2-1                                deb                         
 exim4-daemon-light                                                            4.98.2-1                                deb                         
@@ -371,7 +371,8 @@ github.com/mitchellh/go-wordwrap                                              v1
 github.com/mitchellh/hashstructure/v2                                         v2.0.2                                  go-module  (+2 duplicates)  
 github.com/mitchellh/reflectwalk                                              v1.0.2                                  go-module                   
 github.com/moby/buildkit                                                      v0.26.3                                 go-module                   
-github.com/moby/buildkit                                                      v0.27.0                                 go-module  (+1 duplicate)   
+github.com/moby/buildkit                                                      v0.27.0                                 go-module                   
+github.com/moby/buildkit                                                      v0.27.1                                 go-module                   
 github.com/moby/docker-image-spec                                             v1.3.1                                  go-module  (+2 duplicates)  
 github.com/moby/go-archive                                                    v0.1.0                                  go-module                   
 github.com/moby/go-archive                                                    v0.2.0                                  go-module  (+1 duplicate)   
@@ -380,9 +381,10 @@ github.com/moby/locker                                                        v1
 github.com/moby/moby/api                                                      v1.52.0                                 go-module                   
 github.com/moby/moby/api                                                      v1.53.0                                 go-module                   
 github.com/moby/moby/client                                                   v0.2.1                                  go-module                   
-github.com/moby/moby/v2                                                       v29.2.0                                 go-module  (+1 duplicate)   
+github.com/moby/moby/v2                                                       v29.2.1                                 go-module  (+1 duplicate)   
 github.com/moby/patternmatcher                                                v0.6.0                                  go-module  (+2 duplicates)  
-github.com/moby/policy-helpers                                                v0.0.0-20251206004813-9fcc1a9ec5c9      go-module  (+1 duplicate)   
+github.com/moby/policy-helpers                                                v0.0.0-20251206004813-9fcc1a9ec5c9      go-module                   
+github.com/moby/policy-helpers                                                v0.0.0-20260127165209-eeebf1a0ab2b      go-module                   
 github.com/moby/profiles/apparmor                                             v0.1.0                                  go-module                   
 github.com/moby/profiles/seccomp                                              v0.1.0                                  go-module                   
 github.com/moby/pubsub                                                        v1.0.0                                  go-module                   
@@ -438,7 +440,8 @@ github.com/rootless-containers/rootlesskit/v2                                 v2
 github.com/santhosh-tekuri/jsonschema/v6                                      v6.0.1                                  go-module  (+1 duplicate)   
 github.com/sean-/seed                                                         v0.0.0-20170313163322-e2103e2c3529      go-module                   
 github.com/seccomp/libseccomp-golang                                          v0.10.0                                 go-module                   
-github.com/secure-systems-lab/go-securesystemslib                             v0.9.1                                  go-module  (+2 duplicates)  
+github.com/secure-systems-lab/go-securesystemslib                             v0.10.0                                 go-module                   
+github.com/secure-systems-lab/go-securesystemslib                             v0.9.1                                  go-module  (+1 duplicate)   
 github.com/serialx/hashring                                                   v0.0.0-20200727003509-22c0c7ab6b1b      go-module                   
 github.com/shibumi/go-pathspec                                                v1.3.0                                  go-module  (+2 duplicates)  
 github.com/sigstore/protobuf-specs                                            v0.5.0                                  go-module  (+1 duplicate)   
@@ -461,7 +464,8 @@ github.com/stretchr/testify                                                   v1
 github.com/tchap/go-patricia/v2                                               v2.3.3                                  go-module  (+1 duplicate)   
 github.com/tetratelabs/wazero                                                 v1.10.1                                 go-module                   
 github.com/tetratelabs/wazero                                                 v1.11.0                                 go-module                   
-github.com/theupdateframework/go-tuf/v2                                       v2.3.0                                  go-module  (+1 duplicate)   
+github.com/theupdateframework/go-tuf/v2                                       v2.3.0                                  go-module                   
+github.com/theupdateframework/go-tuf/v2                                       v2.4.1                                  go-module                   
 github.com/theupdateframework/notary                                          v0.7.0                                  go-module                   
 github.com/tilt-dev/fsnotify                                                  v1.4.8-0.20220602155310-fff9c274a375    go-module                   
 github.com/tinylib/msgp                                                       v1.3.0                                  go-module                   
@@ -1722,7 +1726,7 @@ seatd                                                                         0.
 sed                                                                           4.9-2                                   deb                         
 selkies                                                                       0.0.0                                   python                      
 sensible-utils                                                                0.0.25                                  deb                         
-setuptools                                                                    80.10.2                                 python                      
+setuptools                                                                    81.0.0                                  python                      
 sgml-base                                                                     1.31+nmu1                               deb                         
 shared-mime-info                                                              2.4-5+b2                                deb                         
 sigs.k8s.io/json                                                              v0.0.0-20241014173422-cfa47c3a1cc8      go-module  (+2 duplicates)  
