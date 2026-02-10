@@ -33,8 +33,8 @@ catatonit                                                                     3:
 cffi                                                                          2.0.0                                   python                      
 chardet                                                                       4.0.0                                   python                      
 checkpolicy                                                                   3.6-1.el9                               rpm                         
-chromium                                                                      144.0.7559.96-1.el9                     rpm                         
-chromium-common                                                               144.0.7559.96-1.el9                     rpm                         
+chromium                                                                      144.0.7559.109-1.el9                    rpm                         
+chromium-common                                                               144.0.7559.109-1.el9                    rpm                         
 cloud.google.com/go/auth                                                      v0.18.0                                 go-module                   
 cloud.google.com/go/auth/oauth2adapt                                          v0.2.8                                  go-module                   
 cloud.google.com/go/compute/metadata                                          v0.9.0                                  go-module                   
@@ -56,7 +56,7 @@ crypto-policies                                                               20
 crypto-policies-scripts                                                       20250905-1.git377cc42.el9_7             rpm                         
 cryptography                                                                  46.0.4                                  python                      
 cups-libs                                                                     1:2.3.3op2-34.el9_7.2                   rpm                         
-curl                                                                          7.76.1-34.el9                           rpm                         
+curl                                                                          7.76.1-35.el9_7.3                       rpm                         
 cyrus-sasl-lib                                                                2.1.27-22.el9                           rpm                         
 dario.cat/mergo                                                               v1.0.2                                  go-module  (+2 duplicates)  
 dbus                                                                          1:1.12.20-8.el9                         rpm                         
@@ -80,15 +80,15 @@ dnf-data                                                                      4.
 dnf-plugins-core                                                              4.3.0-24.el9_7                          rpm                         
 dnspython                                                                     2.7.0                                   python                      
 docker-buildx-plugin                                                          0:0.31.1-1.el9                          rpm                         
-docker-ce                                                                     3:29.2.0-1.el9                          rpm                         
-docker-ce-cli                                                                 1:29.2.0-1.el9                          rpm                         
+docker-ce                                                                     3:29.2.1-1.el9                          rpm                         
+docker-ce-cli                                                                 1:29.2.1-1.el9                          rpm                         
 docker-compose-plugin                                                         0:5.0.2-1.el9                           rpm                         
 double-conversion                                                             3.1.5-6.el9                             rpm                         
 elfutils-default-yama-scope                                                   0.193-1.el9                             rpm                         
 elfutils-libelf                                                               0.193-1.el9                             rpm                         
 elfutils-libs                                                                 0.193-1.el9                             rpm                         
 emacs-filesystem                                                              1:27.2-18.el9                           rpm                         
-evdev                                                                         1.9.2                                   python                      
+evdev                                                                         1.9.3                                   python                      
 expat                                                                         2.5.0-5.el9_7.1                         rpm                         
 fdk-aac-free                                                                  2.0.0-8.el9                             rpm                         
 ffmpeg-libs                                                                   5.1.7-2.el9                             rpm                         
@@ -371,7 +371,8 @@ github.com/mitchellh/go-wordwrap                                              v1
 github.com/mitchellh/hashstructure/v2                                         v2.0.2                                  go-module  (+2 duplicates)  
 github.com/mitchellh/reflectwalk                                              v1.0.2                                  go-module                   
 github.com/moby/buildkit                                                      v0.26.3                                 go-module                   
-github.com/moby/buildkit                                                      v0.27.0                                 go-module  (+1 duplicate)   
+github.com/moby/buildkit                                                      v0.27.0                                 go-module                   
+github.com/moby/buildkit                                                      v0.27.1                                 go-module                   
 github.com/moby/docker-image-spec                                             v1.3.1                                  go-module  (+2 duplicates)  
 github.com/moby/go-archive                                                    v0.1.0                                  go-module                   
 github.com/moby/go-archive                                                    v0.2.0                                  go-module  (+1 duplicate)   
@@ -380,9 +381,10 @@ github.com/moby/locker                                                        v1
 github.com/moby/moby/api                                                      v1.52.0                                 go-module                   
 github.com/moby/moby/api                                                      v1.53.0                                 go-module                   
 github.com/moby/moby/client                                                   v0.2.1                                  go-module                   
-github.com/moby/moby/v2                                                       v29.2.0                                 go-module  (+1 duplicate)   
+github.com/moby/moby/v2                                                       v29.2.1                                 go-module  (+1 duplicate)   
 github.com/moby/patternmatcher                                                v0.6.0                                  go-module  (+2 duplicates)  
-github.com/moby/policy-helpers                                                v0.0.0-20251206004813-9fcc1a9ec5c9      go-module  (+1 duplicate)   
+github.com/moby/policy-helpers                                                v0.0.0-20251206004813-9fcc1a9ec5c9      go-module                   
+github.com/moby/policy-helpers                                                v0.0.0-20260127165209-eeebf1a0ab2b      go-module                   
 github.com/moby/profiles/apparmor                                             v0.1.0                                  go-module                   
 github.com/moby/profiles/seccomp                                              v0.1.0                                  go-module                   
 github.com/moby/pubsub                                                        v1.0.0                                  go-module                   
@@ -439,7 +441,8 @@ github.com/russross/blackfriday/v2                                            v2
 github.com/santhosh-tekuri/jsonschema/v6                                      v6.0.1                                  go-module  (+1 duplicate)   
 github.com/sean-/seed                                                         v0.0.0-20170313163322-e2103e2c3529      go-module                   
 github.com/seccomp/libseccomp-golang                                          v0.10.0                                 go-module                   
-github.com/secure-systems-lab/go-securesystemslib                             v0.9.1                                  go-module  (+2 duplicates)  
+github.com/secure-systems-lab/go-securesystemslib                             v0.10.0                                 go-module                   
+github.com/secure-systems-lab/go-securesystemslib                             v0.9.1                                  go-module  (+1 duplicate)   
 github.com/serialx/hashring                                                   v0.0.0-20200727003509-22c0c7ab6b1b      go-module                   
 github.com/shibumi/go-pathspec                                                v1.3.0                                  go-module  (+2 duplicates)  
 github.com/sigstore/protobuf-specs                                            v0.5.0                                  go-module  (+1 duplicate)   
@@ -462,7 +465,8 @@ github.com/stretchr/testify                                                   v1
 github.com/tchap/go-patricia/v2                                               v2.3.3                                  go-module  (+1 duplicate)   
 github.com/tetratelabs/wazero                                                 v1.10.1                                 go-module                   
 github.com/tetratelabs/wazero                                                 v1.11.0                                 go-module                   
-github.com/theupdateframework/go-tuf/v2                                       v2.3.0                                  go-module  (+1 duplicate)   
+github.com/theupdateframework/go-tuf/v2                                       v2.3.0                                  go-module                   
+github.com/theupdateframework/go-tuf/v2                                       v2.4.1                                  go-module                   
 github.com/theupdateframework/notary                                          v0.7.0                                  go-module                   
 github.com/tilt-dev/fsnotify                                                  v1.4.8-0.20220602155310-fff9c274a375    go-module                   
 github.com/tinylib/msgp                                                       v1.3.0                                  go-module                   
@@ -708,10 +712,10 @@ libass                                                                        0.
 libassuan                                                                     2.5.5-3.el9                             rpm                         
 libasyncns                                                                    0.8-22.el9                              rpm                         
 libattr                                                                       2.5.1-3.el9                             rpm                         
-libblkid                                                                      2.37.4-21.0.1.el9                       rpm                         
+libblkid                                                                      2.37.4-21.0.1.el9_7                     rpm                         
 libbluray                                                                     1.3.4-1.el9                             rpm                         
 libbpf                                                                        2:1.5.0-2.el9                           rpm                         
-libbrotli                                                                     1.0.9-7.el9_5                           rpm                         
+libbrotli                                                                     1.0.9-9.el9_7                           rpm                         
 libbsd                                                                        0.12.2-1.el9                            rpm                         
 libcanberra                                                                   0.30-27.el9                             rpm                         
 libcanberra-gtk3                                                              0.30-27.el9                             rpm                         
@@ -722,7 +726,7 @@ libcom_err                                                                    1.
 libcomps                                                                      0.1.18                                  python                      
 libcomps                                                                      0.1.18-1.el9                            rpm                         
 libconfuse                                                                    3.3-7.el9                               rpm                         
-libcurl-minimal                                                               7.76.1-34.el9                           rpm                         
+libcurl-minimal                                                               7.76.1-35.el9_7.3                       rpm                         
 libdaemon                                                                     0.14-23.el9                             rpm                         
 libdatrie                                                                     0.2.13-4.el9                            rpm                         
 libdav1d                                                                      1.5.2-1.el9                             rpm                         
@@ -738,7 +742,7 @@ liberation-mono-fonts                                                         1:
 libev                                                                         4.33-6.el9                              rpm                         
 libevdev                                                                      1.11.0-3.el9                            rpm                         
 libevent                                                                      2.1.12-8.el9_4                          rpm                         
-libfdisk                                                                      2.37.4-21.0.1.el9                       rpm                         
+libfdisk                                                                      2.37.4-21.0.1.el9_7                     rpm                         
 libffi                                                                        3.4.2-8.el9                             rpm                         
 libfido2                                                                      1.13.0-2.el9                            rpm                         
 libfontenc                                                                    1.1.3-17.el9                            rpm                         
@@ -762,7 +766,7 @@ libmd                                                                         1.
 libmnl                                                                        1.0.4-16.el9_4                          rpm                         
 libmodplug                                                                    1:0.8.9.0-13.el9                        rpm                         
 libmodulemd                                                                   2.13.0-2.el9                            rpm                         
-libmount                                                                      2.37.4-21.0.1.el9                       rpm                         
+libmount                                                                      2.37.4-21.0.1.el9_7                     rpm                         
 libmpc                                                                        1.2.1-4.el9                             rpm                         
 libmysofa                                                                     1.2.1-1.el9                             rpm                         
 libnetfilter_conntrack                                                        1.0.9-1.el9                             rpm                         
@@ -793,10 +797,10 @@ libsemanage                                                                   3.
 libsepol                                                                      3.6-3.el9                               rpm                         
 libshaderc                                                                    2025.2-1.el9                            rpm                         
 libsigsegv                                                                    2.13-4.el9                              rpm                         
-libsmartcols                                                                  2.37.4-21.0.1.el9                       rpm                         
+libsmartcols                                                                  2.37.4-21.0.1.el9_7                     rpm                         
 libsndfile                                                                    1.0.31-9.el9                            rpm                         
 libsolv                                                                       0.7.24-3.el9                            rpm                         
-libsoup                                                                       2.72.0-12.el9_7.3                       rpm                         
+libsoup                                                                       2.72.0-12.el9_7.5                       rpm                         
 libssh                                                                        0.10.4-17.el9_7                         rpm                         
 libssh-config                                                                 0.10.4-17.el9_7                         rpm                         
 libstdc++                                                                     11.5.0-11.0.2.el9                       rpm                         
@@ -813,7 +817,7 @@ libunistring                                                                  0.
 libusbx                                                                       1.0.26-1.el9                            rpm                         
 libuser                                                                       0.63-17.el9                             rpm                         
 libutempter                                                                   1.2.1-6.el9                             rpm                         
-libuuid                                                                       2.37.4-21.0.1.el9                       rpm                         
+libuuid                                                                       2.37.4-21.0.1.el9_7                     rpm                         
 libuv                                                                         1:1.42.0-2.el9_4                        rpm                         
 libva                                                                         2.22.0-1.el9                            rpm                         
 libvdpau                                                                      1.5-1.el9                               rpm                         
@@ -1126,8 +1130,8 @@ typing-extensions                                                             4.
 tzdata                                                                        2025c-1.el9                             rpm                         
 urllib3                                                                       1.26.5                                  python                      
 usermode                                                                      1.114-7.el9                             rpm                         
-util-linux                                                                    2.37.4-21.0.1.el9                       rpm                         
-util-linux-core                                                               2.37.4-21.0.1.el9                       rpm                         
+util-linux                                                                    2.37.4-21.0.1.el9_7                     rpm                         
+util-linux-core                                                               2.37.4-21.0.1.el9_7                     rpm                         
 vamp-plugin-sdk                                                               2.9.0-4.el9                             rpm                         
 vapoursynth-libs                                                              57-4.el9                                rpm                         
 vid.stab                                                                      1.1.0-14.20201110gitf9166e9.el9         rpm                         
