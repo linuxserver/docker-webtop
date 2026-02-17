@@ -110,11 +110,94 @@ The web interface includes a terminal with passwordless `sudo` access. Any user 
 
 While not generally recommended, certain legacy environments specifically those with older hardware or outdated Linux distributions may require the deactivation of the standard seccomp profile to get containerized desktop software to run. This can be achieved by utilizing the `--security-opt seccomp=unconfined` parameter. It is critical to use this option only when absolutely necessary as it disables a key security layer of Docker, elevating the potential for container escape vulnerabilities.
 
+### Hardware Acceleration & The Move to Wayland
+
+We are currently transitioning our desktop containers from X11 to Wayland. While X11 is still the default, we strongly encourage users to test the new Wayland mode.
+
+**Important:** GPU acceleration support for X11 is being deprecated. Future development for hardware acceleration will focus entirely on the Wayland stack.
+
+To enable Wayland mode, set the following environment variable:
+*   `-e PIXELFLUX_WAYLAND=true`
+
+**Why use Wayland?**
+*   **Zero Copy Encoding:** When configured correctly with a GPU, the frame is rendered and encoded on the video card without ever being copied to the system RAM. This drastically lowers CPU usage and latency.
+*   **Modern Stack:** Single-application containers utilize **Labwc** (replacing Openbox) and full desktop containers use **KDE Plasma Wayland**, providing a more modern and secure compositing environment while retaining the same user experience.
+
+#### GPU Configuration
+
+To use hardware acceleration in Wayland mode, we distinguish between the card used for **Rendering** (3D apps/Desktops) and **Encoding** (Video Stream).
+
+**Configuration Variables:**
+*   `DRINODE`: The path to the GPU used for **Rendering** (EGL).
+*   `DRI_NODE`: The path to the GPU used for **Encoding** (VAAPI/NVENC).
+
+If both variables point to the same device, the container will automatically enable **Zero Copy** encoding, significantly reducing CPU usage and latency.
+
+##### Intel & AMD (Open Source Drivers)
+
+For Intel and AMD GPUs.
+
+```yaml
+    devices:
+      - /dev/dri:/dev/dri
+    environment:
+      - PIXELFLUX_WAYLAND=true
+      # Optional: Specify device if multiple exist (IE: /dev/dri/renderD129)
+      - DRINODE=/dev/dri/renderD128
+      - DRI_NODE=/dev/dri/renderD128
+```
+
+##### Nvidia (Proprietary Drivers)
+
+**Note: Nvidia support is not available for Alpine-based images.**
+
+**Prerequisites:**
+1.  **Driver:** Proprietary drivers **580 or higher** are required.
+2.  **Kernel Parameter:** Set `nvidia-drm.modeset=1` in your host bootloader (GRUB/systemd-boot).
+3.  **Initialization:** On headless systems, run `nvidia-modprobe --modeset` on the host (once per boot) to initialize the card.
+4.  **Docker Runtime:** Configure the host docker daemon to use the Nvidia runtime:
+    ```bash
+    sudo nvidia-ctk runtime configure --runtime=docker
+    sudo systemctl restart docker
+    ```
+
+**Compose Configuration:**
+
+```yaml
+services:
+  webtop:
+    image: lscr.io/linuxserver/webtop:latest
+    environment:
+      - PIXELFLUX_WAYLAND=true
+      # Ensure these point to the rendered node injected by the runtime (usually renderD128)
+      - DRINODE=/dev/dri/renderD128
+      - DRI_NODE=/dev/dri/renderD128
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: 1
+              capabilities: [compute,video,graphics,utility]
+```
+
+### SealSkin Compatibility
+
+This container is compatible with [SealSkin](https://sealskin.app).
+
+SealSkin is a self-hosted, client-server platform that provides secure authentication and collaboration features while using a browser extension to intercept user actions such as clicking a link or downloading a file and redirect them to a secure, isolated application environment running on a remote server.
+
+*   **SealSkin Server:** [Get it Here](https://github.com/linuxserver/docker-sealskin)
+*   **Browser Extension:** [Chrome](https://chromewebstore.google.com/detail/sealskin-isolation/lclgfmnljgacfdpmmmjmfpdelndbbfhk) and [Firefox](https://addons.mozilla.org/en-US/firefox/addon/sealskin-isolation/).
+*   **Mobile App:** [iOS](https://apps.apple.com/us/app/sealskin/id6758210210) and [Android](https://play.google.com/store/apps/details?id=io.linuxserver.sealskin)
+
+
 ### Options in all Selkies-based GUI containers
 
-This container is based on [Docker Baseimage Selkies](https://github.com/linuxserver/docker-baseimage-selkies), which provides the following environment variables and run configurations to customize its functionality.
+This container is based on [Docker Baseimage Selkies](https://github.com/linuxserver/docker-baseimage-selkies).
 
-#### Optional Environment Variables
+<details>
+<summary>Click to expand: Optional Environment Variables</summary>
 
 | Variable | Description |
 | :----: | --- |
@@ -123,8 +206,8 @@ This container is based on [Docker Baseimage Selkies](https://github.com/linuxse
 | CUSTOM_HTTPS_PORT | Internal port the container listens on for https if it needs to be swapped from the default `3001` |
 | CUSTOM_WS_PORT | Internal port the container listens on for websockets if it needs to be swapped from the default 8082 |
 | CUSTOM_USER | HTTP Basic auth username, abc is default. |
-| DRI_NODE | Enable VAAPI stream encoding and use the specified device IE `/dev/dri/renderD128` |
-| DRINODE | Specify which GPU to use for DRI3 acceleration IE `/dev/dri/renderD129` |
+| DRI_NODE | **Encoding GPU**: Enable VAAPI/NVENC stream encoding and use the specified device IE `/dev/dri/renderD128` |
+| DRINODE | **Rendering GPU**: Specify which GPU to use for EGL/3D acceleration IE `/dev/dri/renderD129` |
 | PASSWORD | HTTP Basic auth password, abc is default. If unset there will be no auth |
 | SUBFOLDER | Subfolder for the application if running a subfolder reverse proxy, need both slashes IE `/subfolder/` |
 | TITLE | The page title displayed on the web browser, default "Selkies" |
@@ -150,13 +233,37 @@ This container is based on [Docker Baseimage Selkies](https://github.com/linuxse
 - **5**: Centered
 - **6**: Animated
 
-#### Optional Run Configurations
+</details>
+
+<details>
+<summary>Click to expand: Optional Run Configurations (DinD & GPU Mounts)</summary>
 
 | Argument | Description |
 | :----: | --- |
 | `--privileged` | Starts a Docker-in-Docker (DinD) environment. For better performance, mount the Docker data directory from the host, e.g., `-v /path/to/docker-data:/var/lib/docker`. |
 | `-v /var/run/docker.sock:/var/run/docker.sock` | Mounts the host's Docker socket to manage host containers from within this container. |
-| `--device /dev/dri:/dev/dri` | Mount a GPU into the container, this can be used in conjunction with the `DRINODE` environment variable to leverage a host video card for GPU accelerated applications. Only **Open Source** drivers are supported IE (Intel,AMDGPU,Radeon,ATI,Nouveau) |
+| `--device /dev/dri:/dev/dri` | Mount a GPU into the container, this can be used in conjunction with the `DRINODE` environment variable to leverage a host video card for GPU accelerated applications. |
+
+</details>
+
+<details>
+<summary>Click to expand: Legacy X11 Resolution & Acceleration</summary>
+
+**Note:** This section applies only if you are **NOT** using `PIXELFLUX_WAYLAND=true`.
+
+When using 3d acceleration via Nvidia DRM or DRI3 in X11 mode, it is important to clamp the virtual display to a reasonable max resolution to avoid memory exhaustion or poor performance.
+
+* `-e MAX_RESOLUTION=3840x2160`
+
+This will set the total virtual framebuffer to 4K. By default, the virtual monitor is 16K. If you have performance issues in an accelerated X11 session, try clamping the resolution to 1080p and work up from there:
+
+```
+-e SELKIES_MANUAL_WIDTH=1920
+-e SELKIES_MANUAL_HEIGHT=1080
+-e MAX_RESOLUTION=1920x1080
+```
+
+</details>
 
 ### Language Support - Internationalization
 
@@ -172,83 +279,6 @@ To launch the desktop session in a different language, set the `LC_ALL` environm
 *   `-e LC_ALL=fr_FR.UTF-8` - French
 *   `-e LC_ALL=nl_NL.UTF-8` - Netherlands
 *   `-e LC_ALL=it_IT.UTF-8` - Italian
-
-### SealSkin Compatibility
-
-This container is compatible with [SealSkin](https://github.com/linuxserver/docker-sealskin).
-
-SealSkin is a self-hosted, client-server platform that provides secure authentication and collaboration features while using a browser extension to intercept user actions such as clicking a link or downloading a file and redirect them to a secure, isolated application environment running on a remote server.
-
-*   **SealSkin Server:** [Get it Here](https://github.com/linuxserver/docker-sealskin)
-*   **Browser Extension:** [Install Here](https://chromewebstore.google.com/detail/sealskin-isolation/lclgfmnljgacfdpmmmjmfpdelndbbfhk)
-
-### All GPU Acceleration - use sane resolutions
-
-When using 3d acceleration via Nvidia DRM or DRI3 it is important to clamp the virtual display to a reasonable max resolution. This can be achieved with the environment setting: 
-
-* `-e MAX_RESOLUTION=3840x2160`
-
-This will set the total virtual framebuffer to 4K, you can also set a manual resolution to achieve this.
-By default the virtual monitor in the session is 16K to support large monitors and dual display configurations. Leaving it this large has no impact on CPU based performance but costs GPU memory usage and memory bandwidth when leveraging one for acceleration. If you have performance issues in an accelerated session, try clamping the resolution to 1080p and work up from there:
-
-```
--e SELKIES_MANUAL_WIDTH=1920
--e SELKIES_MANUAL_HEIGHT=1080
--e MAX_RESOLUTION=1920x1080
-```
-
-### DRI3 GPU Acceleration
-
-For accelerated apps or games, render devices can be mounted into the container and leveraged by applications using:
-
-`--device /dev/dri:/dev/dri`
-
-This feature only supports **Open Source** GPU drivers:
-
-| Driver | Description |
-| :----: | --- |
-| Intel | i965 and i915 drivers for Intel iGPU chipsets |
-| AMD | AMDGPU, Radeon, and ATI drivers for AMD dedicated or APU chipsets |
-| NVIDIA | nouveau2 drivers only, closed source NVIDIA drivers lack DRI3 support |
-
-The `DRINODE` environment variable can be used to point to a specific GPU.
-
-DRI3 will work on aarch64 given the correct drivers are installed inside the container for your chipset.
-
-### Nvidia GPU Support
-
-**Note: Nvidia support is not available for Alpine-based images.**
-
-Nvidia GPU support is available by leveraging Zink for OpenGL. When a compatible Nvidia GPU is passed through, it will also be **automatically utilized for hardware-accelerated video stream encoding** (using the `x264enc` full-frame profile), significantly reducing CPU load.
-
-Enable Nvidia support with the following runtime flags:
-
-| Flag | Description |
-| :----: | --- |
-| `--gpus all` | Passes all available host GPUs to the container. This can be filtered to specific GPUs. |
-| `--runtime nvidia` | Specifies the Nvidia runtime, which provides the necessary drivers and tools from the host. |
-
-For Docker Compose, you must first configure the Nvidia runtime as the default on the host:
-
-```
-sudo nvidia-ctk runtime configure --runtime=docker --set-as-default
-sudo systemctl restart docker
-```
-
-Then, assign the GPU to the service in your `compose.yaml`:
-
-```
-services:
-  webtop:
-    image: lscr.io/linuxserver/webtop:latest
-    deploy:
-      resources:
-        reservations:
-          devices:
-            - driver: nvidia
-              count: 1
-              capabilities: [compute,video,graphics,utility]
-```
 
 ### Application Management
 
@@ -276,20 +306,19 @@ You can install packages from the system's native repository using the [universa
     - INSTALL_PACKAGES=libfuse2|git|gdb
 ```
 
-#### Hardening
+### Advanced Configuration
+
+<details>
+<summary>Click to expand: Hardening Options</summary>
 
 These variables can be used to lock down the desktop environment for single-application use cases or to restrict user capabilities.
-
-##### Meta Variables
-
-These variables act as presets, enabling multiple hardening options at once. Individual options can still be set to override the preset.
 
 | Variable | Description |
 | :----: | --- |
 | **`HARDEN_DESKTOP`** | Enables `DISABLE_OPEN_TOOLS`, `DISABLE_SUDO`, and `DISABLE_TERMINALS`. Also sets related Selkies UI settings (`SELKIES_FILE_TRANSFERS`, `SELKIES_COMMAND_ENABLED`, `SELKIES_UI_SIDEBAR_SHOW_FILES`, `SELKIES_UI_SIDEBAR_SHOW_APPS`) if they are not explicitly set by the user. |
 | **`HARDEN_OPENBOX`** | Enables `DISABLE_CLOSE_BUTTON`, `DISABLE_MOUSE_BUTTONS`, and `HARDEN_KEYBINDS`. It also flags `RESTART_APP` if not set by the user, ensuring the primary application is automatically restarted if closed. |
 
-##### Individual Hardening Variables
+**Individual Hardening Variables:**
 
 | Variable | Description |
 | :--- | --- |
@@ -301,46 +330,27 @@ These variables act as presets, enabling multiple hardening options at once. Ind
 | **`HARDEN_KEYBINDS`** | If true, disables default Openbox keybinds that can bypass other hardening options (e.g., `Alt+F4` to close windows, `Alt+Escape` to show the root menu). |
 | **`RESTART_APP`** | If true, enables a watchdog service that automatically restarts the main application if it is closed. The user's autostart script is made read-only and root owned to prevent tampering. |
 
-#### Selkies application settings
+</details>
+
+<details>
+<summary>Click to expand: Selkies Application Settings</summary>
 
 Using environment variables every facet of the application can be configured.
 
-##### Booleans and Locking
-Boolean settings accept `true` or `false`. You can also prevent the user from changing a boolean setting in the UI by appending `|locked`. The UI toggle for this setting will be hidden.
+**Booleans and Locking:**
+Boolean settings accept `true` or `false`. You can also prevent the user from changing a boolean setting in the UI by appending `|locked`.
+*   Example: `-e SELKIES_USE_CPU="true|locked"`
 
-*   **Example**: To force CPU encoding on and prevent the user from disabling it:
-    ```bash
-    -e SELKIES_USE_CPU="true|locked"
-    ```
+**Enums and Lists:**
+These settings accept a comma-separated list of values. The first item becomes default. If only one item is provided, the UI dropdown is hidden.
+*   Example: `-e SELKIES_ENCODER="jpeg"`
 
-##### Enums and Lists
-These settings accept a comma-separated list of values. Their behavior depends on the number of items provided:
+**Ranges:**
+Use a hyphen-separated `min-max` format for a slider, or a single number to lock the value.
+*   Example: `-e SELKIES_FRAMERATE="60"`
 
-*   **Multiple Values**: The first item in the list becomes the default selection, and all items in the list become the available options in the UI dropdown.
-*   **Single Value**: The provided value becomes the default, and the UI dropdown is hidden because the choice is locked.
-
-*   **Example**: Force the encoder to be `jpeg` with no other options available to the user:
-    ```bash
-    -e SELKIES_ENCODER="jpeg"
-    ```
-
-##### Ranges
-Range settings define a minimum and maximum for a value (e.g., framerate).
-
-*   **To set a range**: Use a hyphen-separated `min-max` format. The UI will show a slider.
-*   **To set a fixed value**: Provide a single number. This will lock the value and hide the UI slider.
-
-*   **Example**: Lock the framerate to exactly 60 FPS.
-    ```bash
-    -e SELKIES_FRAMERATE="60"
-    ```
-
-##### Manual Resolution Mode
-The server can be forced to use a single, fixed resolution for all connecting clients. This mode is automatically activated if `SELKIES_MANUAL_WIDTH`, `SELKIES_MANUAL_HEIGHT`, or `SELKIES_IS_MANUAL_RESOLUTION_MODE` is set.
-
-*   If `SELKIES_MANUAL_WIDTH` and/or `SELKIES_MANUAL_HEIGHT` are set, the resolution is locked to those values.
-*   If `SELKIES_IS_MANUAL_RESOLUTION_MODE` is set to `true` without specifying width or height, the resolution defaults to **1024x768**.
-*   When this mode is active, the client UI for changing resolution is disabled.
+**Manual Resolution Mode:**
+If `SELKIES_MANUAL_WIDTH` or `SELKIES_MANUAL_HEIGHT` are set, the resolution is locked to those values.
 
 | Environment Variable | Default Value | Description |
 | --- | --- | --- |
@@ -401,12 +411,14 @@ The server can be forced to use a single, fixed resolution for all connecting cl
 | `SELKIES_ENABLE_PLAYER3` | `True` | Enable sharing link for gamepad player 3. |
 | `SELKIES_ENABLE_PLAYER4` | `True` | Enable sharing link for gamepad player 4. |
 
+</details>
+
 ## Usage
 
 To help you get started creating a container from this image you can either use docker-compose or the docker cli.
 
 >[!NOTE]
->Unless a parameter is flaged as 'optional', it is *mandatory* and a value must be provided.
+>Unless a parameter is flagged as 'optional', it is *mandatory* and a value must be provided.
 
 ### docker-compose (recommended, [click here for more info](https://docs.linuxserver.io/general/docker-compose))
 
