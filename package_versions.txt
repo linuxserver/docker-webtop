@@ -30,7 +30,7 @@ avahi-glib                                                                    0.
 avahi-libs                                                                    0.9~rc2-6.fc43                                     rpm                         
 backports-tarfile                                                             1.2.0                                              python                      
 bash                                                                          5.3.0-2.fc43                                       rpm                         
-bluez-libs                                                                    5.85-1.fc43                                        rpm                         
+bluez-libs                                                                    5.86-2.fc43                                        rpm                         
 breeze-cursor-theme                                                           6.5.5-1.fc43                                       rpm                         
 bubblewrap                                                                    0.11.0-2.fc43                                      rpm                         
 busybox                                                                       1:1.37.0-3.fc43                                    rpm                         
@@ -68,7 +68,7 @@ coreutils-common                                                              9.
 cpp                                                                           15.2.1-7.fc43                                      rpm                         
 cracklib                                                                      2.9.11-8.fc43                                      rpm                         
 crypto-policies                                                               20251125-1.git63291f8.fc43                         rpm                         
-cryptography                                                                  46.0.4                                             python                      
+cryptography                                                                  46.0.5                                             python                      
 cryptsetup-libs                                                               2.8.4-1.fc43                                       rpm                         
 cups-filesystem                                                               1:2.4.16-4.fc43                                    rpm                         
 cups-libs                                                                     1:2.4.16-4.fc43                                    rpm                         
@@ -96,11 +96,11 @@ distlib                                                                       0.
 distro                                                                        1.9.0                                              python     (+1 duplicate)   
 dnf                                                                           4.24.0                                             python                      
 dnf-data                                                                      4.24.0-1.fc43                                      rpm                         
-dnf5                                                                          5.2.17.0-2.fc43                                    rpm                         
-dnf5-plugins                                                                  5.2.17.0-2.fc43                                    rpm                         
+dnf5                                                                          5.2.18.0-1.fc43                                    rpm                         
+dnf5-plugins                                                                  5.2.18.0-1.fc43                                    rpm                         
 dns-root-data                                                                 2026260100-2.fc43                                  rpm                         
 dnspython                                                                     2.8.0                                              python                      
-docker-cli                                                                    29.2.0-1.fc43                                      rpm                         
+docker-cli                                                                    29.2.1-2.fc43                                      rpm                         
 docker-compose                                                                5.0.2-1.fc43                                       rpm                         
 double-conversion                                                             3.4.0-1.fc43                                       rpm                         
 duktape                                                                       2.7.0-10.fc43                                      rpm                         
@@ -247,7 +247,7 @@ github.com/digitorus/pkcs7                                                    v0
 github.com/digitorus/timestamp                                                v0.0.0-20231217203849-220c5c2851b7                 go-module                   
 github.com/dimchansky/utfbom                                                  v1.1.1                                             go-module                   
 github.com/distribution/reference                                             v0.6.0                                             go-module  (+4 duplicates)  
-github.com/docker/cli                                                         v29.2.0                                            go-module                   
+github.com/docker/cli                                                         v29.2.1                                            go-module                   
 github.com/docker/cli-docs-tool                                               v0.11.0                                            go-module                   
 github.com/docker/compose/v5/cmd                                              UNKNOWN                                            go-module                   
 github.com/docker/distribution                                                v2.8.3+incompatible                                go-module  (+1 duplicate)   
@@ -348,16 +348,16 @@ github.com/mistifyio/go-zfs/v3                                                v3
 github.com/mitchellh/copystructure                                            v1.2.0                                             go-module                   
 github.com/mitchellh/hashstructure/v2                                         v2.0.2                                             go-module                   
 github.com/mitchellh/reflectwalk                                              v1.0.2                                             go-module                   
-github.com/moby/buildkit                                                      v0.27.0                                            go-module                   
+github.com/moby/buildkit                                                      v0.27.1                                            go-module                   
 github.com/moby/docker-image-spec                                             v1.3.1                                             go-module  (+1 duplicate)   
 github.com/moby/go-archive                                                    v0.2.0                                             go-module  (+1 duplicate)   
 github.com/moby/ipvs                                                          v1.1.0                                             go-module                   
 github.com/moby/locker                                                        v1.0.1                                             go-module  (+3 duplicates)  
 github.com/moby/moby/api                                                      v1.53.0                                            go-module  (+1 duplicate)   
 github.com/moby/moby/client                                                   v0.2.2                                             go-module                   
-github.com/moby/moby/v2                                                       v29.2.0                                            go-module  (+1 duplicate)   
+github.com/moby/moby/v2                                                       v29.2.1                                            go-module  (+1 duplicate)   
 github.com/moby/patternmatcher                                                v0.6.0                                             go-module  (+1 duplicate)   
-github.com/moby/policy-helpers                                                v0.0.0-20251206004813-9fcc1a9ec5c9                 go-module                   
+github.com/moby/policy-helpers                                                v0.0.0-20260127165209-eeebf1a0ab2b                 go-module                   
 github.com/moby/profiles/apparmor                                             v0.1.0                                             go-module                   
 github.com/moby/profiles/seccomp                                              v0.1.0                                             go-module                   
 github.com/moby/pubsub                                                        v1.0.0                                             go-module                   
@@ -411,7 +411,7 @@ github.com/prometheus/procfs                                                  v0
 github.com/rootless-containers/rootlesskit/v2                                 v2.3.6                                             go-module                   
 github.com/sean-/seed                                                         v0.0.0-20170313163322-e2103e2c3529                 go-module                   
 github.com/seccomp/libseccomp-golang                                          v0.11.1                                            go-module                   
-github.com/secure-systems-lab/go-securesystemslib                             v0.9.1                                             go-module                   
+github.com/secure-systems-lab/go-securesystemslib                             v0.10.0                                            go-module                   
 github.com/shibumi/go-pathspec                                                v1.3.0                                             go-module                   
 github.com/sigstore/protobuf-specs                                            v0.5.0                                             go-module                   
 github.com/sigstore/rekor                                                     v1.5.0                                             go-module                   
@@ -430,7 +430,7 @@ github.com/stretchr/testify                                                   v1
 github.com/syndtr/gocapability                                                v0.0.0-20200815063812-42c35b437635                 go-module  (+1 duplicate)   
 github.com/tchap/go-patricia/v2                                               v2.3.2                                             go-module                   
 github.com/tetratelabs/wazero                                                 v1.11.0                                            go-module                   
-github.com/theupdateframework/go-tuf/v2                                       v2.3.0                                             go-module                   
+github.com/theupdateframework/go-tuf/v2                                       v2.4.1                                             go-module                   
 github.com/tinylib/msgp                                                       v1.3.0                                             go-module                   
 github.com/tonistiigi/dchapes-mode                                            v0.0.0-20250318174251-73d941a28323                 go-module                   
 github.com/tonistiigi/fsutil                                                  v0.0.0-20251211185533-a2aa163d723f                 go-module                   
@@ -462,18 +462,18 @@ glibc-gconv-extra                                                             2.
 glibc-locale-source                                                           2.42-9.fc43                                        rpm                         
 glibc-minimal-langpack                                                        2.42-9.fc43                                        rpm                         
 glibmm2.68                                                                    2.84.0-2.fc43                                      rpm                         
-glycin-libs                                                                   2.0.5-1.fc43                                       rpm                         
-glycin-loaders                                                                2.0.5-1.fc43                                       rpm                         
+glycin-libs                                                                   2.0.5-4.fc43                                       rpm                         
+glycin-loaders                                                                2.0.5-4.fc43                                       rpm                         
 gmp                                                                           1:6.3.0-4.fc43                                     rpm                         
 gnome-icon-theme                                                              3.12.0-26.fc43                                     rpm                         
 gnulib-l10n                                                                   20241231-1.fc43                                    rpm                         
-gnupg2                                                                        2.4.9-4.fc43                                       rpm                         
-gnupg2-dirmngr                                                                2.4.9-4.fc43                                       rpm                         
-gnupg2-gpg-agent                                                              2.4.9-4.fc43                                       rpm                         
-gnupg2-gpgconf                                                                2.4.9-4.fc43                                       rpm                         
-gnupg2-keyboxd                                                                2.4.9-4.fc43                                       rpm                         
-gnupg2-verify                                                                 2.4.9-4.fc43                                       rpm                         
-gnutls                                                                        3.8.11-5.fc43                                      rpm                         
+gnupg2                                                                        2.4.9-5.fc43                                       rpm                         
+gnupg2-dirmngr                                                                2.4.9-5.fc43                                       rpm                         
+gnupg2-gpg-agent                                                              2.4.9-5.fc43                                       rpm                         
+gnupg2-gpgconf                                                                2.4.9-5.fc43                                       rpm                         
+gnupg2-keyboxd                                                                2.4.9-5.fc43                                       rpm                         
+gnupg2-verify                                                                 2.4.9-5.fc43                                       rpm                         
+gnutls                                                                        3.8.12-1.fc43                                      rpm                         
 go.etcd.io/bbolt                                                              v1.4.0                                             go-module                   
 go.etcd.io/bbolt                                                              v1.4.3                                             go-module                   
 go.etcd.io/etcd/api/v3                                                        v3.6.6                                             go-module                   
@@ -610,7 +610,7 @@ hostname                                                                      3.
 hunspell                                                                      1.7.2-10.fc43                                      rpm                         
 hunspell-en-US                                                                0.20201207-12.fc43                                 rpm                         
 hunspell-filesystem                                                           1.7.2-10.fc43                                      rpm                         
-hwdata                                                                        0.403-1.fc43                                       rpm                         
+hwdata                                                                        0.404-1.fc43                                       rpm                         
 iceauth                                                                       1.0.10-3.fc43                                      rpm                         
 idna                                                                          3.11                                               python                      
 ifaddr                                                                        0.2.0                                              python                      
@@ -714,7 +714,7 @@ libbsd                                                                        0.
 libbytesize                                                                   2.12-1.fc43                                        rpm                         
 libcanberra                                                                   0.30-38.fc43                                       rpm                         
 libcap                                                                        2.76-3.fc43                                        rpm                         
-libcap-ng                                                                     0.8.5-8.fc43                                       rpm                         
+libcap-ng                                                                     0.9-7.fc43                                         rpm                         
 libcbor                                                                       0.12.0-6.fc43                                      rpm                         
 libcdio                                                                       2.1.0-15.fc43                                      rpm                         
 libcdio-paranoia                                                              10.2+2.0.2-5.fc43                                  rpm                         
@@ -733,8 +733,8 @@ libdecor                                                                      0.
 libdisplay-info                                                               0.2.0-4.fc43                                       rpm                         
 libdnf                                                                        0.75.0                                             python                      
 libdnf                                                                        0.75.0-1.fc43                                      rpm                         
-libdnf5                                                                       5.2.17.0-2.fc43                                    rpm                         
-libdnf5-cli                                                                   5.2.17.0-2.fc43                                    rpm                         
+libdnf5                                                                       5.2.18.0-1.fc43                                    rpm                         
+libdnf5-cli                                                                   5.2.18.0-1.fc43                                    rpm                         
 libdovi                                                                       3.3.2-1.fc43                                       rpm                         
 libdrm                                                                        2.4.131-1.fc43                                     rpm                         
 libebur128                                                                    1.2.6-14.fc43                                      rpm                         
@@ -786,7 +786,7 @@ libmount                                                                      2.
 libmousepad0                                                                  0.6.5-3.fc43                                       rpm                         
 libmpc                                                                        1.3.1-8.fc43                                       rpm                         
 libmysofa                                                                     1.3.3-3.fc43                                       rpm                         
-libnetfilter_conntrack                                                        1.0.9-9.fc43                                       rpm                         
+libnetfilter_conntrack                                                        1.1.1-1.fc43                                       rpm                         
 libnfnetlink                                                                  1.0.1-31.fc43                                      rpm                         
 libnftnl                                                                      1.2.9-2.fc43                                       rpm                         
 libnghttp2                                                                    1.66.0-2.fc43                                      rpm                         
@@ -852,7 +852,7 @@ libutempter                                                                   1.
 libuuid                                                                       2.41.3-7.fc43                                      rpm                         
 libuv                                                                         1:1.51.0-2.fc43                                    rpm                         
 libva                                                                         2.22.0-6.fc43                                      rpm                         
-libva-nvidia-driver                                                           0.0.14-3.fc43                                      rpm                         
+libva-nvidia-driver                                                           0.0.15-1.fc43                                      rpm                         
 libvdpau                                                                      1.5-10.fc43                                        rpm                         
 libverto                                                                      0.3.2-11.fc43                                      rpm                         
 libvisual                                                                     1:0.4.2-3.fc43                                     rpm                         
@@ -860,8 +860,8 @@ libvmaf                                                                       3.
 libvorbis                                                                     1:1.3.7-13.fc43                                    rpm                         
 libvpl                                                                        1:2.16.0-1.fc43                                    rpm                         
 libvpx                                                                        1.15.0-4.fc43                                      rpm                         
-libwacom                                                                      2.17.0-1.fc43                                      rpm                         
-libwacom-data                                                                 2.17.0-1.fc43                                      rpm                         
+libwacom                                                                      2.18.0-1.fc43                                      rpm                         
+libwacom-data                                                                 2.18.0-1.fc43                                      rpm                         
 libwayland-client                                                             1.24.0-1.fc43                                      rpm                         
 libwayland-cursor                                                             1.24.0-1.fc43                                      rpm                         
 libwayland-egl                                                                1.24.0-1.fc43                                      rpm                         
@@ -905,8 +905,8 @@ mesa-libgbm                                                                   25
 mesa-va-drivers-freeworld                                                     25.3.4-1.fc43                                      rpm                         
 mesa-vulkan-drivers                                                           25.3.4-7.fc43                                      rpm                         
 mkfontscale                                                                   1.2.3-3.fc43                                       rpm                         
-moby-engine                                                                   29.2.0-1.fc43                                      rpm                         
-moby-filesystem                                                               29.2.0-1.fc43                                      rpm                         
+moby-engine                                                                   29.2.1-2.fc43                                      rpm                         
+moby-filesystem                                                               29.2.1-2.fc43                                      rpm                         
 more-itertools                                                                10.8.0                                             python                      
 mousepad                                                                      0.6.5-3.fc43                                       rpm                         
 mpdecimal                                                                     4.0.1-2.fc43                                       rpm                         
@@ -915,11 +915,10 @@ mpg123-libs                                                                   1.
 msgpack                                                                       1.1.2                                              python                      
 mtdev                                                                         1.1.6-11.fc43                                      rpm                         
 multidict                                                                     6.7.1                                              python                      
-my-test-package                                                               1.0                                                python                      
 ncurses                                                                       6.5-7.20250614.fc43                                rpm                         
 ncurses-base                                                                  6.5-7.20250614.fc43                                rpm                         
 ncurses-libs                                                                  6.5-7.20250614.fc43                                rpm                         
-netcat                                                                        1.237-1.fc43                                       rpm                         
+netcat                                                                        1.237-3.fc43                                       rpm                         
 nettle                                                                        3.10.1-2.fc43                                      rpm                         
 nftables                                                                      1:1.1.3-6.fc43                                     rpm                         
 nftables-services                                                             1:1.1.3-6.fc43                                     rpm                         
@@ -955,8 +954,8 @@ openssl                                                                       1:
 openssl-libs                                                                  1:3.5.4-2.fc43                                     rpm                         
 opus                                                                          1.5.2-3.fc43                                       rpm                         
 orc                                                                           0.4.41-2.fc43                                      rpm                         
-p11-kit                                                                       0.25.8-1.fc43                                      rpm                         
-p11-kit-trust                                                                 0.25.8-1.fc43                                      rpm                         
+p11-kit                                                                       0.26.2-1.fc43                                      rpm                         
+p11-kit-trust                                                                 0.26.2-1.fc43                                      rpm                         
 packaging                                                                     26.0                                               python                      
 pam                                                                           1.7.1-4.fc43                                       rpm                         
 pam-libs                                                                      1.7.1-4.fc43                                       rpm                         
@@ -969,46 +968,46 @@ pciutils-libs                                                                 3.
 pcmflux                                                                       1.0.7                                              python                      
 pcre2                                                                         10.47-1.fc43                                       rpm                         
 pcre2-syntax                                                                  10.47-1.fc43                                       rpm                         
-perl-AutoLoader                                                               0:5.74-520.fc43                                    rpm                         
-perl-B                                                                        0:1.89-520.fc43                                    rpm                         
+perl-AutoLoader                                                               0:5.74-521.fc43                                    rpm                         
+perl-B                                                                        0:1.89-521.fc43                                    rpm                         
 perl-Carp                                                                     1.54-520.fc43                                      rpm                         
-perl-Class-Struct                                                             0:0.68-520.fc43                                    rpm                         
+perl-Class-Struct                                                             0:0.68-521.fc43                                    rpm                         
 perl-Data-Dumper                                                              2.191-521.fc43                                     rpm                         
 perl-Digest                                                                   1.20-520.fc43                                      rpm                         
 perl-Digest-MD5                                                               2.59-520.fc43                                      rpm                         
-perl-DynaLoader                                                               0:1.57-520.fc43                                    rpm                         
+perl-DynaLoader                                                               0:1.57-521.fc43                                    rpm                         
 perl-Encode                                                                   4:3.21-520.fc43                                    rpm                         
-perl-Errno                                                                    0:1.38-520.fc43                                    rpm                         
+perl-Errno                                                                    0:1.38-521.fc43                                    rpm                         
 perl-Error                                                                    1:0.17030-2.fc43                                   rpm                         
 perl-Exporter                                                                 5.79-520.fc43                                      rpm                         
-perl-Fcntl                                                                    0:1.20-520.fc43                                    rpm                         
-perl-File-Basename                                                            0:2.86-520.fc43                                    rpm                         
+perl-Fcntl                                                                    0:1.20-521.fc43                                    rpm                         
+perl-File-Basename                                                            0:2.86-521.fc43                                    rpm                         
 perl-File-Path                                                                2.18-520.fc43                                      rpm                         
 perl-File-Temp                                                                1:0.231.100-520.fc43                               rpm                         
-perl-File-stat                                                                0:1.14-520.fc43                                    rpm                         
-perl-FileHandle                                                               0:2.05-520.fc43                                    rpm                         
+perl-File-stat                                                                0:1.14-521.fc43                                    rpm                         
+perl-FileHandle                                                               0:2.05-521.fc43                                    rpm                         
 perl-Getopt-Long                                                              1:2.58-520.fc43                                    rpm                         
-perl-Getopt-Std                                                               0:1.14-520.fc43                                    rpm                         
+perl-Getopt-Std                                                               0:1.14-521.fc43                                    rpm                         
 perl-Git                                                                      2.53.0-1.fc43                                      rpm                         
 perl-HTTP-Tiny                                                                0.090-521.fc43                                     rpm                         
-perl-IO                                                                       0:1.55-520.fc43                                    rpm                         
+perl-IO                                                                       0:1.55-521.fc43                                    rpm                         
 perl-IO-Socket-IP                                                             0.43-521.fc43                                      rpm                         
 perl-IO-Socket-SSL                                                            2.095-2.fc43                                       rpm                         
-perl-IPC-Open3                                                                0:1.24-520.fc43                                    rpm                         
+perl-IPC-Open3                                                                0:1.24-521.fc43                                    rpm                         
 perl-MIME-Base32                                                              1.303-24.fc43                                      rpm                         
 perl-MIME-Base64                                                              3.16-520.fc43                                      rpm                         
 perl-Net-SSLeay                                                               1.94-11.fc43                                       rpm                         
-perl-POSIX                                                                    0:2.23-520.fc43                                    rpm                         
+perl-POSIX                                                                    0:2.23-521.fc43                                    rpm                         
 perl-PathTools                                                                3.94-520.fc43                                      rpm                         
 perl-Pod-Escapes                                                              1:1.07-520.fc43                                    rpm                         
 perl-Pod-Perldoc                                                              3.28.01-521.fc43                                   rpm                         
 perl-Pod-Simple                                                               1:3.47-3.fc43                                      rpm                         
 perl-Pod-Usage                                                                4:2.05-520.fc43                                    rpm                         
 perl-Scalar-List-Utils                                                        5:1.70-1.fc43                                      rpm                         
-perl-SelectSaver                                                              0:1.02-520.fc43                                    rpm                         
+perl-SelectSaver                                                              0:1.02-521.fc43                                    rpm                         
 perl-Socket                                                                   4:2.040-2.fc43                                     rpm                         
 perl-Storable                                                                 1:3.37-521.fc43                                    rpm                         
-perl-Symbol                                                                   0:1.09-520.fc43                                    rpm                         
+perl-Symbol                                                                   0:1.09-521.fc43                                    rpm                         
 perl-Term-ANSIColor                                                           5.01-521.fc43                                      rpm                         
 perl-Term-Cap                                                                 1.18-520.fc43                                      rpm                         
 perl-TermReadKey                                                              2.38-26.fc43                                       rpm                         
@@ -1016,22 +1015,22 @@ perl-Text-ParseWords                                                          3.
 perl-Text-Tabs+Wrap                                                           2024.001-520.fc43                                  rpm                         
 perl-Time-Local                                                               2:1.350-520.fc43                                   rpm                         
 perl-URI                                                                      5.34-2.fc43                                        rpm                         
-perl-base                                                                     0:2.27-520.fc43                                    rpm                         
+perl-base                                                                     0:2.27-521.fc43                                    rpm                         
 perl-constant                                                                 1.33-521.fc43                                      rpm                         
-perl-if                                                                       0:0.61.000-520.fc43                                rpm                         
-perl-interpreter                                                              4:5.42.0-520.fc43                                  rpm                         
-perl-lib                                                                      0:0.65-520.fc43                                    rpm                         
+perl-if                                                                       0:0.61.000-521.fc43                                rpm                         
+perl-interpreter                                                              4:5.42.0-521.fc43                                  rpm                         
+perl-lib                                                                      0:0.65-521.fc43                                    rpm                         
 perl-libnet                                                                   3.15-521.fc43                                      rpm                         
-perl-libs                                                                     4:5.42.0-520.fc43                                  rpm                         
-perl-locale                                                                   0:1.13-520.fc43                                    rpm                         
-perl-mro                                                                      0:1.29-520.fc43                                    rpm                         
-perl-overload                                                                 0:1.40-520.fc43                                    rpm                         
-perl-overloading                                                              0:0.02-520.fc43                                    rpm                         
+perl-libs                                                                     4:5.42.0-521.fc43                                  rpm                         
+perl-locale                                                                   0:1.13-521.fc43                                    rpm                         
+perl-mro                                                                      0:1.29-521.fc43                                    rpm                         
+perl-overload                                                                 0:1.40-521.fc43                                    rpm                         
+perl-overloading                                                              0:0.02-521.fc43                                    rpm                         
 perl-parent                                                                   1:0.244-520.fc43                                   rpm                         
 perl-podlators                                                                1:6.0.2-520.fc43                                   rpm                         
-perl-vars                                                                     0:1.05-520.fc43                                    rpm                         
+perl-vars                                                                     0:1.05-521.fc43                                    rpm                         
 pigz                                                                          2.8-7.fc43                                         rpm                         
-pillow                                                                        12.1.0                                             python                      
+pillow                                                                        12.1.1                                             python                      
 pip                                                                           25.1.1                                             python                      
 pipewire-libs                                                                 1.4.10-1.fc43                                      rpm                         
 pixelflux                                                                     1.5.9                                              python                      
@@ -1115,14 +1114,14 @@ samba-common-libs                                                             2:
 sdbus-cpp                                                                     2.1.0-3.fc43                                       rpm                         
 sed                                                                           4.9-5.fc43                                         rpm                         
 selinux                                                                       3.9                                                python                      
-selinux-policy                                                                42.22-1.fc43                                       rpm                         
-selinux-policy-targeted                                                       42.22-1.fc43                                       rpm                         
+selinux-policy                                                                42.23-1.fc43                                       rpm                         
+selinux-policy-targeted                                                       42.23-1.fc43                                       rpm                         
 selkies                                                                       0.0.0                                              python                      
 sepolicy                                                                      3.9                                                python                      
 serd                                                                          0.32.4-2.fc43                                      rpm                         
 setools                                                                       4.6.0                                              python                      
 setup                                                                         2.15.0-26.fc43                                     rpm                         
-setuptools                                                                    81.0.0                                             python                      
+setuptools                                                                    82.0.0                                             python                      
 shadow-utils                                                                  2:4.18.0-3.fc43                                    rpm                         
 shared-mime-info                                                              2.4-2.fc43                                         rpm                         
 sigs.k8s.io/json                                                              v0.0.0-20241010143419-9aa6b5e7a4b3                 go-module                   
@@ -1148,12 +1147,12 @@ stdlib                                                                        go
 stdlib                                                                        go1.25.6                                           go-module  (+3 duplicates)  
 sudo                                                                          1.9.17-6.p2.fc43                                   rpm                         
 svt-av1-libs                                                                  3.1.2-1.fc43                                       rpm                         
-systemd                                                                       258.3-3.fc43                                       rpm                         
-systemd-libs                                                                  258.3-3.fc43                                       rpm                         
-systemd-pam                                                                   258.3-3.fc43                                       rpm                         
-systemd-shared                                                                258.3-3.fc43                                       rpm                         
-systemd-standalone-sysusers                                                   258.3-2.fc43                                       rpm                         
-systemd-udev                                                                  258.3-3.fc43                                       rpm                         
+systemd                                                                       258.4-1.fc43                                       rpm                         
+systemd-libs                                                                  258.4-1.fc43                                       rpm                         
+systemd-pam                                                                   258.4-1.fc43                                       rpm                         
+systemd-shared                                                                258.4-1.fc43                                       rpm                         
+systemd-standalone-sysusers                                                   258.3-3.fc43                                       rpm                         
+systemd-udev                                                                  258.4-1.fc43                                       rpm                         
 tags.cncf.io/container-device-interface                                       v1.0.1                                             go-module  (+1 duplicate)   
 tags.cncf.io/container-device-interface                                       v1.1.0                                             go-module  (+1 duplicate)   
 tags.cncf.io/container-device-interface/specs-go                              v1.0.0                                             go-module  (+1 duplicate)   
@@ -1189,9 +1188,9 @@ utf8proc                                                                      2.
 util-linux                                                                    2.41.3-7.fc43                                      rpm                         
 util-linux-core                                                               2.41.3-7.fc43                                      rpm                         
 vid.stab                                                                      1.1.1-7.fc43                                       rpm                         
-vim-data                                                                      2:9.1.2086-1.fc43                                  rpm                         
-vim-filesystem                                                                2:9.1.2114-1.fc43                                  rpm                         
-vim-minimal                                                                   2:9.1.2086-1.fc43                                  rpm                         
+vim-data                                                                      2:9.1.2128-2.fc43                                  rpm                         
+vim-filesystem                                                                2:9.1.2128-2.fc43                                  rpm                         
+vim-minimal                                                                   2:9.1.2128-2.fc43                                  rpm                         
 virtualenv                                                                    20.35.4                                            python                      
 vo-amrwbenc                                                                   0.1.3-23.fc43                                      rpm                         
 volume_key-libs                                                               0.3.12-28.fc43                                     rpm                         
