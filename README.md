@@ -61,25 +61,25 @@ This image provides various versions that are available via tags. Please read th
 | Tag | Available | Description |
 | :----: | :----: |--- |
 | latest | ✅ | XFCE Alpine |
-| alpine-i3 | ✅ | i3 Alpine |
+| alpine-i3 | ✅ | i3 Alpine *Wayland Support |
 | alpine-kde | ✅ | KDE Alpine *Wayland Only |
 | alpine-mate | ✅ | MATE Alpine |
-| arch-i3 | ✅ | i3 Arch |
-| arch-kde | ✅ | KDE Arch |
+| arch-i3 | ✅ | i3 Arch *Wayland Support |
+| arch-kde | ✅ | KDE Arch *Wayland Support |
 | arch-mate | ✅ | MATE Arch |
 | arch-xfce | ✅ | XFCE Arch |
-| debian-i3 | ✅ | i3 Debian |
+| debian-i3 | ✅ | i3 Debian *Wayland Support |
 | debian-kde | ✅ | KDE Debian |
 | debian-mate | ✅ | MATE Debian |
 | debian-xfce | ✅ | XFCE Debian |
 | el-i3 | ✅ | i3 Enterprise Linux |
 | el-mate | ✅ | MATE Enterprise Linux |
 | el-xfce | ✅ | XFCE Enterprise Linux |
-| fedora-i3 | ✅ | i3 Fedora |
-| fedora-kde | ✅ | KDE Fedora |
+| fedora-i3 | ✅ | i3 Fedora *Wayland Support |
+| fedora-kde | ✅ | KDE Fedora *Wayland Support |
 | fedora-mate | ✅ | MATE Fedora |
 | fedora-xfce | ✅ | XFCE Fedora |
-| ubuntu-i3 | ✅ | i3 Ubuntu |
+| ubuntu-i3 | ✅ | i3 Ubuntu *Wayland Support |
 | ubuntu-kde | ✅ | KDE Ubuntu |
 | ubuntu-mate | ✅ | MATE Ubuntu |
 | ubuntu-xfce | ✅ | XFCE Ubuntu |
@@ -642,6 +642,7 @@ Once registered you can define the dockerfile to use with `-f Dockerfile.aarch64
 
 ## Versions
 
+* **27.12.25:** - Update tags that support Wayland to pass ozone platform for chromium.
 * **27.12.25:** - Rebase Alpine images to 3.23.
 * **17.11.25:** - Rebase Fedora images to 43.
 * **24.07.25:** - Rebase Debian images to Trixie.
