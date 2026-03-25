@@ -16,25 +16,25 @@ available_architectures:
 development_versions: true
 development_versions_items:
   - {tag: "latest", desc: "XFCE Alpine"}
-  - {tag: "alpine-i3", desc: "i3 Alpine"}
+  - {tag: "alpine-i3", desc: "i3 Alpine *Wayland Support"}
   - {tag: "alpine-kde", desc: "KDE Alpine *Wayland Only"}
   - {tag: "alpine-mate", desc: "MATE Alpine"}
-  - {tag: "arch-i3", desc: "i3 Arch"}
-  - {tag: "arch-kde", desc: "KDE Arch"}
+  - {tag: "arch-i3", desc: "i3 Arch *Wayland Support"}
+  - {tag: "arch-kde", desc: "KDE Arch *Wayland Support"}
   - {tag: "arch-mate", desc: "MATE Arch"}
   - {tag: "arch-xfce", desc: "XFCE Arch"}
-  - {tag: "debian-i3", desc: "i3 Debian"}
+  - {tag: "debian-i3", desc: "i3 Debian *Wayland Support"}
   - {tag: "debian-kde", desc: "KDE Debian"}
   - {tag: "debian-mate", desc: "MATE Debian"}
   - {tag: "debian-xfce", desc: "XFCE Debian"}
   - {tag: "el-i3", desc: "i3 Enterprise Linux"}
   - {tag: "el-mate", desc: "MATE Enterprise Linux"}
   - {tag: "el-xfce", desc: "XFCE Enterprise Linux"}
-  - {tag: "fedora-i3", desc: "i3 Fedora"}
-  - {tag: "fedora-kde", desc: "KDE Fedora"}
+  - {tag: "fedora-i3", desc: "i3 Fedora *Wayland Support"}
+  - {tag: "fedora-kde", desc: "KDE Fedora *Wayland Support"}
   - {tag: "fedora-mate", desc: "MATE Fedora"}
   - {tag: "fedora-xfce", desc: "XFCE Fedora"}
-  - {tag: "ubuntu-i3", desc: "i3 Ubuntu"}
+  - {tag: "ubuntu-i3", desc: "i3 Ubuntu *Wayland Support"}
   - {tag: "ubuntu-kde", desc: "KDE Ubuntu"}
   - {tag: "ubuntu-mate", desc: "MATE Ubuntu"}
   - {tag: "ubuntu-xfce", desc: "XFCE Ubuntu"}
@@ -126,6 +126,7 @@ init_diagram: |
   "webtop:latest" <- Base Images
 # changelog
 changelogs:
+  - {date: "27.12.25:", desc: "Update tags that support Wayland to pass ozone platform for chromium."}
   - {date: "27.12.25:", desc: "Rebase Alpine images to 3.23."}
   - {date: "17.11.25:", desc: "Rebase Fedora images to 43."}
   - {date: "24.07.25:", desc: "Rebase Debian images to Trixie."}
