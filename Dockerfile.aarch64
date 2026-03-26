@@ -1,4 +1,4 @@
-FROM ghcr.io/linuxserver/baseimage-selkies:arm64v8-fedora43
+FROM ghcr.io/linuxserver/baseimage-selkies:arm64v8-fedora44
 
 # set version label
 ARG BUILD_DATE
@@ -48,9 +48,6 @@ RUN \
   setcap -r \
     /usr/sbin/kwin_wayland && \
   echo "**** kde tweaks ****" && \
-  sed -i \
-    's/applications:org.kde.discover.desktop,/applications:org.kde.konsole.desktop,/g' \
-    /usr/share/plasma/plasmoids/org.kde.plasma.taskmanager/contents/config/main.xml && \
   rm -f \
     /etc/xdg/autostart/at-spi-dbus-bus.desktop \
     /etc/xdg/autostart/gmenudbusmenuproxy.desktop \
