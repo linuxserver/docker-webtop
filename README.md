@@ -642,7 +642,8 @@ Once registered you can define the dockerfile to use with `-f Dockerfile.aarch64
 
 ## Versions
 
-* **27.12.25:** - Update tags that support Wayland to pass ozone platform for chromium.
+* **26.03.26:** - Rebase Fedora images to 44.
+* **24.03.26:** - Update tags that support Wayland to pass ozone platform for chromium.
 * **27.12.25:** - Rebase Alpine images to 3.23.
 * **17.11.25:** - Rebase Fedora images to 43.
 * **24.07.25:** - Rebase Debian images to Trixie.
