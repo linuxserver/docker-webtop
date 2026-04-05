@@ -22,7 +22,6 @@ RUN \
   apt-get update && \
   DEBIAN_FRONTEND=noninteractive \
   apt-get install --no-install-recommends -y \
-    cargo \
     chromium \
     dolphin \
     gwenview \
@@ -43,12 +42,6 @@ RUN \
     plasma-workspace \
     qml-module-qt-labs-platform \
     systemsettings && \
-  cargo install \
-    wl-clipboard-rs-tools && \
-  echo "**** replace wl-clipboard with rust ****" && \
-  mv \
-    /config/.cargo/bin/wl-* \
-    /usr/bin/ && \
   echo "**** application tweaks ****" && \
   sed -i \
     's#^Exec=.*#Exec=/usr/local/bin/wrapped-chromium#g' \
