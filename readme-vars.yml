@@ -22,7 +22,7 @@ development_versions_items:
   - {tag: "arch-i3", desc: "i3 Arch *Wayland Support"}
   - {tag: "arch-kde", desc: "KDE Arch *Wayland Support"}
   - {tag: "arch-mate", desc: "MATE Arch"}
-  - {tag: "arch-xfce", desc: "XFCE Arch"}
+  - {tag: "arch-xfce", desc: "XFCE Arch *Wayland Support"}
   - {tag: "debian-i3", desc: "i3 Debian *Wayland Support"}
   - {tag: "debian-kde", desc: "KDE Debian"}
   - {tag: "debian-mate", desc: "MATE Debian"}
@@ -35,9 +35,9 @@ development_versions_items:
   - {tag: "fedora-mate", desc: "MATE Fedora"}
   - {tag: "fedora-xfce", desc: "XFCE Fedora"}
   - {tag: "ubuntu-i3", desc: "i3 Ubuntu *Wayland Support"}
-  - {tag: "ubuntu-kde", desc: "KDE Ubuntu"}
+  - {tag: "ubuntu-kde", desc: "KDE Ubuntu *Wayland Only"}
   - {tag: "ubuntu-mate", desc: "MATE Ubuntu"}
-  - {tag: "ubuntu-xfce", desc: "XFCE Ubuntu"}
+  - {tag: "ubuntu-xfce", desc: "XFCE Ubuntu *Wayland Support"}
 # container parameters
 param_container_name: "{{ project_name }}"
 param_usage_include_vols: true
@@ -126,6 +126,7 @@ init_diagram: |
   "webtop:latest" <- Base Images
 # changelog
 changelogs:
+  - {date: "07.04.26:", desc: "Rebase Ubuntu images to Resolute."}
   - {date: "26.03.26:", desc: "Rebase Fedora images to 44."}
   - {date: "24.03.26:", desc: "Update tags that support Wayland to pass ozone platform for chromium."}
   - {date: "27.12.25:", desc: "Rebase Alpine images to 3.23."}

@@ -76,6 +76,7 @@ pipeline {
            '''
         script{
           env.EXIT_STATUS = ''
+          env.CI_TEST_ATTEMPTED = ''
           env.LS_RELEASE = sh(
             script: '''docker run --rm quay.io/skopeo/stable:v1 inspect docker://ghcr.io/${LS_USER}/${CONTAINER_NAME}:latest 2>/dev/null | jq -r '.Labels.build_version' | awk '{print $3}' | grep '\\-ls' || : ''',
             returnStdout: true).trim()
@@ -870,6 +871,7 @@ pipeline {
           script{
             env.CI_URL = 'https://ci-tests.linuxserver.io/' + env.IMAGE + '/' + env.META_TAG + '/index.html'
             env.CI_JSON_URL = 'https://ci-tests.linuxserver.io/' + env.IMAGE + '/' + env.META_TAG + '/report.json'
+            env.CI_TEST_ATTEMPTED = 'true'
           }
           sh '''#! /bin/bash
                 set -e
@@ -1073,98 +1075,13 @@ EOF
           ) '''
       }
     }
-    // If this is a Pull request send the CI link as a comment on it
-    stage('Pull Request Comment') {
-      when {
-        not {environment name: 'CHANGE_ID', value: ''}
-        environment name: 'EXIT_STATUS', value: ''
-      }
-      steps {
-        sh '''#! /bin/bash
-            # Function to retrieve JSON data from URL
-            get_json() {
-              local url="$1"
-              local response=$(curl -s "$url")
-              if [ $? -ne 0 ]; then
-                echo "Failed to retrieve JSON data from $url"
-                return 1
-              fi
-              local json=$(echo "$response" | jq .)
-              if [ $? -ne 0 ]; then
-                echo "Failed to parse JSON data from $url"
-                return 1
-              fi
-              echo "$json"
-            }
-
-            build_table() {
-              local data="$1"
-
-              # Get the keys in the JSON data
-              local keys=$(echo "$data" | jq -r 'to_entries | map(.key) | .[]')
-
-              # Check if keys are empty
-              if [ -z "$keys" ]; then
-                echo "JSON report data does not contain any keys or the report does not exist."
-                return 1
-              fi
-
-              # Build table header
-              local header="| Tag | Passed |\\n| --- | --- |\\n"
-
-              # Loop through the JSON data to build the table rows
-              local rows=""
-              for build in $keys; do
-                local status=$(echo "$data" | jq -r ".[\\"$build\\"].test_success")
-                if [ "$status" = "true" ]; then
-                  status="✅"
-                else
-                  status="❌"
-                fi
-                local row="| "$build" | "$status" |\\n"
-                rows="${rows}${row}"
-              done
-
-              local table="${header}${rows}"
-              local escaped_table=$(echo "$table" | sed 's/\"/\\\\"/g')
-              echo "$escaped_table"
-            }
-
-            if [[ "${CI}" = "true" ]]; then
-              # Retrieve JSON data from URL
-              data=$(get_json "$CI_JSON_URL")
-              # Create table from JSON data
-              table=$(build_table "$data")
-              echo -e "$table"
-
-              curl -X POST -H "Authorization: token $GITHUB_TOKEN" \
-                -H "Accept: application/vnd.github.v3+json" \
-                "https://api.github.com/repos/$LS_USER/$LS_REPO/issues/$PULL_REQUEST/comments" \
-                -d "{\\"body\\": \\"I am a bot, here are the test results for this PR: \\n${CI_URL}\\n${SHELLCHECK_URL}\\n${table}\\"}"
-            else
-              curl -X POST -H "Authorization: token $GITHUB_TOKEN" \
-                -H "Accept: application/vnd.github.v3+json" \
-                "https://api.github.com/repos/$LS_USER/$LS_REPO/issues/$PULL_REQUEST/comments" \
-                -d "{\\"body\\": \\"I am a bot, here is the pushed image/manifest for this PR: \\n\\n\\`${GITHUBIMAGE}:${META_TAG}\\`\\"}"
-            fi
-            '''
-
-      }
-    }
   }
   /* ######################
-     Send status to Discord
+     Comment on PR and Send status to Discord
      ###################### */
   post {
     always {
-      sh '''#!/bin/bash
-            rm -rf /config/.ssh/id_sign
-            rm -rf /config/.ssh/id_sign.pub
-            git config --global --unset gpg.format
-            git config --global --unset user.signingkey
-            git config --global --unset commit.gpgsign
-        '''
-      script{
+      script {
         env.JOB_DATE = sh(
             script: '''date '+%Y-%m-%dT%H:%M:%S%:z' ''',
             returnStdout: true).trim()
@@ -1207,6 +1124,87 @@ EOF
                  "username": "Jenkins"}' ${BUILDS_DISCORD} '''
         }
       }
+      script {
+        if (env.GITHUBIMAGE =~ /lspipepr/){
+          if (env.CI_TEST_ATTEMPTED == "true"){
+            sh '''#! /bin/bash
+                  # Function to retrieve JSON data from URL
+                  get_json() {
+                    local url="$1"
+                    local response=$(curl -s "$url")
+                    if [ $? -ne 0 ]; then
+                      echo "Failed to retrieve JSON data from $url"
+                      return 1
+                    fi
+                    local json=$(echo "$response" | jq .)
+                    if [ $? -ne 0 ]; then
+                      echo "Failed to parse JSON data from $url"
+                      return 1
+                    fi
+                    echo "$json"
+                  }
+
+                  build_table() {
+                    local data="$1"
+
+                    # Get the keys in the JSON data
+                    local keys=$(echo "$data" | jq -r 'to_entries | map(.key) | .[]')
+
+                    # Check if keys are empty
+                    if [ -z "$keys" ]; then
+                      echo "JSON report data does not contain any keys or the report does not exist."
+                      return 1
+                    fi
+
+                    # Build table header
+                    local header="| Tag | Passed |\\n| --- | --- |\\n"
+
+                    # Loop through the JSON data to build the table rows
+                    local rows=""
+                    for build in $keys; do
+                      local status=$(echo "$data" | jq -r ".[\\"$build\\"].test_success")
+                      if [ "$status" = "true" ]; then
+                        status="✅"
+                      else
+                        status="❌"
+                      fi
+                      local row="| "$build" | "$status" |\\n"
+                      rows="${rows}${row}"
+                    done
+
+                    local table="${header}${rows}"
+                    local escaped_table=$(echo "$table" | sed 's/\"/\\\\"/g')
+                    echo "$escaped_table"
+                  }
+
+                  if [[ "${CI}" = "true" ]]; then
+                    # Retrieve JSON data from URL
+                    data=$(get_json "$CI_JSON_URL")
+                    # Create table from JSON data
+                    table=$(build_table "$data")
+                    echo -e "$table"
+
+                    curl -X POST -H "Authorization: token $GITHUB_TOKEN" \
+                      -H "Accept: application/vnd.github.v3+json" \
+                      "https://api.github.com/repos/$LS_USER/$LS_REPO/issues/$PULL_REQUEST/comments" \
+                      -d "{\\"body\\": \\"I am a bot, here are the test results for this PR: \\n${CI_URL}\\n${SHELLCHECK_URL}\\n${table}\\"}"
+                  else
+                    curl -X POST -H "Authorization: token $GITHUB_TOKEN" \
+                      -H "Accept: application/vnd.github.v3+json" \
+                      "https://api.github.com/repos/$LS_USER/$LS_REPO/issues/$PULL_REQUEST/comments" \
+                      -d "{\\"body\\": \\"I am a bot, here is the pushed image/manifest for this PR: \\n\\n\\`${GITHUBIMAGE}:${META_TAG}\\`\\"}"
+                  fi
+                  '''
+          }
+        }
+      }
+      sh '''#!/bin/bash
+            rm -rf /config/.ssh/id_sign
+            rm -rf /config/.ssh/id_sign.pub
+            git config --global --unset gpg.format
+            git config --global --unset user.signingkey
+            git config --global --unset commit.gpgsign
+        '''
     }
     cleanup {
       sh '''#! /bin/bash
