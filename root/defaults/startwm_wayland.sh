@@ -1,12 +1,4 @@
-#!/bin/bash
-
-# Default settings
-if [ ! -d "${HOME}"/.config/xfce4/xfconf/xfce-perchannel-xml ]; then
-  mkdir -p "${HOME}"/.config/xfce4/xfconf/xfce-perchannel-xml
-  cp /defaults/xfce/* "${HOME}"/.config/xfce4/xfconf/xfce-perchannel-xml/
-fi
+#!/usr/bin/with-contenv bash
 
 # Start DE
-WAYLAND_DISPLAY=wayland-1 Xwayland :1 &
-sleep 2
-exec dbus-launch --exit-with-session /usr/bin/xfce4-session > /dev/null 2>&1
+WAYLAND_DISPLAY=wayland-1 startxfce4 --wayland > /dev/null 2>&1

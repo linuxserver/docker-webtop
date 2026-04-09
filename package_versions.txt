@@ -76,9 +76,9 @@ dirmngr                                                                       2.
 distro                                                                        1.9.0                                     python                      
 distro-info-data                                                              0.60ubuntu0.5                             deb                         
 dnspython                                                                     2.8.0                                     python                      
-docker-buildx-plugin                                                          0.33.0-1~ubuntu.24.04~noble               deb                         
-docker-ce                                                                     5:29.3.1-1~ubuntu.24.04~noble             deb                         
-docker-ce-cli                                                                 5:29.3.1-1~ubuntu.24.04~noble             deb                         
+docker-buildx-plugin                                                          0.31.1-1~ubuntu.24.04~noble               deb                         
+docker-ce                                                                     5:29.3.0-1~ubuntu.24.04~noble             deb                         
+docker-ce-cli                                                                 5:29.3.0-1~ubuntu.24.04~noble             deb                         
 docker-compose-plugin                                                         5.1.1-1~ubuntu.24.04~noble                deb                         
 dpkg                                                                          1.22.6ubuntu6.5                           deb                         
 dunst                                                                         1.9.2-1build2                             deb                         
@@ -188,8 +188,8 @@ github.com/containerd/cgroups/v3                                              v3
 github.com/containerd/cgroups/v3                                              v3.1.3                                    go-module                   
 github.com/containerd/console                                                 v1.0.5                                    go-module  (+6 duplicates)  
 github.com/containerd/containerd/api                                          v1.10.0                                   go-module  (+5 duplicates)  
-github.com/containerd/containerd/v2                                           v2.2.1                                    go-module                   
-github.com/containerd/containerd/v2                                           v2.2.2                                    go-module  (+4 duplicates)  
+github.com/containerd/containerd/v2                                           v2.2.1                                    go-module  (+1 duplicate)   
+github.com/containerd/containerd/v2                                           v2.2.2                                    go-module  (+3 duplicates)  
 github.com/containerd/continuity                                              v0.4.5                                    go-module  (+5 duplicates)  
 github.com/containerd/errdefs                                                 v1.0.0                                    go-module  (+5 duplicates)  
 github.com/containerd/errdefs/pkg                                             v0.3.0                                    go-module  (+5 duplicates)  
@@ -381,11 +381,13 @@ github.com/moby/docker-image-spec                                             v1
 github.com/moby/go-archive                                                    v0.2.0                                    go-module  (+2 duplicates)  
 github.com/moby/ipvs                                                          v1.1.0                                    go-module                   
 github.com/moby/locker                                                        v1.0.1                                    go-module  (+4 duplicates)  
-github.com/moby/moby/api                                                      v1.54.0                                   go-module  (+2 duplicates)  
-github.com/moby/moby/client                                                   v0.3.0                                    go-module  (+1 duplicate)   
-github.com/moby/moby/v2                                                       v29.3.1                                   go-module  (+1 duplicate)   
-github.com/moby/patternmatcher                                                v0.6.0                                    go-module                   
-github.com/moby/patternmatcher                                                v0.6.1                                    go-module  (+1 duplicate)   
+github.com/moby/moby/api                                                      v1.52.0                                   go-module                   
+github.com/moby/moby/api                                                      v1.54.0                                   go-module  (+1 duplicate)   
+github.com/moby/moby/client                                                   v0.2.1                                    go-module                   
+github.com/moby/moby/client                                                   v0.3.0                                    go-module                   
+github.com/moby/moby/v2                                                       v29.3.0                                   go-module  (+1 duplicate)   
+github.com/moby/patternmatcher                                                v0.6.0                                    go-module  (+2 duplicates)  
+github.com/moby/policy-helpers                                                v0.0.0-20251206004813-9fcc1a9ec5c9        go-module                   
 github.com/moby/policy-helpers                                                v0.0.0-20260211190020-824747bfdd3c        go-module                   
 github.com/moby/policy-helpers                                                v0.0.0-20260324161837-b7c0b994300b        go-module                   
 github.com/moby/profiles/apparmor                                             v0.1.0                                    go-module                   
@@ -572,8 +574,9 @@ golang.org/x/sync                                                             v0
 golang.org/x/sync                                                             v0.20.0                                   go-module                   
 golang.org/x/sys                                                              v0.30.0                                   go-module                   
 golang.org/x/sys                                                              v0.38.0                                   go-module  (+2 duplicates)  
+golang.org/x/sys                                                              v0.39.0                                   go-module                   
 golang.org/x/sys                                                              v0.41.0                                   go-module  (+1 duplicate)   
-golang.org/x/sys                                                              v0.42.0                                   go-module  (+1 duplicate)   
+golang.org/x/sys                                                              v0.42.0                                   go-module                   
 golang.org/x/term                                                             v0.37.0                                   go-module                   
 golang.org/x/term                                                             v0.38.0                                   go-module                   
 golang.org/x/term                                                             v0.40.0                                   go-module                   
@@ -1220,7 +1223,9 @@ sigs.k8s.io/yaml                                                              v1
 six                                                                           1.16.0                                    python                      
 software-properties-common                                                    0.99.49.4                                 deb                         
 ssl-cert                                                                      1.1.2ubuntu1                              deb                         
-stdlib                                                                        go1.25.8                                  go-module  (+8 duplicates)  
+stdlib                                                                        go1.25.6                                  go-module                   
+stdlib                                                                        go1.25.7                                  go-module  (+2 duplicates)  
+stdlib                                                                        go1.25.8                                  go-module  (+4 duplicates)  
 stterm                                                                        0.9-1                                     deb                         
 sudo                                                                          1.9.15p5-3ubuntu5.24.04.2                 deb                         
 systemd                                                                       255.4-1ubuntu8.14                         deb                         
