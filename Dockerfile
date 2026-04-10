@@ -38,10 +38,6 @@ RUN \
     /usr/share/applications/chromium.desktop && \
   setcap -r \
     /usr/sbin/kwin_wayland && \
-  echo "**** kde tweaks ****" && \
-  sed -i \
-    's/applications:org.kde.discover.desktop,/applications:org.kde.konsole.desktop,/g' \
-    /usr/share/plasma/plasmoids/org.kde.plasma.taskmanager/contents/config/main.xml && \
   echo "**** cleanup ****" && \
   rm -rf \
     /config/.cache \

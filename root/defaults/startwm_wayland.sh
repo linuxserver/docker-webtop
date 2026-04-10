@@ -93,15 +93,17 @@ export QT_QPA_PLATFORM=wayland
 export XDG_CURRENT_DESKTOP=KDE
 export XDG_SESSION_TYPE=wayland
 export KDE_SESSION_VERSION=6
-unset DISPLAY
+export DISPLAY=:1
+sudo mkdir -p /tmp/.X11-unix
+sudo chmod 1777 /tmp/.X11-unix
 dbus-run-session bash -c '
-    WAYLAND_DISPLAY=wayland-1 kwin_wayland --no-lockscreen &
+    WAYLAND_DISPLAY=wayland-1 python3 /kwin-xwayland.py &
     KWIN_PID=$!
     sleep 2
     if [ -f /usr/lib/libexec/polkit-kde-authentication-agent-1 ]; then
         /usr/lib/libexec/polkit-kde-authentication-agent-1 &
     elif [ -f /usr/libexec/polkit-kde-authentication-agent-1 ]; then
-        /usr/libexec/polkit-kde-authentication-agent-1
+        /usr/libexec/polkit-kde-authentication-agent-1 &
     fi
     WAYLAND_DISPLAY=wayland-0 plasmashell
     kill $KWIN_PID
