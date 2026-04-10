@@ -7,7 +7,7 @@ display_num = display_env.lstrip(":")
 path = f"/tmp/.X11-unix/X{display_num}"
 
 if os.path.exists(path):
-   os.remove(path)
+    os.remove(path)
 
 s = socket.socket(socket.AF_UNIX, socket.SOCK_STREAM)
 s.bind(path)
