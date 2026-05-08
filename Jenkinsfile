@@ -77,6 +77,7 @@ pipeline {
         script{
           env.EXIT_STATUS = ''
           env.CI_TEST_ATTEMPTED = ''
+          env.PUSH_ATTEMPTED = ''
           env.LS_RELEASE = sh(
             script: '''docker run --rm quay.io/skopeo/stable:v1 inspect docker://ghcr.io/${LS_USER}/${CONTAINER_NAME}:latest 2>/dev/null | jq -r '.Labels.build_version' | awk '{print $3}' | grep '\\-ls' || : ''',
             returnStdout: true).trim()
@@ -925,6 +926,9 @@ pipeline {
         environment name: 'EXIT_STATUS', value: ''
       }
       steps {
+        script{
+          env.PUSH_ATTEMPTED = 'true'
+        }
         retry_backoff(5,5) {
           sh '''#! /bin/bash
                 set -e
@@ -954,11 +958,18 @@ pipeline {
         environment name: 'EXIT_STATUS', value: ''
       }
       steps {
+        script{
+          env.PUSH_ATTEMPTED = 'true'
+        }
         retry_backoff(5,5) {
           sh '''#! /bin/bash
                 set -e
                 for MANIFESTIMAGE in "${IMAGE}" "${GITLABIMAGE}" "${GITHUBIMAGE}" "${QUAYIMAGE}"; do
-                  [[ ${MANIFESTIMAGE%%/*} =~ \\. ]] && MANIFESTIMAGEPLUS="${MANIFESTIMAGE}" || MANIFESTIMAGEPLUS="docker.io/${MANIFESTIMAGE}"
+                  if [[ "${MANIFESTIMAGE%%/*}" =~ \\. ]]; then
+                    MANIFESTIMAGEPLUS="${MANIFESTIMAGE}"
+                  else
+                    MANIFESTIMAGEPLUS="docker.io/${MANIFESTIMAGE}"
+                  fi
                   IFS=',' read -ra CACHE <<< "$BUILDCACHE"
                   for i in "${CACHE[@]}"; do
                       if [[ "${MANIFESTIMAGEPLUS}" == "$(cut -d "/" -f1 <<< ${i})"* ]]; then
@@ -1126,7 +1137,7 @@ EOF
       }
       script {
         if (env.GITHUBIMAGE =~ /lspipepr/){
-          if (env.CI_TEST_ATTEMPTED == "true"){
+          if (env.CI_TEST_ATTEMPTED == "true" || env.PUSH_ATTEMPTED == "true"){
             sh '''#! /bin/bash
                   # Function to retrieve JSON data from URL
                   get_json() {
@@ -1187,14 +1198,21 @@ EOF
                     curl -X POST -H "Authorization: token $GITHUB_TOKEN" \
                       -H "Accept: application/vnd.github.v3+json" \
                       "https://api.github.com/repos/$LS_USER/$LS_REPO/issues/$PULL_REQUEST/comments" \
-                      -d "{\\"body\\": \\"I am a bot, here are the test results for this PR: \\n${CI_URL}\\n${SHELLCHECK_URL}\\n${table}\\"}"
+                      -d "{\\"body\\": \\"I am a bot, here are the test results for this PR for commit ${COMMIT_SHA:0:7} : \\n${CI_URL}\\n${SHELLCHECK_URL}\\n${table}\\"}"
                   else
                     curl -X POST -H "Authorization: token $GITHUB_TOKEN" \
                       -H "Accept: application/vnd.github.v3+json" \
                       "https://api.github.com/repos/$LS_USER/$LS_REPO/issues/$PULL_REQUEST/comments" \
-                      -d "{\\"body\\": \\"I am a bot, here is the pushed image/manifest for this PR: \\n\\n\\`${GITHUBIMAGE}:${META_TAG}\\`\\"}"
+                      -d "{\\"body\\": \\"I am a bot, here is the pushed image/manifest for this PR for commit ${COMMIT_SHA:0:7} : \\n\\n\\`${GITHUBIMAGE}:${META_TAG}\\`\\"}"
                   fi
                   '''
+          } else {
+            sh '''#! /bin/bash
+                  curl -X POST -H "Authorization: token $GITHUB_TOKEN" \
+                    -H "Accept: application/vnd.github.v3+json" \
+                    "https://api.github.com/repos/$LS_USER/$LS_REPO/issues/$PULL_REQUEST/comments" \
+                    -d "{\\"body\\": \\"I am a bot, the build for PR commit ${COMMIT_SHA:0:7} failed and as a result no CI test was attempted and no images were pushed.\\"}"
+            '''
           }
         }
       }
