@@ -110,20 +110,28 @@ The web interface includes a terminal with passwordless `sudo` access. Any user 
 
 While not generally recommended, certain legacy environments specifically those with older hardware or outdated Linux distributions may require the deactivation of the standard seccomp profile to get containerized desktop software to run. This can be achieved by utilizing the `--security-opt seccomp=unconfined` parameter. It is critical to use this option only when absolutely necessary as it disables a key security layer of Docker, elevating the potential for container escape vulnerabilities.
 
-### Hardware Acceleration & The Move to Wayland
+### FullColor 4:4:4 Encoding
 
-We are currently transitioning our desktop containers from X11 to Wayland. While X11 is still the default, we strongly encourage users to test the new Wayland mode.
+If you notice blurry text, particularly light text on a black background, you can send true 8-bit color to the browser by enabling the **FullColor 4:4:4** encoding in the sidebar, or by using the jpeg encoding mode. 
 
-**Important:** GPU acceleration support for X11 is being deprecated. Future development for hardware acceleration will focus entirely on the Wayland stack.
+**Note on Hardware Acceleration:** Currently, only Nvidia GPUs support encoding this color profile in **Zero Copy** mode. If FullColor 4:4:4 is enabled on Intel or AMD GPUs, the system will fall back to CPU encoding. This forces the CPU to read the pixels back from the GPU, which will cause a significant decrease in performance.
 
-To enable Wayland mode, set the following environment variable:
+### Hardware Acceleration & Wayland
 
-* `-e PIXELFLUX_WAYLAND=true`
+We have transitioned our desktop containers from X11 to a modern Wayland stack, which is now the default.
 
-**Why use Wayland?**
+**Hardware Fallback Note:** On `x86_64` architecture, the Wayland stack requires a processor with AVX2 support (Intel Haswell generation or newer). If your processor lacks AVX2 (such as older CPUs or certain low-end Celerons), the container will automatically fall back to X11.
+
+**Important:** GPU acceleration support for X11 is deprecated. Future development for hardware acceleration is focused entirely on the Wayland stack.
+
+If you experience compatibility issues and need to manually disable Wayland (forcing a fallback to X11), you can do so by setting the following environment variable:
+
+* `-e PIXELFLUX_WAYLAND=false`
+
+**Why Wayland?**
 
 * **Zero Copy Encoding:** When configured correctly with a GPU, the frame is rendered and encoded on the video card without ever being copied to the system RAM. This drastically lowers CPU usage and latency.
-* **Modern Stack:** Single-application containers utilize **Labwc** (replacing Openbox) and full desktop containers use **KDE Plasma Wayland**, providing a more modern and secure compositing environment while retaining the same user experience.
+* **Modern Stack:** Single-application containers utilize **Labwc** (replacing Openbox) and full desktop containers use **KDE Plasma Wayland**, providing a more modern, performant, and secure compositing environment while retaining the same user experience.
 
 #### GPU Configuration
 
@@ -154,11 +162,7 @@ For Intel and AMD GPUs.
 
 ##### Nvidia (Proprietary Drivers)
 
-**Note: Nvidia support is currently considered experimental, driver changes can break it at any time.**
-
 **Note: Nvidia support is not available for Alpine-based images.**
-
-**Note: Nvidia frames have issues with hardware decoders in Chromium browsers you need to navigate to `chrome://flags/#disable-accelerated-video-decode` and toggle it to `Disabled` for smooth playback**
 
 **Prerequisites:**
 
@@ -231,7 +235,7 @@ This container is based on [Docker Baseimage Selkies](https://github.com/linuxse
 
 | Variable | Description |
 | :----: | --- |
-| PIXELFLUX_WAYLAND | **Experimental** If set to true the container will initialize in Wayland mode running [Smithay](https://github.com/Smithay/smithay) and Labwc while enabling zero copy encoding with a GPU |
+| PIXELFLUX_WAYLAND | If set to true the container will initialize in Wayland mode running [Smithay](https://github.com/Smithay/smithay) and Labwc while enabling zero copy encoding with a GPU |
 | SELKIES_DESKTOP | If set to true and in Wayland mode, a simple panel will be initialized with labwc |
 | CUSTOM_PORT | Internal port the container listens on for http if it needs to be swapped from the default `3000` |
 | CUSTOM_HTTPS_PORT | Internal port the container listens on for https if it needs to be swapped from the default `3001` |
@@ -286,14 +290,14 @@ This container is based on [Docker Baseimage Selkies](https://github.com/linuxse
 
 When using 3d acceleration via Nvidia DRM or DRI3 in X11 mode, it is important to clamp the virtual display to a reasonable max resolution to avoid memory exhaustion or poor performance.
 
-* `-e MAX_RESOLUTION=3840x2160`
+* `-e MAX_RES=3840x2160`
 
 This will set the total virtual framebuffer to 4K. By default, the virtual monitor is 16K. If you have performance issues in an accelerated X11 session, try clamping the resolution to 1080p and work up from there:
 
 ```bash
 -e SELKIES_MANUAL_WIDTH=1920
 -e SELKIES_MANUAL_HEIGHT=1080
--e MAX_RESOLUTION=1920x1080
+-e MAX_RES=1920x1080
 ```
 
 </details>
