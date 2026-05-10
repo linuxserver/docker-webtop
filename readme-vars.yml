@@ -27,9 +27,6 @@ development_versions_items:
   - {tag: "debian-kde", desc: "KDE Debian"}
   - {tag: "debian-mate", desc: "MATE Debian"}
   - {tag: "debian-xfce", desc: "XFCE Debian"}
-  - {tag: "el-i3", desc: "i3 Enterprise Linux"}
-  - {tag: "el-mate", desc: "MATE Enterprise Linux"}
-  - {tag: "el-xfce", desc: "XFCE Enterprise Linux"}
   - {tag: "fedora-i3", desc: "i3 Fedora *Wayland Support"}
   - {tag: "fedora-kde", desc: "KDE Fedora *Wayland Support"}
   - {tag: "fedora-mate", desc: "MATE Fedora"}
@@ -126,6 +123,7 @@ init_diagram: |
   "webtop:latest" <- Base Images
 # changelog
 changelogs:
+  - {date: "07.05.26:", desc: "Deprecate Enterprise Linux tags."}
   - {date: "07.04.26:", desc: "Rebase Ubuntu images to Resolute."}
   - {date: "26.03.26:", desc: "Rebase Fedora images to 44."}
   - {date: "24.03.26:", desc: "Update tags that support Wayland to pass ozone platform for chromium."}
