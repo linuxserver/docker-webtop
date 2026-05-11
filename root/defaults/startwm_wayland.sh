@@ -51,17 +51,6 @@ mkdir -p "${HOME}/.config/autostart" "${HOME}/.XDG" "${HOME}/.local/share/"
 chmod 700 "${HOME}/.XDG"
 touch "${HOME}/.local/share/user-places.xbel"
 
-# Background perm loop
-if [ ! -d $HOME/.config/kde.org ]; then
-  (
-    loop_end_time=$((SECONDS + 60))
-    while [ $SECONDS -lt $loop_end_time ]; do
-        find "$HOME/.cache" "$HOME/.config" "$HOME/.local" -type f -perm 000 -exec chmod 644 {} + 2>/dev/null
-        sleep .1
-    done
-  ) &
-fi
-
 # Create startup script if it does not exist (keep in sync with openbox)
 STARTUP_FILE="${HOME}/.config/autostart/autostart.desktop"
 if [ ! -f "${STARTUP_FILE}" ]; then
