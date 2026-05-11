@@ -8,7 +8,7 @@ LABEL maintainer="thelamer"
 
 # title
 ENV TITLE="Fedora KDE" \
-    NO_GAMEPAD=true 
+    PIXELFLUX_WAYLAND=true 
 
 RUN \
   echo "**** add icon ****" && \
