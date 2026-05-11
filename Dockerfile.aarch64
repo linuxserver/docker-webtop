@@ -11,8 +11,7 @@ LABEL maintainer="thelamer"
 
 # title
 ENV TITLE="Alpine KDE" \
-    PIXELFLUX_WAYLAND=true \
-    NO_GAMEPAD=true
+    PIXELFLUX_WAYLAND=true
 
 RUN \
   echo "**** add icon ****" && \
