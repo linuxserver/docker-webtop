@@ -9,7 +9,6 @@ ARG DEBIAN_FRONTEND="noninteractive"
 
 # title
 ENV TITLE="Ubuntu KDE" \
-    NO_GAMEPAD=true \
     PIXELFLUX_WAYLAND=true
 
 RUN \
