@@ -7,8 +7,7 @@ LABEL build_version="Linuxserver.io version:- ${VERSION} Build-date:- ${BUILD_DA
 LABEL maintainer="thelamer"
 
 # title
-ENV TITLE="Fedora XFCE" \
-    NO_GAMEPAD="true"
+ENV TITLE="Fedora XFCE"
 
 RUN \
   echo "**** add icon ****" && \
