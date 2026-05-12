@@ -8,8 +8,7 @@ LABEL build_version="Linuxserver.io version:- ${VERSION} Build-date:- ${BUILD_DA
 LABEL maintainer="thelamer"
 
 # title
-ENV TITLE="Arch XFCE" \
-    NO_GAMEPAD="true"
+ENV TITLE="Arch XFCE"
 
 RUN \
   echo "**** add icon ****" && \
