@@ -7,8 +7,7 @@ LABEL build_version="Linuxserver.io version:- ${VERSION} Build-date:- ${BUILD_DA
 LABEL maintainer="thelamer"
 
 # title
-ENV TITLE="Debian KDE" \
-    NO_GAMEPAD=true
+ENV TITLE="Debian KDE"
 
 RUN \
   echo "**** add icon ****" && \
