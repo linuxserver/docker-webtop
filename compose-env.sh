@@ -15,7 +15,7 @@ Options (same as start-container.sh):
             --all              Shortcut for --gpu all
             --num <list>       Shortcut for --gpu device=<list>
         --dri-node <path>  DRI render node for VA-API (e.g. /dev/dri/renderD129)
-  -u, --ubuntu <ver>     Ubuntu version: 22.04 or 24.04 (default: 24.04)
+    -u, --ubuntu <ver>     Ubuntu version: 22.04, 24.04, or 26.04 (default: 24.04)
   -r, --resolution <res> Resolution in WIDTHxHEIGHT format (default: 1920x1080)
   -d, --dpi <dpi>        DPI setting (default: 96)
   -S, --stream-scale <f> Stream resolution scale (0.25-1.0, default: 1.0)
@@ -119,7 +119,7 @@ while [[ $# -gt 0 ]]; do
             ;;
         -u|--ubuntu)
             if [ -z "${2:-}" ]; then
-                echo "Error: --ubuntu requires a version (22.04 or 24.04)" >&2
+                echo "Error: --ubuntu requires a version (22.04, 24.04, or 26.04)" >&2
                 exit 1
             fi
             UBUNTU_VERSION="${2}"
@@ -382,6 +382,15 @@ WSL_ENVIRONMENT="false"
 DISABLE_ZINK="false"
 XDG_RUNTIME_DIR=""
 LD_LIBRARY_PATH=""
+PIXELFLUX_WAYLAND="false"
+WAYLAND_DISPLAY=""
+SELKIES_WAYLAND_SOCKET_INDEX=""
+
+if [ "${UBUNTU_VERSION}" = "26.04" ]; then
+    PIXELFLUX_WAYLAND="true"
+    WAYLAND_DISPLAY="wayland-1"
+    SELKIES_WAYLAND_SOCKET_INDEX="0"
+fi
 
 case "${GPU_VENDOR}" in
     nvidia)
@@ -499,6 +508,7 @@ ENV_VARS=(
     ENCODER GPU_VENDOR GPU_ALL GPU_NUMS DOCKER_GPUS DRI_NODE
     ENABLE_NVIDIA LIBVA_DRIVER_NAME NVIDIA_VISIBLE_DEVICES GPU_DEVICES
     WSL_ENVIRONMENT DISABLE_ZINK XDG_RUNTIME_DIR LD_LIBRARY_PATH
+    PIXELFLUX_WAYLAND WAYLAND_DISPLAY SELKIES_WAYLAND_SOCKET_INDEX
     SSL_DIR SSL_CERT_PATH SSL_KEY_PATH
     HOST_HOME_MOUNT HOST_MNT_MOUNT
     USER_UID USER_GID USER_NAME

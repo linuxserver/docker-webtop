@@ -1,0 +1,24 @@
+# KWin system-level defaults for the containerised KDE desktop.
+#
+# Problem: When a window is open and the user clicks the Application Launcher
+# (Kickoff, "Ubuntu" button), the open window immediately steals keyboard focus
+# back from the popup menu, making it impossible to navigate the menu.
+#
+# Root cause: focusStealingPreventionLevel=1 (Low) allows X11 applications
+# running via XWayland to reclaim focus (via XSetInputFocus or
+# _NET_ACTIVE_WINDOW) after the Kickoff popup opens.
+#
+# Fix:
+#   FocusStealingPreventionLevel=3  — KWin rejects focus-steal requests while
+#                                     a panel popup (Kickoff, system tray, etc.)
+#                                     holds focus.
+#   ClickRaise=false                — Prevents windows from automatically rising
+#                                     to the foreground when activated, reducing
+#                                     visual disruption while the menu is open.
+#
+# These are system defaults only.  Users can override them via
+# KDE System Settings → Window Behavior → Focus.
+
+[Windows]
+FocusStealingPreventionLevel=3
+ClickRaise=false

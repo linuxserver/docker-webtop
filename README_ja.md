@@ -57,6 +57,7 @@
 ./build-user-image.sh                    # 英語（デフォルト）
 ./build-user-image.sh -l ja              # 日本語環境
 ./build-user-image.sh -u 22.04           # Ubuntu 22.04
+./build-user-image.sh -u 26.04           # Ubuntu 26.04（X11/Xvfb）
 
 # 2. コンテナを起動
 ./start-container.sh                     # 対話設定
@@ -234,6 +235,7 @@ USER_PASSWORD=yourpass ./build-user-image.sh
 **オプション:**
 ```bash
 ./build-user-image.sh -u 22.04           # Ubuntu 22.04
+./build-user-image.sh -u 26.04           # Ubuntu 26.04（X11/Xvfb）
 ./build-user-image.sh -v 2.0.0           # カスタムバージョン
 ./build-user-image.sh -b my-base:1.1.0   # カスタムベースイメージタグ
 ./build-user-image.sh -i ghcr.io/you/img  # カスタムベースイメージ名
@@ -325,9 +327,10 @@ GHCR から取得する代わりに自分でビルドする場合のみ必要（
 ```bash
 ./files/build-base-image.sh                         # Ubuntu 24.04、アーキテクチャ自動検出
 ./files/build-base-image.sh -u 22.04                # Ubuntu 22.04
+./files/build-base-image.sh -u 26.04                # Ubuntu 26.04（X11/Xvfb）
 ./files/build-base-image.sh -a amd64                # Intel/AMD 64-bit
 ./files/build-base-image.sh -a arm64                # Apple Silicon / ARM
-./files/build-base-image.sh -a amd64 -u 22.04       # オプション組み合わせ
+./files/build-base-image.sh -a amd64 -u 26.04       # オプション組み合わせ
 ./files/build-base-image.sh --no-cache               # クリーンリビルド
 
 # GHCR へ Push
@@ -346,7 +349,7 @@ IMAGE_NAME=ghcr.io/you/your-base ./files/push-base-image.sh
 
 | スクリプト | 説明 | 使い方 |
 |---|---|---|
-| `build-user-image.sh` | ユーザー固有イメージをビルド | `./build-user-image.sh [-l ja] [-u 22.04]` |
+| `build-user-image.sh` | ユーザー固有イメージをビルド | `./build-user-image.sh [-l ja] [-u 22.04|24.04|26.04]` |
 | `start-container.sh` | コンテナを起動/再開 | `./start-container.sh [--encoder <type>]` |
 | `create-devcontainer-config.sh` | Dev Container 設定を生成 | `./create-devcontainer-config.sh` |
 | `stop-container.sh` | コンテナを停止 | `./stop-container.sh [--rm]` |
@@ -526,6 +529,7 @@ docker exec linuxserver-kde-$(whoami) bash -lc 's6-setuidgid "${USER_NAME}" pact
 - Xvfb は DRI3 をサポートしていないため、Vulkan アプリケーションはフレームをプレゼントできない
 - VirtualGL ベースの OpenGL は正常に動作
 - 環境によっては Xvfb 上で vkcube が NVIDIA GPU を検出するが、プレゼンテーションの挙動は構成依存
+- Ubuntu 26.04 では xorg-server 21.1.22 にカスタム DRI3 パッチが適用できないため、ディストリビューション標準の Xvfb を使用
 
 ### macOS
 - Docker Desktop はコンテナを Linux VM 内で実行 — Apple GPU（Metal）へのアクセス不可

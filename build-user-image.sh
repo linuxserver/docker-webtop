@@ -20,6 +20,7 @@ TARGET_ARCH=${ARCH_OVERRIDE:-}
 PLATFORM_OVERRIDE=${PLATFORM_OVERRIDE:-}
 USER_PASSWORD=${USER_PASSWORD:-}
 USER_LANGUAGE=${USER_LANGUAGE:-en}
+USER_LANGUAGE_NORMALIZED="$(printf '%s' "${USER_LANGUAGE}" | tr '[:upper:]' '[:lower:]')"
 HOST_HOSTNAME_DEFAULT="Docker-$(hostname)"
 PLATFORM_ARCH_HINT=""
 LANG_ARG="en_US.UTF-8"
@@ -32,7 +33,7 @@ usage() {
 Usage: $0 [-b base_image] [-i base_image_name] [-a arch] [-p platform] [-l language] [-v version] [-u ubuntu_version]
   -b, --base       Base image tag (required; expected: <name>-base-<arch>-u<ubuntu_ver>:<version>)
   -i, --image      Base image name (default: ${IMAGE_NAME_BASE})
-  -u, --ubuntu     Ubuntu version (22.04 or 24.04). Default: ${UBUNTU_VERSION}
+  -u, --ubuntu     Ubuntu version (22.04, 24.04, or 26.04). Default: ${UBUNTU_VERSION}
   -a, --arch       Arch hint (amd64/arm64) to pick base tag
   -p, --platform   Platform override for buildx (e.g. linux/arm64)
   -l, --language   Language pack to install (en or ja). Default: ${USER_LANGUAGE}
@@ -49,7 +50,7 @@ while [[ $# -gt 0 ]]; do
     -u|--ubuntu) UBUNTU_VERSION=$2; shift 2 ;;
     -a|--arch) TARGET_ARCH=$2; shift 2 ;;
     -p|--platform) PLATFORM_OVERRIDE=$2; shift 2 ;;
-    -l|--language) USER_LANGUAGE=$2; shift 2 ;;
+    -l|--language) USER_LANGUAGE=$2; USER_LANGUAGE_NORMALIZED="$(printf '%s' "${USER_LANGUAGE}" | tr '[:upper:]' '[:lower:]')"; shift 2 ;;
     -v|--version) VERSION=$2; shift 2 ;;
     -n|--no-cache) NO_CACHE_FLAG="--no-cache"; shift ;;
     -h|--help) usage; exit 0 ;;
@@ -157,7 +158,7 @@ if ! "${DOCKER_CMD[@]}" images --format '{{.Repository}}:{{.Tag}}' | grep -q "^$
   exit 1
 fi
 
-if [[ "${USER_LANGUAGE}" == "ja" ]]; then
+if [[ "${USER_LANGUAGE_NORMALIZED}" == "ja" || "${USER_LANGUAGE_NORMALIZED}" == "ja_jp" || "${USER_LANGUAGE_NORMALIZED}" == "ja-jp" ]]; then
   LANG_ARG="ja_JP.UTF-8"
   LANGUAGE_ARG="ja_JP:ja"
 fi

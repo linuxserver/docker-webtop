@@ -179,25 +179,50 @@ RUN set -eux; \
 RUN set -eux; \
   LANG_SEL="$(echo "${USER_LANGUAGE}" | tr '[:upper:]' '[:lower:]')" ; \
   if [ "${LANG_SEL}" = "ja" ] || [ "${LANG_SEL}" = "ja_jp" ] || [ "${LANG_SEL}" = "ja-jp" ]; then \
-    apt-get update && \
-    DEBIAN_FRONTEND=noninteractive apt-get install --no-install-recommends -y \
-      language-pack-ja-base language-pack-ja im-config \
-      fonts-noto-cjk fonts-noto-color-emoji \
-      fcitx fcitx-bin fcitx-data fcitx-table-all \
-      fcitx-mozc fcitx-config-gtk \
-      fcitx-frontend-gtk2 fcitx-frontend-gtk3 fcitx-frontend-qt5 \
-      fcitx-module-dbus fcitx-module-kimpanel fcitx-module-x11 fcitx-module-lua fcitx-ui-classic \
-      kde-config-fcitx && \
-    locale-gen ja_JP.UTF-8 && \
-    update-locale LANG=ja_JP.UTF-8 LANGUAGE=ja_JP:ja LC_ALL=ja_JP.UTF-8 && \
-    apt-get clean && rm -rf /var/lib/apt/lists/*; \
-    echo "ja_JP.UTF-8 UTF-8" > /etc/locale.gen || true; \
-    echo 'LANG=ja_JP.UTF-8' > /etc/default/locale; \
-    echo 'LANGUAGE=ja_JP:ja' >> /etc/default/locale; \
-    echo 'LC_ALL=ja_JP.UTF-8' >> /etc/default/locale; \
-    rm -f /etc/localtime; \
-    ln -snf /usr/share/zoneinfo/Asia/Tokyo /etc/localtime; \
-    echo "Asia/Tokyo" > /etc/timezone; \
+    UBUNTU_VERSION="$(. /etc/os-release && echo ${VERSION_ID})"; \
+    if dpkg --compare-versions "$UBUNTU_VERSION" ge "26.04"; then \
+      # Ubuntu 26.04+ (Plasma 6): use fcitx5
+      apt-get update && \
+      DEBIAN_FRONTEND=noninteractive apt-get install --no-install-recommends -y \
+        language-pack-ja-base language-pack-ja im-config \
+        fonts-noto-cjk fonts-noto-color-emoji \
+        fcitx5 fcitx5-mozc fcitx5-config-qt kde-config-fcitx5 \
+        fcitx5-frontend-gtk3 fcitx5-frontend-gtk4 fcitx5-frontend-qt5 fcitx5-frontend-qt6 && \
+      locale-gen ja_JP.UTF-8 && \
+      update-locale LANG=ja_JP.UTF-8 LANGUAGE=ja_JP:ja LC_ALL=ja_JP.UTF-8 && \
+      if [ -f /usr/share/plasma/layout-templates/org.kubuntu.desktop.defaultPanel/contents/layout.js ]; then \
+        sed -i "s/addInputPanelFn( panel_obj );/\\/\\/ addInputPanelFn( panel_obj );/" /usr/share/plasma/layout-templates/org.kubuntu.desktop.defaultPanel/contents/layout.js; \
+      fi && \
+      apt-get clean && rm -rf /var/lib/apt/lists/*; \
+      echo "ja_JP.UTF-8 UTF-8" > /etc/locale.gen || true; \
+      echo 'LANG=ja_JP.UTF-8' > /etc/default/locale; \
+      echo 'LANGUAGE=ja_JP:ja' >> /etc/default/locale; \
+      echo 'LC_ALL=ja_JP.UTF-8' >> /etc/default/locale; \
+      rm -f /etc/localtime; \
+      ln -snf /usr/share/zoneinfo/Asia/Tokyo /etc/localtime; \
+      echo "Asia/Tokyo" > /etc/timezone; \
+    else \
+      # Ubuntu 22.04/24.04: use fcitx4
+      apt-get update && \
+      DEBIAN_FRONTEND=noninteractive apt-get install --no-install-recommends -y \
+        language-pack-ja-base language-pack-ja im-config \
+        fonts-noto-cjk fonts-noto-color-emoji \
+        fcitx fcitx-bin fcitx-data fcitx-table-all \
+        fcitx-mozc fcitx-config-gtk \
+        fcitx-frontend-gtk2 fcitx-frontend-gtk3 fcitx-frontend-qt5 \
+        fcitx-module-dbus fcitx-module-kimpanel fcitx-module-x11 fcitx-module-lua fcitx-ui-classic \
+        kde-config-fcitx && \
+      locale-gen ja_JP.UTF-8 && \
+      update-locale LANG=ja_JP.UTF-8 LANGUAGE=ja_JP:ja LC_ALL=ja_JP.UTF-8 && \
+      apt-get clean && rm -rf /var/lib/apt/lists/*; \
+      echo "ja_JP.UTF-8 UTF-8" > /etc/locale.gen || true; \
+      echo 'LANG=ja_JP.UTF-8' > /etc/default/locale; \
+      echo 'LANGUAGE=ja_JP:ja' >> /etc/default/locale; \
+      echo 'LC_ALL=ja_JP.UTF-8' >> /etc/default/locale; \
+      rm -f /etc/localtime; \
+      ln -snf /usr/share/zoneinfo/Asia/Tokyo /etc/localtime; \
+      echo "Asia/Tokyo" > /etc/timezone; \
+    fi; \
     printf '%s\n' \
       'XKBMODEL="jp106"' \
       'XKBLAYOUT="jp"' \
@@ -216,19 +241,35 @@ RUN set -eux; \
       '    Option "XkbOptions" ""' \
       'EndSection' \
       > /etc/X11/xorg.conf.d/00-keyboard.conf; \
-    im-config -n fcitx; \
-    install -d -m 755 /etc/xdg/autostart "/home/${USER_NAME}/.config/autostart"; \
-    printf '%s\n' \
-      '[Desktop Entry]' \
-      'Type=Application' \
-      'Exec=fcitx -d' \
-      'Hidden=false' \
-      'X-GNOME-Autostart-enabled=true' \
-      'Name=fcitx' \
-      'Comment=Start Fcitx input method daemon' \
-      > /etc/xdg/autostart/fcitx-autostart.desktop; \
-    cp /etc/xdg/autostart/fcitx-autostart.desktop "/home/${USER_NAME}/.config/autostart/fcitx-autostart.desktop"; \
-    chown "${USER_UID}:${USER_GID}" "/home/${USER_NAME}/.config/autostart/fcitx-autostart.desktop"; \
+    if dpkg --compare-versions "$UBUNTU_VERSION" ge "26.04"; then \
+      im-config -n fcitx5 || true; \
+      install -d -m 755 /etc/xdg/autostart "/home/${USER_NAME}/.config/autostart"; \
+      printf '%s\n' \
+        '[Desktop Entry]' \
+        'Type=Application' \
+        'Exec=fcitx5 -d' \
+        'Hidden=false' \
+        'X-GNOME-Autostart-enabled=true' \
+        'Name=fcitx5' \
+        'Comment=Start Fcitx5 input method daemon' \
+        > /etc/xdg/autostart/fcitx-autostart.desktop; \
+      cp /etc/xdg/autostart/fcitx-autostart.desktop "/home/${USER_NAME}/.config/autostart/fcitx-autostart.desktop"; \
+      chown "${USER_UID}:${USER_GID}" "/home/${USER_NAME}/.config/autostart/fcitx-autostart.desktop"; \
+    else \
+      im-config -n fcitx || true; \
+      install -d -m 755 /etc/xdg/autostart "/home/${USER_NAME}/.config/autostart"; \
+      printf '%s\n' \
+        '[Desktop Entry]' \
+        'Type=Application' \
+        'Exec=fcitx -d' \
+        'Hidden=false' \
+        'X-GNOME-Autostart-enabled=true' \
+        'Name=fcitx' \
+        'Comment=Start Fcitx input method daemon' \
+        > /etc/xdg/autostart/fcitx-autostart.desktop; \
+      cp /etc/xdg/autostart/fcitx-autostart.desktop "/home/${USER_NAME}/.config/autostart/fcitx-autostart.desktop"; \
+      chown "${USER_UID}:${USER_GID}" "/home/${USER_NAME}/.config/autostart/fcitx-autostart.desktop"; \
+    fi; \
     printf '%s\n' \
       '[Layout]' \
       'DisplayNames=' \
@@ -239,31 +280,77 @@ RUN set -eux; \
       'Use=true' \
       > "/home/${USER_NAME}/.config/kxkbrc"; \
     chown "${USER_UID}:${USER_GID}" "/home/${USER_NAME}/.config/kxkbrc"; \
+    install -d -m 755 "/home/${USER_NAME}/.config"; \
+    printf '%s\n' \
+      '[Formats]' \
+      'LANG=ja_JP.UTF-8' \
+      'LANGUAGE=ja_JP:ja' \
+      'LC_DATE=ja_JP.UTF-8' \
+      'LC_NUMERIC=ja_JP.UTF-8' \
+      'LC_MONETARY=ja_JP.UTF-8' \
+      'LC_MEASUREMENT=ja_JP.UTF-8' \
+      'LC_ADDRESS=ja_JP.UTF-8' \
+      'LC_NAME=ja_JP.UTF-8' \
+      'LC_TELEPHONE=ja_JP.UTF-8' \
+      'LC_PAPER=ja_JP.UTF-8' \
+      'LC_COLLATE=ja_JP.UTF-8' \
+      '' \
+      '[Translations]' \
+      'LANGUAGE=ja_JP:ja' \
+      > "/home/${USER_NAME}/.config/plasma-localerc"; \
+    chown "${USER_UID}:${USER_GID}" "/home/${USER_NAME}/.config/plasma-localerc"; \
+    printf '%s\n' \
+      '[General]' \
+      'OverrideLanguageLocale=ja_JP' \
+      > "/home/${USER_NAME}/.config/plasma-locales-settings.json" || true; \
+    if dpkg --compare-versions "$UBUNTU_VERSION" ge "26.04"; then \
+      printf '%s\n' \
+        'LANG=ja_JP.UTF-8' \
+        'LANGUAGE=ja_JP:ja' \
+        'LC_ALL=ja_JP.UTF-8' \
+        'GTK_IM_MODULE=fcitx' \
+        'QT_IM_MODULE=fcitx' \
+        'XMODIFIERS=@im=fcitx' \
+        >> /etc/environment; \
+    else \
+      printf '%s\n' \
+        'LANG=ja_JP.UTF-8' \
+        'LANGUAGE=ja_JP:ja' \
+        'LC_ALL=ja_JP.UTF-8' \
+        'GTK_IM_MODULE=fcitx' \
+        'QT_IM_MODULE=fcitx' \
+        'XMODIFIERS=@im=fcitx' \
+        >> /etc/environment; \
+    fi; \
   fi
 
 # Set fcitx environment variables globally when Japanese locale is selected
 ARG USER_LANGUAGE
 RUN LANG_SEL="$(echo "${USER_LANGUAGE}" | tr '[:upper:]' '[:lower:]')" ; \
   if [ "${LANG_SEL}" = "ja" ] || [ "${LANG_SEL}" = "ja_jp" ] || [ "${LANG_SEL}" = "ja-jp" ]; then \
-    mkdir -p /etc/profile.d && \
-    printf '%s\n' \
-      'export GTK_IM_MODULE=fcitx' \
-      'export QT_IM_MODULE=fcitx' \
-      'export XMODIFIERS="@im=fcitx"' \
-      'export INPUT_METHOD=fcitx' \
-      'export SDL_IM_MODULE=fcitx' \
-      'export GLFW_IM_MODULE=fcitx' \
-      > /etc/profile.d/99-fcitx-env.sh && \
+    UBUNTU_VERSION="$(. /etc/os-release && echo ${VERSION_ID})"; \
+    mkdir -p /etc/profile.d; \
+    if dpkg --compare-versions "$UBUNTU_VERSION" ge "26.04"; then \
+      printf '%s\n' \
+        'export GTK_IM_MODULE=fcitx' \
+        'export QT_IM_MODULE=fcitx' \
+        'export XMODIFIERS="@im=fcitx"' \
+        'export INPUT_METHOD=fcitx' \
+        'export SDL_IM_MODULE=fcitx' \
+        'export GLFW_IM_MODULE=fcitx' \
+        > /etc/profile.d/99-fcitx-env.sh; \
+    else \
+      printf '%s\n' \
+        'export GTK_IM_MODULE=fcitx' \
+        'export QT_IM_MODULE=fcitx' \
+        'export XMODIFIERS="@im=fcitx"' \
+        'export INPUT_METHOD=fcitx' \
+        'export SDL_IM_MODULE=fcitx' \
+        'export GLFW_IM_MODULE=fcitx' \
+        > /etc/profile.d/99-fcitx-env.sh; \
+    fi; \
     chmod 644 /etc/profile.d/99-fcitx-env.sh; \
   fi
-
-# Apply fcitx ENV globally when USER_LANGUAGE is ja
-ENV GTK_IM_MODULE=fcitx \
-    QT_IM_MODULE=fcitx \
-    XMODIFIERS="@im=fcitx" \
-    INPUT_METHOD=fcitx \
-    SDL_IM_MODULE=fcitx \
-    GLFW_IM_MODULE=fcitx
 
 # create XDG user dirs and desktop shortcuts (Home/Trash)
 RUN set -eux; \
@@ -284,10 +371,9 @@ RUN set -eux; \
     > "/home/${USER_NAME}/.config/user-dirs.dirs"; \
   printf '%s\n' \
     '[Desktop Entry]' \
-    'Encoding=UTF-8' \
     'Name=Home' \
     'GenericName=Personal Files' \
-    'URL[$e]=$HOME' \
+    "URL=file:///home/${USER_NAME}" \
     'Icon=user-home' \
     'Type=Link' \
     > "/home/${USER_NAME}/Desktop/home.desktop"; \
@@ -300,11 +386,19 @@ RUN set -eux; \
     'URL=trash:/' \
     'Type=Link' \
     > "/home/${USER_NAME}/Desktop/trash.desktop"; \
-  chown "${USER_UID}:${USER_GID}" /home/${USER_NAME}/Desktop/home.desktop /home/${USER_NAME}/Desktop/trash.desktop
+  chmod 755 \
+    "/home/${USER_NAME}/Desktop/home.desktop" \
+    "/home/${USER_NAME}/Desktop/trash.desktop"; \
+  chown "${USER_UID}:${USER_GID}" \
+    "/home/${USER_NAME}/Desktop/home.desktop" \
+    "/home/${USER_NAME}/Desktop/trash.desktop"
 
 # KDE Plasma defaults: Kubuntu look-and-feel, double-click to open
+COPY kde-root/defaults/startwm.sh /defaults/startwm.sh
+COPY ubuntu-root/defaults/startwm_wayland.sh /defaults/startwm_wayland.sh
 COPY container-actions/kubuntu-kdeglobals /tmp/kubuntu-kdeglobals
 RUN set -eux; \
+  chmod 644 /defaults/startwm.sh /defaults/startwm_wayland.sh; \
   apt-get update && DEBIAN_FRONTEND=noninteractive apt-get install --no-install-recommends -y \
     kubuntu-settings-desktop 2>/dev/null || true; \
   apt-get clean && rm -rf /var/lib/apt/lists/*; \
@@ -312,18 +406,13 @@ RUN set -eux; \
   cp /tmp/kubuntu-kdeglobals "/home/${USER_NAME}/.config/kdeglobals"; \
   cp /tmp/kubuntu-kdeglobals /defaults/kdeglobals; \
   rm -f /tmp/kubuntu-kdeglobals; \
-  printf '%s\n' \
-    '[LookAndFeel]' \
-    'LookAndFeelPackage=org.kubuntu.desktop' \
-    > "/home/${USER_NAME}/.config/lookandfeelrc"; \
-  printf '%s\n' \
-    '[Theme]' \
-    'name=org.kubuntu.desktop' \
-    > "/home/${USER_NAME}/.config/ksplashrc"; \
+  if command -v kwriteconfig6 >/dev/null 2>&1; then KWRITECONFIG=kwriteconfig6; elif command -v kwriteconfig5 >/dev/null 2>&1; then KWRITECONFIG=kwriteconfig5; else KWRITECONFIG=""; fi; \
+  if [ -n "${KWRITECONFIG}" ]; then \
+    "${KWRITECONFIG}" --file "/home/${USER_NAME}/.config/kdeglobals" --group KDE --key LookAndFeelPackage org.kubuntu.desktop; \
+  fi; \
+  cp "/home/${USER_NAME}/.config/kdeglobals" /defaults/kdeglobals; \
   chown -R "${USER_UID}:${USER_GID}" \
-    "/home/${USER_NAME}/.config/kdeglobals" \
-    "/home/${USER_NAME}/.config/lookandfeelrc" \
-    "/home/${USER_NAME}/.config/ksplashrc"
+    "/home/${USER_NAME}/.config/kdeglobals"
 
 # Install container management desktop shortcuts (commit / stop)
 COPY container-actions/container-commit.sh /usr/local/bin/container-commit.sh
@@ -360,7 +449,7 @@ elif [ -x /usr/lib/chromium-browser/chromium-browser ]; then
 else
   BIN=/usr/bin/chromium
 fi
-DEFAULT_FLAGS="--password-store=basic --in-process-gpu"
+DEFAULT_FLAGS="--password-store=basic --in-process-gpu --ozone-platform=wayland --enable-features=UseOzonePlatform"
 EXTRA_FLAGS=(${CHROMIUM_FLAGS:-})
 
 # Cleanup

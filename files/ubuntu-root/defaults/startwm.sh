@@ -133,39 +133,24 @@ if which startplasma-x11 > /dev/null 2>&1; then
     else
       echo "Starting with GPU acceleration (Intel/AMD) via VirtualGL (Xvfb DRI3 backend)"
       export VGL_FPS="${DISPLAY_REFRESH:-60}"
-      # For Intel/AMD, VGL_DISPLAY must point to Xvfb display running with -vfbdevice
       /usr/bin/vglrun -d "${VGL_DISPLAY}" +wm /usr/bin/dbus-launch --exit-with-session /usr/bin/startplasma-x11 > /tmp/startwm.log 2>&1 &
     fi
   else
     echo "Starting with software rendering (no GPU acceleration)"
     /usr/bin/dbus-launch --exit-with-session /usr/bin/startplasma-x11 > /tmp/startwm.log 2>&1 &
   fi
-  
-  # Start fcitx if installed
-  if which fcitx > /dev/null 2>&1; then
+
+  # Start fcitx5 or fcitx if installed
+  if which fcitx5 > /dev/null 2>&1; then
+    /usr/bin/fcitx5 -d &
+  elif which fcitx > /dev/null 2>&1; then
     /usr/bin/fcitx &
   fi
-  
+
   # Keep the script running
   echo "Session running. Desktop environment started in background."
   wait
-  
-elif which openbox-session > /dev/null 2>&1; then
-  echo "Starting Openbox desktop"
-  # Use VirtualGL for all GPU types, skip only for software rendering
-  if [ "${GPU_AVAILABLE}" = "true" ] && which vglrun > /dev/null 2>&1; then
-    if [ "${NVIDIA_PRESENT}" = "true" ]; then
-      echo "Starting with NVIDIA GPU acceleration via VirtualGL"
-    else
-      echo "Starting with GPU acceleration (Intel/AMD) via VirtualGL"
-    fi
-    export VGL_FPS="${DISPLAY_REFRESH:-60}"
-    exec vglrun -d "${VGL_DISPLAY:-egl}" +wm dbus-launch --exit-with-session /usr/bin/openbox-session
-  else
-    echo "Starting with software rendering"
-    exec dbus-launch --exit-with-session /usr/bin/openbox-session
-  fi
 else
-  echo "ERROR: No desktop environment found"
+  echo "ERROR: /usr/bin/startplasma-x11 is not available; KDE Plasma X11 cannot be started"
   exit 1
 fi

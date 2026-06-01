@@ -15,7 +15,7 @@ Usage: $0 [-n container_name] [-t target_image_base] [-v version] [-u ubuntu_ver
   -n  container name to commit (default: ${NAME})
   -t  target image base (no arch/tag), e.g. webtop-kde (default: ${TARGET_IMAGE})
   -v  version tag to use (default: ${TARGET_VERSION})
-  -u, --ubuntu  Ubuntu version (22.04 or 24.04). Auto-detected if not specified
+  -u, --ubuntu  Ubuntu version (22.04, 24.04, or 26.04). Auto-detected if not specified
   -r  restart container after commit
 
 Environment variables:

@@ -181,7 +181,7 @@ shared_collect_interactive_settings() {
     echo "1. Container Settings"
     echo "---------------------"
     shared_prompt_text_default CONTAINER_NAME "Container name" "${CONTAINER_NAME}"
-    shared_prompt_text_default UBUNTU_VERSION "Ubuntu version (22.04 or 24.04)" "${UBUNTU_VERSION}"
+    shared_prompt_text_default UBUNTU_VERSION "Ubuntu version (22.04, 24.04, or 26.04)" "${UBUNTU_VERSION}"
     shared_prompt_text_default arch_choice "Target architecture (amd64 or arm64)" "${TARGET_ARCH}"
     TARGET_ARCH="$(shared_normalize_arch_or_die "${arch_choice}")"
     shared_prompt_choice_default docker_mode_choice "Docker mode [1=dind, 2=dood]" "${default_docker_mode_choice}" '^[1-2]$'

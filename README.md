@@ -57,6 +57,7 @@ This is a fork of [linuxserver/docker-webtop](https://github.com/linuxserver/doc
 ./build-user-image.sh                    # English (default)
 ./build-user-image.sh -l ja              # Japanese environment
 ./build-user-image.sh -u 22.04           # Ubuntu 22.04
+./build-user-image.sh -u 26.04           # Ubuntu 26.04 (X11/Xvfb)
 
 # 2. Start the container
 ./start-container.sh                     # Interactive settings
@@ -234,6 +235,7 @@ USER_PASSWORD=yourpass ./build-user-image.sh
 **Options:**
 ```bash
 ./build-user-image.sh -u 22.04           # Ubuntu 22.04
+./build-user-image.sh -u 26.04           # Ubuntu 26.04 (X11/Xvfb)
 ./build-user-image.sh -v 2.0.0           # Custom version
 ./build-user-image.sh -b my-base:1.1.0   # Custom base image tag
 ./build-user-image.sh -i ghcr.io/you/img  # Custom base image name
@@ -325,9 +327,10 @@ Only needed if you want to build from scratch instead of pulling from GHCR (30-6
 ```bash
 ./files/build-base-image.sh                         # Ubuntu 24.04, auto-detect arch
 ./files/build-base-image.sh -u 22.04                # Ubuntu 22.04
+./files/build-base-image.sh -u 26.04                # Ubuntu 26.04 (X11/Xvfb)
 ./files/build-base-image.sh -a amd64                # Intel/AMD 64-bit
 ./files/build-base-image.sh -a arm64                # Apple Silicon / ARM
-./files/build-base-image.sh -a amd64 -u 22.04       # Combine options
+./files/build-base-image.sh -a amd64 -u 26.04       # Combine options
 ./files/build-base-image.sh --no-cache               # Clean rebuild
 
 # Push to GHCR
@@ -346,7 +349,7 @@ IMAGE_NAME=ghcr.io/you/your-base ./files/push-base-image.sh
 
 | Script | Description | Usage |
 |---|---|---|
-| `build-user-image.sh` | Build user-specific image | `./build-user-image.sh [-l ja] [-u 22.04]` |
+| `build-user-image.sh` | Build user-specific image | `./build-user-image.sh [-l ja] [-u 22.04|24.04|26.04]` |
 | `start-container.sh` | Start or resume the container | `./start-container.sh [--encoder <type>]` |
 | `create-devcontainer-config.sh` | Generate Dev Container config | `./create-devcontainer-config.sh` |
 | `stop-container.sh` | Stop the container | `./stop-container.sh [--rm]` |
@@ -558,6 +561,7 @@ Check browser audio permissions and use HTTPS (some browsers block audio over HT
 - Xvfb does not support DRI3, so Vulkan applications cannot present frames
 - VirtualGL-based OpenGL works normally
 - In some setups, vkcube detects the NVIDIA GPU under Xvfb, but presentation behavior is configuration-dependent
+- Ubuntu 26.04 uses the distro Xvfb because the custom DRI3 patch is not compatible with xorg-server 21.1.22
 
 ### macOS
 - Docker Desktop runs containers inside a Linux VM — no access to Apple GPU (Metal)

@@ -198,28 +198,39 @@ ENV PATCH_VERSION=21 \
 RUN \
   echo "**** build deps ****" && \
   apt-get update && \
-  apt-get install -y devscripts dpkg-dev && \
-  apt-get build-dep -y xorg-server
+  UBUNTU_VERSION="$(. /etc/os-release && echo ${VERSION_ID})" && \
+  if [ "${UBUNTU_VERSION}" = "26.04" ]; then \
+    echo "**** Ubuntu ${UBUNTU_VERSION}: use distro Xvfb (DRI3 patch not compatible) ****" && \
+    apt-get install -y xvfb; \
+  else \
+    apt-get install -y devscripts dpkg-dev && \
+    apt-get build-dep -y xorg-server; \
+  fi
 
 RUN \
   echo "**** get and build xvfb ****" && \
-  apt-get source xorg-server && \
-  cd xorg-server-* && \
-  cp /patches/${PATCH_VERSION}-xvfb-dri3.patch patch.patch && \
-  patch -p0 < patch.patch && \
-  awk ' \
-    { print } \
-    /include \/usr\/share\/dpkg\/architecture.mk/ { \
-      print ""; \
-      print "GLAMOR_DEP_LIBS := $(shell pkg-config --libs gbm epoxy libdrm)"; \
-      print "GLAMOR_DEP_CFLAGS := $(shell pkg-config --cflags gbm epoxy libdrm)"; \
-      print "export DEB_LDFLAGS_PREPEND ?= $(GLAMOR_DEP_LIBS)"; \
-      print "export DEB_CFLAGS_PREPEND ?= $(GLAMOR_DEP_CFLAGS)"; \
-    } \
-  ' debian/rules > debian/rules.tmp && mv debian/rules.tmp debian/rules && \
-  debuild -us -uc -b && \
+  UBUNTU_VERSION="$(. /etc/os-release && echo ${VERSION_ID})" && \
   mkdir -p /build-out/usr/bin && \
-  mv debian/xvfb/usr/bin/Xvfb /build-out/usr/bin/
+  if [ "${UBUNTU_VERSION}" = "26.04" ]; then \
+    cp /usr/bin/Xvfb /build-out/usr/bin/; \
+  else \
+    apt-get source xorg-server && \
+    cd xorg-server-* && \
+    cp /patches/${PATCH_VERSION}-xvfb-dri3.patch patch.patch && \
+    patch -p0 < patch.patch && \
+    awk ' \
+      { print } \
+      /include \/usr\/share\/dpkg\/architecture.mk/ { \
+        print ""; \
+        print "GLAMOR_DEP_LIBS := $(shell pkg-config --libs gbm epoxy libdrm)"; \
+        print "GLAMOR_DEP_CFLAGS := $(shell pkg-config --cflags gbm epoxy libdrm)"; \
+        print "export DEB_LDFLAGS_PREPEND ?= $(GLAMOR_DEP_LIBS)"; \
+        print "export DEB_CFLAGS_PREPEND ?= $(GLAMOR_DEP_CFLAGS)"; \
+      } \
+    ' debian/rules > debian/rules.tmp && mv debian/rules.tmp debian/rules && \
+    debuild -us -uc -b && \
+    mv debian/xvfb/usr/bin/Xvfb /build-out/usr/bin/; \
+  fi
 
 
 ###########################################
@@ -314,6 +325,7 @@ RUN \
 FROM ubuntu-base-temp AS selkies-base
 
 COPY pixelflux/ /tmp/pixelflux/
+COPY patch-selkies-wl-paste-leak-apply.py /tmp/patch-selkies-wl-paste-leak-apply.py
 
 # set version label
 ARG VERSION
@@ -481,6 +493,13 @@ RUN \
   echo '#!/bin/bash' > /usr/local/bin/selkies && \
   echo 'exec /opt/selkies-env/bin/python3 -m selkies "$@"' >> /usr/local/bin/selkies && \
   chmod +x /usr/local/bin/selkies && \
+  echo "**** patch selkies wl-paste subprocess leak (Ubuntu 26.04+ only) ****" && \
+  UBUNTU_VERSION="$(. /etc/os-release && echo ${VERSION_ID})" && \
+  if [ "$(echo "${UBUNTU_VERSION}" | cut -d. -f1)" -ge 26 ]; then \
+    /opt/selkies-env/bin/python3 /tmp/patch-selkies-wl-paste-leak-apply.py; \
+  else \
+    echo "Skipping wl-paste patch on Ubuntu ${UBUNTU_VERSION}"; \
+  fi && \
   rm -rf /tmp/*
 
 # Step 3: System configuration and tools
@@ -555,7 +574,7 @@ RUN \
   if [ "${ARCH_CUR}" = "arm64" ] && [ "${LIBVA_TARGET_LIBDIR}" = "/usr/lib/x86_64-linux-gnu" ]; then \
     LIBVA_TARGET_LIBDIR="/usr/lib/aarch64-linux-gnu"; \
   fi && \
-  if [ "${UBUNTU_MAJOR}" -ge 24 ] && [ "${ARCH_CUR}" = "amd64" ] && [ -n "${LIBVA_DEB_URL}" ]; then \
+  if [ "${UBUNTU_VERSION}" = "24.04" ] && [ "${ARCH_CUR}" = "amd64" ] && [ -n "${LIBVA_DEB_URL}" ]; then \
     echo "**** libva hack (Ubuntu ${UBUNTU_VERSION}) ****" && \
     mkdir /tmp/libva && \
     curl -o /tmp/libva/libva.deb -L "${LIBVA_DEB_URL}" && \
@@ -568,7 +587,7 @@ RUN \
     else \
       echo "**** libva hack skipped (libva.so.2 not found in ${LIBVA_TARGET_LIBDIR}) ****"; \
     fi; \
-  elif [ "${UBUNTU_MAJOR}" -ge 24 ] && [ "${ARCH_CUR}" = "arm64" ] && [ -n "${LIBVA_DEB_URL_ARM64}" ]; then \
+  elif [ "${UBUNTU_VERSION}" = "24.04" ] && [ "${ARCH_CUR}" = "arm64" ] && [ -n "${LIBVA_DEB_URL_ARM64}" ]; then \
     echo "**** libva hack (Ubuntu ${UBUNTU_VERSION}, arm64) ****" && \
     mkdir /tmp/libva && \
     curl -o /tmp/libva/libva.deb -L "${LIBVA_DEB_URL_ARM64}" && \
@@ -581,7 +600,7 @@ RUN \
     else \
       echo "**** libva hack skipped (libva.so.2 not found in ${LIBVA_TARGET_LIBDIR}) ****"; \
     fi; \
-  elif [ "${ARCH_CUR}" = "amd64" ] && [ -n "${LIBVA_DEB_URL_JAMMY}" ]; then \
+  elif [ "${UBUNTU_VERSION}" = "22.04" ] && [ "${ARCH_CUR}" = "amd64" ] && [ -n "${LIBVA_DEB_URL_JAMMY}" ]; then \
     echo "**** libva hack (Ubuntu ${UBUNTU_VERSION}, jammy-compatible override) ****" && \
     mkdir /tmp/libva && \
     curl -o /tmp/libva/libva.deb -L "${LIBVA_DEB_URL_JAMMY}" && \
@@ -616,11 +635,19 @@ RUN \
     UBUNTU_VERSION_NODOT=$(echo "${UBUNTU_VERSION}" | tr -d '.'); \
     CUDA_VERSION="12-6"; \
     CUDA_KEYRING_VERSION="1.1"; \
-    curl -fsSL "https://developer.download.nvidia.com/compute/cuda/repos/ubuntu${UBUNTU_VERSION_NODOT}/x86_64/cuda-keyring_${CUDA_KEYRING_VERSION}-1_all.deb" -o /tmp/cuda-keyring.deb && \
-    dpkg -i /tmp/cuda-keyring.deb && rm /tmp/cuda-keyring.deb && \
-    apt-get update && \
-    apt-get install -y --no-install-recommends cuda-nvrtc-${CUDA_VERSION} && \
-    rm -rf /var/lib/apt/lists/*; \
+    if curl -fsSL "https://developer.download.nvidia.com/compute/cuda/repos/ubuntu${UBUNTU_VERSION_NODOT}/x86_64/cuda-keyring_${CUDA_KEYRING_VERSION}-1_all.deb" -o /tmp/cuda-keyring.deb; then \
+      dpkg -i /tmp/cuda-keyring.deb && rm -f /tmp/cuda-keyring.deb && \
+      apt-get update && \
+      if apt-cache show cuda-nvrtc-${CUDA_VERSION} >/dev/null 2>&1; then \
+        apt-get install -y --no-install-recommends cuda-nvrtc-${CUDA_VERSION}; \
+      else \
+        echo "**** cuda-nvrtc-${CUDA_VERSION} unavailable for Ubuntu ${UBUNTU_VERSION}; skipping ****"; \
+      fi && \
+      rm -rf /var/lib/apt/lists/*; \
+    else \
+      echo "**** CUDA repo unavailable for Ubuntu ${UBUNTU_VERSION}; skipping CUDA NVRTC ****"; \
+      rm -f /tmp/cuda-keyring.deb; \
+    fi; \
   fi
 
 # Step 8: Final cleanup
@@ -690,10 +717,16 @@ RUN \
   echo "**** install packages ****" && \
   add-apt-repository ppa:xtradeb/apps && \
   apt-get update && \
+  KDE_OPTIONAL_PACKAGES="" && \
+  if apt-cache show kubuntu-web-shortcuts >/dev/null 2>&1; then \
+    KDE_OPTIONAL_PACKAGES="${KDE_OPTIONAL_PACKAGES} kubuntu-web-shortcuts"; \
+  else \
+    echo "**** kubuntu-web-shortcuts unavailable; skipping ****"; \
+  fi && \
   DEBIAN_FRONTEND=noninteractive apt-get install --no-install-recommends -y \
     bc chromium dolphin gwenview kde-config-gtk-style kdialog kfind khotkeys \
     kio-extras knewstuff-dialog konsole ksystemstats kubuntu-settings-desktop \
-    kubuntu-wallpapers kubuntu-web-shortcuts kwin-addons kwin-x11 kwrite \
+    kubuntu-wallpapers ${KDE_OPTIONAL_PACKAGES} kwin-addons kwin-x11 kwrite \
     plasma-desktop plasma-workspace qml-module-qt-labs-platform systemsettings kubuntu-desktop && \
   if [ "$(dpkg --print-architecture)" = "amd64" ]; then \
     echo "**** install latest google-chrome (amd64) ****" && \
@@ -707,9 +740,18 @@ RUN \
   sed -i 's#^Exec=.*#Exec=/usr/local/bin/wrapped-chromium#g' \
     /usr/share/applications/chromium.desktop && \
   echo "**** kde tweaks ****" && \
-  sed -i \
-    's/applications:org.kde.discover.desktop,/applications:org.kde.konsole.desktop,/g' \
-    /usr/share/plasma/plasmoids/org.kde.plasma.taskmanager/contents/config/main.xml && \
+  echo "**** fix: KDE Plasma 6 kbuildsycoca6 looks for applications.menu not plasma-applications.menu ****" && \
+  if [ -f /etc/xdg/menus/plasma-applications.menu ] && [ ! -e /etc/xdg/menus/applications.menu ]; then \
+    ln -sf /etc/xdg/menus/plasma-applications.menu /etc/xdg/menus/applications.menu; \
+  fi && \
+  TASKMANAGER_CONFIG=/usr/share/plasma/plasmoids/org.kde.plasma.taskmanager/contents/config/main.xml && \
+  if [ -f "${TASKMANAGER_CONFIG}" ]; then \
+    sed -i \
+      's/applications:org.kde.discover.desktop,/applications:org.kde.konsole.desktop,/g' \
+      "${TASKMANAGER_CONFIG}"; \
+  else \
+    echo "**** taskmanager config unavailable; skipping ****"; \
+  fi && \
   echo "**** cleanup ****" && \
   apt-get autoclean && \
   rm -rf /config/.cache /config/.launchpadlib /var/lib/apt/lists/* /var/tmp/* /tmp/*

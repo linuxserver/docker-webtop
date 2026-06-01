@@ -22,7 +22,7 @@ Usage: $0 [-a arch] [-i image] [-v version] [-u ubuntu_version] [--no-cache]
   -a, --arch     Target arch (amd64 or arm64). Default: host arch
   -i, --image    Image name (default: ${IMAGE_NAME})
   -v, --version  Version tag (default: ${VERSION})
-  -u, --ubuntu   Ubuntu version (22.04 or 24.04). Default: ${UBUNTU_VERSION}
+  -u, --ubuntu   Ubuntu version (22.04, 24.04, or 26.04). Default: ${UBUNTU_VERSION}
   -p, --platform Docker platform (e.g. linux/amd64 or linux/arm64). Default: derived from arch
   -n, --no-cache Build without using cache (passes --no-cache to docker buildx)
 EOF
@@ -69,8 +69,12 @@ case "${UBUNTU_VERSION}" in
     UBUNTU_REL=noble
     UBUNTU_TAG=oci-noble-24.04
     ;;
+  26.04)
+    UBUNTU_REL=resolute
+    UBUNTU_TAG=oci-resolute-26.04
+    ;;
   *)
-    echo "Unsupported Ubuntu version: ${UBUNTU_VERSION}. Use 22.04 or 24.04" >&2
+    echo "Unsupported Ubuntu version: ${UBUNTU_VERSION}. Use 22.04, 24.04, or 26.04" >&2
     exit 1
     ;;
 esac

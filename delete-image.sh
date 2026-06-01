@@ -22,7 +22,7 @@ usage() {
   cat <<EOF
 Usage: $0 [-i image_name] [-u ubuntu_version] [-b] [-f] [-h]
   -i  full image name to delete (overrides auto-detection)
-  -u, --ubuntu  Ubuntu version (22.04 or 24.04). Default: ${UBUNTU_VERSION}
+  -u, --ubuntu  Ubuntu version (22.04, 24.04, or 26.04). Default: ${UBUNTU_VERSION}
   -b  also delete base image
   -f  force delete (remove dependent containers first)
   -h  show this help

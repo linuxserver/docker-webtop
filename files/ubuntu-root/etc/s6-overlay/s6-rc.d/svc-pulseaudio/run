@@ -1,17 +1,53 @@
 #!/usr/bin/with-contenv bash
 TARGET_USER="${CUSTOM_USER:-${USER_NAME:-root}}"
-PULSE_DIR="${PULSE_RUNTIME_PATH:-/defaults}"
 TARGET_GROUP="$(id -gn "${TARGET_USER}" 2>/dev/null || printf '%s' "${TARGET_USER}")"
+TARGET_UID="$(id -u "${TARGET_USER}" 2>/dev/null || echo 1000)"
 
-# Pulseaudio requires a user-owned secure runtime dir. If a root shell ever
-# autospawned a daemon here, stale socket/pid files can block the real service.
-install -d -m 700 "${PULSE_DIR}"
-chown "${TARGET_USER}:${TARGET_GROUP}" "${PULSE_DIR}"
-chmod 700 "${PULSE_DIR}"
-rm -f "${PULSE_DIR}/native" "${PULSE_DIR}/pid"
+# Ubuntu 26.04+: PipeWire replaces PulseAudio (pulseaudio binary removed)
+# Ubuntu 24.04 and earlier: use PulseAudio
+# Detection: prefer OS version check; fall back to binary existence check.
+# On 24.04, pipewire may coexist with pulseaudio — pulseaudio wins there.
+UBUNTU_VERSION_ID="$(. /etc/os-release 2>/dev/null && echo "${VERSION_ID:-0}")"
+USE_PIPEWIRE=false
+if [ -x /usr/bin/pipewire ] && [ ! -x /usr/bin/pulseaudio ]; then
+  # pulseaudio absent → definitely a PipeWire-only distro (26.04+)
+  USE_PIPEWIRE=true
+elif awk "BEGIN{exit !(${UBUNTU_VERSION_ID//./} >= 2604)}" 2>/dev/null && [ -x /usr/bin/pipewire ]; then
+  # OS version >= 26.04 and pipewire present
+  USE_PIPEWIRE=true
+fi
+if [ "${USE_PIPEWIRE}" = "true" ]; then
+  echo "[svc-pulseaudio] PipeWire detected (no pulseaudio binary); starting PipeWire stack"
 
-exec s6-setuidgid "$TARGET_USER" \
-  /usr/bin/pulseaudio \
-    --log-level=0 \
-    --log-target=stderr \
-    --exit-idle-time=-1 > /dev/null 2>&1
+  # Ensure XDG_RUNTIME_DIR exists for the user
+  XDG_RUNTIME_DIR="/run/user/${TARGET_UID}"
+  install -d -m 700 "${XDG_RUNTIME_DIR}"
+  chown "${TARGET_USER}:${TARGET_GROUP}" "${XDG_RUNTIME_DIR}"
+
+  export XDG_RUNTIME_DIR
+  # PULSE_RUNTIME_PATH must NOT be /defaults for PipeWire; unset it so pipewire-pulse
+  # uses the correct location: ${XDG_RUNTIME_DIR}/pulse/native
+  unset PULSE_RUNTIME_PATH
+
+  # Start pipewire, wireplumber, and pipewire-pulse in order
+  s6-setuidgid "${TARGET_USER}" env XDG_RUNTIME_DIR="${XDG_RUNTIME_DIR}" /usr/bin/pipewire &
+  sleep 1
+  s6-setuidgid "${TARGET_USER}" env XDG_RUNTIME_DIR="${XDG_RUNTIME_DIR}" /usr/bin/wireplumber &
+  sleep 0.5
+  exec s6-setuidgid "${TARGET_USER}" env XDG_RUNTIME_DIR="${XDG_RUNTIME_DIR}" /usr/bin/pipewire-pulse
+else
+  PULSE_DIR="${PULSE_RUNTIME_PATH:-/defaults}"
+
+  # Pulseaudio requires a user-owned secure runtime dir. If a root shell ever
+  # autospawned a daemon here, stale socket/pid files can block the real service.
+  install -d -m 700 "${PULSE_DIR}"
+  chown "${TARGET_USER}:${TARGET_GROUP}" "${PULSE_DIR}"
+  chmod 700 "${PULSE_DIR}"
+  rm -f "${PULSE_DIR}/native" "${PULSE_DIR}/pid"
+
+  exec s6-setuidgid "${TARGET_USER}" \
+    /usr/bin/pulseaudio \
+      --log-level=0 \
+      --log-target=stderr \
+      --exit-idle-time=-1 > /dev/null 2>&1
+fi

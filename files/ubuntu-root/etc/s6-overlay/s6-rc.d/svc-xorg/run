@@ -19,6 +19,10 @@ fi
 if [ "${DISABLE_DRI3}" != "false" ]; then
   VFBCOMMAND=""
 fi
+if [ -n "${VFBCOMMAND}" ] && ! /usr/bin/Xvfb -help 2>&1 | grep -q -- '-vfbdevice'; then
+  echo "[svc-xorg] Xvfb does not support -vfbdevice; disabling DRI3 backend"
+  VFBCOMMAND=""
+fi
 
 # Calculate optimal Xvfb resolution based on user settings
 # Priority:

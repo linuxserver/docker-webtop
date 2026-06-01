@@ -79,7 +79,7 @@ Run without options to start an interactive configuration flow.
   -n  container name (default: ${NAME})
   -i  image base name; final image becomes <base>-<user>-<arch>-u<ubuntu_ver>:<version> (default base: ${IMAGE_BASE})
   -t  image version tag (default: ${IMAGE_VERSION_DEFAULT})
-  -u, --ubuntu  Ubuntu version (22.04 or 24.04). Default: ${UBUNTU_VERSION}
+  -u, --ubuntu  Ubuntu version (22.04, 24.04, or 26.04). Default: ${UBUNTU_VERSION}
   -r  resolution (e.g. 1920x1080, default: ${RESOLUTION})
   -d  DPI (default: ${DPI})
   -S, --stream-scale <factor>  Stream resolution scale (0.25-1.0). Default: ${STREAM_SCALE}
@@ -673,6 +673,15 @@ if [[ -n "$PLATFORM" ]]; then
   PLATFORM_FLAGS=(--platform "$PLATFORM")
 fi
 
+WAYLAND_ENV_VARS=()
+if [[ "${UBUNTU_VERSION}" == "26.04" ]]; then
+  WAYLAND_ENV_VARS+=(
+    -e PIXELFLUX_WAYLAND=true
+    -e WAYLAND_DISPLAY=wayland-1
+    -e SELKIES_WAYLAND_SOCKET_INDEX=0
+  )
+fi
+
 DOCKER_MODE_FLAGS=()
 if [[ "${DOCKER_MODE}" == "dood" ]]; then
   if [ ! -S /var/run/docker.sock ]; then
@@ -779,6 +788,7 @@ docker run -d \
   -e ENCODER="${ENCODER}" \
   -e GPU_VENDOR="${GPU_VENDOR}" \
   -e SELKIES_FRAMERATE="${FRAMERATE}" \
+  ${WAYLAND_ENV_VARS[@]+"${WAYLAND_ENV_VARS[@]}"} \
   --tmpfs "/dev/shm:${SHM_TMPFS_OPTS}" \
   --privileged \
   -v "${HOME}":"${HOST_HOME_MOUNT}":rw \

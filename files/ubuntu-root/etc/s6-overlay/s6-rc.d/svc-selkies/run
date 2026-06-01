@@ -132,6 +132,27 @@ fi
 SELKIES_CMD="selkies"
 CMD_OPTS=(--addr="localhost" --mode="websockets" --port="${PORT}")
 
+# Disable selkies basic auth - nginx handles authentication
+CMD_OPTS+=(--enable-basic-auth=false)
+
+# Disable selkies's own basic auth - nginx (auth-server.py) handles authentication.
+# Without this, selkies defaults to enable_basic_auth=True and requires credentials
+# that nginx does not pass when proxying, causing WebSocket 401 failures.
+CMD_OPTS+=(--enable-basic-auth=false)
+
+# Clean up stale selkies socket files from previous run to prevent EADDRINUSE errors
+rm -f /tmp/selkies_js*.sock /tmp/selkies_event*.sock 2>/dev/null || true
+
+# Set web-root so selkies finds its static files without needing the selkies_web
+# Python subpackage (which is absent in newer selkies installs / Python 3.14+).
+# Prefer /usr/share/selkies/web (runtime copy with nginx patches applied by init-nginx),
+# fall back to the original dashboard directory.
+if [ -f "/usr/share/selkies/web/index.html" ]; then
+  CMD_OPTS+=(--web-root="/usr/share/selkies/web")
+elif [ -f "/usr/share/selkies/selkies-dashboard/index.html" ]; then
+  CMD_OPTS+=(--web-root="/usr/share/selkies/selkies-dashboard")
+fi
+
 # Configure encoder based on GPU vendor
 # NOTE: Selkies pixelflux only accepts: x264enc, x264enc-striped, jpeg
 # Hardware encoding (NVENC/VA-API) is controlled via:
@@ -194,16 +215,49 @@ SELKIES_H264_PAINTOVER_CRF="${SELKIES_H264_PAINTOVER_CRF:-20}"
 CMD_OPTS+=(--h264-paintover-crf="${SELKIES_H264_PAINTOVER_CRF}")
 echo "[svc-selkies] H.264 Paint-over CRF set to: ${SELKIES_H264_PAINTOVER_CRF}"
 
+# Audio configuration: explicitly enable audio and point to the null-sink device
+# SELKIES_AUDIO_DEVICE: PulseAudio sink name to capture (default: "output")
+SELKIES_AUDIO_DEVICE="${SELKIES_AUDIO_DEVICE:-output}"
+CMD_OPTS+=(--audio-enabled=true)
+CMD_OPTS+=(--audio-device-name="${SELKIES_AUDIO_DEVICE}")
+echo "[svc-selkies] Audio enabled, device: ${SELKIES_AUDIO_DEVICE}"
+
+# Disable binary (image) clipboard: wl-paste --list-types blocks indefinitely on
+# wayland-0 (KWin) when the clipboard is empty, causing the process to appear as
+# a Wayland app in the KDE taskbar.  Text clipboard works via Klipper D-Bus.
+CMD_OPTS+=(--enable-binary-clipboard=false)
+echo "[svc-selkies] Binary clipboard disabled (text clipboard via Klipper D-Bus)"
+
 echo "[svc-selkies] Using selkies with pixelflux (GPU_VENDOR=${GPU_VENDOR}, use-cpu=${USE_CPU:-false})"
+
+# Resolve the correct PulseAudio/PipeWire-pulse socket for this user.
+# PULSE_RUNTIME_PATH from the s6 container environment may be /defaults (legacy
+# Ubuntu 22.04/24.04 path); on Ubuntu 26.04+ PipeWire-pulse puts the socket at
+# $XDG_RUNTIME_DIR/pulse/native. Override PULSE_SERVER unconditionally so pactl
+# finds the real socket regardless of what with-contenv injects.
+TARGET_UID_SEL="$(id -u "${TARGET_USER}" 2>/dev/null || echo 1000)"
+PULSE_SOCKET_PATH="/run/user/${TARGET_UID_SEL}/pulse/native"
+export PULSE_SERVER="unix:${PULSE_SOCKET_PATH}"
+unset PULSE_RUNTIME_PATH
+
+pactl_cmd() {
+  # Wrapper that always points to the correct PipeWire-pulse socket,
+  # bypassing any PULSE_RUNTIME_PATH injected by with-contenv.
+  s6-setuidgid "$TARGET_USER" env \
+    PULSE_SERVER="unix:${PULSE_SOCKET_PATH}" \
+    XDG_RUNTIME_DIR="/run/user/${TARGET_UID_SEL}" \
+    PULSE_RUNTIME_PATH="" \
+    pactl "$@"
+}
 
 pulse_has_sink() {
   local sink_name="$1"
-  s6-setuidgid "$TARGET_USER" with-contenv pactl list short sinks 2>/dev/null | awk '{print $2}' | grep -qx "${sink_name}"
+  pactl_cmd list short sinks 2>/dev/null | awk '{print $2}' | grep -qx "${sink_name}"
 }
 
 pulse_has_source() {
   local source_name="$1"
-  s6-setuidgid "$TARGET_USER" with-contenv pactl list short sources 2>/dev/null | awk '{print $2}' | grep -qx "${source_name}"
+  pactl_cmd list short sources 2>/dev/null | awk '{print $2}' | grep -qx "${source_name}"
 }
 
 # Default sink setup (wait until pulseaudio is ready, then create virtual sinks)
@@ -211,7 +265,7 @@ if [ ! -f '/dev/shm/audio.lock' ] || ! pulse_has_sink output || ! pulse_has_sink
   rm -f /dev/shm/audio.lock
   # ensure pulseaudio is up
   for i in $(seq 1 30); do
-    if s6-setuidgid "$TARGET_USER" with-contenv pactl info >/dev/null 2>&1; then
+    if pactl_cmd info >/dev/null 2>&1; then
       READY=1
       break
     fi
@@ -219,19 +273,19 @@ if [ ! -f '/dev/shm/audio.lock' ] || ! pulse_has_sink output || ! pulse_has_sink
   done
   if [ "${READY:-0}" -eq 1 ]; then
     if ! pulse_has_sink output; then
-      s6-setuidgid "$TARGET_USER" with-contenv pactl \
+      pactl_cmd \
         load-module module-null-sink \
         sink_name="output" \
         sink_properties=device.description="output" >/dev/null
     fi
     if ! pulse_has_sink input; then
-      s6-setuidgid "$TARGET_USER" with-contenv pactl \
+      pactl_cmd \
         load-module module-null-sink \
         sink_name="input" \
         sink_properties=device.description="input" >/dev/null
     fi
-    s6-setuidgid "$TARGET_USER" with-contenv pactl set-default-sink output >/dev/null 2>&1 || true
-    s6-setuidgid "$TARGET_USER" with-contenv pactl set-default-source output.monitor >/dev/null 2>&1 || true
+    pactl_cmd set-default-sink output >/dev/null 2>&1 || true
+    pactl_cmd set-default-source output.monitor >/dev/null 2>&1 || true
     if pulse_has_sink output && pulse_has_sink input && pulse_has_source output.monitor; then
       touch /dev/shm/audio.lock
     else
