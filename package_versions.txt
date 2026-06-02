@@ -30,8 +30,8 @@ bubblewrap                                                                    0.
 ca-certificates                                                               20260223                                 deb                         
 catatonit                                                                     0.2.1-2build1                            deb                         
 cffi                                                                          2.0.0                                    python                      
-chromium                                                                      148.0.7778.178-1xtradeb1.2604.1          deb                         
-chromium-common                                                               148.0.7778.178-1xtradeb1.2604.1          deb                         
+chromium                                                                      148.0.7778.215-1xtradeb1.2604.1          deb                         
+chromium-common                                                               148.0.7778.215-1xtradeb1.2604.1          deb                         
 cloud.google.com/go/auth                                                      v0.19.0                                  go-module                   
 cloud.google.com/go/auth/oauth2adapt                                          v0.2.8                                   go-module                   
 cloud.google.com/go/compute/metadata                                          v0.9.0                                   go-module                   
@@ -75,7 +75,7 @@ dirmngr                                                                       2.
 distro                                                                        1.9.0                                    python                      
 distro-info-data                                                              0.68ubuntu0.1                            deb                         
 dnspython                                                                     2.8.0                                    python                      
-docker-buildx-plugin                                                          0.34.0-1~ubuntu.26.04~resolute           deb                         
+docker-buildx-plugin                                                          0.34.1-1~ubuntu.26.04~resolute           deb                         
 docker-ce                                                                     5:29.5.2-1~ubuntu.26.04~resolute         deb                         
 docker-ce-cli                                                                 5:29.5.2-1~ubuntu.26.04~resolute         deb                         
 docker-compose-plugin                                                         5.1.4-1~ubuntu.26.04~resolute            deb                         
@@ -219,7 +219,7 @@ github.com/digitorus/timestamp                                                v0
 github.com/dimchansky/utfbom                                                  v1.1.1                                   go-module                   
 github.com/distribution/reference                                             v0.6.0                                   go-module  (+4 duplicates)  
 github.com/docker/buildx                                                      v0.33.0                                  go-module                   
-github.com/docker/buildx                                                      v0.34.0                                  go-module                   
+github.com/docker/buildx                                                      v0.34.1                                  go-module                   
 github.com/docker/cli                                                         v29.4.3+incompatible                     go-module                   
 github.com/docker/cli                                                         v29.5.1+incompatible                     go-module                   
 github.com/docker/cli-docs-tool                                               v0.11.0                                  go-module                   
@@ -606,7 +606,7 @@ hicolor-icon-theme                                                            0.
 hostname                                                                      3.25build1                               deb                         
 httplib2                                                                      0.22.0                                   python                      
 hunspell-en-us                                                                1:2020.12.07-4build1                     deb                         
-idna                                                                          3.16                                     python                      
+idna                                                                          3.17                                     python                      
 ifaddr                                                                        0.2.0                                    python                      
 importlib-metadata                                                            8.0.0                                    python                      
 inflect                                                                       7.3.1                                    python                      
@@ -746,7 +746,7 @@ libgarcon-gtk3-1-0                                                            4.
 libgbm1                                                                       26.0.3-1ubuntu1                          deb                         
 libgcc-15-dev                                                                 15.2.0-16ubuntu1                         deb                         
 libgcc-s1                                                                     16-20260322-1ubuntu1                     deb                         
-libgcrypt20                                                                   1.12.0-2                                 deb                         
+libgcrypt20                                                                   1.12.0-2ubuntu0.1                        deb                         
 libgdbm-compat4t64                                                            1.26-1build1                             deb                         
 libgdbm6t64                                                                   1.26-1build1                             deb                         
 libgdk-pixbuf-2.0-0                                                           2.44.5+dfsg-4ubuntu1                     deb                         
@@ -946,7 +946,7 @@ libspeex1                                                                     1.
 libspeexdsp1                                                                  1.2.1-3build1                            deb                         
 libsqlite3-0                                                                  3.46.1-9                                 deb                         
 libss2                                                                        1.47.2-3ubuntu4                          deb                         
-libssh2-1t64                                                                  1.11.1-1build2                           deb                         
+libssh2-1t64                                                                  1.11.1-1ubuntu0.26.04.1                  deb                         
 libssl3t64                                                                    3.5.5-1ubuntu3                           deb                         
 libstartup-notification0                                                      0.12-8build1                             deb                         
 libstdc++-15-dev                                                              15.2.0-16ubuntu1                         deb                         
@@ -957,7 +957,7 @@ libswresample6                                                                7:
 libsystemd-shared                                                             259.5-0ubuntu3                           deb                         
 libsystemd0                                                                   259.5-0ubuntu3                           deb                         
 libtasn1-6                                                                    4.21.0-2                                 deb                         
-libtdb1                                                                       2:1.4.14+samba4.23.6+dfsg-1ubuntu2       deb                         
+libtdb1                                                                       2:1.4.14+samba4.23.6+dfsg-1ubuntu2.1     deb                         
 libtext-iconv-perl                                                            1.7-8.1                                  deb                         
 libthai-data                                                                  0.1.30-1                                 deb                         
 libthai0                                                                      0.1.30-1                                 deb                         
@@ -1086,7 +1086,7 @@ libzstd1                                                                      1.
 libzvbi-common                                                                0.2.44-1ubuntu2                          deb                         
 libzvbi0t64                                                                   0.2.44-1ubuntu2                          deb                         
 lightdm-gtk-greeter                                                           2.0.9-0ubuntu3.1                         deb                         
-linux-libc-dev                                                                7.0.0-15.15                              deb                         
+linux-libc-dev                                                                7.0.0-22.22                              deb                         
 locales                                                                       2.43-2ubuntu2                            deb                         
 locales-all                                                                   2.43-2ubuntu2                            deb                         
 login                                                                         1:4.16.0-2+really2.41.3-3ubuntu2         deb                         
@@ -1115,7 +1115,7 @@ nftables                                                                      1.
 nginx                                                                         1.28.3-2ubuntu1.1                        deb                         
 nginx-common                                                                  1.28.3-2ubuntu1.1                        deb                         
 numix-gtk-theme                                                               2.6.7-8ubuntu1                           deb                         
-nvidia-cuda-nvrtc                                                             13.2.78                                  python                      
+nvidia-cuda-nvrtc                                                             13.3.33                                  python                      
 oauthlib                                                                      3.3.1                                    python                      
 ocl-icd-libopencl1                                                            2.3.4-1                                  deb                         
 openbox                                                                       3.6.1-12ubuntu3                          deb                         
