@@ -13,7 +13,7 @@ aiohappyeyeballs                                                              2.
 aiohttp                                                                       3.13.5                                             python                      
 aioice                                                                        0.10.2                                             python                      
 aiosignal                                                                     1.4.0                                              python                      
-alsa-lib                                                                      1.2.15.3-3.fc44                                    rpm                         
+alsa-lib                                                                      1.2.15.3-4.fc44                                    rpm                         
 alternatives                                                                  1.33-5.fc44                                        rpm                         
 aribb24                                                                       1.0.3^20160216git5e9be27-5.fc44                    rpm                         
 at-spi2-atk                                                                   2.60.3-1.fc44                                      rpm                         
@@ -43,18 +43,18 @@ catatonit                                                                     0.
 cdparanoia-libs                                                               10.2-50.fc44                                       rpm                         
 cffi                                                                          2.0.0                                              python                      
 checkpolicy                                                                   3.10-1.fc44                                        rpm                         
-chromium                                                                      148.0.7778.178-1.fc44                              rpm                         
-chromium-common                                                               148.0.7778.178-1.fc44                              rpm                         
+chromium                                                                      148.0.7778.215-1.fc44                              rpm                         
+chromium-common                                                               148.0.7778.215-1.fc44                              rpm                         
 cjson                                                                         1.7.18-5.fc44                                      rpm                         
 cli                                                                           UNKNOWN                                            binary                      
 cli-32                                                                        UNKNOWN                                            binary                      
 cli-64                                                                        UNKNOWN                                            binary                      
 cli-arm64                                                                     UNKNOWN                                            binary                      
-cloud.google.com/go/auth                                                      v0.18.2                                            go-module                   
+cloud.google.com/go/auth                                                      v0.19.0                                            go-module                   
 cloud.google.com/go/auth/oauth2adapt                                          v0.2.8                                             go-module                   
 cloud.google.com/go/compute/metadata                                          v0.9.0                                             go-module                   
-cloud.google.com/go/logging                                                   v1.13.2                                            go-module                   
-cloud.google.com/go/longrunning                                               v0.8.0                                             go-module                   
+cloud.google.com/go/logging                                                   v1.18.0                                            go-module                   
+cloud.google.com/go/longrunning                                               v0.9.0                                             go-module                   
 cmake                                                                         4.3.0-1.fc44                                       rpm                         
 cmake-data                                                                    4.3.0-1.fc44                                       rpm                         
 cmake-filesystem                                                              4.3.0-1.fc44                                       rpm                         
@@ -95,8 +95,8 @@ dmenu                                                                         5.
 dnf5                                                                          5.4.1.0-1.fc44                                     rpm                         
 dnf5-plugins                                                                  5.4.1.0-1.fc44                                     rpm                         
 dnspython                                                                     2.8.0                                              python                      
-docker-cli                                                                    29.4.2-1.fc44                                      rpm                         
-docker-compose                                                                5.1.2-1.fc44                                       rpm                         
+docker-cli                                                                    29.5.2-1.fc44                                      rpm                         
+docker-compose                                                                5.1.4-1.fc44                                       rpm                         
 double-conversion                                                             3.4.0-3.fc44                                       rpm                         
 duktape                                                                       2.7.0-11.fc44                                      rpm                         
 dunst                                                                         1.13.2-1.fc44                                      rpm                         
@@ -129,7 +129,7 @@ flac-libs                                                                     1.
 fmt                                                                           11.2.0-4.fc44                                      rpm                         
 fontconfig                                                                    2.17.0-4.fc44                                      rpm                         
 fonts-filesystem                                                              1:5.0.0-2.fc44                                     rpm                         
-foot                                                                          1.26.1-1.fc44                                      rpm                         
+foot                                                                          1.27.0-1.fc44                                      rpm                         
 freetype                                                                      2.14.3-1.fc44                                      rpm                         
 fribidi                                                                       1.0.16-4.fc44                                      rpm                         
 frozenlist                                                                    1.8.0                                              python                      
@@ -143,7 +143,7 @@ gdbm                                                                          1:
 gdbm-libs                                                                     1:1.23-11.fc44                                     rpm                         
 gdk-pixbuf2                                                                   2.44.4-2.fc44                                      rpm                         
 geoclue2                                                                      2.8.1-1.fc44                                       rpm                         
-giflib                                                                        6.1.3-1.fc44                                       rpm                         
+giflib                                                                        6.1.3-2.fc44                                       rpm                         
 git                                                                           2.54.0-1.fc44                                      rpm                         
 git-core                                                                      2.54.0-1.fc44                                      rpm                         
 git-core-doc                                                                  2.54.0-1.fc44                                      rpm                         
@@ -159,22 +159,22 @@ github.com/anchore/go-struct-converter                                        v0
 github.com/armon/circbuf                                                      v0.0.0-20190214190532-5111143e8da2                 go-module                   
 github.com/armon/go-metrics                                                   v0.4.1                                             go-module                   
 github.com/asaskevich/govalidator                                             v0.0.0-20230301143203-a9d515a09cc2                 go-module                   
-github.com/aws/aws-sdk-go-v2                                                  v1.41.5                                            go-module                   
-github.com/aws/aws-sdk-go-v2/aws/protocol/eventstream                         v1.7.8                                             go-module                   
-github.com/aws/aws-sdk-go-v2/config                                           v1.32.13                                           go-module                   
-github.com/aws/aws-sdk-go-v2/credentials                                      v1.19.13                                           go-module                   
-github.com/aws/aws-sdk-go-v2/feature/ec2/imds                                 v1.18.21                                           go-module                   
-github.com/aws/aws-sdk-go-v2/internal/configsources                           v1.4.21                                            go-module                   
-github.com/aws/aws-sdk-go-v2/internal/endpoints/v2                            v2.7.21                                            go-module                   
-github.com/aws/aws-sdk-go-v2/internal/ini                                     v1.8.6                                             go-module                   
-github.com/aws/aws-sdk-go-v2/service/cloudwatchlogs                           v1.66.0                                            go-module                   
-github.com/aws/aws-sdk-go-v2/service/internal/accept-encoding                 v1.13.7                                            go-module                   
-github.com/aws/aws-sdk-go-v2/service/internal/presigned-url                   v1.13.21                                           go-module                   
-github.com/aws/aws-sdk-go-v2/service/signin                                   v1.0.9                                             go-module                   
-github.com/aws/aws-sdk-go-v2/service/sso                                      v1.30.14                                           go-module                   
-github.com/aws/aws-sdk-go-v2/service/ssooidc                                  v1.35.18                                           go-module                   
-github.com/aws/aws-sdk-go-v2/service/sts                                      v1.41.10                                           go-module                   
-github.com/aws/smithy-go                                                      v1.25.0                                            go-module                   
+github.com/aws/aws-sdk-go-v2                                                  v1.41.7                                            go-module                   
+github.com/aws/aws-sdk-go-v2/aws/protocol/eventstream                         v1.7.10                                            go-module                   
+github.com/aws/aws-sdk-go-v2/config                                           v1.32.17                                           go-module                   
+github.com/aws/aws-sdk-go-v2/credentials                                      v1.19.16                                           go-module                   
+github.com/aws/aws-sdk-go-v2/feature/ec2/imds                                 v1.18.23                                           go-module                   
+github.com/aws/aws-sdk-go-v2/internal/configsources                           v1.4.23                                            go-module                   
+github.com/aws/aws-sdk-go-v2/internal/endpoints/v2                            v2.7.23                                            go-module                   
+github.com/aws/aws-sdk-go-v2/internal/v4a                                     v1.4.24                                            go-module                   
+github.com/aws/aws-sdk-go-v2/service/cloudwatchlogs                           v1.74.0                                            go-module                   
+github.com/aws/aws-sdk-go-v2/service/internal/accept-encoding                 v1.13.9                                            go-module                   
+github.com/aws/aws-sdk-go-v2/service/internal/presigned-url                   v1.13.23                                           go-module                   
+github.com/aws/aws-sdk-go-v2/service/signin                                   v1.0.11                                            go-module                   
+github.com/aws/aws-sdk-go-v2/service/sso                                      v1.30.17                                           go-module                   
+github.com/aws/aws-sdk-go-v2/service/ssooidc                                  v1.35.21                                           go-module                   
+github.com/aws/aws-sdk-go-v2/service/sts                                      v1.42.1                                            go-module                   
+github.com/aws/smithy-go                                                      v1.25.1                                            go-module                   
 github.com/beorn7/perks                                                       v1.0.1                                             go-module  (+3 duplicates)  
 github.com/bits-and-blooms/bitset                                             v1.13.0                                            go-module                   
 github.com/blang/semver                                                       v3.5.1+incompatible                                go-module                   
@@ -196,7 +196,8 @@ github.com/containerd/cgroups/v3                                              v3
 github.com/containerd/console                                                 v1.0.5                                             go-module  (+4 duplicates)  
 github.com/containerd/containerd/api                                          v1.10.0                                            go-module  (+4 duplicates)  
 github.com/containerd/containerd/v2                                           v2.2.3                                             go-module  (+4 duplicates)  
-github.com/containerd/continuity                                              v0.4.5                                             go-module  (+4 duplicates)  
+github.com/containerd/continuity                                              v0.4.5                                             go-module  (+3 duplicates)  
+github.com/containerd/continuity                                              v0.5.0                                             go-module                   
 github.com/containerd/errdefs                                                 v1.0.0                                             go-module  (+5 duplicates)  
 github.com/containerd/errdefs/pkg                                             v0.3.0                                             go-module  (+5 duplicates)  
 github.com/containerd/fifo                                                    v1.1.0                                             go-module  (+4 duplicates)  
@@ -204,9 +205,11 @@ github.com/containerd/go-cni                                                  v1
 github.com/containerd/go-runc                                                 v1.1.0                                             go-module  (+3 duplicates)  
 github.com/containerd/imgcrypt/v2                                             v2.0.1                                             go-module                   
 github.com/containerd/log                                                     v0.1.0                                             go-module  (+6 duplicates)  
-github.com/containerd/nri                                                     v0.11.0                                            go-module  (+1 duplicate)   
+github.com/containerd/nri                                                     v0.11.0                                            go-module                   
+github.com/containerd/nri                                                     v0.12.0                                            go-module                   
 github.com/containerd/otelttrpc                                               v0.1.0                                             go-module                   
-github.com/containerd/platforms                                               v1.0.0-rc.2                                        go-module  (+4 duplicates)  
+github.com/containerd/platforms                                               v1.0.0-rc.2                                        go-module  (+3 duplicates)  
+github.com/containerd/platforms                                               v1.0.0-rc.4                                        go-module                   
 github.com/containerd/plugin                                                  v1.0.0                                             go-module  (+4 duplicates)  
 github.com/containerd/stargz-snapshotter/estargz                              v0.18.2                                            go-module                   
 github.com/containerd/ttrpc                                                   v1.2.7                                             go-module  (+3 duplicates)  
@@ -230,11 +233,11 @@ github.com/digitorus/pkcs7                                                    v0
 github.com/digitorus/timestamp                                                v0.0.0-20231217203849-220c5c2851b7                 go-module                   
 github.com/dimchansky/utfbom                                                  v1.1.1                                             go-module                   
 github.com/distribution/reference                                             v0.6.0                                             go-module  (+4 duplicates)  
-github.com/docker/cli                                                         v29.4.2                                            go-module                   
+github.com/docker/cli                                                         v29.5.2                                            go-module                   
 github.com/docker/cli-docs-tool                                               v0.11.0                                            go-module                   
 github.com/docker/compose/v5/cmd                                              UNKNOWN                                            go-module                   
 github.com/docker/distribution                                                v2.8.3+incompatible                                go-module  (+1 duplicate)   
-github.com/docker/docker-credential-helpers                                   v0.9.6                                             go-module                   
+github.com/docker/docker-credential-helpers                                   v0.9.7                                             go-module                   
 github.com/docker/go-connections                                              v0.7.0                                             go-module  (+1 duplicate)   
 github.com/docker/go-events                                                   v0.0.0-20190806004212-e31b211e4f1c                 go-module                   
 github.com/docker/go-events                                                   v0.0.0-20250808211157-605354379745                 go-module  (+1 duplicate)   
@@ -290,7 +293,7 @@ github.com/google/s2a-go                                                      v0
 github.com/google/shlex                                                       v0.0.0-20191202100458-e7afc7fbc510                 go-module  (+1 duplicate)   
 github.com/google/uuid                                                        v1.6.0                                             go-module  (+2 duplicates)  
 github.com/googleapis/enterprise-certificate-proxy                            v0.3.14                                            go-module                   
-github.com/googleapis/gax-go/v2                                               v2.19.0                                            go-module                   
+github.com/googleapis/gax-go/v2                                               v2.21.0                                            go-module                   
 github.com/gorilla/mux                                                        v1.8.1                                             go-module  (+1 duplicate)   
 github.com/gorilla/websocket                                                  v1.5.4-0.20250319132907-e064f32e3674               go-module                   
 github.com/grpc-ecosystem/go-grpc-middleware/providers/prometheus             v1.1.0                                             go-module                   
@@ -312,12 +315,13 @@ github.com/hashicorp/memberlist                                               v0
 github.com/hashicorp/serf                                                     v0.10.2                                            go-module                   
 github.com/hiddeco/sshsig                                                     v0.2.0                                             go-module                   
 github.com/in-toto/attestation                                                v1.1.2                                             go-module                   
-github.com/in-toto/in-toto-golang                                             v0.10.0                                            go-module                   
+github.com/in-toto/in-toto-golang                                             v0.11.0                                            go-module                   
 github.com/intel/goresctrl                                                    v0.10.0                                            go-module  (+1 duplicate)   
 github.com/ishidawataru/sctp                                                  v0.0.0-20251114114122-19ddcbc6aae2                 go-module  (+1 duplicate)   
 github.com/jmoiron/sqlx                                                       v1.4.0                                             go-module                   
 github.com/json-iterator/go                                                   v1.1.12                                            go-module                   
-github.com/klauspost/compress                                                 v1.18.5                                            go-module  (+4 duplicates)  
+github.com/klauspost/compress                                                 v1.18.5                                            go-module  (+3 duplicates)  
+github.com/klauspost/compress                                                 v1.18.6                                            go-module                   
 github.com/knqyf263/go-plugin                                                 v0.9.0                                             go-module  (+1 duplicate)   
 github.com/mattn/go-runewidth                                                 v0.0.23                                            go-module                   
 github.com/mdlayher/socket                                                    v0.5.1                                             go-module  (+2 duplicates)  
@@ -329,22 +333,21 @@ github.com/mistifyio/go-zfs/v4                                                v4
 github.com/mitchellh/copystructure                                            v1.2.0                                             go-module                   
 github.com/mitchellh/hashstructure/v2                                         v2.0.2                                             go-module                   
 github.com/mitchellh/reflectwalk                                              v1.0.2                                             go-module                   
-github.com/moby/buildkit                                                      v0.29.0                                            go-module                   
+github.com/moby/buildkit                                                      v0.30.0                                            go-module                   
 github.com/moby/docker-image-spec                                             v1.3.1                                             go-module  (+1 duplicate)   
 github.com/moby/go-archive                                                    v0.2.0                                             go-module  (+1 duplicate)   
 github.com/moby/ipvs                                                          v1.1.0                                             go-module                   
 github.com/moby/locker                                                        v1.0.1                                             go-module  (+3 duplicates)  
 github.com/moby/moby/api                                                      v1.54.2                                            go-module  (+1 duplicate)   
 github.com/moby/moby/client                                                   v0.4.1                                             go-module                   
-github.com/moby/moby/v2                                                       v29.4.2                                            go-module  (+1 duplicate)   
+github.com/moby/moby/v2                                                       v29.5.2                                            go-module  (+1 duplicate)   
 github.com/moby/patternmatcher                                                v0.6.1                                             go-module  (+1 duplicate)   
-github.com/moby/policy-helpers                                                v0.0.0-20260324161837-b7c0b994300b                 go-module                   
-github.com/moby/profiles/apparmor                                             v0.1.0                                             go-module                   
-github.com/moby/profiles/seccomp                                              v0.2.2                                             go-module                   
+github.com/moby/policy-helpers                                                v0.0.0-20260507153417-a39d60132186                 go-module                   
+github.com/moby/profiles/apparmor                                             v0.2.1                                             go-module                   
+github.com/moby/profiles/seccomp                                              v0.2.3                                             go-module                   
 github.com/moby/pubsub                                                        v1.0.0                                             go-module                   
 github.com/moby/spdystream                                                    v0.5.1                                             go-module                   
-github.com/moby/swarmkit/v2                                                   v2.1.1                                             go-module                   
-github.com/moby/swarmkit/v2                                                   v2.1.2-0.20251110192100-17b8d222e7dd               go-module                   
+github.com/moby/swarmkit/v2                                                   v2.1.2                                             go-module  (+1 duplicate)   
 github.com/moby/sys/atomicwriter                                              v0.1.0                                             go-module  (+1 duplicate)   
 github.com/moby/sys/capability                                                v0.4.0                                             go-module  (+4 duplicates)  
 github.com/moby/sys/mount                                                     v0.3.4                                             go-module                   
@@ -370,11 +373,12 @@ github.com/opencontainers/runc                                                v1
 github.com/opencontainers/runtime-spec                                        v1.3.0                                             go-module  (+5 duplicates)  
 github.com/opencontainers/runtime-tools                                       v0.9.1-0.20251114084447-edf4cb3d2116               go-module  (+2 duplicates)  
 github.com/opencontainers/selinux                                             v1.13.0                                            go-module                   
-github.com/opencontainers/selinux                                             v1.13.1                                            go-module  (+3 duplicates)  
+github.com/opencontainers/selinux                                             v1.13.1                                            go-module  (+2 duplicates)  
+github.com/opencontainers/selinux                                             v1.14.1                                            go-module                   
 github.com/package-url/packageurl-go                                          v0.1.1                                             go-module                   
 github.com/pelletier/go-toml                                                  v1.9.5                                             go-module                   
 github.com/pelletier/go-toml/v2                                               v2.2.4                                             go-module  (+1 duplicate)   
-github.com/pelletier/go-toml/v2                                               v2.3.0                                             go-module                   
+github.com/pelletier/go-toml/v2                                               v2.3.1                                             go-module                   
 github.com/philhofer/fwd                                                      v1.2.0                                             go-module                   
 github.com/pkg/browser                                                        v0.0.0-20240102092130-5ac0b6a4141c                 go-module                   
 github.com/pkg/errors                                                         v0.9.1                                             go-module                   
@@ -389,7 +393,7 @@ github.com/prometheus/common                                                  v0
 github.com/prometheus/procfs                                                  v0.15.1                                            go-module                   
 github.com/prometheus/procfs                                                  v0.16.1                                            go-module  (+1 duplicate)   
 github.com/prometheus/procfs                                                  v0.17.0                                            go-module                   
-github.com/rootless-containers/rootlesskit/v2                                 v2.3.6                                             go-module                   
+github.com/rootless-containers/rootlesskit/v3                                 v3.0.0                                             go-module                   
 github.com/sean-/seed                                                         v0.0.0-20170313163322-e2103e2c3529                 go-module                   
 github.com/seccomp/libseccomp-golang                                          v0.11.1                                            go-module                   
 github.com/secure-systems-lab/go-securesystemslib                             v0.10.0                                            go-module                   
@@ -424,7 +428,7 @@ github.com/transparency-dev/formats                                           v0
 github.com/transparency-dev/merkle                                            v0.0.2                                             go-module                   
 github.com/urfave/cli                                                         v1.22.17                                           go-module                   
 github.com/urfave/cli/v2                                                      v2.27.7                                            go-module  (+2 duplicates)  
-github.com/vbatts/tar-split                                                   v0.12.2                                            go-module                   
+github.com/vbatts/tar-split                                                   v0.12.3                                            go-module                   
 github.com/vishvananda/netlink                                                v1.3.1                                             go-module  (+2 duplicates)  
 github.com/vishvananda/netns                                                  v0.0.5                                             go-module  (+2 duplicates)  
 github.com/weppos/publicsuffix-go                                             v0.30.0                                            go-module                   
@@ -457,9 +461,8 @@ go.etcd.io/bbolt                                                              v1
 go.etcd.io/etcd/api/v3                                                        v3.6.6                                             go-module                   
 go.etcd.io/etcd/client/pkg/v3                                                 v3.6.6                                             go-module                   
 go.etcd.io/etcd/pkg/v3                                                        v3.6.6                                             go-module                   
-go.etcd.io/etcd/raft/v3                                                       v3.5.16                                            go-module                   
 go.etcd.io/etcd/server/v3                                                     v3.6.6                                             go-module                   
-go.etcd.io/raft/v3                                                            v3.6.0                                             go-module                   
+go.etcd.io/raft/v3                                                            v3.6.0                                             go-module  (+1 duplicate)   
 go.opencensus.io                                                              v0.24.0                                            go-module                   
 go.opentelemetry.io/auto/sdk                                                  v1.2.1                                             go-module  (+4 duplicates)  
 go.opentelemetry.io/contrib/instrumentation/google.golang.org/grpc/otelgrpc   v0.60.0                                            go-module                   
@@ -493,26 +496,26 @@ go.opentelemetry.io/proto/otlp                                                v1
 go.uber.org/multierr                                                          v1.11.0                                            go-module                   
 go.uber.org/zap                                                               v1.27.1                                            go-module                   
 go.yaml.in/yaml/v2                                                            v2.4.2                                             go-module  (+2 duplicates)  
-go.yaml.in/yaml/v2                                                            v2.4.3                                             go-module                   
+go.yaml.in/yaml/v2                                                            v2.4.4                                             go-module                   
 go.yaml.in/yaml/v3                                                            v3.0.4                                             go-module  (+1 duplicate)   
 golang.org/x/crypto                                                           v0.45.0                                            go-module                   
-golang.org/x/crypto                                                           v0.50.0                                            go-module                   
+golang.org/x/crypto                                                           v0.51.0                                            go-module                   
 golang.org/x/exp                                                              v0.0.0-20241108190413-2d47ceb2692f                 go-module  (+2 duplicates)  
 golang.org/x/mod                                                              v0.29.0                                            go-module  (+1 duplicate)   
-golang.org/x/mod                                                              v0.34.0                                            go-module                   
+golang.org/x/mod                                                              v0.36.0                                            go-module                   
 golang.org/x/net                                                              v0.43.0                                            go-module                   
 golang.org/x/net                                                              v0.47.0                                            go-module  (+3 duplicates)  
-golang.org/x/net                                                              v0.53.0                                            go-module  (+2 duplicates)  
+golang.org/x/net                                                              v0.54.0                                            go-module  (+2 duplicates)  
 golang.org/x/oauth2                                                           v0.32.0                                            go-module                   
 golang.org/x/oauth2                                                           v0.36.0                                            go-module                   
 golang.org/x/sync                                                             v0.18.0                                            go-module  (+3 duplicates)  
 golang.org/x/sync                                                             v0.20.0                                            go-module  (+1 duplicate)   
 golang.org/x/sys                                                              v0.38.0                                            go-module  (+4 duplicates)  
-golang.org/x/sys                                                              v0.43.0                                            go-module  (+2 duplicates)  
+golang.org/x/sys                                                              v0.44.0                                            go-module  (+2 duplicates)  
 golang.org/x/term                                                             v0.37.0                                            go-module                   
-golang.org/x/term                                                             v0.42.0                                            go-module  (+1 duplicate)   
+golang.org/x/term                                                             v0.43.0                                            go-module  (+1 duplicate)   
 golang.org/x/text                                                             v0.31.0                                            go-module  (+2 duplicates)  
-golang.org/x/text                                                             v0.36.0                                            go-module  (+1 duplicate)   
+golang.org/x/text                                                             v0.37.0                                            go-module  (+1 duplicate)   
 golang.org/x/time                                                             v0.14.0                                            go-module                   
 golang.org/x/time                                                             v0.15.0                                            go-module  (+1 duplicate)   
 google-crc32c                                                                 1.1.2-13.fc44                                      rpm                         
@@ -523,10 +526,11 @@ google-noto-fonts-common                                                      20
 google-noto-sans-cjk-vf-fonts                                                 1:2.004-11.fc44                                    rpm                         
 google-noto-sans-fonts                                                        20251201-2.fc44                                    rpm                         
 google-noto-sans-vf-fonts                                                     20251201-2.fc44                                    rpm                         
-google.golang.org/api                                                         v0.272.0                                           go-module                   
+google.golang.org/api                                                         v0.274.0                                           go-module                   
 google.golang.org/genproto                                                    v0.0.0-20260401024825-9d38bb4040a9                 go-module                   
 google.golang.org/genproto/googleapis/api                                     v0.0.0-20251029180050-ab9386a59fda                 go-module                   
-google.golang.org/genproto/googleapis/api                                     v0.0.0-20260401024825-9d38bb4040a9                 go-module  (+1 duplicate)   
+google.golang.org/genproto/googleapis/api                                     v0.0.0-20260401024825-9d38bb4040a9                 go-module                   
+google.golang.org/genproto/googleapis/api                                     v0.0.0-20260406210006-6f92a3bedf2d                 go-module                   
 google.golang.org/genproto/googleapis/rpc                                     v0.0.0-20251029180050-ab9386a59fda                 go-module  (+3 duplicates)  
 google.golang.org/genproto/googleapis/rpc                                     v0.0.0-20260401024825-9d38bb4040a9                 go-module                   
 google.golang.org/genproto/googleapis/rpc                                     v0.0.0-20260406210006-6f92a3bedf2d                 go-module                   
@@ -571,7 +575,7 @@ i3                                                                            4.
 i3-config                                                                     4.25.1-1.fc44                                      rpm                         
 i3status                                                                      2.15-5.fc44                                        rpm                         
 i3status-config                                                               2.15-5.fc44                                        rpm                         
-idna                                                                          3.16                                               python                      
+idna                                                                          3.17                                               python                      
 ifaddr                                                                        0.2.0                                              python                      
 ilbc                                                                          3.0.4-19.fc44                                      rpm                         
 ima-evm-utils-libs                                                            1.6.2-8.fc44                                       rpm                         
@@ -649,7 +653,7 @@ libattr                                                                       2.
 libavcodec-free                                                               8.1.1-1.fc44                                       rpm                         
 libavformat-free                                                              8.1.1-1.fc44                                       rpm                         
 libavutil-free                                                                8.1.1-1.fc44                                       rpm                         
-libblkid                                                                      2.41.4-7.fc44                                      rpm                         
+libblkid                                                                      2.41.4-8.fc44                                      rpm                         
 libbluray                                                                     1.4.0-3.fc44                                       rpm                         
 libbrotli                                                                     1.2.0-3.fc44                                       rpm                         
 libbsd                                                                        0.12.2-7.fc44                                      rpm                         
@@ -681,7 +685,7 @@ libev                                                                         4.
 libevdev                                                                      1.13.6-2.fc44                                      rpm                         
 libevent                                                                      2.1.12-17.fc44                                     rpm                         
 libexif                                                                       0.6.26-1.fc44                                      rpm                         
-libfdisk                                                                      2.41.4-7.fc44                                      rpm                         
+libfdisk                                                                      2.41.4-8.fc44                                      rpm                         
 libffi                                                                        3.5.2-2.fc44                                       rpm                         
 libfido2                                                                      1.16.0-5.fc44                                      rpm                         
 libfontenc                                                                    1.1.8-5.fc44                                       rpm                         
@@ -703,19 +707,19 @@ libidn2                                                                       2.
 libijs                                                                        0.35-26.fc44                                       rpm                         
 libinput                                                                      1.31.2-1.fc44                                      rpm                         
 libjpeg-turbo                                                                 3.1.3-1.fc44                                       rpm                         
-libjxl                                                                        1:0.11.1-8.fc44                                    rpm                         
+libjxl                                                                        1:0.11.2-1.fc44                                    rpm                         
 libksba                                                                       1.6.7-5.fc44                                       rpm                         
-liblastlog2                                                                   2.41.4-7.fc44                                      rpm                         
+liblastlog2                                                                   2.41.4-8.fc44                                      rpm                         
 liblc3                                                                        1.1.3-7.fc44                                       rpm                         
 libldac                                                                       2.0.2.3-19.fc44                                    rpm                         
-libldb                                                                        2:4.24.2-1.fc44                                    rpm                         
+libldb                                                                        2:4.24.3-1.fc44                                    rpm                         
 liblerc                                                                       4.0.0-10.fc44                                      rpm                         
 libliftoff                                                                    0.5.0-5.fc44                                       rpm                         
 libmd                                                                         1.1.0-9.fc44                                       rpm                         
 libmnl                                                                        1.0.5-9.fc44                                       rpm                         
 libmodplug                                                                    1:0.8.9.0-29.fc44                                  rpm                         
 libmodulemd                                                                   2.15.2-7.fc44                                      rpm                         
-libmount                                                                      2.41.4-7.fc44                                      rpm                         
+libmount                                                                      2.41.4-8.fc44                                      rpm                         
 libmpc                                                                        1.4.1-1.fc44                                       rpm                         
 libnetfilter_conntrack                                                        1.1.1-1.fc44                                       rpm                         
 libnfnetlink                                                                  1.0.1-32.fc44                                      rpm                         
@@ -729,11 +733,11 @@ libnsl2                                                                       2.
 liboeffis                                                                     1.5.0-2.fc44                                       rpm                         
 libogg                                                                        2:1.3.6-2.fc44                                     rpm                         
 libopenjph                                                                    0.25.3-3.fc44                                      rpm                         
-libopenmpt                                                                    0.8.6-1.fc44                                       rpm                         
+libopenmpt                                                                    0.8.7-1.fc44                                       rpm                         
 libpaper                                                                      1:2.1.1-10.fc44                                    rpm                         
 libpciaccess                                                                  0.16-17.fc44                                       rpm                         
 libpkgconf                                                                    2.5.1-1.fc44                                       rpm                         
-libpng                                                                        2:1.6.56-1.fc44                                    rpm                         
+libpng                                                                        2:1.6.58-1.fc44                                    rpm                         
 libpsl                                                                        0.21.5-7.fc44                                      rpm                         
 libpwquality                                                                  1.4.5-15.fc44                                      rpm                         
 librabbitmq                                                                   0.15.0-4.fc44                                      rpm                         
@@ -749,8 +753,8 @@ libselinux-utils                                                              3.
 libsemanage                                                                   3.10-1.fc44                                        rpm                         
 libsepol                                                                      3.10-1.fc44                                        rpm                         
 libsfdo                                                                       0.1.3-5.fc44                                       rpm                         
-libsmartcols                                                                  2.41.4-7.fc44                                      rpm                         
-libsmbclient                                                                  2:4.24.2-1.fc44                                    rpm                         
+libsmartcols                                                                  2.41.4-8.fc44                                      rpm                         
+libsmbclient                                                                  2:4.24.3-1.fc44                                    rpm                         
 libsndfile                                                                    1.2.2-11.fc44                                      rpm                         
 libsodium                                                                     1.0.22-1.fc44                                      rpm                         
 libsolv                                                                       0.7.36-2.fc44                                      rpm                         
@@ -776,7 +780,7 @@ libunistring                                                                  1.
 libunwind                                                                     1.8.3-1.fc44                                       rpm                         
 libusb1                                                                       1.0.29-5.fc44                                      rpm                         
 libutempter                                                                   1.2.1-20.fc44                                      rpm                         
-libuuid                                                                       2.41.4-7.fc44                                      rpm                         
+libuuid                                                                       2.41.4-8.fc44                                      rpm                         
 libuv                                                                         1:1.51.0-3.fc44                                    rpm                         
 libva                                                                         2.23.0-3.fc44                                      rpm                         
 libva-nvidia-driver                                                           0.0.17-1.fc44                                      rpm                         
@@ -787,13 +791,13 @@ libvmaf                                                                       3.
 libvorbis                                                                     1:1.3.7-14.fc44                                    rpm                         
 libvpl                                                                        1:2.16.0-2.fc44                                    rpm                         
 libvpx                                                                        1.15.0-5.fc44                                      rpm                         
-libwacom                                                                      2.18.0-1.fc44                                      rpm                         
-libwacom-data                                                                 2.18.0-1.fc44                                      rpm                         
+libwacom                                                                      2.18.0-2.fc44                                      rpm                         
+libwacom-data                                                                 2.18.0-2.fc44                                      rpm                         
 libwayland-client                                                             1.24.0-3.fc44                                      rpm                         
 libwayland-cursor                                                             1.24.0-3.fc44                                      rpm                         
 libwayland-egl                                                                1.24.0-3.fc44                                      rpm                         
 libwayland-server                                                             1.24.0-3.fc44                                      rpm                         
-libwbclient                                                                   2:4.24.2-1.fc44                                    rpm                         
+libwbclient                                                                   2:4.24.3-1.fc44                                    rpm                         
 libwebp                                                                       1.6.0-3.fc44                                       rpm                         
 libxcb                                                                        1.17.0-7.fc44                                      rpm                         
 libxcrypt                                                                     4.5.2-3.fc44                                       rpm                         
@@ -810,8 +814,8 @@ libxshmfence                                                                  1.
 libxslt                                                                       1.1.43-6.fc44                                      rpm                         
 libyaml                                                                       0.2.5-18.fc44                                      rpm                         
 libzstd                                                                       1.5.7-5.fc44                                       rpm                         
-llvm-filesystem                                                               22.1.5-1.fc44                                      rpm                         
-llvm-libs                                                                     22.1.5-1.fc44                                      rpm                         
+llvm-filesystem                                                               22.1.6-1.fc44                                      rpm                         
+llvm-libs                                                                     22.1.6-1.fc44                                      rpm                         
 lm_sensors-libs                                                               3.6.0-24.fc44                                      rpm                         
 lmdb-libs                                                                     0.9.34-2.fc44                                      rpm                         
 lpcnetfreedv                                                                  0.5-10.fc44                                        rpm                         
@@ -819,16 +823,16 @@ lua-libs                                                                      5.
 lz4-libs                                                                      1.10.0-4.fc44                                      rpm                         
 lzo                                                                           2.10-16.fc44                                       rpm                         
 make                                                                          1:4.4.1-12.fc44                                    rpm                         
-mesa-dri-drivers                                                              26.0.6-2.fc44                                      rpm                         
-mesa-filesystem                                                               26.0.6-2.fc44                                      rpm                         
-mesa-libEGL                                                                   26.0.6-2.fc44                                      rpm                         
-mesa-libGL                                                                    26.0.6-2.fc44                                      rpm                         
-mesa-libgbm                                                                   26.0.6-2.fc44                                      rpm                         
-mesa-va-drivers-freeworld                                                     26.0.6-1.fc44                                      rpm                         
-mesa-vulkan-drivers                                                           26.0.6-2.fc44                                      rpm                         
+mesa-dri-drivers                                                              26.0.7-2.fc44                                      rpm                         
+mesa-filesystem                                                               26.0.7-2.fc44                                      rpm                         
+mesa-libEGL                                                                   26.0.7-2.fc44                                      rpm                         
+mesa-libGL                                                                    26.0.7-2.fc44                                      rpm                         
+mesa-libgbm                                                                   26.0.7-2.fc44                                      rpm                         
+mesa-va-drivers-freeworld                                                     26.0.7-1.fc44                                      rpm                         
+mesa-vulkan-drivers                                                           26.0.7-2.fc44                                      rpm                         
 mkfontscale                                                                   1.2.3-4.fc44                                       rpm                         
-moby-engine                                                                   29.4.2-1.fc44                                      rpm                         
-moby-filesystem                                                               29.4.2-1.fc44                                      rpm                         
+moby-engine                                                                   29.5.2-1.fc44                                      rpm                         
+moby-filesystem                                                               29.5.2-1.fc44                                      rpm                         
 more-itertools                                                                10.8.0                                             python                      
 mpdecimal                                                                     4.0.1-3.fc44                                       rpm                         
 mpfr                                                                          4.2.2-3.fc44                                       rpm                         
@@ -843,11 +847,11 @@ netcat                                                                        1.
 nettle                                                                        3.10.1-3.fc44                                      rpm                         
 nftables                                                                      1:1.1.6-2.fc44                                     rpm                         
 nftables-services                                                             1:1.1.6-2.fc44                                     rpm                         
-nginx                                                                         2:1.30.1-1.fc44                                    rpm                         
-nginx-core                                                                    2:1.30.1-1.fc44                                    rpm                         
-nginx-filesystem                                                              2:1.30.1-1.fc44                                    rpm                         
+nginx                                                                         2:1.30.2-1.fc44                                    rpm                         
+nginx-core                                                                    2:1.30.2-1.fc44                                    rpm                         
+nginx-filesystem                                                              2:1.30.2-1.fc44                                    rpm                         
 nginx-mimetypes                                                               2.1.54-10.fc44                                     rpm                         
-nginx-mod-fancyindex                                                          0.6.0-4.fc44                                       rpm                         
+nginx-mod-fancyindex                                                          0.6.0-5.fc44                                       rpm                         
 ngtcp2                                                                        1.22.1-1.fc44                                      rpm                         
 ngtcp2-crypto-gnutls                                                          1.22.1-1.fc44                                      rpm                         
 ngtcp2-crypto-ossl                                                            1.22.1-1.fc44                                      rpm                         
@@ -859,7 +863,7 @@ nss-softokn                                                                   3.
 nss-softokn-freebl                                                            3.123.1-1.fc44                                     rpm                         
 nss-sysinit                                                                   3.123.1-1.fc44                                     rpm                         
 nss-util                                                                      3.123.1-1.fc44                                     rpm                         
-nvidia-cuda-nvrtc                                                             13.2.78                                            python                      
+nvidia-cuda-nvrtc                                                             13.3.33                                            python                      
 oniguruma                                                                     6.9.10-4.fc44                                      rpm                         
 openapv-libs                                                                  0.2.1.2-1.fc44                                     rpm                         
 openbox                                                                       3.6.1-30.fc44                                      rpm                         
@@ -912,7 +916,7 @@ perl-Filter                                                                   2:
 perl-Getopt-Long                                                              1:2.58-521.fc44                                    rpm                         
 perl-Getopt-Std                                                               0:1.14-524.fc44                                    rpm                         
 perl-Git                                                                      2.54.0-1.fc44                                      rpm                         
-perl-HTTP-Tiny                                                                0.092-2.fc44                                       rpm                         
+perl-HTTP-Tiny                                                                0.094-1.fc44                                       rpm                         
 perl-IO                                                                       0:1.55-524.fc44                                    rpm                         
 perl-IO-Socket-IP                                                             0.43-522.fc44                                      rpm                         
 perl-IO-Socket-SSL                                                            2.098-2.fc44                                       rpm                         
@@ -961,7 +965,7 @@ perl-vars                                                                     0:
 pigz                                                                          2.8-8.fc44                                         rpm                         
 pillow                                                                        12.2.0                                             python                      
 pip                                                                           26.0.1                                             python                      
-pipewire-libs                                                                 1.6.5-2.fc44                                       rpm                         
+pipewire-libs                                                                 1.6.6-1.fc44                                       rpm                         
 pixelflux                                                                     1.6.3                                              python                      
 pixman                                                                        0.46.2-3.fc44                                      rpm                         
 pkgconf                                                                       2.5.1-1.fc44                                       rpm                         
@@ -969,8 +973,8 @@ pkgconf-m4                                                                    2.
 pkgconf-pkg-config                                                            2.5.1-1.fc44                                       rpm                         
 platformdirs                                                                  4.4.0                                              python                      
 platformdirs                                                                  4.9.1                                              python                      
-policycoreutils                                                               3.10-1.fc44                                        rpm                         
-policycoreutils-python-utils                                                  3.10-1.fc44                                        rpm                         
+policycoreutils                                                               3.10-4.fc44                                        rpm                         
+policycoreutils-python-utils                                                  3.10-4.fc44                                        rpm                         
 polkit                                                                        127-2.fc44.2                                       rpm                         
 polkit-libs                                                                   127-2.fc44.2                                       rpm                         
 popt                                                                          1.19-10.fc44                                       rpm                         
@@ -991,18 +995,18 @@ pynput                                                                        1.
 pyopenssl                                                                     26.2.0                                             python                      
 python-pip-wheel                                                              26.0.1-2.fc44                                      rpm                         
 python-setuptools-wheel                                                       80.10.2-3.fc44                                     rpm                         
-python-unversioned-command                                                    3.14.4-2.fc44                                      rpm                         
+python-unversioned-command                                                    3.14.5-1.fc44                                      rpm                         
 python-xlib                                                                   0.33                                               python                      
-python3                                                                       3.14.4-2.fc44                                      rpm                         
+python3                                                                       3.14.5-1.fc44                                      rpm                         
 python3-audit                                                                 4.1.4-1.fc44                                       rpm                         
 python3-distlib                                                               0.4.0-5.fc44                                       rpm                         
 python3-distro                                                                1.9.0-11.fc44                                      rpm                         
 python3-filelock                                                              3.15.4-11.fc44                                     rpm                         
-python3-libs                                                                  3.14.4-2.fc44                                      rpm                         
+python3-libs                                                                  3.14.5-1.fc44                                      rpm                         
 python3-libselinux                                                            3.10-1.fc44                                        rpm                         
 python3-libsemanage                                                           3.10-1.fc44                                        rpm                         
 python3-platformdirs                                                          4.9.1-1.fc44                                       rpm                         
-python3-policycoreutils                                                       3.10-1.fc44                                        rpm                         
+python3-policycoreutils                                                       3.10-4.fc44                                        rpm                         
 python3-pyxdg                                                                 0.28-1.fc44                                        rpm                         
 python3-setools                                                               4.6.0-5.fc44                                       rpm                         
 python3-virtualenv                                                            20.35.4-4.fc44                                     rpm                         
@@ -1023,10 +1027,10 @@ rpmfusion-free-release                                                        44
 rpmfusion-nonfree-release                                                     44-3                                               rpm                         
 rtkit                                                                         0.11-70.fc44                                       rpm                         
 runc                                                                          2:1.4.2-1.fc44                                     rpm                         
-samba-client-libs                                                             2:4.24.2-1.fc44                                    rpm                         
-samba-common                                                                  2:4.24.2-1.fc44                                    rpm                         
-samba-core-libs                                                               2:4.24.2-1.fc44                                    rpm                         
-samba-ndr-libs                                                                2:4.24.2-1.fc44                                    rpm                         
+samba-client-libs                                                             2:4.24.3-1.fc44                                    rpm                         
+samba-common                                                                  2:4.24.3-1.fc44                                    rpm                         
+samba-core-libs                                                               2:4.24.3-1.fc44                                    rpm                         
+samba-ndr-libs                                                                2:4.24.3-1.fc44                                    rpm                         
 sdbus-cpp                                                                     2.2.1-2.fc44                                       rpm                         
 sed                                                                           4.9-7.fc44                                         rpm                         
 selinux                                                                       3.10                                               python                      
@@ -1054,19 +1058,19 @@ sqlite-libs                                                                   3.
 srt-libs                                                                      1.5.5-1.fc44                                       rpm                         
 st                                                                            0.9.2-4.fc44                                       rpm                         
 startup-notification                                                          0.12-33.fc44                                       rpm                         
-stdlib                                                                        go1.26.1-X:nodwarf5                                go-module  (+5 duplicates)  
-stdlib                                                                        go1.26.2-X:nodwarf5                                go-module  (+2 duplicates)  
+stdlib                                                                        go1.26.1-X:nodwarf5                                go-module  (+4 duplicates)  
+stdlib                                                                        go1.26.3-X:nodwarf5                                go-module  (+3 duplicates)  
 sudo                                                                          1.9.17-8.p2.fc44                                   rpm                         
 svt-av1-libs                                                                  3.1.2-2.fc44                                       rpm                         
 sway                                                                          1.11-3.fc44                                        rpm                         
 sway-config-upstream                                                          1.11-3.fc44                                        rpm                         
 sway-wallpapers                                                               1.11-3.fc44                                        rpm                         
 swaybg                                                                        1.2.2-1.fc44                                       rpm                         
-systemd                                                                       259.5-1.fc44                                       rpm                         
-systemd-libs                                                                  259.5-1.fc44                                       rpm                         
-systemd-shared                                                                259.5-1.fc44                                       rpm                         
+systemd                                                                       259.6-1.fc44                                       rpm                         
+systemd-libs                                                                  259.6-1.fc44                                       rpm                         
+systemd-shared                                                                259.6-1.fc44                                       rpm                         
 systemd-standalone-sysusers                                                   259.5-1.fc44                                       rpm                         
-systemd-udev                                                                  259.5-1.fc44                                       rpm                         
+systemd-udev                                                                  259.6-1.fc44                                       rpm                         
 tags.cncf.io/container-device-interface                                       v1.1.0                                             go-module  (+3 duplicates)  
 tags.cncf.io/container-device-interface/specs-go                              v1.1.0                                             go-module  (+2 duplicates)  
 tar                                                                           2:1.35-8.fc44                                      rpm                         
@@ -1089,10 +1093,10 @@ urw-base35-p052-fonts                                                         20
 urw-base35-standard-symbols-ps-fonts                                          20200910-27.fc44                                   rpm                         
 urw-base35-z003-fonts                                                         20200910-27.fc44                                   rpm                         
 utf8proc                                                                      2.11.3-2.fc44                                      rpm                         
-util-linux                                                                    2.41.4-7.fc44                                      rpm                         
-util-linux-core                                                               2.41.4-7.fc44                                      rpm                         
+util-linux                                                                    2.41.4-8.fc44                                      rpm                         
+util-linux-core                                                               2.41.4-8.fc44                                      rpm                         
 vim-data                                                                      2:9.2.240-1.fc44                                   rpm                         
-vim-filesystem                                                                2:9.2.500-1.fc44                                   rpm                         
+vim-filesystem                                                                2:9.2.530-1.fc44                                   rpm                         
 vim-minimal                                                                   2:9.2.240-1.fc44                                   rpm                         
 virtualenv                                                                    20.35.4                                            python                      
 vo-amrwbenc                                                                   0.1.3-24.fc44                                      rpm                         
