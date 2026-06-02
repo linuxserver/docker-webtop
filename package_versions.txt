@@ -28,9 +28,9 @@ bsdutils                                                                      1:
 ca-certificates                                                               20250419                               deb                         
 catatonit                                                                     0.2.1-2+b13                            deb                         
 cffi                                                                          2.0.0                                  python                      
-chromium                                                                      148.0.7778.178-1~deb13u1               deb                         
-chromium-common                                                               148.0.7778.178-1~deb13u1               deb                         
-chromium-l10n                                                                 148.0.7778.178-1~deb13u1               deb                         
+chromium                                                                      148.0.7778.215-1~deb13u1               deb                         
+chromium-common                                                               148.0.7778.215-1~deb13u1               deb                         
+chromium-l10n                                                                 148.0.7778.215-1~deb13u1               deb                         
 cli                                                                           UNKNOWN                                binary                      
 cli-32                                                                        UNKNOWN                                binary                      
 cli-64                                                                        UNKNOWN                                binary                      
@@ -74,7 +74,7 @@ dirmngr                                                                       2.
 distro                                                                        1.9.0                                  python                      
 dmsetup                                                                       2:1.02.205-2                           deb                         
 dnspython                                                                     2.8.0                                  python                      
-docker-buildx-plugin                                                          0.34.0-1~debian.13~trixie              deb                         
+docker-buildx-plugin                                                          0.34.1-1~debian.13~trixie              deb                         
 docker-ce                                                                     5:29.5.2-1~debian.13~trixie            deb                         
 docker-ce-cli                                                                 5:29.5.2-1~debian.13~trixie            deb                         
 docker-compose-plugin                                                         5.1.4-1~debian.13~trixie               deb                         
@@ -214,7 +214,7 @@ github.com/digitorus/timestamp                                                v0
 github.com/dimchansky/utfbom                                                  v1.1.1                                 go-module                   
 github.com/distribution/reference                                             v0.6.0                                 go-module  (+4 duplicates)  
 github.com/docker/buildx                                                      v0.33.0                                go-module                   
-github.com/docker/buildx                                                      v0.34.0                                go-module                   
+github.com/docker/buildx                                                      v0.34.1                                go-module                   
 github.com/docker/cli                                                         v29.4.3+incompatible                   go-module                   
 github.com/docker/cli                                                         v29.5.1+incompatible                   go-module                   
 github.com/docker/cli-docs-tool                                               v0.11.0                                go-module                   
@@ -590,7 +590,7 @@ gzip                                                                          1.
 hicolor-icon-theme                                                            0.18-2                                 deb                         
 hostname                                                                      3.25                                   deb                         
 hunspell-en-us                                                                1:2020.12.07-4                         deb                         
-idna                                                                          3.16                                   python                      
+idna                                                                          3.17                                   python                      
 ifaddr                                                                        0.2.0                                  python                      
 importlib-metadata                                                            8.7.1                                  python                      
 init-system-helpers                                                           1.69~deb13u1                           deb                         
@@ -616,7 +616,7 @@ k8s.io/utils                                                                  v0
 k8s.io/utils                                                                  v0.0.0-20251002143259-bc988d571ff4     go-module                   
 kbd                                                                           2.7.1-2                                deb                         
 keyboard-configuration                                                        1.242~deb13u1                          deb                         
-krb5-locales                                                                  1.21.3-5                               deb                         
+krb5-locales                                                                  1.21.3-5+deb13u1                       deb                         
 labwc                                                                         0.8.3-1                                deb                         
 libabsl20240722                                                               20240722.0-4                           deb                         
 libacl1                                                                       2.3.2-2+b1                             deb                         
@@ -756,7 +756,7 @@ libgs10-common                                                                10
 libgsm1                                                                       1.0.22-1+b2                            deb                         
 libgspell-1-3                                                                 1.14.0-2+b1                            deb                         
 libgspell-1-common                                                            1.14.0-2                               deb                         
-libgssapi-krb5-2                                                              1.21.3-5                               deb                         
+libgssapi-krb5-2                                                              1.21.3-5+deb13u1                       deb                         
 libgstreamer-plugins-base1.0-0                                                1.26.2-1+deb13u1                       deb                         
 libgstreamer1.0-0                                                             1.26.2-2                               deb                         
 libgtk-3-0t64                                                                 3.24.49-3                              deb                         
@@ -801,11 +801,11 @@ libjq1                                                                        1.
 libjson-c5                                                                    0.18+ds-1                              deb                         
 libjsoncpp26                                                                  1.9.6-3                                deb                         
 libjxl0.11                                                                    0.11.2-0.1~deb13u1                     deb                         
-libk5crypto3                                                                  1.21.3-5                               deb                         
+libk5crypto3                                                                  1.21.3-5+deb13u1                       deb                         
 libkeyutils1                                                                  1.6.3-6                                deb                         
 libkmod2                                                                      34.2-2                                 deb                         
-libkrb5-3                                                                     1.21.3-5                               deb                         
-libkrb5support0                                                               1.21.3-5                               deb                         
+libkrb5-3                                                                     1.21.3-5+deb13u1                       deb                         
+libkrb5support0                                                               1.21.3-5+deb13u1                       deb                         
 libksba8                                                                      1.6.7-2+b1                             deb                         
 liblastlog2-2                                                                 2.41-5                                 deb                         
 liblcms2-2                                                                    2.16-2+deb13u2                         deb                         
@@ -927,7 +927,7 @@ libswresample5                                                                7:
 libsystemd-shared                                                             257.13-1~deb13u1                       deb                         
 libsystemd0                                                                   257.13-1~deb13u1                       deb                         
 libtasn1-6                                                                    4.20.0-2                               deb                         
-libtdb1                                                                       2:1.4.13+samba4.22.8+dfsg-0+deb13u1    deb                         
+libtdb1                                                                       2:1.4.13+samba4.22.8+dfsg-0+deb13u2    deb                         
 libtext-iconv-perl                                                            1.7-8+b4                               deb                         
 libthai-data                                                                  0.1.29-2                               deb                         
 libthai0                                                                      0.1.29-2+b1                            deb                         
@@ -943,7 +943,7 @@ libtwolame0                                                                   0.
 libubsan1                                                                     14.2.0-19                              deb                         
 libuchardet0                                                                  0.0.8-1+b2                             deb                         
 libudev1                                                                      257.13-1~deb13u1                       deb                         
-libunbound8                                                                   1.22.0-2+deb13u2                       deb                         
+libunbound8                                                                   1.22.0-2+deb13u3                       deb                         
 libunistring5                                                                 1.3-2                                  deb                         
 libunwind8                                                                    1.8.1-0.1                              deb                         
 libutempter0                                                                  1.2.1-4                                deb                         
@@ -1056,7 +1056,7 @@ libz3-4                                                                       4.
 libzstd1                                                                      1.5.7+dfsg-1                           deb                         
 libzvbi-common                                                                0.2.44-1                               deb                         
 libzvbi0t64                                                                   0.2.44-1                               deb                         
-linux-libc-dev                                                                6.12.88-1                              deb                         
+linux-libc-dev                                                                6.12.90-2                              deb                         
 linux-sysctl-defaults                                                         4.12.1                                 deb                         
 locales                                                                       2.41-12+deb13u3                        deb                         
 locales-all                                                                   2.41-12+deb13u3                        deb                         
@@ -1082,7 +1082,7 @@ netcat-traditional                                                            1.
 nftables                                                                      1.1.3-1                                deb                         
 nginx                                                                         1.26.3-3+deb13u5                       deb                         
 nginx-common                                                                  1.26.3-3+deb13u5                       deb                         
-nvidia-cuda-nvrtc                                                             13.2.78                                python                      
+nvidia-cuda-nvrtc                                                             13.3.33                                python                      
 ocl-icd-libopencl1                                                            2.3.3-1                                deb                         
 openbox                                                                       3.6.1-12+b2                            deb                         
 openssh-client                                                                1:10.0p1-7+deb13u4                     deb                         
