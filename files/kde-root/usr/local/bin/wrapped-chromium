@@ -1,8 +1,24 @@
 #! /bin/bash
 
-BIN=/usr/bin/chromium
-DEFAULT_FLAGS="--password-store=basic --in-process-gpu"
+# /usr/bin/chromium may be a wrapper that points back to this script.
+# Resolve to the actual Chromium executable to avoid recursive launch.
+if [ -x /usr/lib/chromium/chromium ]; then
+  BIN=/usr/lib/chromium/chromium
+elif [ -x /usr/lib/chromium-browser/chromium-browser ]; then
+  BIN=/usr/lib/chromium-browser/chromium-browser
+elif [ -x /usr/bin/chromium.distrib ]; then
+  BIN=/usr/bin/chromium.distrib
+else
+  BIN=/usr/bin/chromium
+fi
+DEFAULT_FLAGS="--password-store=basic --in-process-gpu --ozone-platform=x11"
 EXTRA_FLAGS=(${CHROMIUM_FLAGS:-})
+
+# Chromium/Electron are still more stable with fcitx on XWayland in this image.
+export GTK_IM_MODULE=fcitx
+export QT_IM_MODULE=fcitx
+export XMODIFIERS="@im=fcitx"
+export INPUT_METHOD=fcitx
 
 # Cleanup
 if ! pgrep chromium > /dev/null;then
@@ -10,4 +26,4 @@ if ! pgrep chromium > /dev/null;then
 fi
 
 # Run with --no-sandbox (same as Chrome wrapper)
-${BIN} ${DEFAULT_FLAGS} --no-sandbox "${EXTRA_FLAGS[@]}" "$@"
+exec ${BIN} ${DEFAULT_FLAGS} --no-sandbox "${EXTRA_FLAGS[@]}" "$@"

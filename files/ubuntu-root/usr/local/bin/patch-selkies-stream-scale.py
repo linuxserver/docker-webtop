@@ -10,9 +10,11 @@ while keeping DPI and application scaling untouched.
 The patch is applied in two places inside selkies.py:
 
 1. _apply_client_settings – scales target_w / target_h right after the
-   even-pixel alignment, before the dimensions are stored in display_state.
+   even-pixel alignment, before the dimensions are stored in display_state,
+   but only when the target came from initial browser-reported dimensions.
 2. The standalone resize handler (~line 3321) that processes resize messages
-   from the websocket – same logic applied to its target_w / target_h.
+   from the websocket – same logic applied to its target_w / target_h, and
+   Wayland resize broadcasts the new stream resolution to connected clients.
 """
 
 import sys
@@ -101,6 +103,23 @@ def patch_selkies(filepath):
     ])
 
     PATCH2_NEW = '\n'.join([
+        '            apply_stream_scale_to_target = False',
+        '            if is_initial_settings and isinstance(settings.get("initialClientWidth"), int) and isinstance(settings.get("initialClientHeight"), int):',
+        '                apply_stream_scale_to_target = True',
+        '            if target_w % 2 != 0: target_w -= 1',
+        '            if target_h % 2 != 0: target_h -= 1',
+        '            if apply_stream_scale_to_target:',
+        '                # STREAM_SCALE: scale down browser-reported dimensions once',
+        '                target_w, target_h = _apply_stream_scale(target_w, target_h)',
+        '            resolution_actually_changed = (target_w != old_display_width or target_h != old_display_height)',
+    ])
+
+    content = apply_patch(content, "Patch 2: Apply STREAM_SCALE in _apply_client_settings", PATCH2_OLD, PATCH2_NEW)
+
+    # Upgrade older images/scripts where STREAM_SCALE was applied every time
+    # _apply_client_settings ran. On Wayland this can double-scale after the
+    # resize handler has already updated display_state.
+    PATCH2B_OLD = '\n'.join([
         '            if target_w % 2 != 0: target_w -= 1',
         '            if target_h % 2 != 0: target_h -= 1',
         '            # STREAM_SCALE: scale down for lower-bandwidth streaming',
@@ -108,7 +127,7 @@ def patch_selkies(filepath):
         '            resolution_actually_changed = (target_w != old_display_width or target_h != old_display_height)',
     ])
 
-    content = apply_patch(content, "Patch 2: Apply STREAM_SCALE in _apply_client_settings", PATCH2_OLD, PATCH2_NEW)
+    content = apply_patch(content, "Patch 2b: Avoid double STREAM_SCALE in _apply_client_settings", PATCH2B_OLD, PATCH2_NEW)
 
     # =========================================================================
     # PATCH 3: Apply scale in the standalone resize handler
@@ -128,6 +147,25 @@ def patch_selkies(filepath):
     ])
 
     content = apply_patch(content, "Patch 3: Apply STREAM_SCALE in resize handler", PATCH3_OLD, PATCH3_NEW)
+
+    # =========================================================================
+    # PATCH 4: Wayland dynamic resize must notify clients of the new stream size
+    # =========================================================================
+    PATCH4_OLD = '\n'.join([
+        '                await data_server_instance._stop_capture_for_display(display_id)',
+        '                await data_server_instance._start_capture_for_display(display_id, target_w, target_h, 0, 0)',
+        '            else:',
+    ])
+
+    PATCH4_NEW = '\n'.join([
+        '                await data_server_instance._stop_capture_for_display(display_id)',
+        '                await data_server_instance._start_capture_for_display(display_id, target_w, target_h, 0, 0)',
+        '                if display_id == "primary" and hasattr(data_server_instance, "broadcast_stream_resolution"):',
+        '                    await data_server_instance.broadcast_stream_resolution()',
+        '            else:',
+    ])
+
+    content = apply_patch(content, "Patch 4: Broadcast stream_resolution after Wayland resize", PATCH4_OLD, PATCH4_NEW)
 
     # =========================================================================
     # Write patched file
@@ -158,6 +196,7 @@ def main():
     print("  1. Added _apply_stream_scale() helper function")
     print("  2. _apply_client_settings: scale browser-reported dimensions")
     print("  3. Standalone resize handler: scale resize-request dimensions")
+    print("  4. Wayland resize handler: broadcast stream_resolution after restart")
     print("")
     print("Set STREAM_SCALE=0.5 to stream at half the browser window resolution.")
     print("Default is 1.0 (no scaling). Valid range: 0.25 - 1.0.")

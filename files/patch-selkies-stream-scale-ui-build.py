@@ -12,7 +12,8 @@ Run this script from the Docker build stage BEFORE `npm run build`:
 
 Three changes are made:
   1. resetCanvasStyle  – when __selkiesPrimaryStreamResolution is set, size
-     the canvas buffer to the scaled stream and CSS-letterbox it.
+     the canvas buffer to the scaled stream and stretch the CSS canvas to the
+     available browser viewport.
   2. stream_resolution handler – add a primary-client branch that stores the
      scaled resolution and triggers resetCanvasStyle.
   3. Mouse/touch coords in Input class – include the
@@ -58,27 +59,20 @@ RESET_NEW = """\
     const __pAvailW = __pContainer && __pContainer.clientWidth > 0 ? __pContainer.clientWidth : streamWidth;
     const __pAvailH = __pContainer && __pContainer.clientHeight > 0 ? __pContainer.clientHeight : streamHeight;
     if (__pAvailW > 0 && __pAvailH > 0) {
-      const __pAspect = __primaryStream.width / __primaryStream.height;
-      const __pBoxAspect = __pAvailW / __pAvailH;
-      let __pCssW, __pCssH;
-      if (__pAspect > __pBoxAspect) { __pCssW = __pAvailW; __pCssH = __pAvailW / __pAspect; }
-      else { __pCssH = __pAvailH; __pCssW = __pAvailH * __pAspect; }
-      const __pTop = (__pAvailH - __pCssH) / 2;
-      const __pLeft = (__pAvailW - __pCssW) / 2;
       canvas.style.position = 'absolute';
-      canvas.style.width = `${__pCssW}px`;
-      canvas.style.height = `${__pCssH}px`;
-      canvas.style.top = `${__pTop}px`;
-      canvas.style.left = `${__pLeft}px`;
+      canvas.style.width = `${__pAvailW}px`;
+      canvas.style.height = `${__pAvailH}px`;
+      canvas.style.top = '0px';
+      canvas.style.left = '0px';
       const __pOverlay = document.getElementById('overlayInput');
       if (__pOverlay) {
-        __pOverlay.style.width = `${__pCssW}px`;
-        __pOverlay.style.height = `${__pCssH}px`;
+        __pOverlay.style.width = `${__pAvailW}px`;
+        __pOverlay.style.height = `${__pAvailH}px`;
         __pOverlay.style.position = 'absolute';
-        __pOverlay.style.top = `${__pTop}px`;
-        __pOverlay.style.left = `${__pLeft}px`;
+        __pOverlay.style.top = '0px';
+        __pOverlay.style.left = '0px';
       }
-      console.log(`Reset canvas CSS to fit scaled stream ${__primaryStream.width}x${__primaryStream.height} inside ${__pAvailW}x${__pAvailH}. Buffer: ${__pBufW}x${__pBufH}`);
+      console.log(`Reset canvas CSS to fill viewport ${__pAvailW}x${__pAvailH} for scaled stream ${__primaryStream.width}x${__primaryStream.height}. Buffer: ${__pBufW}x${__pBufH}`);
     } else {
       canvas.style.position = 'absolute';
       canvas.style.width = `${__primaryStream.width}px`;
@@ -87,7 +81,7 @@ RESET_NEW = """\
       canvas.style.left = '0px';
       console.log(`Reset canvas CSS scaled stream fallback: ${__primaryStream.width}x${__primaryStream.height}. Buffer: ${__pBufW}x${__pBufH}`);
     }
-    canvas.style.objectFit = 'contain';
+    canvas.style.objectFit = 'fill';
     canvas.style.display = 'block';
     updateCanvasImageRendering();
     if (window.webrtcInput && typeof window.webrtcInput.resize === 'function') {

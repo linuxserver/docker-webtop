@@ -1,7 +1,7 @@
 [Desktop Entry]
 Type=Application
-Exec=env WAYLAND_DISPLAY=wayland-1 fcitx5 -d --disable=wayland,waylandim,clipboard
-Hidden=false
+Exec=fcitx5 -d
+Hidden=true
 X-GNOME-Autostart-enabled=true
 Name=fcitx5
 Comment=Start Fcitx5 input method daemon

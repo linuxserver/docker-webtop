@@ -4,7 +4,6 @@ set -e
 export XCURSOR_THEME=breeze
 export XCURSOR_SIZE="${XCURSOR_SIZE:-24}"
 export XKB_DEFAULT_RULES=evdev
-export WAYLAND_DISPLAY="${WAYLAND_DISPLAY:-wayland-1}"
 export XDG_CURRENT_DESKTOP=KDE
 export XDG_SESSION_DESKTOP=KDE
 export DESKTOP_SESSION=plasma
@@ -20,11 +19,25 @@ if [ -z "${XDG_RUNTIME_DIR:-}" ]; then
 fi
 mkdir -p "${XDG_RUNTIME_DIR}"
 chmod 700 "${XDG_RUNTIME_DIR}"
+mkdir -p /tmp/.X11-unix
+chmod 1777 /tmp/.X11-unix
+
+if [ -z "${WAYLAND_DISPLAY:-}" ]; then
+  if [ -S "${XDG_RUNTIME_DIR}/wayland-0" ]; then
+    export WAYLAND_DISPLAY=wayland-0
+  elif [ -S "${XDG_RUNTIME_DIR}/wayland-1" ]; then
+    export WAYLAND_DISPLAY=wayland-1
+  else
+    export WAYLAND_DISPLAY=wayland-0
+  fi
+fi
 
 if [[ "${LANG:-}" == ja* ]]; then
   export XKB_DEFAULT_LAYOUT=jp
   export GTK_IM_MODULE=fcitx
   export QT_IM_MODULE=fcitx
+  export SDL_IM_MODULE=fcitx
+  export GLFW_IM_MODULE=fcitx
   export XMODIFIERS="@im=fcitx"
   export INPUT_METHOD=fcitx
 else
@@ -43,7 +56,8 @@ if command -v dbus-update-activation-environment >/dev/null 2>&1; then
     WAYLAND_DISPLAY XDG_CURRENT_DESKTOP XDG_SESSION_DESKTOP DESKTOP_SESSION \
     KDE_FULL_SESSION KDE_SESSION_VERSION QT_QPA_PLATFORM QT_QPA_PLATFORMTHEME \
     XDG_RUNTIME_DIR HOME LANG LANGUAGE LC_ALL \
-    GTK_IM_MODULE QT_IM_MODULE XMODIFIERS INPUT_METHOD DBUS_SESSION_BUS_ADDRESS \
+    GTK_IM_MODULE QT_IM_MODULE SDL_IM_MODULE GLFW_IM_MODULE \
+    XMODIFIERS INPUT_METHOD DBUS_SESSION_BUS_ADDRESS \
     PULSE_SERVER \
     2>/dev/null || true
 fi
@@ -53,19 +67,46 @@ if [ -x /usr/bin/startplasma-wayland ]; then
   SESSION_PID=$!
 
   for _ in $(seq 1 120); do
-    pgrep -u "$(id -u)" -x plasmashell >/dev/null 2>&1 && break
     pgrep -u "$(id -u)" -x kwin_wayland >/dev/null 2>&1 || { sleep .5; continue; }
     pgrep -u "$(id -u)" -x kded6 >/dev/null 2>&1 || { sleep .5; continue; }
     [ -S "${XDG_RUNTIME_DIR}/wayland-0" ] || { sleep .5; continue; }
-    WAYLAND_DISPLAY=wayland-0 DISPLAY="${DISPLAY:-:1}" /usr/bin/plasmashell >"/tmp/plasmashell-${LOG_SUFFIX}.log" 2>&1 &
-    if command -v fcitx5 >/dev/null 2>&1; then
-      # Disable wayland/waylandim: selkies (wayland-1) lacks zwp_input_method_manager_v2,
-      # causing "protocol: 0" warning and wl-paste subprocess leaks via the clipboard addon.
-      # classicui connects to wayland-1 independently and still shows the candidate window.
-      fcitx5 -d --disable=wayland,waylandim,clipboard >"/tmp/fcitx-${LOG_SUFFIX}.log" 2>&1 &
+
+    # KWin-managed virtual keyboard path for Fcitx5 on Wayland.
+    if command -v kwriteconfig6 >/dev/null 2>&1; then
+      kwriteconfig6 --file kwinrc --group Wayland --key InputMethod /usr/share/applications/fcitx5-wayland-launcher.desktop
+      kwriteconfig6 --file kwinrc --group Wayland --key VirtualKeyboardEnabled true
     fi
-    break
+
+    if ! pgrep -u "$(id -u)" -x plasmashell >/dev/null 2>&1; then
+      WAYLAND_DISPLAY=wayland-0 DISPLAY="${DISPLAY:-:1}" /usr/bin/plasmashell >"/tmp/plasmashell-${LOG_SUFFIX}.log" 2>&1 &
+    fi
+
+    if pgrep -u "$(id -u)" -x plasmashell >/dev/null 2>&1; then
+      break
+    fi
+
+    sleep .5
   done
+
+  # In some sessions fcitx starts in inactive state. Explicitly activate once
+  # so selected IM (mozc / keyboard-jp) actually receives key events.
+  if [[ "${LANG:-}" == ja* ]] && command -v gdbus >/dev/null 2>&1; then
+    for _ in $(seq 1 40); do
+      FCITX_PID="$(pgrep -u "$(id -u)" -x fcitx5 | head -1)"
+      if [ -n "${FCITX_PID}" ]; then
+        FCITX_DBUS="$(tr '\0' '\n' < "/proc/${FCITX_PID}/environ" | sed -n 's/^DBUS_SESSION_BUS_ADDRESS=//p' | head -1)"
+        if [ -n "${FCITX_DBUS}" ]; then
+          DBUS_SESSION_BUS_ADDRESS="${FCITX_DBUS}" gdbus call --session \
+            --dest org.fcitx.Fcitx5 \
+            --object-path /controller \
+            --method org.fcitx.Fcitx.Controller1.Activate \
+            >/dev/null 2>&1 || true
+          break
+        fi
+      fi
+      sleep .25
+    done
+  fi
 
   wait "${SESSION_PID}"
   exit $?

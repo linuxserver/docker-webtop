@@ -242,19 +242,40 @@ RUN set -eux; \
       'EndSection' \
       > /etc/X11/xorg.conf.d/00-keyboard.conf; \
     if dpkg --compare-versions "$UBUNTU_VERSION" ge "26.04"; then \
-      im-config -n fcitx5 || true; \
+      # KDE Wayland + Fcitx5: let KWin virtual keyboard manage startup.
+      # Keep im-config from forcing GTK/QT IM env globally.
+      im-config -n none || true; \
       install -d -m 755 /etc/xdg/autostart "/home/${USER_NAME}/.config/autostart"; \
       printf '%s\n' \
         '[Desktop Entry]' \
         'Type=Application' \
         'Exec=fcitx5 -d' \
-        'Hidden=false' \
+        'Hidden=true' \
         'X-GNOME-Autostart-enabled=true' \
         'Name=fcitx5' \
         'Comment=Start Fcitx5 input method daemon' \
         > /etc/xdg/autostart/fcitx-autostart.desktop; \
       cp /etc/xdg/autostart/fcitx-autostart.desktop "/home/${USER_NAME}/.config/autostart/fcitx-autostart.desktop"; \
       chown "${USER_UID}:${USER_GID}" "/home/${USER_NAME}/.config/autostart/fcitx-autostart.desktop"; \
+      install -d -m 755 "/home/${USER_NAME}/.config/fcitx5"; \
+      printf '%s\n' \
+        '[Groups/0]' \
+        'Name=Default' \
+        'Default Layout=jp' \
+        'DefaultIM=keyboard-jp' \
+        '' \
+        '[Groups/0/Items/0]' \
+        'Name=keyboard-jp' \
+        'Layout=jp' \
+        '' \
+        '[Groups/0/Items/1]' \
+        'Name=mozc' \
+        'Layout=jp' \
+        '' \
+        '[GroupOrder]' \
+        '0=Default' \
+        > "/home/${USER_NAME}/.config/fcitx5/profile"; \
+      chown -R "${USER_UID}:${USER_GID}" "/home/${USER_NAME}/.config/fcitx5"; \
     else \
       im-config -n fcitx || true; \
       install -d -m 755 /etc/xdg/autostart "/home/${USER_NAME}/.config/autostart"; \
@@ -440,16 +461,20 @@ if [ -x /usr/lib/chromium/chromium ] || [ -x /usr/bin/chromium ] || [ -x /usr/bi
   cat > /usr/local/bin/wrapped-chromium <<'EOF_WRAPPED_CHROMIUM'
 #!/bin/bash
 
-if [ -x /usr/bin/chromium.distrib ]; then
-  BIN=/usr/bin/chromium.distrib
-elif [ -x /usr/lib/chromium/chromium ]; then
+if [ -x /usr/lib/chromium/chromium ]; then
   BIN=/usr/lib/chromium/chromium
 elif [ -x /usr/lib/chromium-browser/chromium-browser ]; then
   BIN=/usr/lib/chromium-browser/chromium-browser
+elif [ -x /usr/bin/chromium.distrib ]; then
+  BIN=/usr/bin/chromium.distrib
 else
   BIN=/usr/bin/chromium
 fi
-DEFAULT_FLAGS="--password-store=basic --in-process-gpu --ozone-platform=wayland --enable-features=UseOzonePlatform"
+export XMODIFIERS="@im=fcitx"
+export INPUT_METHOD=fcitx
+export GTK_IM_MODULE=fcitx
+export QT_IM_MODULE=fcitx
+DEFAULT_FLAGS="--password-store=basic --in-process-gpu --ozone-platform=x11"
 EXTRA_FLAGS=(${CHROMIUM_FLAGS:-})
 
 # Cleanup
@@ -458,7 +483,7 @@ if ! pgrep chromium > /dev/null; then
 fi
 
 # Run with --no-sandbox (same as Chrome wrapper)
-${BIN} ${DEFAULT_FLAGS} --no-sandbox "${EXTRA_FLAGS[@]}" "$@"
+exec ${BIN} ${DEFAULT_FLAGS} --no-sandbox "${EXTRA_FLAGS[@]}" "$@"
 EOF_WRAPPED_CHROMIUM
   chmod 755 /usr/local/bin/wrapped-chromium
 fi
@@ -497,6 +522,8 @@ if [ "${ARCH}" != "arm64" ]; then
     printf '%s\n' \
       '#!/bin/bash' \
       'CHROME_BIN="/usr/bin/google-chrome-stable"' \
+      'export XMODIFIERS="@im=fcitx"' \
+      'export INPUT_METHOD=fcitx' \
       'exec "${CHROME_BIN}" --password-store=basic --in-process-gpu --no-sandbox ${CHROME_EXTRA_FLAGS} "$@"' \
       > /usr/local/bin/google-chrome-wrapped
     chmod 755 /usr/local/bin/google-chrome-wrapped
