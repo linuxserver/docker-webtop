@@ -15,7 +15,7 @@ available_architectures:
 # development version
 development_versions: true
 development_versions_items:
-  - {tag: "latest", desc: "XFCE Alpine"}
+  - {tag: "latest", desc: "XFCE Alpine *Wayland Support"}
   - {tag: "alpine-i3", desc: "i3 Alpine *Wayland Support"}
   - {tag: "alpine-kde", desc: "KDE Alpine *Wayland Only"}
   - {tag: "alpine-mate", desc: "MATE Alpine"}
@@ -123,6 +123,7 @@ init_diagram: |
   "webtop:latest" <- Base Images
 # changelog
 changelogs:
+  - {date: "10.06.26:", desc: "Rebase Alpine images to 3.24."}
   - {date: "07.05.26:", desc: "Deprecate Enterprise Linux tags."}
   - {date: "07.04.26:", desc: "Rebase Ubuntu images to Resolute."}
   - {date: "26.03.26:", desc: "Rebase Fedora images to 44."}
