@@ -60,7 +60,7 @@ This image provides various versions that are available via tags. Please read th
 
 | Tag | Available | Description |
 | :----: | :----: |--- |
-| latest | ✅ | XFCE Alpine |
+| latest | ✅ | XFCE Alpine *Wayland Support |
 | alpine-i3 | ✅ | i3 Alpine *Wayland Support |
 | alpine-kde | ✅ | KDE Alpine *Wayland Only |
 | alpine-mate | ✅ | MATE Alpine |
@@ -670,6 +670,7 @@ Once registered you can define the dockerfile to use with `-f Dockerfile.aarch64
 
 ## Versions
 
+* **10.06.26:** - Rebase Alpine images to 3.24.
 * **07.05.26:** - Deprecate Enterprise Linux tags.
 * **07.04.26:** - Rebase Ubuntu images to Resolute.
 * **26.03.26:** - Rebase Fedora images to 44.
