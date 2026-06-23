@@ -15,7 +15,7 @@ aiohappyeyeballs                                                              2.
 aiohttp                                                                       3.14.1                                             python                      
 aioice                                                                        0.10.2                                             python                      
 aiosignal                                                                     1.4.0                                              python                      
-alsa-lib                                                                      1.2.16-2.fc44                                      rpm                         
+alsa-lib                                                                      1.2.16.1-1.fc44                                    rpm                         
 alternatives                                                                  1.33-5.fc44                                        rpm                         
 appstream                                                                     1.1.0-3.fc44                                       rpm                         
 aribb24                                                                       1.0.3^20160216git5e9be27-5.fc44                    rpm                         
@@ -34,7 +34,7 @@ avahi-libs                                                                    0.
 backports-tarfile                                                             1.2.0                                              python                      
 bash                                                                          5.3.9-3.fc44                                       rpm                         
 bluez-libs                                                                    5.86-4.fc44                                        rpm                         
-breeze-cursor-theme                                                           6.6.5-1.fc44                                       rpm                         
+breeze-cursor-theme                                                           6.7.0-1.fc44                                       rpm                         
 bubblewrap                                                                    0.11.0-4.fc44                                      rpm                         
 busybox                                                                       1:1.37.0-7.fc44                                    rpm                         
 bzip2                                                                         1.0.8-23.fc44                                      rpm                         
@@ -49,8 +49,8 @@ catatonit                                                                     0.
 cdparanoia-libs                                                               10.2-50.fc44                                       rpm                         
 cffi                                                                          2.0.0                                              python                      
 checkpolicy                                                                   3.10-1.fc44                                        rpm                         
-chromium                                                                      149.0.7827.102-1.fc44                              rpm                         
-chromium-common                                                               149.0.7827.102-1.fc44                              rpm                         
+chromium                                                                      149.0.7827.155-1.fc44                              rpm                         
+chromium-common                                                               149.0.7827.155-1.fc44                              rpm                         
 cjson                                                                         1.7.18-5.fc44                                      rpm                         
 cli                                                                           UNKNOWN                                            binary                      
 cli-32                                                                        UNKNOWN                                            binary                      
@@ -102,7 +102,7 @@ distro                                                                        1.
 dnf5                                                                          5.4.2.1-1.fc44                                     rpm                         
 dnf5-plugins                                                                  5.4.2.1-1.fc44                                     rpm                         
 dnspython                                                                     2.8.0                                              python                      
-docker-cli                                                                    29.5.2-1.fc44                                      rpm                         
+docker-cli                                                                    29.5.3-1.fc44                                      rpm                         
 docker-compose                                                                5.1.4-1.fc44                                       rpm                         
 double-conversion                                                             3.4.0-3.fc44                                       rpm                         
 duktape                                                                       2.7.0-11.fc44                                      rpm                         
@@ -212,7 +212,8 @@ github.com/containerd/cgroups/v3                                              v3
 github.com/containerd/cgroups/v3                                              v3.1.3                                             go-module                   
 github.com/containerd/console                                                 v1.0.5                                             go-module  (+4 duplicates)  
 github.com/containerd/containerd/api                                          v1.10.0                                            go-module  (+4 duplicates)  
-github.com/containerd/containerd/v2                                           v2.2.3                                             go-module  (+4 duplicates)  
+github.com/containerd/containerd/v2                                           v2.2.3                                             go-module  (+3 duplicates)  
+github.com/containerd/containerd/v2                                           v2.2.4                                             go-module                   
 github.com/containerd/continuity                                              v0.4.5                                             go-module  (+3 duplicates)  
 github.com/containerd/continuity                                              v0.5.0                                             go-module                   
 github.com/containerd/errdefs                                                 v1.0.0                                             go-module  (+5 duplicates)  
@@ -250,7 +251,7 @@ github.com/digitorus/pkcs7                                                    v0
 github.com/digitorus/timestamp                                                v0.0.0-20231217203849-220c5c2851b7                 go-module                   
 github.com/dimchansky/utfbom                                                  v1.1.1                                             go-module                   
 github.com/distribution/reference                                             v0.6.0                                             go-module  (+4 duplicates)  
-github.com/docker/cli                                                         v29.5.2                                            go-module                   
+github.com/docker/cli                                                         v29.5.3                                            go-module                   
 github.com/docker/cli-docs-tool                                               v0.11.0                                            go-module                   
 github.com/docker/compose/v5/cmd                                              UNKNOWN                                            go-module                   
 github.com/docker/distribution                                                v2.8.3+incompatible                                go-module  (+1 duplicate)   
@@ -357,7 +358,7 @@ github.com/moby/ipvs                                                          v1
 github.com/moby/locker                                                        v1.0.1                                             go-module  (+3 duplicates)  
 github.com/moby/moby/api                                                      v1.54.2                                            go-module  (+1 duplicate)   
 github.com/moby/moby/client                                                   v0.4.1                                             go-module                   
-github.com/moby/moby/v2                                                       v29.5.2                                            go-module  (+1 duplicate)   
+github.com/moby/moby/v2                                                       v29.5.3                                            go-module  (+1 duplicate)   
 github.com/moby/patternmatcher                                                v0.6.1                                             go-module  (+1 duplicate)   
 github.com/moby/policy-helpers                                                v0.0.0-20260507153417-a39d60132186                 go-module                   
 github.com/moby/profiles/apparmor                                             v0.2.1                                             go-module                   
@@ -391,7 +392,7 @@ github.com/opencontainers/runtime-spec                                        v1
 github.com/opencontainers/runtime-tools                                       v0.9.1-0.20251114084447-edf4cb3d2116               go-module  (+2 duplicates)  
 github.com/opencontainers/selinux                                             v1.13.0                                            go-module                   
 github.com/opencontainers/selinux                                             v1.13.1                                            go-module  (+2 duplicates)  
-github.com/opencontainers/selinux                                             v1.14.1                                            go-module                   
+github.com/opencontainers/selinux                                             v1.15.0                                            go-module                   
 github.com/package-url/packageurl-go                                          v0.1.1                                             go-module                   
 github.com/pelletier/go-toml                                                  v1.9.5                                             go-module                   
 github.com/pelletier/go-toml/v2                                               v2.2.4                                             go-module  (+1 duplicate)   
@@ -519,19 +520,19 @@ go.yaml.in/yaml/v2                                                            v2
 go.yaml.in/yaml/v2                                                            v2.4.4                                             go-module                   
 go.yaml.in/yaml/v3                                                            v3.0.4                                             go-module  (+1 duplicate)   
 golang.org/x/crypto                                                           v0.45.0                                            go-module                   
-golang.org/x/crypto                                                           v0.51.0                                            go-module                   
+golang.org/x/crypto                                                           v0.52.0                                            go-module                   
 golang.org/x/exp                                                              v0.0.0-20241108190413-2d47ceb2692f                 go-module  (+2 duplicates)  
 golang.org/x/mod                                                              v0.29.0                                            go-module  (+1 duplicate)   
 golang.org/x/mod                                                              v0.36.0                                            go-module                   
 golang.org/x/net                                                              v0.43.0                                            go-module                   
 golang.org/x/net                                                              v0.47.0                                            go-module  (+3 duplicates)  
-golang.org/x/net                                                              v0.54.0                                            go-module  (+2 duplicates)  
+golang.org/x/net                                                              v0.55.0                                            go-module  (+2 duplicates)  
 golang.org/x/oauth2                                                           v0.32.0                                            go-module                   
 golang.org/x/oauth2                                                           v0.36.0                                            go-module                   
 golang.org/x/sync                                                             v0.18.0                                            go-module  (+3 duplicates)  
 golang.org/x/sync                                                             v0.20.0                                            go-module  (+1 duplicate)   
 golang.org/x/sys                                                              v0.38.0                                            go-module  (+4 duplicates)  
-golang.org/x/sys                                                              v0.44.0                                            go-module  (+2 duplicates)  
+golang.org/x/sys                                                              v0.45.0                                            go-module  (+2 duplicates)  
 golang.org/x/term                                                             v0.37.0                                            go-module                   
 golang.org/x/term                                                             v0.43.0                                            go-module  (+1 duplicate)   
 golang.org/x/text                                                             v0.31.0                                            go-module  (+2 duplicates)  
@@ -575,9 +576,9 @@ groff-base                                                                    1.
 gsettings-desktop-schemas                                                     50.1-1.fc44                                        rpm                         
 gsm                                                                           1.0.24-2.fc44                                      rpm                         
 gssdp                                                                         1.6.5-1.fc44                                       rpm                         
-gstreamer1                                                                    1.28.3-1.fc44                                      rpm                         
-gstreamer1-plugins-bad-free-libs                                              1.28.3-2.fc44                                      rpm                         
-gstreamer1-plugins-base                                                       1.28.3-1.fc44                                      rpm                         
+gstreamer1                                                                    1.28.4-1.fc44                                      rpm                         
+gstreamer1-plugins-bad-free-libs                                              1.28.4-1.fc44                                      rpm                         
+gstreamer1-plugins-base                                                       1.28.4-1.fc44                                      rpm                         
 gtk-layer-shell                                                               0.10.0-1.fc44                                      rpm                         
 gtk-murrine-engine                                                            0.98.2-43.fc44                                     rpm                         
 gtk-update-icon-cache                                                         3.24.52-1.fc44                                     rpm                         
@@ -688,11 +689,11 @@ libasyncns                                                                    0.
 libatasmart                                                                   0.19-32.fc44                                       rpm                         
 libatomic                                                                     16.1.1-2.fc44                                      rpm                         
 libattr                                                                       2.5.2-8.fc44                                       rpm                         
-libavcodec-free                                                               8.1.1-1.fc44                                       rpm                         
-libavformat-free                                                              8.1.1-1.fc44                                       rpm                         
+libavcodec-free                                                               8.1.2-1.fc44                                       rpm                         
+libavformat-free                                                              8.1.2-1.fc44                                       rpm                         
 libavif                                                                       1.3.0-4.fc44                                       rpm                         
-libavutil-free                                                                8.1.1-1.fc44                                       rpm                         
-libblkid                                                                      2.41.4-8.fc44                                      rpm                         
+libavutil-free                                                                8.1.2-1.fc44                                       rpm                         
+libblkid                                                                      2.41.5-1.fc44                                      rpm                         
 libblockdev                                                                   3.5.0-1.fc44                                       rpm                         
 libblockdev-crypto                                                            3.5.0-1.fc44                                       rpm                         
 libblockdev-fs                                                                3.5.0-1.fc44                                       rpm                         
@@ -740,7 +741,7 @@ libev                                                                         4.
 libevdev                                                                      1.13.6-2.fc44                                      rpm                         
 libevent                                                                      2.1.12-17.fc44                                     rpm                         
 libexif                                                                       0.6.26-1.fc44                                      rpm                         
-libfdisk                                                                      2.41.4-8.fc44                                      rpm                         
+libfdisk                                                                      2.41.5-1.fc44                                      rpm                         
 libffi                                                                        3.5.2-2.fc44                                       rpm                         
 libfido2                                                                      1.16.0-5.fc44                                      rpm                         
 libfontenc                                                                    1.1.8-5.fc44                                       rpm                         
@@ -767,7 +768,7 @@ libinput                                                                      1.
 libjpeg-turbo                                                                 3.1.3-1.fc44                                       rpm                         
 libjxl                                                                        1:0.11.2-1.fc44                                    rpm                         
 libksba                                                                       1.6.7-5.fc44                                       rpm                         
-liblastlog2                                                                   2.41.4-8.fc44                                      rpm                         
+liblastlog2                                                                   2.41.5-1.fc44                                      rpm                         
 liblc3                                                                        1.1.3-7.fc44                                       rpm                         
 libldac                                                                       2.0.2.3-19.fc44                                    rpm                         
 libldb                                                                        2:4.24.3-1.fc44                                    rpm                         
@@ -782,7 +783,7 @@ libmd                                                                         1.
 libmnl                                                                        1.0.5-9.fc44                                       rpm                         
 libmodplug                                                                    1:0.8.9.0-29.fc44                                  rpm                         
 libmodulemd                                                                   2.15.2-7.fc44                                      rpm                         
-libmount                                                                      2.41.4-8.fc44                                      rpm                         
+libmount                                                                      2.41.5-1.fc44                                      rpm                         
 libmpc                                                                        1.4.1-1.fc44                                       rpm                         
 libnetfilter_conntrack                                                        1.1.1-1.fc44                                       rpm                         
 libnfnetlink                                                                  1.0.1-32.fc44                                      rpm                         
@@ -807,7 +808,7 @@ libpng                                                                        2:
 libproxy                                                                      0.5.12-2.fc44                                      rpm                         
 libpsl                                                                        0.21.5-7.fc44                                      rpm                         
 libpwquality                                                                  1.4.5-15.fc44                                      rpm                         
-librabbitmq                                                                   0.15.0-4.fc44                                      rpm                         
+librabbitmq                                                                   0.16.0-1.fc44                                      rpm                         
 librepo                                                                       1.20.0-5.fc44                                      rpm                         
 libreport-filesystem                                                          2.17.15-10.fc44                                    rpm                         
 libretls                                                                      3.8.1-7.fc44                                       rpm                         
@@ -822,7 +823,7 @@ libselinux-utils                                                              3.
 libsemanage                                                                   3.10-1.fc44                                        rpm                         
 libsepol                                                                      3.10-1.fc44                                        rpm                         
 libsfdo                                                                       0.1.3-5.fc44                                       rpm                         
-libsmartcols                                                                  2.41.4-8.fc44                                      rpm                         
+libsmartcols                                                                  2.41.5-1.fc44                                      rpm                         
 libsmbclient                                                                  2:4.24.3-1.fc44                                    rpm                         
 libsndfile                                                                    1.2.2-11.fc44                                      rpm                         
 libsodium                                                                     1.0.22-1.fc44                                      rpm                         
@@ -834,7 +835,7 @@ libssh                                                                        0.
 libssh-config                                                                 0.12.0-1.fc44                                      rpm                         
 libstdc++                                                                     16.1.1-2.fc44                                      rpm                         
 libstemmer                                                                    3.0.1-11.fc44                                      rpm                         
-libswresample-free                                                            8.1.1-1.fc44                                       rpm                         
+libswresample-free                                                            8.1.2-1.fc44                                       rpm                         
 libtalloc                                                                     2.4.4-1.fc44                                       rpm                         
 libtasn1                                                                      4.21.0-1.fc44                                      rpm                         
 libtdb                                                                        1.4.15-1.fc44                                      rpm                         
@@ -851,7 +852,7 @@ libunistring                                                                  1.
 libunwind                                                                     1.8.3-1.fc44                                       rpm                         
 libusb1                                                                       1.0.30-1.fc44                                      rpm                         
 libutempter                                                                   1.2.1-20.fc44                                      rpm                         
-libuuid                                                                       2.41.4-8.fc44                                      rpm                         
+libuuid                                                                       2.41.5-1.fc44                                      rpm                         
 libuv                                                                         1:1.51.0-3.fc44                                    rpm                         
 libva                                                                         2.23.0-3.fc44                                      rpm                         
 libva-nvidia-driver                                                           0.0.17-1.fc44                                      rpm                         
@@ -927,13 +928,13 @@ mesa-libgbm                                                                   26
 mesa-va-drivers-freeworld                                                     26.0.8-1.fc44                                      rpm                         
 mesa-vulkan-drivers                                                           26.0.8-1.fc44                                      rpm                         
 mkfontscale                                                                   1.2.3-4.fc44                                       rpm                         
-moby-engine                                                                   29.5.2-1.fc44                                      rpm                         
-moby-filesystem                                                               29.5.2-1.fc44                                      rpm                         
+moby-engine                                                                   29.5.3-1.fc44                                      rpm                         
+moby-filesystem                                                               29.5.3-1.fc44                                      rpm                         
 more-itertools                                                                10.8.0                                             python                      
 mpdecimal                                                                     4.0.1-3.fc44                                       rpm                         
 mpfr                                                                          4.2.2-3.fc44                                       rpm                         
 mpg123-libs                                                                   1.32.10-3.fc44                                     rpm                         
-msgpack                                                                       1.2.0                                              python                      
+msgpack                                                                       1.2.1                                              python                      
 mtdev                                                                         1.1.6-12.fc44                                      rpm                         
 multidict                                                                     6.7.1                                              python                      
 ncurses                                                                       6.6-1.fc44                                         rpm                         
@@ -952,13 +953,13 @@ ngtcp2                                                                        1.
 ngtcp2-crypto-gnutls                                                          1.22.1-1.fc44                                      rpm                         
 ngtcp2-crypto-ossl                                                            1.22.1-1.fc44                                      rpm                         
 npth                                                                          1.8-4.fc44                                         rpm                         
-nspr                                                                          4.38.2-11.fc44                                     rpm                         
-nss                                                                           3.123.1-1.fc44                                     rpm                         
+nspr                                                                          4.39.0-2.fc44                                      rpm                         
+nss                                                                           3.125.0-1.fc44                                     rpm                         
 nss-mdns                                                                      0.15.1-28.fc44                                     rpm                         
-nss-softokn                                                                   3.123.1-1.fc44                                     rpm                         
-nss-softokn-freebl                                                            3.123.1-1.fc44                                     rpm                         
-nss-sysinit                                                                   3.123.1-1.fc44                                     rpm                         
-nss-util                                                                      3.123.1-1.fc44                                     rpm                         
+nss-softokn                                                                   3.125.0-1.fc44                                     rpm                         
+nss-softokn-freebl                                                            3.125.0-1.fc44                                     rpm                         
+nss-sysinit                                                                   3.125.0-1.fc44                                     rpm                         
+nss-util                                                                      3.125.0-1.fc44                                     rpm                         
 nvidia-cuda-nvrtc                                                             13.3.33                                            python                      
 oniguruma                                                                     6.9.10-4.fc44                                      rpm                         
 openapv-libs                                                                  0.2.1.2-1.fc44                                     rpm                         
@@ -1034,7 +1035,7 @@ perl-Text-ParseWords                                                          3.
 perl-Text-Tabs+Wrap                                                           2024.001-521.fc44                                  rpm                         
 perl-Time-HiRes                                                               4:1.9778-521.fc44                                  rpm                         
 perl-Time-Local                                                               2:1.350-521.fc44                                   rpm                         
-perl-URI                                                                      5.34-3.fc44                                        rpm                         
+perl-URI                                                                      5.35-1.fc44                                        rpm                         
 perl-base                                                                     0:2.27-524.fc44                                    rpm                         
 perl-constant                                                                 1.33-522.fc44                                      rpm                         
 perl-if                                                                       0:0.61.000-524.fc44                                rpm                         
@@ -1052,7 +1053,7 @@ perl-vars                                                                     0:
 pigz                                                                          2.8-8.fc44                                         rpm                         
 pillow                                                                        12.2.0                                             python                      
 pip                                                                           26.0.1                                             python                      
-pipewire-libs                                                                 1.6.6-1.fc44                                       rpm                         
+pipewire-libs                                                                 1.6.7-1.fc44                                       rpm                         
 pixelflux                                                                     1.6.4                                              python                      
 pixman                                                                        0.46.2-3.fc44                                      rpm                         
 pkgconf                                                                       2.5.1-1.fc44                                       rpm                         
@@ -1129,8 +1130,8 @@ samba-ndr-libs                                                                2:
 sdbus-cpp                                                                     2.2.1-2.fc44                                       rpm                         
 sed                                                                           4.9-7.fc44                                         rpm                         
 selinux                                                                       3.10                                               python                      
-selinux-policy                                                                44.2-1.fc44                                        rpm                         
-selinux-policy-targeted                                                       44.2-1.fc44                                        rpm                         
+selinux-policy                                                                44.3-1.fc44                                        rpm                         
+selinux-policy-targeted                                                       44.3-1.fc44                                        rpm                         
 selkies                                                                       0.0.0                                              python                      
 sepolicy                                                                      3.10                                               python                      
 setools                                                                       4.6.0                                              python                      
@@ -1156,7 +1157,8 @@ srt-libs                                                                      1.
 st                                                                            0.9.2-4.fc44                                       rpm                         
 startup-notification                                                          0.12-33.fc44                                       rpm                         
 stdlib                                                                        go1.26.1-X:nodwarf5                                go-module  (+4 duplicates)  
-stdlib                                                                        go1.26.3-X:nodwarf5                                go-module  (+3 duplicates)  
+stdlib                                                                        go1.26.3-X:nodwarf5                                go-module                   
+stdlib                                                                        go1.26.4-X:nodwarf5                                go-module  (+2 duplicates)  
 sudo                                                                          1.9.17-8.p2.fc44                                   rpm                         
 svt-av1-libs                                                                  3.1.2-2.fc44                                       rpm                         
 systemd                                                                       259.6-1.fc44                                       rpm                         
@@ -1187,8 +1189,8 @@ urw-base35-p052-fonts                                                         20
 urw-base35-standard-symbols-ps-fonts                                          20200910-27.fc44                                   rpm                         
 urw-base35-z003-fonts                                                         20200910-27.fc44                                   rpm                         
 utf8proc                                                                      2.11.3-2.fc44                                      rpm                         
-util-linux                                                                    2.41.4-8.fc44                                      rpm                         
-util-linux-core                                                               2.41.4-8.fc44                                      rpm                         
+util-linux                                                                    2.41.5-1.fc44                                      rpm                         
+util-linux-core                                                               2.41.5-1.fc44                                      rpm                         
 vim-data                                                                      2:9.2.597-1.fc44                                   rpm                         
 vim-filesystem                                                                2:9.2.597-1.fc44                                   rpm                         
 vim-minimal                                                                   2:9.2.597-1.fc44                                   rpm                         
