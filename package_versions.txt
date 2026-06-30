@@ -20,7 +20,7 @@ aligned-vec                                                                   0.
 alpine-baselayout                                                             3.7.2-r1                                apk                          
 alpine-baselayout-data                                                        3.7.2-r1                                apk                          
 alpine-keys                                                                   2.6-r0                                  apk                          
-alpine-release                                                                3.24.0-r0                               apk                          
+alpine-release                                                                3.24.1-r0                               apk                          
 alsa-lib                                                                      1.2.15.3-r0                             apk                          
 anstream                                                                      0.6.19                                  rust-crate                   
 anstream                                                                      0.6.8                                   rust-crate                   
@@ -99,10 +99,10 @@ cffi                                                                          2.
 cfg-if                                                                        1.0.0                                   rust-crate                   
 cfg-if                                                                        1.0.1                                   rust-crate                   
 charset-normalizer                                                            3.4.7                                   python                       
-chromium                                                                      149.0.7827.155-r0                       apk                          
-chromium-angle                                                                149.0.7827.155-r0                       apk                          
-chromium-common                                                               149.0.7827.155-r0                       apk                          
-chromium-lang                                                                 149.0.7827.155-r0                       apk                          
+chromium                                                                      149.0.7827.200-r0                       apk                          
+chromium-angle                                                                149.0.7827.200-r0                       apk                          
+chromium-common                                                               149.0.7827.200-r0                       apk                          
+chromium-lang                                                                 149.0.7827.200-r0                       apk                          
 cjson                                                                         1.7.19-r1                               apk                          
 clang21-headers                                                               21.1.8-r3                               apk                          
 clang21-libclang                                                              21.1.8-r3                               apk                          
@@ -131,7 +131,7 @@ colorchoice                                                                   1.
 colorchoice                                                                   1.0.4                                   rust-crate                   
 console                                                                       0.15.11                                 rust-crate                   
 console                                                                       0.15.8                                  rust-crate                   
-containerd                                                                    2.3.1-r0                                apk                          
+containerd                                                                    2.3.2-r0                                apk                          
 core2                                                                         0.4.0                                   rust-crate                   
 coreutils                                                                     9.11-r0                                 apk                          
 coreutils-env                                                                 9.11-r0                                 apk                          
@@ -208,12 +208,12 @@ exiv2-libs                                                                    0.
 fcft                                                                          3.3.3-r0                                apk                          
 fern                                                                          0.6.2                                   rust-crate                   
 fern                                                                          0.7.1                                   rust-crate                   
-ffmpeg-libavcodec                                                             8.1.1-r0                                apk                          
-ffmpeg-libavfilter                                                            8.1.1-r0                                apk                          
-ffmpeg-libavformat                                                            8.1.1-r0                                apk                          
-ffmpeg-libavutil                                                              8.1.1-r0                                apk                          
-ffmpeg-libswresample                                                          8.1.1-r0                                apk                          
-ffmpeg-libswscale                                                             8.1.1-r0                                apk                          
+ffmpeg-libavcodec                                                             8.1.2-r0                                apk                          
+ffmpeg-libavfilter                                                            8.1.2-r0                                apk                          
+ffmpeg-libavformat                                                            8.1.2-r0                                apk                          
+ffmpeg-libavutil                                                              8.1.2-r0                                apk                          
+ffmpeg-libswresample                                                          8.1.2-r0                                apk                          
+ffmpeg-libswscale                                                             8.1.2-r0                                apk                          
 ffmpegthumbs                                                                  26.04.2-r0                              apk                          
 fftw-single-libs                                                              3.3.11-r0                               apk                          
 file                                                                          5.47-r2                                 apk                          
@@ -658,31 +658,32 @@ go.yaml.in/yaml/v3                                                            v3
 go.yaml.in/yaml/v4                                                            v4.0.0-rc.4                             go-module   (+1 duplicate)   
 gobject-introspection                                                         1.86.0-r1                               apk                          
 golang.org/x/crypto                                                           v0.48.0                                 go-module                    
-golang.org/x/crypto                                                           v0.49.0                                 go-module                    
 golang.org/x/crypto                                                           v0.50.0                                 go-module                    
 golang.org/x/crypto                                                           v0.52.0                                 go-module                    
+golang.org/x/crypto                                                           v0.53.0                                 go-module                    
 golang.org/x/exp                                                              v0.0.0-20241108190413-2d47ceb2692f      go-module   (+1 duplicate)   
 golang.org/x/mod                                                              v0.34.0                                 go-module                    
-golang.org/x/mod                                                              v0.35.0                                 go-module                    
-golang.org/x/mod                                                              v0.36.0                                 go-module                    
+golang.org/x/mod                                                              v0.36.0                                 go-module   (+1 duplicate)   
 golang.org/x/net                                                              v0.43.0                                 go-module                    
 golang.org/x/net                                                              v0.51.0                                 go-module                    
-golang.org/x/net                                                              v0.52.0                                 go-module   (+1 duplicate)   
 golang.org/x/net                                                              v0.53.0                                 go-module                    
-golang.org/x/net                                                              v0.55.0                                 go-module   (+1 duplicate)   
+golang.org/x/net                                                              v0.55.0                                 go-module   (+3 duplicates)  
 golang.org/x/oauth2                                                           v0.36.0                                 go-module   (+1 duplicate)   
-golang.org/x/sync                                                             v0.20.0                                 go-module   (+4 duplicates)  
+golang.org/x/sync                                                             v0.20.0                                 go-module   (+2 duplicates)  
+golang.org/x/sync                                                             v0.21.0                                 go-module   (+1 duplicate)   
 golang.org/x/sys                                                              v0.38.0                                 go-module                    
-golang.org/x/sys                                                              v0.43.0                                 go-module   (+2 duplicates)  
+golang.org/x/sys                                                              v0.43.0                                 go-module                    
 golang.org/x/sys                                                              v0.44.0                                 go-module                    
 golang.org/x/sys                                                              v0.45.0                                 go-module   (+1 duplicate)   
-golang.org/x/term                                                             v0.41.0                                 go-module   (+1 duplicate)   
+golang.org/x/sys                                                              v0.46.0                                 go-module   (+1 duplicate)   
+golang.org/x/term                                                             v0.41.0                                 go-module                    
 golang.org/x/term                                                             v0.42.0                                 go-module                    
 golang.org/x/term                                                             v0.43.0                                 go-module                    
+golang.org/x/term                                                             v0.44.0                                 go-module                    
 golang.org/x/text                                                             v0.34.0                                 go-module                    
-golang.org/x/text                                                             v0.35.0                                 go-module                    
 golang.org/x/text                                                             v0.36.0                                 go-module                    
 golang.org/x/text                                                             v0.37.0                                 go-module                    
+golang.org/x/text                                                             v0.38.0                                 go-module                    
 golang.org/x/time                                                             v0.14.0                                 go-module                    
 golang.org/x/time                                                             v0.15.0                                 go-module   (+2 duplicates)  
 google-crc32c                                                                 1.8.0                                   python                       
@@ -1286,8 +1287,8 @@ new_debug_unreachable                                                         1.
 new_debug_unreachable                                                         1.0.6                                   rust-crate                   
 nftables                                                                      1.1.6-r1                                apk                          
 nghttp2-libs                                                                  1.69.0-r0                               apk                          
-nginx                                                                         1.30.2-r1                               apk                          
-nginx-mod-http-fancyindex                                                     1.30.2-r1                               apk                          
+nginx                                                                         1.30.3-r0                               apk                          
+nginx-mod-http-fancyindex                                                     1.30.3-r0                               apk                          
 nom                                                                           7.1.3                                   rust-crate  (+1 duplicate)   
 nom                                                                           8.0.0                                   rust-crate                   
 noop_proc_macro                                                               0.3.0                                   rust-crate  (+1 duplicate)   
@@ -1324,7 +1325,7 @@ openssh-keygen                                                                10
 openssl                                                                       3.5.7-r0                                apk                          
 opus                                                                          1.6.1-r0                                apk                          
 orc                                                                           0.4.41-r0                               apk                          
-p11-kit                                                                       0.25.5-r2                               apk                          
+p11-kit                                                                       0.26.2-r0                               apk                          
 packaging                                                                     26.0                                    python                       
 pango                                                                         1.57.1-r0                               apk                          
 parted                                                                        3.7-r0                                  apk                          
