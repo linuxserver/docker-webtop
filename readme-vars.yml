@@ -76,6 +76,7 @@ init_diagram: |
     init-crontab-config -> init-config-end
     init-config -> init-crontab-config
     init-mods-end -> init-custom-files
+    init-config-end -> init-deprecate
     init-adduser -> init-device-perms
     base -> init-envfile
     init-os-end -> init-kasmvnc
@@ -90,6 +91,7 @@ init_diagram: |
     init-device-perms -> init-os-end
     init-envfile -> init-os-end
     init-custom-files -> init-services
+    init-deprecate -> init-services
     init-kasmvnc-config -> init-video
     init-services -> svc-cron
     svc-cron -> legacy-services
