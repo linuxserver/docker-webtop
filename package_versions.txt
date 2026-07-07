@@ -2,7 +2,7 @@ NAME                                                                          VE
 adduser                                                                       3.152                                  deb                         
 adwaita-icon-theme                                                            48.1-1                                 deb                         
 aiofiles                                                                      25.1.0                                 python                      
-aiohappyeyeballs                                                              2.6.2                                  python                      
+aiohappyeyeballs                                                              2.7.1                                  python                      
 aiohttp                                                                       3.14.1                                 python                      
 aioice                                                                        0.10.2                                 python                      
 aiosignal                                                                     1.4.0                                  python                      
@@ -12,7 +12,7 @@ apt-utils                                                                     3.
 at-spi2-common                                                                2.56.2-1+deb13u1                       deb                         
 attrs                                                                         26.1.0                                 python                      
 autocommand                                                                   2.2.2                                  python                      
-av                                                                            17.1.0                                 python                      
+av                                                                            18.0.0                                 python                      
 backports-tarfile                                                             1.2.0                                  python                      
 base-files                                                                    13.8+deb13u5                           deb                         
 base-passwd                                                                   3.6.7                                  deb                         
@@ -28,9 +28,9 @@ bsdutils                                                                      1:
 ca-certificates                                                               20250419                               deb                         
 catatonit                                                                     0.2.1-2+b13                            deb                         
 cffi                                                                          2.0.0                                  python                      
-chromium                                                                      149.0.7827.196-1~deb13u1               deb                         
-chromium-common                                                               149.0.7827.196-1~deb13u1               deb                         
-chromium-l10n                                                                 149.0.7827.196-1~deb13u1               deb                         
+chromium                                                                      150.0.7871.46-1~deb13u1                deb                         
+chromium-common                                                               150.0.7871.46-1~deb13u1                deb                         
+chromium-l10n                                                                 150.0.7871.46-1~deb13u1                deb                         
 cli                                                                           UNKNOWN                                binary                      
 cli-32                                                                        UNKNOWN                                binary                      
 cli-64                                                                        UNKNOWN                                binary                      
@@ -76,7 +76,7 @@ dnspython                                                                     2.
 docker-buildx-plugin                                                          0.35.0-1~debian.13~trixie              deb                         
 docker-ce                                                                     5:29.6.1-1~debian.13~trixie            deb                         
 docker-ce-cli                                                                 5:29.6.1-1~debian.13~trixie            deb                         
-docker-compose-plugin                                                         5.2.0-1~debian.13~trixie               deb                         
+docker-compose-plugin                                                         5.3.0-1~debian.13~trixie               deb                         
 dpkg                                                                          1.22.22                                deb                         
 dunst                                                                         1.12.2-1                               deb                         
 evdev                                                                         1.9.3                                  python                      
@@ -164,7 +164,7 @@ github.com/clipperhouse/uax29/v2                                              v2
 github.com/cloudflare/cfssl                                                   v1.6.5                                 go-module                   
 github.com/cloudflare/circl                                                   v1.6.3                                 go-module  (+1 duplicate)   
 github.com/compose-spec/compose-go/v2                                         v2.10.2                                go-module                   
-github.com/compose-spec/compose-go/v2                                         v2.12.1                                go-module                   
+github.com/compose-spec/compose-go/v2                                         v2.13.0                                go-module                   
 github.com/container-storage-interface/spec                                   v1.5.0                                 go-module                   
 github.com/containerd/accelerated-container-image                             v1.3.0                                 go-module                   
 github.com/containerd/btrfs/v2                                                v2.0.0                                 go-module                   
@@ -218,7 +218,7 @@ github.com/docker/cli                                                         v2
 github.com/docker/cli                                                         v29.6.0+incompatible                   go-module                   
 github.com/docker/cli-docs-tool                                               v0.11.0                                go-module  (+1 duplicate)   
 github.com/docker/cli/cmd/docker                                              UNKNOWN                                go-module                   
-github.com/docker/compose/v5                                                  v5.2.0                                 go-module                   
+github.com/docker/compose/v5                                                  v5.3.0                                 go-module                   
 github.com/docker/distribution                                                v2.8.3+incompatible                    go-module                   
 github.com/docker/docker                                                      v28.5.2+incompatible                   go-module  (+1 duplicate)   
 github.com/docker/docker-credential-helpers                                   v0.9.8                                 go-module  (+1 duplicate)   
@@ -1028,8 +1028,8 @@ ncurses-term                                                                  6.
 netbase                                                                       6.5                                    deb                         
 netcat-traditional                                                            1.10-50                                deb                         
 nftables                                                                      1.1.3-1                                deb                         
-nginx                                                                         1.26.3-3+deb13u6                       deb                         
-nginx-common                                                                  1.26.3-3+deb13u6                       deb                         
+nginx                                                                         1.26.3-3+deb13u7                       deb                         
+nginx-common                                                                  1.26.3-3+deb13u7                       deb                         
 nvidia-cuda-nvrtc                                                             13.3.33                                python                      
 ocl-icd-libopencl1                                                            2.3.3-1                                deb                         
 openbox                                                                       3.6.1-12+b2                            deb                         
@@ -1045,7 +1045,7 @@ pcmflux                                                                       1.
 perl                                                                          5.40.1-6                               deb                         
 perl-base                                                                     5.40.1-6                               deb                         
 perl-modules-5.40                                                             5.40.1-6                               deb                         
-pillow                                                                        12.2.0                                 python                      
+pillow                                                                        12.3.0                                 python                      
 pinentry-curses                                                               1.3.1-2                                deb                         
 pip                                                                           25.1.1                                 python                      
 pixelflux                                                                     1.6.4                                  python                      
@@ -1106,7 +1106,7 @@ tags.cncf.io/container-device-interface                                       v1
 tags.cncf.io/container-device-interface/specs-go                              v1.1.0                                 go-module  (+2 duplicates)  
 tar                                                                           1.35+dfsg-3.1                          deb                         
 tomli                                                                         2.4.0                                  python                      
-typing-extensions                                                             4.15.0                                 python                      
+typing-extensions                                                             4.16.0                                 python                      
 tzdata                                                                        2026b-0+deb13u1                        deb                         
 udev                                                                          257.13-1~deb13u1                       deb                         
 util-linux                                                                    2.41-5                                 deb                         
@@ -1135,8 +1135,8 @@ xfonts-utils                                                                  1:
 xkb-data                                                                      2.42-1                                 deb                         
 xkbcommon                                                                     1.5.1                                  python                      
 xsel                                                                          1.2.1-1                                deb                         
-xserver-common                                                                2:21.1.16-1.3+deb13u2                  deb                         
-xserver-xorg-core                                                             2:21.1.16-1.3+deb13u2                  deb                         
+xserver-common                                                                2:21.1.16-1.3+deb13u3                  deb                         
+xserver-xorg-core                                                             2:21.1.16-1.3+deb13u3                  deb                         
 xserver-xorg-video-amdgpu                                                     23.0.0-1                               deb                         
 xserver-xorg-video-ati                                                        1:22.0.0-1                             deb                         
 xserver-xorg-video-intel                                                      2:2.99.917+git20210115-1               deb                         
@@ -1146,7 +1146,7 @@ xserver-xorg-video-radeon                                                     1:
 xsettingsd                                                                    1.0.2-1                                deb                         
 xterm                                                                         398-1                                  deb                         
 xutils                                                                        1:7.7+24+deb13u1                       deb                         
-xvfb                                                                          2:21.1.16-1.3+deb13u2                  deb                         
+xvfb                                                                          2:21.1.16-1.3+deb13u3                  deb                         
 xwayland                                                                      2:24.1.6-1                             deb                         
 yarl                                                                          1.24.2                                 python                      
 zipp                                                                          3.23.0                                 python                      
