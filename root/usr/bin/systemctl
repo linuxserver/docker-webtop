@@ -1,0 +1,68 @@
+#!/bin/bash
+
+ACTION=""
+SERVICE=""
+
+# 1. Parse arguments
+while [[ $# -gt 0 ]]; do
+    case "$1" in
+        daemon-reload) ACTION="daemon-reload"; shift ;;
+        start|restart|stop|enable|disable|status) ACTION="$1"; shift ;;
+        --user|--system) shift ;; # Ignore scope flags
+        -*) shift ;; # Ignore other flags like --now
+        *) SERVICE="$1"; shift ;;
+    esac
+done
+
+# 2. Handle non-execution commands
+if [[ "$ACTION" =~ ^(daemon-reload|enable|disable|stop|status)$ ]]; then
+    echo "[fake-systemctl] Pretending to execute: $ACTION ${SERVICE:-}"
+    exit 0
+fi
+
+# 3. Handle Start/Restart
+if [[ "$ACTION" =~ ^(start|restart)$ ]]; then
+    # Ensure service has the correct extension
+    [[ "$SERVICE" != *.service ]] && SERVICE="${SERVICE}.service"
+
+    SERVICE_FILE="$HOME/.config/systemd/user/$SERVICE"
+
+    if [[ ! -f "$SERVICE_FILE" ]]; then
+        echo "[fake-systemctl] Error: Cannot find $SERVICE_FILE"
+        exit 1
+    fi
+
+    echo "[fake-systemctl] Starting $SERVICE..."
+
+    ENV_VARS=$(grep '^[[:space:]]*Environment=' "$SERVICE_FILE" | sed 's/^[[:space:]]*Environment=//')
+    EXEC_CMD=$(grep '^[[:space:]]*ExecStart=' "$SERVICE_FILE" | sed 's/^[[:space:]]*ExecStart=-*+*//' | head -n 1)
+
+    if [[ -z "$EXEC_CMD" ]]; then
+        echo "[fake-systemctl] Error: No ExecStart found in $SERVICE_FILE"
+        exit 1
+    fi
+
+    (
+        while read -r env_line; do
+            if [[ -n "$env_line" ]]; then
+                eval "export $env_line"
+            fi
+        done <<< "$ENV_VARS"
+
+        echo "[fake-systemctl] Executing: $EXEC_CMD"
+        
+        LOG_FILE="/tmp/${SERVICE}.log"
+        echo "[fake-systemctl] Logging output to $LOG_FILE"
+        
+        eval "$EXEC_CMD" > "$LOG_FILE" 2>&1 &
+        
+        # Save the PID
+        echo $! > "/tmp/${SERVICE}.pid"
+    )
+    
+    exit 0
+fi
+
+# Fallback for unhandled commands
+echo "[fake-systemctl] Ignored command: $@"
+exit 0

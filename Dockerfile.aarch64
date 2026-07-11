@@ -20,8 +20,8 @@ RUN \
   pacman -Sy --noconfirm --needed \
     cargo \
     chromium \
+    discover \
     dolphin \
-    firefox \
     kate \
     konsole \
     kwin-x11 \
