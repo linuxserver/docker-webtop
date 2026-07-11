@@ -75,6 +75,17 @@ if [ ! -f "/etc/xdg/menus/applications.menu" ]; then
 fi
 kbuildsycoca6
 
+# Start user systemd services
+if [ -d "$HOME/.config/systemd/user" ]; then
+  for service_file in "$HOME/.config/systemd/user/"*.service; do
+    if [ -f "$service_file" ]; then
+      service_name=$(basename "$service_file")
+      echo "Initializing $service_name..."
+      /usr/bin/systemctl start "$service_name"
+    fi
+  done
+fi
+
 # Wayland Hacks
 if ! grep -q "ozone-platform" /usr/local/bin/wrapped-chromium > /dev/null 2>&1; then
   sudo sed -i 's/--password/--ozone-platform=wayland --password/g' /usr/local/bin/wrapped-chromium
@@ -86,11 +97,11 @@ export XDG_CURRENT_DESKTOP=KDE
 export XDG_SESSION_TYPE=wayland
 export KDE_SESSION_VERSION=6
 unset DISPLAY
-export DISPLAY=:1
+export DISPLAY=:0
 sudo mkdir -p /tmp/.X11-unix
 sudo chmod 1777 /tmp/.X11-unix
 dbus-run-session bash -c '
-    WAYLAND_DISPLAY=wayland-1 python3 /kwin-xwayland.py &
+    WAYLAND_DISPLAY=wayland-1 kwin_wayland --no-lockscreen --xwayland &
     KWIN_PID=$!
     sleep 2
     if [ -f /usr/lib/libexec/polkit-kde-authentication-agent-1 ]; then

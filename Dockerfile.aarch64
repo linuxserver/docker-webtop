@@ -22,7 +22,6 @@ RUN \
     cargo \
     chromium \
     dolphin \
-    firefox \
     kde-gtk-config \
     kde-settings-pulseaudio \
     kde-wallpapers \
@@ -33,6 +32,7 @@ RUN \
     kwrite \
     plasma-breeze \
     plasma-desktop \
+    plasma-discover \
     plasma-systemmonitor \
     plasma-workspace-xorg \
     qt5-qtscript && \
