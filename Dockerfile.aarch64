@@ -7,7 +7,8 @@ LABEL build_version="Linuxserver.io version:- ${VERSION} Build-date:- ${BUILD_DA
 LABEL maintainer="thelamer"
 
 # title
-ENV TITLE="Arch MATE"
+ENV TITLE="Arch MATE" \
+    SELKIES_WAYLAND_SOCKET_INDEX=2
 
 RUN \
   echo "**** add icon ****" && \
@@ -15,12 +16,14 @@ RUN \
     /usr/share/selkies/www/icon.png \
     https://raw.githubusercontent.com/linuxserver/docker-templates/master/linuxserver.io/img/webtop-logo.png && \
   echo "**** install packages ****" && \
-  pacman -Sy --noconfirm --needed \
+  pacman -Sy --noconfirm --needed --overwrite '*' \
     chromium \
     mate \
     mate-media \
     mate-terminal \
-    pluma && \
+    network-manager-applet \
+    pluma \
+    wayfire && \
   echo "**** application tweaks ****" && \
   sed -i \
     's#^Exec=.*#Exec=/usr/local/bin/wrapped-chromium#g' \
