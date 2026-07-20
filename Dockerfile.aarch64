@@ -40,6 +40,15 @@ RUN \
     /usr/bin/chromium-browser && \
   rm -f \
     /etc/xdg/autostart/xscreensaver.desktop && \
+  echo "**** install proot-apps ****" && \
+  rm -f \
+    "$HOME/.local/bin/ncat" \
+    "$HOME/.local/bin/proot-apps" \
+    "$HOME/.local/bin/proot" \
+    "$HOME/.local/bin/jq" && \
+  mkdir -p "$HOME/.local/bin" && \
+  curl -L "https://github.com/linuxserver/proot-apps/releases/download/$(curl -sX GET "https://api.github.com/repos/linuxserver/proot-apps/releases/latest" | awk '/tag_name/{print $4;exit}' FS='[\"\"]')/proot-apps-$(uname -m).tar.gz" | tar -xzf - -C "$HOME/.local/bin/" && \
+  export PATH="$HOME/.local/bin:$PATH" && \
   echo "**** cleanup ****" && \
   apt-get autoclean && \
   rm -rf \
