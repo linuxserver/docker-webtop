@@ -39,6 +39,7 @@ RUN \
     kwin-x11 \
     kwrite \
     plasma-desktop \
+    plasma-discover \
     plasma-workspace \
     qml-module-qt-labs-platform \
     systemsettings && \
