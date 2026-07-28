@@ -10,7 +10,7 @@ adwaita-fonts-sans                                                            50
 agetty                                                                        2.42.1-r0                               apk                          
 aiofiles                                                                      25.1.0                                  python                       
 aiohappyeyeballs                                                              2.7.1                                   python                       
-aiohttp                                                                       3.14.1                                  python                       
+aiohttp                                                                       3.14.3                                  python                       
 aioice                                                                        0.10.2                                  python                       
 aiosignal                                                                     1.4.0                                   python                       
 aligned                                                                       0.4.2                                   rust-crate                   
@@ -21,6 +21,8 @@ alpine-keys                                                                   2.
 alpine-release                                                                3.24.1-r0                               apk                          
 alsa-lib                                                                      1.2.15.3-r0                             apk                          
 alsa-plugins-pulse                                                            1.2.12-r2                               apk                          
+annotated-doc                                                                 0.0.4                                   python                       
+annotated-types                                                               0.8.0                                   python                       
 anstream                                                                      0.6.19                                  rust-crate                   
 anstream                                                                      0.6.8                                   rust-crate                   
 anstyle                                                                       1.0.11                                  rust-crate                   
@@ -31,6 +33,7 @@ anstyle-query                                                                 1.
 anstyle-query                                                                 1.1.3                                   rust-crate                   
 anyhow                                                                        1.0.79                                  rust-crate                   
 anyhow                                                                        1.0.98                                  rust-crate  (+1 duplicate)   
+anyio                                                                         4.14.2                                  python                       
 aom-libs                                                                      3.14.1-r0                               apk                          
 apk-tools                                                                     3.0.6-r0                                apk                          
 arg_enum_proc_macro                                                           0.3.4                                   rust-crate  (+1 duplicate)   
@@ -76,6 +79,7 @@ caja-extensions-lang                                                          1.
 caja-lang                                                                     1.28.0-r0                               apk                          
 catatonit                                                                     0.2.1-r0                                apk                          
 cdparanoia-libs                                                               10.2-r14                                apk                          
+certifi                                                                       2026.7.22                               python                       
 cfdisk                                                                        2.42.1-r0                               apk                          
 cffi                                                                          2.1.0                                   python                       
 cfg-if                                                                        1.0.0                                   rust-crate                   
@@ -98,6 +102,7 @@ cli                                                                           UN
 cli-32                                                                        UNKNOWN                                 binary                       
 cli-64                                                                        UNKNOWN                                 binary                       
 cli-arm64                                                                     UNKNOWN                                 binary                       
+click                                                                         8.4.2                                   python                       
 cloud.google.com/go/auth                                                      v0.19.0                                 go-module                    
 cloud.google.com/go/auth/oauth2adapt                                          v0.2.8                                  go-module                    
 cloud.google.com/go/compute/metadata                                          v0.9.0                                  go-module                    
@@ -163,6 +168,7 @@ errno                                                                         0.
 errno                                                                         0.3.8                                   rust-crate                   
 eudev-libs                                                                    3.2.14-r6                               apk                          
 evdev                                                                         1.9.3                                   python                       
+fastapi                                                                       0.140.7                                 python                       
 fcft                                                                          3.3.3-r0                                apk                          
 fern                                                                          0.6.2                                   rust-crate                   
 fern                                                                          0.7.1                                   rust-crate                   
@@ -669,11 +675,15 @@ gui                                                                           UN
 gui-32                                                                        UNKNOWN                                 binary                       
 gui-64                                                                        UNKNOWN                                 binary                       
 gui-arm64                                                                     UNKNOWN                                 binary                       
+h11                                                                           0.16.0                                  python                       
 harfbuzz                                                                      13.2.1-r0                               apk                          
 harfbuzz-subset                                                               13.2.1-r0                               apk                          
 heck                                                                          0.4.1                                   rust-crate                   
 hexdump                                                                       2.42.1-r0                               apk                          
 hicolor-icon-theme                                                            0.18-r0                                 apk                          
+httpcore                                                                      1.0.9                                   python                       
+httptools                                                                     0.8.0                                   python                       
+httpx                                                                         0.28.1                                  python                       
 hwdata-pci                                                                    0.408-r0                                apk                          
 icu-data-full                                                                 78.1-r0                                 apk                          
 icu-libs                                                                      78.1-r0                                 apk                          
@@ -997,8 +1007,8 @@ new_debug_unreachable                                                         1.
 new_debug_unreachable                                                         1.0.6                                   rust-crate                   
 nftables                                                                      1.1.6-r1                                apk                          
 nghttp2-libs                                                                  1.69.0-r0                               apk                          
-nginx                                                                         1.30.3-r0                               apk                          
-nginx-mod-http-fancyindex                                                     1.30.3-r0                               apk                          
+nginx                                                                         1.30.4-r1                               apk                          
+nginx-mod-http-fancyindex                                                     1.30.4-r1                               apk                          
 nom                                                                           7.1.3                                   rust-crate  (+1 duplicate)   
 nom                                                                           8.0.0                                   rust-crate                   
 noop_proc_macro                                                               0.3.0                                   rust-crate  (+1 duplicate)   
@@ -1041,6 +1051,7 @@ pciutils                                                                      3.
 pciutils-libs                                                                 3.15.0-r0                               apk                          
 pcmflux                                                                       2.0.0                                   python                       
 pcre2                                                                         10.47-r1                                apk                          
+pelorus                                                                       0.2.2                                   python                       
 perl                                                                          5.42.2-r0                               apk                          
 perl-class-inspector                                                          1.36-r3                                 apk                          
 perl-clone                                                                    0.50-r0                                 apk                          
@@ -1049,7 +1060,7 @@ perl-error                                                                    0.
 perl-file-listing                                                             6.16-r0                                 apk                          
 perl-file-sharedir                                                            1.118-r1                                apk                          
 perl-git                                                                      2.54.0-r0                               apk                          
-perl-html-parser                                                              3.83-r1                                 apk                          
+perl-html-parser                                                              3.85-r0                                 apk                          
 perl-html-tagset                                                              3.24-r0                                 apk                          
 perl-http-cookies                                                             6.11-r0                                 apk                          
 perl-http-date                                                                6.06-r0                                 apk                          
@@ -1085,7 +1096,7 @@ procps-ng-lang                                                                4.
 profiling                                                                     1.0.13                                  rust-crate                   
 profiling                                                                     1.0.16                                  rust-crate                   
 profiling-procmacros                                                          1.0.13                                  rust-crate                   
-prometheus-client                                                             0.25.0                                  python                       
+prometheus-client                                                             0.26.0                                  python                       
 propcache                                                                     0.5.2                                   python                       
 psutil                                                                        7.2.2                                   python                       
 pulseaudio                                                                    17.0-r7                                 apk                          
@@ -1100,16 +1111,21 @@ py3-gobject3-pyc                                                              3.
 py3-lxml                                                                      6.1.1-r0                                apk                          
 py3-lxml-pyc                                                                  6.1.1-r0                                apk                          
 pyc                                                                           3.14.5-r0                               apk                          
+pycairo                                                                       1.29.0                                  python                       
 pycparser                                                                     3.0                                     python                       
+pydantic                                                                      2.13.4                                  python                       
+pydantic-core                                                                 2.46.4                                  python                       
 pyee                                                                          13.0.1                                  python                       
-pygobject                                                                     3.56.3                                  python                       
+pygobject                                                                     3.56.3                                  python      (+1 duplicate)   
 pylibsrtp                                                                     1.0.0                                   python                       
 pynput                                                                        1.8.2                                   python                       
 pyopenssl                                                                     26.3.0                                  python                       
+python-dotenv                                                                 1.2.2                                   python                       
 python-xlib                                                                   0.33                                    python                       
 python3                                                                       3.14.5-r0                               apk                          
 python3-pyc                                                                   3.14.5-r0                               apk                          
 python3-pycache-pyc0                                                          3.14.5-r0                               apk                          
+pyyaml                                                                        6.0.3                                   python                       
 quote                                                                         1.0.35                                  rust-crate                   
 quote                                                                         1.0.40                                  rust-crate                   
 radium                                                                        0.7.0                                   rust-crate                   
@@ -1165,6 +1181,7 @@ sqlite-libs                                                                   3.
 ssl_client                                                                    1.37.0-r31                              apk                          
 st                                                                            0.9.3-r0                                apk                          
 stable_deref_trait                                                            1.2.0                                   rust-crate                   
+starlette                                                                     1.3.1                                   python                       
 startup-notification                                                          0.12-r8                                 apk                          
 stdlib                                                                        go1.26.3                                go-module   (+7 duplicates)  
 sudo                                                                          1.9.17_p2-r1                            apk                          
@@ -1186,6 +1203,7 @@ tini-static                                                                   0.
 tinyvec                                                                       1.9.0                                   rust-crate                   
 tomli                                                                         2.4.0                                   python                       
 typing-extensions                                                             4.16.0                                  python                       
+typing-inspection                                                             0.4.2                                   python                       
 tzdata                                                                        2026c-r0                                apk                          
 udisks2-libs                                                                  2.11.0-r2                               apk                          
 umount                                                                        2.42.1-r0                               apk                          
@@ -1203,6 +1221,8 @@ util-linux-misc                                                               2.
 util-macros                                                                   1.20.2-r0                               apk                          
 utmps-libs                                                                    0.1.3.3-r0                              apk                          
 uuidgen                                                                       2.42.1-r0                               apk                          
+uvicorn                                                                       0.51.0                                  python                       
+uvloop                                                                        0.22.1                                  python                       
 v_frame                                                                       0.3.7                                   rust-crate                   
 v_frame                                                                       0.3.9                                   rust-crate                   
 vte3                                                                          0.84.0-r2                               apk                          
@@ -1211,6 +1231,7 @@ vte3-profile                                                                  0.
 vulkan-loader                                                                 1.4.347-r0                              apk                          
 vulkan-tools                                                                  1.4.347-r0                              apk                          
 watchdog                                                                      6.0.0                                   python                       
+watchfiles                                                                    1.2.0                                   python                       
 wayland                                                                       1.25.0-r0                               apk                          
 wayland-libs-client                                                           1.25.0-r0                               apk                          
 wayland-libs-cursor                                                           1.25.0-r0                               apk                          
@@ -1261,7 +1282,7 @@ xwayland                                                                      24
 xz-libs                                                                       5.8.3-r0                                apk                          
 y4m                                                                           0.8.0                                   rust-crate  (+1 duplicate)   
 yaml                                                                          0.2.5-r2                                apk                          
-yarl                                                                          1.24.2                                  python                       
+yarl                                                                          1.24.5                                  python                       
 yelp-tools                                                                    42.1-r2                                 apk                          
 zerocopy                                                                      0.8.25                                  rust-crate                   
 zipp                                                                          3.23.0                                  python                       
