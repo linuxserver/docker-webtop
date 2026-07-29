@@ -81,7 +81,29 @@ export DISPLAY=:1
 export MOZ_ENABLE_WAYLAND=0
 sudo mkdir -p /tmp/.X11-unix
 sudo chmod 1777 /tmp/.X11-unix
-dbus-run-session bash -c '
+
+if [ "${PELORUS,,}" == "true" ]; then
+  export QT_ACCESSIBILITY=1
+  export QT_LINUX_ACCESSIBILITY_ALWAYS_ON=1
+  export GTK_MODULES=gail:atk-bridge
+  dbus-run-session bash -c '
+    WAYLAND_DISPLAY=wayland-1 python3 /kwin-xwayland.py &
+    KWIN_PID=$!
+    sleep 2
+    dbus-send --session --dest=org.a11y.Bus --type=method_call \
+      --print-reply /org/a11y/bus org.freedesktop.DBus.Properties.Set \
+      string:org.a11y.Status string:IsEnabled variant:boolean:true 2>/dev/null || true
+    if [ -f /usr/lib/libexec/polkit-kde-authentication-agent-1 ]; then
+        /usr/lib/libexec/polkit-kde-authentication-agent-1 &
+    elif [ -f /usr/libexec/polkit-kde-authentication-agent-1 ]; then
+        /usr/libexec/polkit-kde-authentication-agent-1 &
+    fi
+    pelorus &
+    WAYLAND_DISPLAY=wayland-0 plasmashell
+    kill $KWIN_PID
+  ' > /dev/null 2>&1
+else
+  dbus-run-session bash -c '
     WAYLAND_DISPLAY=wayland-1 python3 /kwin-xwayland.py &
     KWIN_PID=$!
     sleep 2
@@ -92,4 +114,5 @@ dbus-run-session bash -c '
     fi
     WAYLAND_DISPLAY=wayland-0 plasmashell
     kill $KWIN_PID
-' > /dev/null 2>&1
+  ' > /dev/null 2>&1
+fi
