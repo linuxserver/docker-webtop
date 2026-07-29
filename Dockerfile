@@ -48,6 +48,9 @@ RUN \
     /usr/share/applications/chromium-browser.desktop && \
   setcap -r \
     /usr/sbin/kwin_wayland && \
+  ln -s \
+    /usr/sbin/qdbus-qt6 \
+    /usr/sbin/qdbus6 && \
   echo "**** kde tweaks ****" && \
   rm -f \
     /etc/xdg/autostart/at-spi-dbus-bus.desktop \
