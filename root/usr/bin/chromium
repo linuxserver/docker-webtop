@@ -10,9 +10,22 @@ if ! pgrep chromium > /dev/null;then
   rm -f $HOME/.config/chromium/Singleton*
 fi
 
-# Run normally on privved containers or modified un non priv
-if grep -q 'Seccomp:.0' /proc/1/status; then
-  ${BIN} --ozone-platform=wayland --no-first-run --password-store=basic "$@"
-else
-  ${BIN} --ozone-platform=wayland --no-first-run --password-store=basic --no-sandbox --test-type "$@"
+# Wayland check
+if ls -l /dev/dri/* > /dev/null 2>&1; then
+  if pgrep kwin_wayland > /dev/null 2>&1; then
+    WAYLAND="--ozone-platform=wayland"
+  fi
 fi
+
+# Pelorus accessibility
+if [ "${PELORUS,,}" == "true" ]; then
+  ACCESSIBILITY="--force-renderer-accessibility"
+fi
+
+${BIN} \
+  --password-store=basic \
+  --no-sandbox \
+  --test-type \
+  ${WAYLAND} \
+  ${ACCESSIBILITY} \
+  "$@"
