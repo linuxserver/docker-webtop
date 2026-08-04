@@ -24,7 +24,7 @@ alpine-keys                                                                   2.
 alpine-release                                                                3.24.1-r0                               apk                          
 alsa-lib                                                                      1.2.15.3-r0                             apk                          
 alsa-plugins-pulse                                                            1.2.12-r2                               apk                          
-annotated-doc                                                                 0.0.4                                   python                       
+annotated-doc                                                                 0.0.5                                   python                       
 annotated-types                                                               0.8.0                                   python                       
 anstream                                                                      0.6.19                                  rust-crate                   
 anstream                                                                      0.6.8                                   rust-crate                   
@@ -81,10 +81,10 @@ cfdisk                                                                        2.
 cffi                                                                          2.1.0                                   python                       
 cfg-if                                                                        1.0.0                                   rust-crate                   
 cfg-if                                                                        1.0.1                                   rust-crate                   
-chromium                                                                      150.0.7871.128-r0                       apk                          
-chromium-angle                                                                150.0.7871.128-r0                       apk                          
-chromium-common                                                               150.0.7871.128-r0                       apk                          
-chromium-lang                                                                 150.0.7871.128-r0                       apk                          
+chromium                                                                      150.0.7871.181-r0                       apk                          
+chromium-angle                                                                150.0.7871.181-r0                       apk                          
+chromium-common                                                               150.0.7871.181-r0                       apk                          
+chromium-lang                                                                 150.0.7871.181-r0                       apk                          
 cjson                                                                         1.7.19-r1                               apk                          
 clap                                                                          4.4.14                                  rust-crate                   
 clap                                                                          4.5.40                                  rust-crate                   
@@ -168,7 +168,7 @@ exo-lang                                                                      4.
 exo-libs                                                                      4.20.0-r0                               apk                          
 faac                                                                          1.31.1-r0                               apk                          
 faad2-libs                                                                    2.11.2-r0                               apk                          
-fastapi                                                                       0.140.7                                 python                       
+fastapi                                                                       0.141.1                                 python                       
 fcft                                                                          3.3.3-r0                                apk                          
 fdk-aac                                                                       2.0.2-r4                                apk                          
 fern                                                                          0.6.2                                   rust-crate                   
@@ -875,7 +875,7 @@ libsoup3                                                                      3.
 libsoup3-lang                                                                 3.6.6-r0                                apk                          
 libsrt                                                                        1.5.3-r1                                apk                          
 libsrtp                                                                       2.7.0-r0                                apk                          
-libssh                                                                        0.12.0-r0                               apk                          
+libssh                                                                        0.12.1-r0                               apk                          
 libssl3                                                                       3.5.7-r0                                apk                          
 libstdc++                                                                     15.2.0-r5                               apk                          
 libtasn1                                                                      4.21.0-r0                               apk                          
@@ -966,16 +966,16 @@ mbedtls3                                                                      3.
 mcookie                                                                       2.42.1-r0                               apk                          
 memchr                                                                        2.7.1                                   rust-crate                   
 memchr                                                                        2.7.5                                   rust-crate                   
-mesa                                                                          26.1.1-r1                               apk                          
-mesa-dri-gallium                                                              26.1.1-r1                               apk                          
-mesa-egl                                                                      26.1.1-r1                               apk                          
-mesa-gbm                                                                      26.1.1-r1                               apk                          
-mesa-gl                                                                       26.1.1-r1                               apk                          
-mesa-gles                                                                     26.1.1-r1                               apk                          
-mesa-va-gallium                                                               26.1.1-r1                               apk                          
-mesa-vulkan-ati                                                               26.1.1-r1                               apk                          
-mesa-vulkan-intel                                                             26.1.1-r1                               apk                          
-mesa-vulkan-swrast                                                            26.1.1-r1                               apk                          
+mesa                                                                          26.1.6-r0                               apk                          
+mesa-dri-gallium                                                              26.1.6-r0                               apk                          
+mesa-egl                                                                      26.1.6-r0                               apk                          
+mesa-gbm                                                                      26.1.6-r0                               apk                          
+mesa-gl                                                                       26.1.6-r0                               apk                          
+mesa-gles                                                                     26.1.6-r0                               apk                          
+mesa-va-gallium                                                               26.1.6-r0                               apk                          
+mesa-vulkan-ati                                                               26.1.6-r0                               apk                          
+mesa-vulkan-intel                                                             26.1.6-r0                               apk                          
+mesa-vulkan-swrast                                                            26.1.6-r0                               apk                          
 minimal-lexical                                                               0.2.1                                   rust-crate  (+1 duplicate)   
 minizip                                                                       1.3.2-r1                                apk                          
 mkfontscale                                                                   1.2.4-r0                                apk                          
@@ -1050,7 +1050,7 @@ pciutils                                                                      3.
 pciutils-libs                                                                 3.15.0-r0                               apk                          
 pcmflux                                                                       2.0.0                                   python                       
 pcre2                                                                         10.47-r1                                apk                          
-pelorus                                                                       0.2.2                                   python                       
+pelorus                                                                       0.2.3                                   python                       
 pillow                                                                        12.3.0                                  python                       
 pip                                                                           26.1.1                                  python                       
 pipewire-libs                                                                 1.6.8-r4                                apk                          
@@ -1206,7 +1206,7 @@ util-linux-misc                                                               2.
 util-macros                                                                   1.20.2-r0                               apk                          
 utmps-libs                                                                    0.1.3.3-r0                              apk                          
 uuidgen                                                                       2.42.1-r0                               apk                          
-uvicorn                                                                       0.51.0                                  python                       
+uvicorn                                                                       0.52.0                                  python                       
 uvloop                                                                        0.22.1                                  python                       
 v_frame                                                                       0.3.7                                   rust-crate                   
 v_frame                                                                       0.3.9                                   rust-crate                   
@@ -1229,7 +1229,7 @@ webkit2gtk-4.1                                                                2.
 webkit2gtk-4.1-lang                                                           2.48.7-r0                               apk                          
 webrtc-audio-processing-1                                                     1.3-r3                                  apk                          
 webrtc-audio-processing-2                                                     2.1-r1                                  apk                          
-websockets                                                                    16.1.1                                  python                       
+websockets                                                                    17.0.1                                  python                       
 wheel                                                                         0.46.3                                  python                       
 wipefs                                                                        2.42.1-r0                               apk                          
 wl-clipboard                                                                  2.2.1-r1                                apk                          
