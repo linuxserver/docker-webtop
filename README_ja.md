@@ -250,11 +250,15 @@ USER_PASSWORD=yourpass ./build-user-image.sh
 
 ### コンテナの起動
 
-**対話モード**（引数なし）と **CLI モード**（フラグ指定）の2通り。
+初回起動時は対話ウィザードが設定を `configs/<name>.yml` に保存し、次回以降はその設定を自動で読み込みます。
+保存済みの設定を再編集するには `--reconfigure` を使用します。
 
 ```bash
-# 対話モード — すべての設定をプロンプトで入力
+# 初回起動 — すべての設定を入力して保存
 ./start-container.sh
+
+# 再設定 — 保存済みの値をデフォルトとして対話式で編集してから起動
+./start-container.sh --reconfigure
 
 # CLI の例
 ./start-container.sh --encoder software
@@ -266,7 +270,7 @@ USER_PASSWORD=yourpass ./build-user-image.sh
 ./start-container.sh --encoder software -a amd64   # --platform linux/amd64 を自動付与
 ```
 
-**対話設定の項目**（`create-devcontainer-config.sh` と同一）:
+**対話設定の項目**（`configure-container.sh` で管理）:
 
 コンテナ名、Ubuntu バージョン、アーキテクチャ、Docker モード（`dind`/`dood`）、エンコーダー、Docker GPU 選択（`--all`/`--num`）、DRI ノード、解像度、DPI、ストリームスケール、フレームレート、タイムゾーン、言語、SSL ディレクトリ、Mac/Docker Desktop 設定
 
@@ -351,6 +355,7 @@ IMAGE_NAME=ghcr.io/you/your-base ./files/push-base-image.sh
 |---|---|---|
 | `build-user-image.sh` | ユーザー固有イメージをビルド | `./build-user-image.sh [-l ja] [-u 22.04|24.04|26.04]` |
 | `start-container.sh` | コンテナを起動/再開 | `./start-container.sh [--encoder <type>]` |
+| `configure-container.sh` | 保存済みの起動設定を作成・編集 | `./configure-container.sh [--config <file>]` |
 | `create-devcontainer-config.sh` | Dev Container 設定を生成 | `./create-devcontainer-config.sh` |
 | `stop-container.sh` | コンテナを停止 | `./stop-container.sh [--rm]` |
 
@@ -391,6 +396,8 @@ IMAGE_NAME=ghcr.io/you/your-base ./files/push-base-image.sh
   -p <platform>              docker run の --platform を明示指定
   -s <ssl_dir>               SSL 証明書ディレクトリ
   -n <name>                  コンテナ名
+  --config <file>            YAML 設定ファイル（デフォルト: configs/<name>.yml）
+  --reconfigure              保存済みの設定を起動前に対話式で再編集
 ```
 
 ---

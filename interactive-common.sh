@@ -143,6 +143,12 @@ shared_collect_interactive_settings() {
     local arch_choice=""
     local lang_choice=""
     local default_mac_choice="no"
+    local existing_dri_node="${DRI_NODE:-}"
+    local existing_gpu_nums="${GPU_NUMS:-}"
+
+    if [[ -z "${existing_gpu_nums}" && "${DOCKER_GPUS:-}" == device=* ]]; then
+        existing_gpu_nums="${DOCKER_GPUS#device=}"
+    fi
 
     case "$(shared_to_lower "${ENCODER:-software}")" in
         nvidia) default_encoder_choice="2" ;;
@@ -215,8 +221,8 @@ shared_collect_interactive_settings() {
             echo "DRI Node Configuration"
             echo "----------------------"
             echo "Leave empty to auto-detect the render node."
-            if [[ -n "${DRI_NODE}" ]]; then
-                shared_prompt_text_default DRI_NODE "Specify DRI node (e.g. /dev/dri/renderD129)" "${DRI_NODE}"
+            if [[ -n "${existing_dri_node}" ]]; then
+                shared_prompt_text_default DRI_NODE "Specify DRI node (e.g. /dev/dri/renderD129)" "${existing_dri_node}"
             else
                 shared_prompt_optional_text DRI_NODE "Specify DRI node (e.g. /dev/dri/renderD129, leave empty to auto-detect)"
             fi
@@ -227,8 +233,8 @@ shared_collect_interactive_settings() {
             echo "DRI Node Configuration"
             echo "----------------------"
             echo "Leave empty to auto-detect the render node."
-            if [[ -n "${DRI_NODE}" ]]; then
-                shared_prompt_text_default DRI_NODE "Specify DRI node (e.g. /dev/dri/renderD129)" "${DRI_NODE}"
+            if [[ -n "${existing_dri_node}" ]]; then
+                shared_prompt_text_default DRI_NODE "Specify DRI node (e.g. /dev/dri/renderD129)" "${existing_dri_node}"
             else
                 shared_prompt_optional_text DRI_NODE "Specify DRI node (e.g. /dev/dri/renderD129, leave empty to auto-detect)"
             fi
@@ -256,7 +262,11 @@ shared_collect_interactive_settings() {
             DOCKER_GPUS="all"
             ;;
         3)
-            shared_prompt_required_text GPU_NUMS "Enter GPU device numbers (comma-separated, e.g. 0,1)"
+            if [[ -n "${existing_gpu_nums}" ]]; then
+                shared_prompt_text_default GPU_NUMS "Enter GPU device numbers (comma-separated, e.g. 0,1)" "${existing_gpu_nums}"
+            else
+                shared_prompt_required_text GPU_NUMS "Enter GPU device numbers (comma-separated, e.g. 0,1)"
+            fi
             DOCKER_GPUS="device=${GPU_NUMS}"
             ;;
         *)

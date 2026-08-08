@@ -75,7 +75,7 @@ fi
 usage() {
   cat <<EOF
 Usage: $0 [-n name] [-i image-base] [-t version] [-u ubuntu_version] [-r WIDTHxHEIGHT] [-d dpi] [-p platform] [-a arch] [-s ssl_dir]
-Run without options to start an interactive configuration flow.
+Run without options to load settings from configs/<name>.yml (runs configure-container.sh if not found).
   -n  container name (default: ${NAME})
   -i  image base name; final image becomes <base>-<user>-<arch>-u<ubuntu_ver>:<version> (default base: ${IMAGE_BASE})
   -t  image version tag (default: ${IMAGE_VERSION_DEFAULT})
@@ -98,6 +98,8 @@ Run without options to start an interactive configuration flow.
   --docker-mode <mode>  Docker mode: dind (default) or dood
                         dind: start dockerd inside the container (requires --privileged)
                         dood: mount host /var/run/docker.sock into the container
+      --config <file>   YAML config file path (default: configs/<name>.yml)
+      --reconfigure     Re-run the interactive wizard using the saved config as defaults
 
 Shared memory env vars:
   SHM_SIZE=4g
@@ -248,9 +250,47 @@ normalize_arch_or_die() {
   esac
 }
 
+# ------------------------------------------------------------------------------
+# Simple flat-YAML helpers (no external dependencies)
+# ------------------------------------------------------------------------------
+yaml_get() {
+  local file="$1" key="$2"
+  grep -m1 "^${key}:" "${file}" 2>/dev/null \
+    | sed 's/^[^:]*:[[:space:]]*//' \
+    | sed 's/^"//; s/"$//' \
+    || true
+}
+
+load_yaml_config() {
+  local file="$1" val
+  val=$(yaml_get "${file}" "container_name"); [[ -n "${val}" ]] && NAME="${val}"
+  val=$(yaml_get "${file}" "image_base");     [[ -n "${val}" ]] && IMAGE_BASE="${val}"
+  val=$(yaml_get "${file}" "image_version");  [[ -n "${val}" ]] && IMAGE_VERSION_DEFAULT="${val}"
+  val=$(yaml_get "${file}" "ubuntu_version"); [[ -n "${val}" ]] && UBUNTU_VERSION="${val}"
+  val=$(yaml_get "${file}" "arch");           [[ -n "${val}" ]] && ARCH_OVERRIDE="${val}"
+  val=$(yaml_get "${file}" "resolution");     [[ -n "${val}" ]] && RESOLUTION="${val}"
+  val=$(yaml_get "${file}" "dpi");            [[ -n "${val}" ]] && DPI="${val}"
+  val=$(yaml_get "${file}" "stream_scale");   [[ -n "${val}" ]] && STREAM_SCALE="${val}"
+  val=$(yaml_get "${file}" "framerate");      [[ -n "${val}" ]] && FRAMERATE="${val}"
+  val=$(yaml_get "${file}" "timezone");       [[ -n "${val}" ]] && TIMEZONE="${val}"
+  val=$(yaml_get "${file}" "encoder");        [[ -n "${val}" ]] && ENCODER="${val}"
+  val=$(yaml_get "${file}" "docker_gpus");    DOCKER_GPUS="${val}"
+  val=$(yaml_get "${file}" "dri_node");       DRI_NODE="${val}"
+  val=$(yaml_get "${file}" "docker_mode");    [[ -n "${val}" ]] && DOCKER_MODE="${val}"
+  val=$(yaml_get "${file}" "ssl_dir");        SSL_DIR="${val}"
+  val=$(yaml_get "${file}" "is_mac");         [[ -n "${val}" ]] && IS_MAC="${val}"
+  val=$(yaml_get "${file}" "shm_size");       [[ -n "${val}" ]] && SHM_SIZE="${val}"
+  val=$(yaml_get "${file}" "shm_mode");       [[ -n "${val}" ]] && SHM_MODE="${val}"
+  val=$(yaml_get "${file}" "shm_noexec");     [[ -n "${val}" ]] && SHM_NOEXEC="${val}"
+}
+
 handle_existing_container() {
   if ! docker ps -a --format '{{.Names}}' | grep -qx "${NAME}"; then
     return 0
+  fi
+
+  if [[ "${RECONFIGURE:-false}" == "true" ]]; then
+    echo "Note: ${NAME} already exists; the saved settings will take effect after the container is removed and recreated."
   fi
 
   local status
@@ -283,9 +323,45 @@ interactive_setup() {
   ARCH_OVERRIDE="${TARGET_ARCH}"
 }
 
-INTERACTIVE_MODE=false
-if [[ $# -eq 0 ]]; then
-  INTERACTIVE_MODE=true
+# ------------------------------------------------------------------------------
+# YAML config loading and auto-configure
+# ------------------------------------------------------------------------------
+CONFIG_FILE=""
+RECONFIGURE=false
+
+# Pre-scan args for -n and --config to determine config file path before loading
+_PRESCAN_NAME="${NAME}"
+_prev=""
+for _arg in "$@"; do
+  if [[ "${_prev}" == "-n" ]]; then
+    _PRESCAN_NAME="${_arg}"
+  elif [[ "${_prev}" == "--config" ]]; then
+    CONFIG_FILE="${_arg}"
+  elif [[ "${_arg}" == "--reconfigure" ]]; then
+    RECONFIGURE=true
+  fi
+  _prev="${_arg}"
+done
+unset _prev _arg
+
+if [[ -z "${CONFIG_FILE}" ]]; then
+  CONFIG_FILE="${SCRIPT_DIR}/configs/${_PRESCAN_NAME}.yml"
+fi
+
+# Configure on first run, or explicitly reconfigure an existing config.
+if [[ "${RECONFIGURE}" == "true" ]]; then
+  echo "Running interactive configuration for: ${CONFIG_FILE}"
+  "${SCRIPT_DIR}/configure-container.sh" -n "${_PRESCAN_NAME}" --config "${CONFIG_FILE}"
+elif [[ ! -f "${CONFIG_FILE}" && $# -eq 0 ]]; then
+  echo "No configuration found at: ${CONFIG_FILE}"
+  echo "Running configure-container.sh to create configuration..."
+  "${SCRIPT_DIR}/configure-container.sh" -n "${_PRESCAN_NAME}" --config "${CONFIG_FILE}"
+fi
+unset _PRESCAN_NAME
+
+if [[ -f "${CONFIG_FILE}" ]]; then
+  echo "Loading configuration from: ${CONFIG_FILE}"
+  load_yaml_config "${CONFIG_FILE}"
 fi
 
 while [[ $# -gt 0 ]]; do
@@ -308,6 +384,8 @@ while [[ $# -gt 0 ]]; do
     --num) GPU_NUMS=$2; shift 2 ;;
     --dri-node) DRI_NODE=$2; shift 2 ;;
     --docker-mode) DOCKER_MODE=$2; shift 2 ;;
+    --config) CONFIG_FILE=$2; shift 2 ;;
+    --reconfigure) shift ;;
     -h|--help) usage; exit 0 ;;
     --) shift; break ;;
     -*) echo "Unknown option: $1" >&2; usage; exit 1 ;;
@@ -316,10 +394,6 @@ while [[ $# -gt 0 ]]; do
 done
 
 handle_existing_container
-
-if [[ "${INTERACTIVE_MODE}" == "true" ]]; then
-  interactive_setup
-fi
 
 shared_apply_locale_from_timezone "${TIMEZONE}"
 
@@ -348,7 +422,7 @@ if [[ "${FRAMERATE}" == *-* ]]; then
 fi
 
 if [[ -z "${ENCODER}" ]]; then
-  echo "Error: --encoder is required." >&2
+  echo "Error: encoder is not set. Run './configure-container.sh' first, or pass '--encoder <type>'." >&2
   usage
   exit 1
 fi

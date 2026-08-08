@@ -250,11 +250,15 @@ USER_PASSWORD=yourpass ./build-user-image.sh
 
 ### Starting the Container
 
-Two modes: **interactive** (no args) or **CLI** (with flags).
+On the first run, the interactive wizard saves settings to `configs/<name>.yml`.
+Later runs load that file automatically. Use `--reconfigure` to edit saved settings interactively.
 
 ```bash
-# Interactive — prompts for all settings
+# First run — prompts for all settings and saves them
 ./start-container.sh
+
+# Reconfigure — uses the saved settings as prompt defaults, then starts
+./start-container.sh --reconfigure
 
 # CLI examples
 ./start-container.sh --encoder software
@@ -266,7 +270,7 @@ Two modes: **interactive** (no args) or **CLI** (with flags).
 ./start-container.sh --encoder software -a amd64   # adds --platform linux/amd64
 ```
 
-**Interactive settings** (same items used by `create-devcontainer-config.sh`):
+**Interactive settings** (managed by `configure-container.sh`):
 
 container name, Ubuntu version, architecture, docker mode (`dind`/`dood`), encoder, Docker GPU selection (`--all`/`--num`), DRI node, resolution, DPI, stream scale, framerate, timezone, language, SSL directory, Mac/Docker Desktop options.
 
@@ -351,6 +355,7 @@ IMAGE_NAME=ghcr.io/you/your-base ./files/push-base-image.sh
 |---|---|---|
 | `build-user-image.sh` | Build user-specific image | `./build-user-image.sh [-l ja] [-u 22.04|24.04|26.04]` |
 | `start-container.sh` | Start or resume the container | `./start-container.sh [--encoder <type>]` |
+| `configure-container.sh` | Create or edit saved startup settings | `./configure-container.sh [--config <file>]` |
 | `create-devcontainer-config.sh` | Generate Dev Container config | `./create-devcontainer-config.sh` |
 | `stop-container.sh` | Stop the container | `./stop-container.sh [--rm]` |
 
@@ -391,6 +396,8 @@ Other:
   -p <platform>              Explicit --platform for docker run
   -s <ssl_dir>               SSL certificate directory
   -n <name>                  Container name
+  --config <file>            YAML config file (default: configs/<name>.yml)
+  --reconfigure              Edit saved settings interactively before starting
 ```
 
 ---
