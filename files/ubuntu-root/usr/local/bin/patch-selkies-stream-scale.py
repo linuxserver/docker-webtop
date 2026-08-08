@@ -7,7 +7,8 @@ scaled down before being applied to the virtual desktop.  This reduces the
 amount of pixel data that must be encoded and streamed, saving bandwidth
 while keeping DPI and application scaling untouched.
 
-The patch is applied in two places inside selkies.py:
+The patch also keeps the container DPI authoritative when a browser reconnects
+with a stale scaling_dpi value from local storage.
 
 1. _apply_client_settings – scales target_w / target_h right after the
    even-pixel alignment, before the dimensions are stored in display_state,
@@ -168,6 +169,24 @@ def patch_selkies(filepath):
     content = apply_patch(content, "Patch 4: Broadcast stream_resolution after Wayland resize", PATCH4_OLD, PATCH4_NEW)
 
     # =========================================================================
+    # PATCH 5: Do not let stale browser-local DPI override container settings
+    # =========================================================================
+    PATCH5_OLD = '            new_dpi = sanitize_value("scaling_dpi", settings.get("scaling_dpi"))'
+
+    PATCH5_NEW = '\n'.join([
+        '            # DPI is configured by the container launcher. Browser-local settings',
+        '            # may be stale after --reconfigure, so keep the container value authoritative.',
+        '            try:',
+        '                new_dpi = int(os.environ.get("DPI", ""))',
+        '                if new_dpi <= 0:',
+        '                    raise ValueError("DPI must be positive")',
+        '            except (TypeError, ValueError):',
+        '                new_dpi = sanitize_value("scaling_dpi", settings.get("scaling_dpi"))',
+    ])
+
+    content = apply_patch(content, "Patch 5: Keep container DPI authoritative", PATCH5_OLD, PATCH5_NEW)
+
+    # =========================================================================
     # Write patched file
     # =========================================================================
     if content == original:
@@ -197,6 +216,7 @@ def main():
     print("  2. _apply_client_settings: scale browser-reported dimensions")
     print("  3. Standalone resize handler: scale resize-request dimensions")
     print("  4. Wayland resize handler: broadcast stream_resolution after restart")
+    print("  5. Browser settings cannot override the container DPI")
     print("")
     print("Set STREAM_SCALE=0.5 to stream at half the browser window resolution.")
     print("Default is 1.0 (no scaling). Valid range: 0.25 - 1.0.")

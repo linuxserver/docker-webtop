@@ -131,6 +131,7 @@ fi
 # Always use selkies with pixelflux (WebSocket mode)
 SELKIES_CMD="selkies"
 CMD_OPTS=(--addr="localhost" --mode="websockets" --port="${PORT}")
+CMD_OPTS+=(--scaling-dpi="${DPI:-96}")
 
 # Disable selkies basic auth - nginx handles authentication
 CMD_OPTS+=(--enable-basic-auth=false)

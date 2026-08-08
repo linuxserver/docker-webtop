@@ -1,16 +1,39 @@
 #!/bin/bash
 
-# Set scaling for HiDPI displays
-if [ -n "${DPI}" ] && [ "${DPI}" != "96" ]; then
-  # Calculate scale factor from DPI (96 DPI = 1.0 scale)
-  SCALE_FACTOR=$(echo "scale=2; ${DPI} / 96" | bc)
-  export QT_SCALE_FACTOR=${SCALE_FACTOR}
-  export GDK_SCALE=${SCALE_FACTOR%.*}  # Integer part for GTK
-  export GDK_DPI_SCALE=$(echo "scale=2; 96 / ${DPI}" | bc)  # Inverse for text
-  
-  # Set KDE scaling
-  kwriteconfig5 --file $HOME/.config/kcmfonts --group General --key forceFontDPI ${DPI}
-  kwriteconfig5 --file $HOME/.config/kdeglobals --group KScreen --key ScaleFactor ${SCALE_FACTOR}
+# Apply scaling on every start, including DPI=96, so a previous HiDPI setting
+# cannot remain in the persisted KDE configuration after reconfiguration.
+DPI=${DPI:-96}
+SCALE_FACTOR=$(awk "BEGIN { printf \"%.2f\", ${DPI} / 96 }")
+export QT_AUTO_SCREEN_SCALE_FACTOR=0
+export QT_SCALE_FACTOR_ROUNDING_POLICY=PassThrough
+export QT_SCALE_FACTOR="${SCALE_FACTOR}"
+# QT_SCALE_FACTOR already scales widgets and fonts. Keep the font baseline at
+# 96 DPI to avoid multiplying the requested scale a second time.
+export QT_FONT_DPI=96
+
+# GTK needs an integer UI scale and a fractional font adjustment. Their
+# product matches DPI / 96 (for example, 144 DPI => 2 * 0.75 = 1.5).
+if [ "${DPI}" -ge 120 ]; then
+  export GDK_SCALE=2
+  export GDK_DPI_SCALE=$(awk "BEGIN { printf \"%.3f\", ${SCALE_FACTOR} / 2 }")
+else
+  export GDK_SCALE=1
+  export GDK_DPI_SCALE="${SCALE_FACTOR}"
+fi
+
+KWRITECONFIG=""
+if command -v kwriteconfig6 >/dev/null 2>&1; then
+  KWRITECONFIG=kwriteconfig6
+elif command -v kwriteconfig5 >/dev/null 2>&1; then
+  KWRITECONFIG=kwriteconfig5
+fi
+
+if [ -n "${KWRITECONFIG}" ]; then
+  # Clear persisted KDE display/font scaling and use the session-wide
+  # QT_SCALE_FACTOR above as the single Qt scaling source.
+  "${KWRITECONFIG}" --file "${HOME}/.config/kcmfonts" --group General --key forceFontDPI 96
+  "${KWRITECONFIG}" --file "${HOME}/.config/kdeglobals" --group KScreen --key ScaleFactor 1
+  "${KWRITECONFIG}" --file "${HOME}/.config/kdeglobals" --group KScreen --key ScreenScaleFactors --delete 2>/dev/null || true
 fi
 
 # Disable compositing and screen lock

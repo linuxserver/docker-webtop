@@ -211,13 +211,26 @@ while [[ $# -gt 0 ]]; do
 done
 
 # Validation (match start-container.sh behavior)
-if [[ ! $RESOLUTION =~ ^[0-9]+x[0-9]+$ ]]; then
+if [[ ! $RESOLUTION =~ ^[1-9][0-9]*x[1-9][0-9]*$ ]]; then
     echo "Error: Resolution must be WIDTHxHEIGHT (e.g. 1920x1080)" >&2
     exit 1
 fi
 
-if ! awk "BEGIN { v=${STREAM_SCALE}+0; exit !(v >= 0.25 && v <= 1.0) }" 2>/dev/null; then
+case "${UBUNTU_VERSION}" in
+    22.04|24.04|26.04) ;;
+    *)
+        echo "Error: Unsupported Ubuntu version: ${UBUNTU_VERSION}. Use 22.04, 24.04, or 26.04." >&2
+        exit 1
+        ;;
+esac
+
+if ! awk -v value="${STREAM_SCALE}" 'BEGIN { exit !(value ~ /^[0-9]+([.][0-9]+)?$/ && value >= 0.25 && value <= 1.0) }' 2>/dev/null; then
     echo "Error: STREAM_SCALE must be between 0.25 and 1.0 (got: ${STREAM_SCALE})" >&2
+    exit 1
+fi
+
+if [[ ! "${DPI}" =~ ^[0-9]+$ ]] || (( DPI <= 0 )); then
+    echo "Error: DPI must be a positive integer (e.g. 96, 144, or 192). Got: ${DPI}" >&2
     exit 1
 fi
 
@@ -229,7 +242,7 @@ fi
 if [[ "${FRAMERATE}" == *-* ]]; then
     FRAMERATE_MIN=${FRAMERATE%-*}
     FRAMERATE_MAX=${FRAMERATE#*-}
-    if (( FRAMERATE_MIN > FRAMERATE_MAX )); then
+    if ! awk -v min="${FRAMERATE_MIN}" -v max="${FRAMERATE_MAX}" 'BEGIN { exit !(min <= max) }'; then
         echo "Error: FRAMERATE range is invalid: ${FRAMERATE}. Minimum must be <= maximum." >&2
         exit 1
     fi

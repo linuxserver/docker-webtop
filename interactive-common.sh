@@ -142,6 +142,8 @@ shared_collect_interactive_settings() {
     local gpu_choice=""
     local arch_choice=""
     local lang_choice=""
+    local framerate_choice=""
+    local stream_scale_choice=""
     local default_mac_choice="no"
     local existing_dri_node="${DRI_NODE:-}"
     local existing_gpu_nums="${GPU_NUMS:-}"
@@ -187,7 +189,7 @@ shared_collect_interactive_settings() {
     echo "1. Container Settings"
     echo "---------------------"
     shared_prompt_text_default CONTAINER_NAME "Container name" "${CONTAINER_NAME}"
-    shared_prompt_text_default UBUNTU_VERSION "Ubuntu version (22.04, 24.04, or 26.04)" "${UBUNTU_VERSION}"
+    shared_prompt_choice_default UBUNTU_VERSION "Ubuntu version (22.04, 24.04, or 26.04)" "${UBUNTU_VERSION}" '^(22\.04|24\.04|26\.04)$'
     shared_prompt_text_default arch_choice "Target architecture (amd64 or arm64)" "${TARGET_ARCH}"
     TARGET_ARCH="$(shared_normalize_arch_or_die "${arch_choice}")"
     shared_prompt_choice_default docker_mode_choice "Docker mode [1=dind, 2=dood]" "${default_docker_mode_choice}" '^[1-2]$'
@@ -276,10 +278,26 @@ shared_collect_interactive_settings() {
 
     echo "3. Display Settings"
     echo "-------------------"
-    shared_prompt_text_default RESOLUTION "Display resolution" "${RESOLUTION}"
-    shared_prompt_text_default DPI "DPI" "${DPI}"
-    shared_prompt_text_default STREAM_SCALE "Stream resolution scale (0.25-1.0)" "${STREAM_SCALE}"
-    shared_prompt_text_default FRAMERATE "Framerate (single value or range)" "${FRAMERATE}"
+    shared_prompt_choice_default RESOLUTION "Display resolution" "${RESOLUTION}" '^[1-9][0-9]*x[1-9][0-9]*$'
+    shared_prompt_choice_default DPI "DPI" "${DPI}" '^[1-9][0-9]*$'
+    while true; do
+        shared_prompt_text_default stream_scale_choice "Stream resolution scale (0.25-1.0)" "${STREAM_SCALE}"
+        if awk -v value="${stream_scale_choice}" 'BEGIN { exit !(value ~ /^[0-9]+([.][0-9]+)?$/ && value >= 0.25 && value <= 1.0) }'; then
+            STREAM_SCALE="${stream_scale_choice}"
+            break
+        fi
+        echo "Stream resolution scale must be between 0.25 and 1.0."
+    done
+    while true; do
+        shared_prompt_text_default framerate_choice "Framerate (single value or range)" "${FRAMERATE}"
+        if [[ "${framerate_choice}" =~ ^[0-9]+(-[0-9]+)?$ ]]; then
+            if [[ "${framerate_choice}" != *-* ]] || awk -F- -v value="${framerate_choice}" 'BEGIN { split(value, part, "-"); exit !(part[1] <= part[2]) }'; then
+                FRAMERATE="${framerate_choice}"
+                break
+            fi
+        fi
+        echo "Framerate must be a value such as 30 or an ascending range such as 30-60."
+    done
     echo ""
 
     echo "4. Language/Timezone Settings"

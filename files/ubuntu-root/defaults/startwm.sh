@@ -74,15 +74,15 @@ fi
 
 # DPI and scaling configuration for applications
 # Qt/KDE applications scaling
-export QT_AUTO_SCREEN_SCALE_FACTOR=1
+export QT_AUTO_SCREEN_SCALE_FACTOR=0
 export QT_SCALE_FACTOR_ROUNDING_POLICY=PassThrough
 
 # Calculate scale factor from DPI (96 DPI = 1.0 scale)
 DPI=${DPI:-96}
 SCALE_FACTOR=$(echo "scale=2; ${DPI} / 96" | bc)
 export QT_SCALE_FACTOR="${SCALE_FACTOR}"
-export QT_FONT_DPI="${DPI}"
-echo "Qt scaling: QT_SCALE_FACTOR=${SCALE_FACTOR}, QT_FONT_DPI=${DPI}"
+export QT_FONT_DPI=96
+echo "Qt scaling: QT_SCALE_FACTOR=${SCALE_FACTOR}, QT_FONT_DPI=96"
 
 # GTK applications scaling (dynamic based on DPI)
 # GTK works best with integer scale (2) for high DPI, then adjust with DPI_SCALE
@@ -93,7 +93,7 @@ if [ "${DPI}" -ge 120 ]; then
   export GDK_DPI_SCALE="${GDK_DPI_SCALE_VALUE}"
 else
   export GDK_SCALE=1
-  export GDK_DPI_SCALE=1
+  export GDK_DPI_SCALE="${SCALE_FACTOR}"
 fi
 echo "GTK scaling: GDK_SCALE=${GDK_SCALE}, GDK_DPI_SCALE=${GDK_DPI_SCALE} (DPI=${DPI}, effective=${SCALE_FACTOR}x)"
 
@@ -109,9 +109,6 @@ export SWT_GTK3=1
 # Convert DPI to percentage: 96=100%, 128=133%, 192=200%
 SWT_AUTO_SCALE=$((${DPI} * 100 / 96))
 export SWT_AUTOSCALE="${SWT_AUTO_SCALE}"
-# Java 9+ UI scaling
-export GDK_SCALE=2
-export GDK_DPI_SCALE=$(echo "scale=3; ${SCALE_FACTOR} / 2" | bc)
 # Set _JAVA_OPTIONS for all Java applications
 export _JAVA_OPTIONS="-Dsun.java2d.uiScale=${SCALE_FACTOR} -Dswt.autoScale=${SWT_AUTO_SCALE} -Dswt.dpi.awareness=1 ${_JAVA_OPTIONS:-}"
 echo "Java/Eclipse scaling: sun.java2d.uiScale=${SCALE_FACTOR}, swt.autoScale=${SWT_AUTO_SCALE}% (DPI=${DPI})"

@@ -50,16 +50,21 @@ MODELINE_NAME=$(echo "$MODELINE_ARGS" | awk '{print $1}')
 if ! s6-setuidgid "${TARGET_USER}" xrandr | grep -q "$MODELINE_NAME"; then
   s6-setuidgid "${TARGET_USER}" xrandr --newmode $MODELINE_ARGS
   s6-setuidgid "${TARGET_USER}" xrandr --addmode screen "$MODELINE_NAME"
-  s6-setuidgid "${TARGET_USER}" xrandr --output screen --mode "$MODELINE_NAME" --dpi 96
 fi
+s6-setuidgid "${TARGET_USER}" xrandr --output screen --mode "$MODELINE_NAME" --dpi "${DPI:-96}"
 
-# set xresources
+# Keep persisted Xresources in sync with the container DPI.
+DPI_VALUE="${DPI:-96}"
 if [ -f "${HOME}/.Xresources" ]; then
-  xrdb "${HOME}/.Xresources"
+  if grep -q '^Xft\.dpi:' "${HOME}/.Xresources"; then
+    sed -i "s/^Xft\.dpi:.*/Xft.dpi: ${DPI_VALUE}/" "${HOME}/.Xresources"
+  else
+    printf '\nXft.dpi: %s\n' "${DPI_VALUE}" >> "${HOME}/.Xresources"
+  fi
 else
-  echo "Xcursor.theme: breeze" > "${HOME}/.Xresources"
-  xrdb "${HOME}/.Xresources"
+  printf 'Xcursor.theme: breeze\nXft.dpi: %s\n' "${DPI_VALUE}" > "${HOME}/.Xresources"
 fi
+xrdb "${HOME}/.Xresources"
 if [[ "${LANG:-}" == ja* ]]; then
   setxkbmap -layout jp -model jp106 -option ''
 fi

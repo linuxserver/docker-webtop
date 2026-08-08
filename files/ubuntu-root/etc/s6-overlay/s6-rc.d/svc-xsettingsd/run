@@ -7,10 +7,12 @@ if which xfce4-session > /dev/null 2>&1 || [[ "${PIXELFLUX_WAYLAND}" == "true" ]
   sleep infinity
 fi
 
-# create default xsettings
-if [ ! -f "${HOME}/.xsettingsd" ]; then
-  echo "Xft/DPI 98304" > "${HOME}/.xsettingsd"
+# Keep XSettings in sync with the configured DPI. Xft/DPI uses 1024ths.
+DPI_VALUE="${DPI:-96}"
+if [[ ! "${DPI_VALUE}" =~ ^[0-9]+$ ]] || (( DPI_VALUE <= 0 )); then
+  DPI_VALUE=96
 fi
+echo "Xft/DPI $((DPI_VALUE * 1024))" > "${HOME}/.xsettingsd"
 chown "$TARGET_USER:$TARGET_USER" "${HOME}/.xsettingsd"
 
 # run

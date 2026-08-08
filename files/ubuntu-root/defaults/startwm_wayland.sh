@@ -14,6 +14,34 @@ export QT_QPA_PLATFORMTHEME=kde
 export PULSE_SERVER="${PULSE_SERVER:-unix:/run/user/$(id -u)/pulse/native}"
 unset PULSE_RUNTIME_PATH
 
+# Apply the same DPI-derived application scaling as the X11 session.
+DPI=${DPI:-96}
+SCALE_FACTOR=${SCALE_FACTOR:-$(awk "BEGIN { printf \"%.2f\", ${DPI} / 96 }")}
+export QT_AUTO_SCREEN_SCALE_FACTOR=0
+export QT_SCALE_FACTOR_ROUNDING_POLICY=PassThrough
+export QT_SCALE_FACTOR="${SCALE_FACTOR}"
+export QT_FONT_DPI=96
+if [ "${DPI}" -ge 120 ]; then
+  export GDK_SCALE=2
+  export GDK_DPI_SCALE=$(awk "BEGIN { printf \"%.3f\", ${SCALE_FACTOR} / 2 }")
+else
+  export GDK_SCALE=1
+  export GDK_DPI_SCALE="${SCALE_FACTOR}"
+fi
+
+# Avoid multiplying the requested session scale by a persisted KDE scale.
+KWRITECONFIG=""
+if command -v kwriteconfig6 >/dev/null 2>&1; then
+  KWRITECONFIG=kwriteconfig6
+elif command -v kwriteconfig5 >/dev/null 2>&1; then
+  KWRITECONFIG=kwriteconfig5
+fi
+if [ -n "${KWRITECONFIG}" ]; then
+  "${KWRITECONFIG}" --file "${HOME}/.config/kcmfonts" --group General --key forceFontDPI 96
+  "${KWRITECONFIG}" --file "${HOME}/.config/kdeglobals" --group KScreen --key ScaleFactor 1
+  "${KWRITECONFIG}" --file "${HOME}/.config/kdeglobals" --group KScreen --key ScreenScaleFactors --delete 2>/dev/null || true
+fi
+
 if [ -z "${XDG_RUNTIME_DIR:-}" ]; then
   export XDG_RUNTIME_DIR="/run/user/$(id -u)"
 fi
@@ -56,6 +84,8 @@ if command -v dbus-update-activation-environment >/dev/null 2>&1; then
     WAYLAND_DISPLAY XDG_CURRENT_DESKTOP XDG_SESSION_DESKTOP DESKTOP_SESSION \
     KDE_FULL_SESSION KDE_SESSION_VERSION QT_QPA_PLATFORM QT_QPA_PLATFORMTHEME \
     XDG_RUNTIME_DIR HOME LANG LANGUAGE LC_ALL \
+    DPI SCALE_FACTOR QT_AUTO_SCREEN_SCALE_FACTOR QT_SCALE_FACTOR_ROUNDING_POLICY \
+    QT_SCALE_FACTOR QT_FONT_DPI GDK_SCALE GDK_DPI_SCALE \
     GTK_IM_MODULE QT_IM_MODULE SDL_IM_MODULE GLFW_IM_MODULE \
     XMODIFIERS INPUT_METHOD DBUS_SESSION_BUS_ADDRESS \
     PULSE_SERVER \
