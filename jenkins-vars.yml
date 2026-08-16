@@ -7,6 +7,7 @@ release_type: prerelease
 release_tag: dev
 ls_branch: dev
 build_armhf: false
+image_sbom: false
 repo_vars:
   - BUILD_VERSION_ARG = 'OS_VERSION'
   - LS_USER = 'linuxserver'
