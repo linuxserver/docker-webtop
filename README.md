@@ -80,6 +80,7 @@ This image provides various versions that are available via tags. Please read th
 | ubuntu-kde | ✅ | KDE Ubuntu *Wayland Only |
 | ubuntu-mate | ✅ | MATE Ubuntu |
 | ubuntu-xfce | ✅ | XFCE Ubuntu *Wayland Support |
+| dev | ✅ | KDE Ubuntu *Current Selkies Development Head |
 
 ## Application Setup
 
