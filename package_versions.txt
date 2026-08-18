@@ -16,7 +16,7 @@ at-spi2-common                                                                2.
 at-spi2-core                                                                  2.60.4-0ubuntu0.1                       deb                         
 attrs                                                                         26.1.0                                  python                      
 autocommand                                                                   2.2.2                                   python     (+1 duplicate)   
-av                                                                            18.0.0                                  python                      
+av                                                                            18.1.0                                  python                      
 backports-tarfile                                                             1.2.0                                   python                      
 base-files                                                                    14ubuntu6.1                             deb                         
 base-passwd                                                                   3.6.8                                   deb                         
@@ -841,7 +841,7 @@ libpackagekit-glib2-18                                                        1.
 libpam-modules                                                                1.7.0-5ubuntu3.1                        deb                         
 libpam-modules-bin                                                            1.7.0-5ubuntu3.1                        deb                         
 libpam-runtime                                                                1.7.0-5ubuntu3.1                        deb                         
-libpam-systemd                                                                259.5-0ubuntu3.3                        deb                         
+libpam-systemd                                                                259.5-0ubuntu3.4                        deb                         
 libpam0g                                                                      1.7.0-5ubuntu3.1                        deb                         
 libpango-1.0-0                                                                1.57.0-1                                deb                         
 libpangocairo-1.0-0                                                           1.57.0-1                                deb                         
@@ -908,8 +908,8 @@ libstdc++6                                                                    16
 libstemmer0d                                                                  3.0.1-1                                 deb                         
 libsvtav1enc2                                                                 2.3.0+dfsg-1build1                      deb                         
 libswresample6                                                                7:8.0.1-3ubuntu2                        deb                         
-libsystemd-shared                                                             259.5-0ubuntu3.3                        deb                         
-libsystemd0                                                                   259.5-0ubuntu3.3                        deb                         
+libsystemd-shared                                                             259.5-0ubuntu3.4                        deb                         
+libsystemd0                                                                   259.5-0ubuntu3.4                        deb                         
 libtasn1-6                                                                    4.21.0-2                                deb                         
 libtdb1                                                                       2:1.4.14+samba4.23.6+dfsg-1ubuntu2.2    deb                         
 libthai-data                                                                  0.1.30-1                                deb                         
@@ -924,7 +924,7 @@ libtsan2                                                                      16
 libtwolame0                                                                   0.4.0-2build4                           deb                         
 libubsan1                                                                     16-20260322-1ubuntu1                    deb                         
 libuchardet0                                                                  0.0.8-2                                 deb                         
-libudev1                                                                      259.5-0ubuntu3.3                        deb                         
+libudev1                                                                      259.5-0ubuntu3.4                        deb                         
 libunistring5                                                                 1.3-2build1                             deb                         
 libunwind8                                                                    1.8.3-0ubuntu1                          deb                         
 libutempter0                                                                  1.2.1-4build1                           deb                         
@@ -1091,7 +1091,7 @@ pulsectl                                                                      24
 pycparser                                                                     3.0                                     python                      
 pydantic                                                                      2.13.4                                  python                      
 pydantic-core                                                                 2.46.4                                  python                      
-pyee                                                                          13.0.1                                  python                      
+pyee                                                                          14.0.0                                  python                      
 pygobject                                                                     3.56.2                                  python                      
 pyjwt                                                                         2.10.1                                  python                      
 pylibsrtp                                                                     1.0.0                                   python                      
@@ -1100,7 +1100,7 @@ pyopenssl                                                                     26
 pyparsing                                                                     3.3.2                                   python                      
 python-apt                                                                    3.1.0+ubuntu1                           python                      
 python-apt-common                                                             3.1.0ubuntu1                            deb                         
-python-dotenv                                                                 1.2.2                                   python                      
+python-dotenv                                                                 1.2.3                                   python                      
 python-xlib                                                                   0.33                                    python                      
 python3                                                                       3.14.3-0ubuntu2                         deb                         
 python3-apt                                                                   3.1.0ubuntu1                            deb                         
@@ -1156,7 +1156,7 @@ sigs.k8s.io/yaml                                                              v1
 six                                                                           1.17.0                                  python                      
 software-properties-common                                                    0.120.1                                 deb                         
 ssl-cert                                                                      1.1.3ubuntu2                            deb                         
-starlette                                                                     1.4.1                                   python                      
+starlette                                                                     1.6.0                                   python                      
 stdlib                                                                        go1.26.3                                go-module  (+3 duplicates)  
 stdlib                                                                        go1.26.4                                go-module                   
 stdlib                                                                        go1.26.5                                go-module  (+4 duplicates)  
@@ -1166,8 +1166,8 @@ sudo-common                                                                   1.
 sway                                                                          1.11-3                                  deb                         
 sway-backgrounds                                                              1.11-3                                  deb                         
 swaybg                                                                        1.2.1-1build1                           deb                         
-systemd                                                                       259.5-0ubuntu3.3                        deb                         
-systemd-sysv                                                                  259.5-0ubuntu3.3                        deb                         
+systemd                                                                       259.5-0ubuntu3.4                        deb                         
+systemd-sysv                                                                  259.5-0ubuntu3.4                        deb                         
 sysvinit-utils                                                                3.15-5ubuntu1                           deb                         
 tags.cncf.io/container-device-interface                                       v1.1.0                                  go-module  (+3 duplicates)  
 tags.cncf.io/container-device-interface/specs-go                              v1.1.0                                  go-module  (+2 duplicates)  
@@ -1177,13 +1177,13 @@ typeguard                                                                     4.
 typeguard                                                                     4.4.4                                   python                      
 typing-extensions                                                             4.12.2                                  python                      
 typing-extensions                                                             4.15.0                                  python                      
-typing-inspection                                                             0.4.2                                   python                      
+typing-inspection                                                             0.4.4                                   python                      
 tzdata                                                                        2026c-0ubuntu0.26.04.1                  deb                         
 ubuntu-keyring                                                                2023.11.28.1build1                      deb                         
-udev                                                                          259.5-0ubuntu3.3                        deb                         
+udev                                                                          259.5-0ubuntu3.4                        deb                         
 user-session-migration                                                        0.5.1                                   deb                         
 util-linux                                                                    2.41.3-3ubuntu2                         deb                         
-uvicorn                                                                       0.52.1                                  python                      
+uvicorn                                                                       0.52.3                                  python                      
 uvloop                                                                        0.22.1                                  python                      
 vulkan-tools                                                                  1.4.341.0+dfsg1-1                       deb                         
 wadllib                                                                       2.0.0                                   python                      
