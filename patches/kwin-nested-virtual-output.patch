@@ -1,0 +1,66 @@
+kwin: let nested-backend virtual outputs exist, with or without OpenGL
+
+Two fixes to `zkde_screencast_unstable_v1.stream_virtual_output` on a kwin
+running nested under another compositor (pixelflux), where Selkies grows this
+session's screens through that request and captures them from the host side,
+never consuming the PipeWire stream.
+
+1. `WaylandBackend::createVirtualOutput` creates the output and its host
+   window but never adds it to `m_outputs` nor emits
+   `outputAdded`/`outputsQueried` — only the startup `createOutputs()` path
+   does that bookkeeping. The workspace therefore never realizes the output,
+   the screencast manager's `workspace()->findOutput()` returns null ("Could
+   not find output"), and the orphan's host window is a surface kwin never
+   composites into. `removeVirtualOutput` already performs the symmetric
+   removal. The DRM and virtual backends do the equivalent bookkeeping, which
+   is why the desktop portal's virtual monitors work on real sessions.
+
+2. `streamVirtualOutput` refuses outright under non-OpenGL compositing, but
+   the check protects only the PipeWire capture (`ScreenCastStream` records
+   through GL); the output itself composites fine under QPainter. Reordered so
+   the output is created and bound to the stream's lifetime first, with the
+   check still gating the capture: a GL-less session gets a live screen and an
+   honestly failed stream, and the GL-dependent recording machinery still
+   never runs where it cannot.
+
+Applies to kwin 6.6.x (verified against v6.6.6).
+
+--- a/src/plugins/screencast/screencastmanager.cpp
++++ b/src/plugins/screencast/screencastmanager.cpp
+@@ -77,16 +77,17 @@ void ScreencastManager::streamVirtualOutput(ScreencastStreamV1Interface *stream,
+                                             double scale,
+                                             ScreencastV1Interface::CursorMode mode)
+ {
++    auto output = kwinApp()->outputBackend()->createVirtualOutput(name, description, size, scale);
++    connect(stream, &ScreencastStreamV1Interface::finished, output, [output] {
++        kwinApp()->outputBackend()->removeVirtualOutput(output);
++    });
++
+     if (!isSupportedCompositingType()) {
+         stream->sendFailed(i18n("Unsupported compositing type"));
+         return;
+     }
+
+-    auto output = kwinApp()->outputBackend()->createVirtualOutput(name, description, size, scale);
+     streamOutput(stream, workspace()->findOutput(output), mode);
+-    connect(stream, &ScreencastStreamV1Interface::finished, output, [output] {
+-        kwinApp()->outputBackend()->removeVirtualOutput(output);
+-    });
+ }
+
+ void ScreencastManager::streamWaylandOutput(ScreencastStreamV1Interface *waylandStream,
+--- a/src/backends/wayland/wayland_backend.cpp
++++ b/src/backends/wayland/wayland_backend.cpp
+@@ -600,7 +600,11 @@ QList<BackendOutput *> WaylandBackend::outputs() const
+
+ BackendOutput *WaylandBackend::createVirtualOutput(const QString &name, const QString &description, const QSize &size, double scale)
+ {
+-    return createOutput(name, size * scale, scale, false);
++    WaylandOutput *waylandOutput = createOutput(name, size * scale, scale, false);
++    m_outputs << waylandOutput;
++    Q_EMIT outputAdded(waylandOutput);
++    Q_EMIT outputsQueried();
++    return waylandOutput;
+ }
+
+ void WaylandBackend::removeVirtualOutput(BackendOutput *output)
