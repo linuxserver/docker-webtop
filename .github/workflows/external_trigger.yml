@@ -10,7 +10,7 @@ jobs:
   external-trigger-master:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4.1.1
+      - uses: linuxserver/github-workflows/.github/actions/checkout@v1
 
       - name: External Trigger
         if: github.ref == 'refs/heads/master'
