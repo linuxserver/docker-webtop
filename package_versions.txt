@@ -18,7 +18,7 @@ alsa-lib                                                                      1.
 alternatives                                                                  1.33-5.fc44                                        rpm                         
 annotated-doc                                                                 0.0.5                                              python                      
 annotated-types                                                               0.8.0                                              python                      
-anyio                                                                         4.14.2                                             python                      
+anyio                                                                         4.15.0                                             python                      
 aribb24                                                                       1.0.3^20160216git5e9be27-5.fc44                    rpm                         
 at-spi2-atk                                                                   2.60.6-1.fc44                                      rpm                         
 at-spi2-core                                                                  2.60.6-1.fc44                                      rpm                         
@@ -42,12 +42,12 @@ bluez-libs                                                                    5.
 breeze-cursor-theme                                                           6.7.4-2.fc44                                       rpm                         
 brotli                                                                        1.2.0-3.fc44                                       rpm                         
 brotli-devel                                                                  1.2.0-3.fc44                                       rpm                         
-bubblewrap                                                                    0.11.0-4.fc44                                      rpm                         
+bubblewrap                                                                    0.12.0-1.fc44                                      rpm                         
 busybox                                                                       1:1.37.0-7.fc44                                    rpm                         
 bzip2                                                                         1.0.8-23.fc44                                      rpm                         
 bzip2-devel                                                                   1.0.8-23.fc44                                      rpm                         
 bzip2-libs                                                                    1.0.8-23.fc44                                      rpm                         
-ca-certificates                                                               2025.2.80_v9.0.304-7.fc44                          rpm                         
+ca-certificates                                                               2026.2.90_v9.0.317-1.fc44                          rpm                         
 cairo                                                                         1.18.4-6.fc44                                      rpm                         
 cairo-devel                                                                   1.18.4-6.fc44                                      rpm                         
 cairo-gobject                                                                 1.18.4-6.fc44                                      rpm                         
@@ -57,8 +57,8 @@ cdparanoia-libs                                                               10
 certifi                                                                       2026.7.22                                          python                      
 cffi                                                                          2.0.0                                              python                      
 checkpolicy                                                                   3.11-1.fc44                                        rpm                         
-chromium                                                                      151.0.7922.173-1.fc44                              rpm                         
-chromium-common                                                               151.0.7922.173-1.fc44                              rpm                         
+chromium                                                                      152.0.7977.82-1.fc44                               rpm                         
+chromium-common                                                               152.0.7977.82-1.fc44                               rpm                         
 cjson                                                                         1.7.19-1.fc44                                      rpm                         
 click                                                                         8.5.0                                              python                      
 cloud.google.com/go/auth                                                      v0.20.0                                            go-module                   
@@ -83,7 +83,7 @@ cryptography                                                                  50
 cryptsetup-libs                                                               2.8.7-1.fc44                                       rpm                         
 cups-filesystem                                                               1:2.4.19-3.fc44                                    rpm                         
 cups-libs                                                                     1:2.4.19-3.fc44                                    rpm                         
-curl                                                                          8.18.0-8.fc44                                      rpm                         
+curl                                                                          8.18.0-9.fc44                                      rpm                         
 cvt                                                                           0.1.2-11.fc44                                      rpm                         
 cyrus-sasl-lib                                                                2.1.28-35.fc44                                     rpm                         
 dario.cat/mergo                                                               v1.0.2                                             go-module  (+2 duplicates)  
@@ -117,24 +117,24 @@ egl-gbm                                                                       2:
 egl-wayland                                                                   1.1.21-2.fc44                                      rpm                         
 egl-wayland2                                                                  1.0.1-1.fc44                                       rpm                         
 elfutils-debuginfod-client                                                    0.196-1.fc44                                       rpm                         
-elfutils-default-yama-scope                                                   0.195-1.fc44                                       rpm                         
+elfutils-default-yama-scope                                                   0.196-1.fc44                                       rpm                         
 elfutils-libelf                                                               0.196-1.fc44                                       rpm                         
 elfutils-libs                                                                 0.196-1.fc44                                       rpm                         
 emacs-filesystem                                                              1:30.2-2.fc44                                      rpm                         
 enchant2                                                                      2.8.19-2.fc44                                      rpm                         
 evdev                                                                         2.0.0                                              python                      
 exo                                                                           4.20.0-4.fc44                                      rpm                         
-expat                                                                         2.8.1-1.fc44                                       rpm                         
+expat                                                                         2.8.3-1.fc44                                       rpm                         
 f44-backgrounds-base                                                          44.0.0-1.fc44                                      rpm                         
 fastapi                                                                       0.141.1                                            python                      
 fcft                                                                          3.3.3-2.fc44                                       rpm                         
 fdk-aac                                                                       2.0.3-6.fc44                                       rpm                         
-fedora-gpg-keys                                                               44-1                                               rpm                         
+fedora-gpg-keys                                                               44-2                                               rpm                         
 fedora-logos-httpd                                                            42.0.1-3.fc44                                      rpm                         
 fedora-release-common                                                         44-18                                              rpm                         
 fedora-release-container                                                      44-18                                              rpm                         
 fedora-release-identity-container                                             44-18                                              rpm                         
-fedora-repos                                                                  44-1                                               rpm                         
+fedora-repos                                                                  44-2                                               rpm                         
 fftw-libs-single                                                              3.3.10-17.fc44                                     rpm                         
 file                                                                          5.46-10.fc44                                       rpm                         
 file-libs                                                                     5.46-10.fc44                                       rpm                         
@@ -163,7 +163,7 @@ gcc-c++                                                                       16
 gcr-libs                                                                      4.4.0.1-7.fc44                                     rpm                         
 gdbm                                                                          1:1.23-11.fc44                                     rpm                         
 gdbm-libs                                                                     1:1.23-11.fc44                                     rpm                         
-gdk-pixbuf2                                                                   2.44.4-2.fc44                                      rpm                         
+gdk-pixbuf2                                                                   2.44.6^really2.44.4-3.fc44                         rpm                         
 gdk-pixbuf2-modules-extra                                                     2.44.0-2.fc44                                      rpm                         
 geoclue2                                                                      2.8.2-1.fc44                                       rpm                         
 gettext                                                                       0.26-5.fc44                                        rpm                         
@@ -652,6 +652,7 @@ jaraco-text                                                                   4.
 jbig2dec-libs                                                                 0.20-8.fc44                                        rpm                         
 jbigkit-libs                                                                  2.1-33.fc44                                        rpm                         
 jq                                                                            1.8.1-3.fc44                                       rpm                         
+jq                                                                            1.8.2                                              binary                      
 json-c                                                                        0.18-8.fc44                                        rpm                         
 json-glib                                                                     1.10.8-5.fc44                                      rpm                         
 jsoncpp                                                                       1.9.6-3.fc44                                       rpm                         
@@ -665,9 +666,9 @@ k8s.io/cri-streaming                                                          v0
 k8s.io/klog/v2                                                                v2.140.0                                           go-module  (+2 duplicates)  
 k8s.io/streaming                                                              v0.36.3                                            go-module                   
 k8s.io/utils                                                                  v0.0.0-20260319190234-28399d86e0b5                 go-module  (+1 duplicate)   
-kbd                                                                           2.9.0-3.fc44                                       rpm                         
-kbd-legacy                                                                    2.9.0-3.fc44                                       rpm                         
-kbd-misc                                                                      2.9.0-3.fc44                                       rpm                         
+kbd                                                                           2.9.0-4.fc44                                       rpm                         
+kbd-legacy                                                                    2.9.0-4.fc44                                       rpm                         
+kbd-misc                                                                      2.9.0-4.fc44                                       rpm                         
 kernel-headers                                                                7.1.3-200.fc44                                     rpm                         
 keybinder3                                                                    0.3.2-22.fc44                                      rpm                         
 keyutils-libs                                                                 1.6.3-7.fc44                                       rpm                         
@@ -749,9 +750,9 @@ libcbor                                                                       0.
 libcdio                                                                       2.3.0-1.fc44                                       rpm                         
 libcdio-paranoia                                                              10.2+2.0.2-6.fc44                                  rpm                         
 libchromaprint                                                                1.6.0-4.fc44                                       rpm                         
-libcloudproviders                                                             0.4.0-1.fc44                                       rpm                         
+libcloudproviders                                                             0.4.1-1.fc44                                       rpm                         
 libcom_err                                                                    1.47.3-4.fc44                                      rpm                         
-libcurl                                                                       8.18.0-8.fc44                                      rpm                         
+libcurl                                                                       8.18.0-9.fc44                                      rpm                         
 libdaemon                                                                     0.14-33.fc44                                       rpm                         
 libdatrie                                                                     0.2.14-2.fc44                                      rpm                         
 libdav1d                                                                      1.5.3-1.fc44                                       rpm                         
@@ -976,13 +977,13 @@ ngtcp2                                                                        1.
 ngtcp2-crypto-gnutls                                                          1.22.1-1.fc44                                      rpm                         
 ngtcp2-crypto-ossl                                                            1.22.1-1.fc44                                      rpm                         
 npth                                                                          1.8-4.fc44                                         rpm                         
-nspr                                                                          4.39.0-3.fc44                                      rpm                         
-nss                                                                           3.126.0-1.fc44                                     rpm                         
+nspr                                                                          4.39.0-4.fc44                                      rpm                         
+nss                                                                           3.127.0-1.fc44                                     rpm                         
 nss-mdns                                                                      0.15.1-28.fc44                                     rpm                         
-nss-softokn                                                                   3.126.0-1.fc44                                     rpm                         
-nss-softokn-freebl                                                            3.126.0-1.fc44                                     rpm                         
-nss-sysinit                                                                   3.126.0-1.fc44                                     rpm                         
-nss-util                                                                      3.126.0-1.fc44                                     rpm                         
+nss-softokn                                                                   3.127.0-1.fc44                                     rpm                         
+nss-softokn-freebl                                                            3.127.0-1.fc44                                     rpm                         
+nss-sysinit                                                                   3.127.0-1.fc44                                     rpm                         
+nss-util                                                                      3.127.0-1.fc44                                     rpm                         
 oniguruma                                                                     6.9.10-4.fc44                                      rpm                         
 openapv-libs                                                                  0.2.1.2-1.fc44                                     rpm                         
 openbox                                                                       3.6.1-30.fc44                                      rpm                         
@@ -994,8 +995,8 @@ openldap                                                                      2.
 openpgm                                                                       5.3.128-6.fc44                                     rpm                         
 openssh                                                                       10.2p1-14.fc44                                     rpm                         
 openssh-clients                                                               10.2p1-14.fc44                                     rpm                         
-openssl                                                                       1:3.5.7-2.fc44                                     rpm                         
-openssl-libs                                                                  1:3.5.7-2.fc44                                     rpm                         
+openssl                                                                       1:3.5.8-1.fc44                                     rpm                         
+openssl-libs                                                                  1:3.5.8-1.fc44                                     rpm                         
 opus                                                                          1.6-2.fc44                                         rpm                         
 orc                                                                           0.4.41-3.fc44                                      rpm                         
 p11-kit                                                                       0.26.5-1.fc44                                      rpm                         
@@ -1130,7 +1131,7 @@ pylibsrtp                                                                     1.
 pynput                                                                        1.8.2                                              python                      
 pyopenssl                                                                     26.4.0                                             python                      
 python-dotenv                                                                 1.2.3                                              python                      
-python-pip-wheel                                                              26.0.1-2.fc44                                      rpm                         
+python-pip-wheel                                                              26.0.1-3.fc44                                      rpm                         
 python-setuptools-wheel                                                       80.10.2-3.fc44                                     rpm                         
 python-unversioned-command                                                    3.14.7-1.fc44                                      rpm                         
 python-xlib                                                                   0.33                                               python                      
@@ -1155,7 +1156,7 @@ python3-markdown                                                              3.
 python3-markupsafe                                                            3.0.2-7.fc44                                       rpm                         
 python3-packaging                                                             25.0-8.fc44                                        rpm                         
 python3-paste                                                                 3.10.1-13.fc44                                     rpm                         
-python3-pip                                                                   26.0.1-2.fc44                                      rpm                         
+python3-pip                                                                   26.0.1-3.fc44                                      rpm                         
 python3-platformdirs                                                          4.9.1-1.fc44                                       rpm                         
 python3-policycoreutils                                                       3.11-2.fc44                                        rpm                         
 python3-pyOpenSSL                                                             26.4.0-2.fc44                                      rpm                         
@@ -1190,8 +1191,8 @@ samba-ndr-libs                                                                2:
 sdbus-cpp                                                                     2.2.1-2.fc44                                       rpm                         
 sed                                                                           4.9-7.fc44                                         rpm                         
 selinux                                                                       3.11                                               python                      
-selinux-policy                                                                44.7-1.fc44                                        rpm                         
-selinux-policy-targeted                                                       44.7-1.fc44                                        rpm                         
+selinux-policy                                                                44.8-1.fc44                                        rpm                         
+selinux-policy-targeted                                                       44.8-1.fc44                                        rpm                         
 selkies                                                                       0.0.0                                              python                      
 sepolicy                                                                      3.11                                               python                      
 setools                                                                       4.6.0                                              python                      
@@ -1325,7 +1326,7 @@ xrdb                                                                          1.
 xsel                                                                          1.2.1-10.fc44                                      rpm                         
 xset                                                                          1.2.5-9.fc44                                       rpm                         
 xsettingsd                                                                    1.0.2-13.fc44                                      rpm                         
-xterm                                                                         406-1.fc44                                         rpm                         
+xterm                                                                         411-1.fc44                                         rpm                         
 xvidcore                                                                      1.3.7-19.fc44                                      rpm                         
 xz                                                                            1:5.8.2-2.fc44                                     rpm                         
 xz-devel                                                                      1:5.8.2-2.fc44                                     rpm                         
