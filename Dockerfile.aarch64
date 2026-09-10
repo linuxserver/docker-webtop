@@ -1,4 +1,4 @@
-FROM ghcr.io/linuxserver/baseimage-selkies:arm64v8-ubuntunoble
+FROM ghcr.io/linuxserver/baseimage-selkies:arm64v8-dev
 
 # set version label
 ARG BUILD_DATE
@@ -9,7 +9,11 @@ LABEL maintainer="thelamer"
 # title
 ENV TITLE="Ubuntu LXQt" \
     NO_FULL=true \
-    PIXELFLUX_WAYLAND=true
+    PIXELFLUX_WAYLAND=true \
+    QT_AUTO_SCREEN_SCALE_FACTOR=0 \
+    QT_QPA_PLATFORMTHEME=lxqt \
+    XDG_CONFIG_DIRS=/etc:/etc/xdg:/usr/share \
+    XDG_MENU_PREFIX=lxqt-
 
 RUN \
   echo "**** add icon ****" && \
@@ -21,17 +25,75 @@ RUN \
   apt-get update && \
   DEBIAN_FRONTEND=noninteractive \
   apt-get install --no-install-recommends -y \
+    adwaita-icon-theme \
+    breeze-icon-theme \
     chromium \
     featherpad \
-    gnome-keyring \
+    gtk-update-icon-cache \
+    gvfs \
+    gvfs-daemons \
+    kimageformat6-plugins \
+    layer-shell-qt \
     libgtk-3-common \
     libqt6multimedia6 \
     libqt6svg6 \
     libqt6svgwidgets6 \
     libqt6widgets6 \
     libusb-1.0-0 \
-    lxqt-core \
-    papirus-icon-theme && \
+    lximage-qt \
+    lxqt-about \
+    lxqt-about-l10n \
+    lxqt-config \
+    lxqt-config-l10n \
+    lxqt-menu-data \
+    lxqt-notificationd \
+    lxqt-notificationd-l10n \
+    lxqt-panel \
+    lxqt-panel-l10n \
+    lxqt-policykit \
+    lxqt-policykit-l10n \
+    lxqt-qtplugin \
+    lxqt-runner \
+    lxqt-runner-l10n \
+    lxqt-session \
+    lxqt-session-l10n \
+    obconf-qt \
+    obconf-qt-l10n \
+    pavucontrol-qt \
+    pcmanfm-qt \
+    pcmanfm-qt-l10n \
+    qt6-image-formats-plugins \
+    qt6-svg-plugins \
+    qt6-wayland \
+    qterminal \
+    qterminal-l10n \
+    xdg-desktop-portal-lxqt && \
+  echo "**** selkies theme ****" && \
+  mkdir -p \
+    /tmp/theme \
+    /usr/share/lxqt/themes/selkies \
+    /usr/share/themes/Selkies/openbox-3 \
+    /usr/share/qtermwidget6/color-schemes && \
+  curl -o \
+    /tmp/selkies.tar.gz -L \
+    "https://github.com/selkies-project/selkies/archive/refs/heads/main.tar.gz" && \
+  tar xf \
+    /tmp/selkies.tar.gz -C \
+    /tmp/theme --strip-components=4 --wildcards '*/addons/desktop/theme/*' && \
+  cp -a /tmp/theme/lxqt/. /usr/share/lxqt/themes/selkies/ && \
+  cp -a /tmp/theme/openbox/. /usr/share/themes/Selkies/openbox-3/ && \
+  cp /tmp/theme/qterminal/Selkies.colorscheme /usr/share/qtermwidget6/color-schemes/ && \
+  sed -i \
+    -e '0,/<name>[^<]*<\/name>/s||<name>Selkies</name>|' \
+    -e 's|<titleLayout>NLMC</titleLayout>|<titleLayout>NLIMC</titleLayout>|' \
+    /etc/xdg/openbox/rc.xml && \
+  sed -i \
+    -e 's|<name>Clearlooks</name>|<name>Selkies</name>|' \
+    -e 's|<cornerRadius>8</cornerRadius>|&\n    <dropShadows>yes</dropShadows>|' \
+    /defaults/labwc.xml && \
+  sed -i \
+    's|^Icon=.*|Icon=/usr/share/lxqt/themes/selkies/filemanager.svg|' \
+    /usr/share/applications/pcmanfm-qt.desktop && \
   echo "**** lxqt tweaks ****" && \
   sed -i \
     's#^Exec=.*#Exec=/usr/local/bin/wrapped-chromium#g' \

@@ -1,7 +1,1 @@
-# Default files
-if [ ! -f "${HOME}"/.config/lxqt/lxqt.conf ]; then
-  mkdir -p "${HOME}"/.config
-  cp -r /defaults/config/.config/* "${HOME}"/.config/
-fi
-
-dbus-run-session /startui.sh
+exit 0

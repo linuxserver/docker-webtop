@@ -1,0 +1,3 @@
+#!/bin/sh
+notify-send -i dialog-information "Not available" "This desktop runs in a container, there is no session to log out of, lock, or shut down." 2>/dev/null || true
+exit 0
