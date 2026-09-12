@@ -21,6 +21,7 @@ RUN \
   echo "**** install build packages ****" && \
   apk add --no-cache --upgrade --virtual=build-dependencies \
     cargo \
+    libcap-utils \
     rust && \
   echo "**** install packages ****" && \
   apk add --no-cache \
@@ -37,6 +38,10 @@ RUN \
   mv \
     /config/.cargo/bin/wl-* \
     /usr/bin/ && \
+  echo "**** kde tweaks ****" && \
+  if getcap /usr/bin/kwin_wayland | grep -q cap; then \
+    setcap -r /usr/bin/kwin_wayland; \
+  fi && \
   echo "**** cleanup ****" && \
   apk del --purge \
     build-dependencies && \
