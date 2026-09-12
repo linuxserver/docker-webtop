@@ -1,0 +1,72 @@
+kwin 6.7: keep advertising kde_output_device_v2 globals per output
+
+Have the registry register each device as a wl_global of its own, as
+6.6 did. The generated server class supports being both: a bind through the
+global and a registry announcement land in the same resource map, so the
+initial state, updates and the removed event reach both kinds of binder, and
+the generated destructor retires the global when the device is withdrawn.
+Plasma's own client (libkscreen) binds only the registry object, so it sees
+no duplicates.
+
+Applies to kwin 6.7.x (verified against v6.7.5).
+
+--- a/src/wayland/outputdevice_v2.h
++++ b/src/wayland/outputdevice_v2.h
+@@ -65,6 +65,14 @@
+ 
+     static OutputDeviceV2Interface *get(wl_resource *native);
+ 
++    /**
++     * Additionally advertise this device as a kde_output_device_v2 global of
++     * its own, as kwin before 6.7 did, so clients enumerating output devices
++     * through wl_registry rather than kde_output_device_registry_v2 still
++     * find it. Resources bound either way share one resource map.
++     */
++    void announceGlobal(Display *display);
++
+ private:
+     void updatePhysicalSize();
+     void updateGlobalPosition();
+--- a/src/wayland/outputdevice_v2.cpp
++++ b/src/wayland/outputdevice_v2.cpp
+@@ -29,6 +29,7 @@
+     void announce(Resource *resource, OutputDeviceV2Interface *outputDevice);
+ 
+     std::unordered_map<BackendOutput *, std::unique_ptr<OutputDeviceV2Interface>> outputDevices;
++    Display *m_display;
+ 
+ protected:
+     void kde_output_device_registry_v2_bind_resource(Resource *resource) override;
+@@ -37,6 +38,7 @@
+ 
+ OutputDeviceRegistryV2Private::OutputDeviceRegistryV2Private(Display *display)
+     : QtWaylandServer::kde_output_device_registry_v2(*display, s_version)
++    , m_display(display)
+ {
+ }
+ 
+@@ -75,6 +77,9 @@
+ {
+     auto &outputDevice = d->outputDevices[output];
+     outputDevice = std::make_unique<OutputDeviceV2Interface>(output);
++    // Keep the pre-6.7 per-device global alongside the registry announcement,
++    // for clients that only look for kde_output_device_v2 in wl_registry.
++    outputDevice->announceGlobal(d->m_display);
+ 
+     const auto resources = d->resourceMap();
+     for (const auto &resource : resources) {
+@@ -447,6 +452,14 @@
+     d->add(resource);
+ }
+ 
++void OutputDeviceV2Interface::announceGlobal(Display *display)
++{
++    // A bind through the global lands in the same resource map as a registry
++    // announcement, so bind_resource, every update and the removed event on
++    // destruction reach it alike; the generated destructor retires the global.
++    d->init(*display, s_version);
++}
++
+ BackendOutput *OutputDeviceV2Interface::handle() const
+ {
+     return d->m_handle;
