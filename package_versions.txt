@@ -8,7 +8,7 @@ aioice                                                                        0.
 aiosignal                                                                     1.4.0                                   python                      
 annotated-doc                                                                 0.0.5                                   python                      
 annotated-types                                                               0.8.0                                   python                      
-anyio                                                                         4.15.0                                  python                      
+anyio                                                                         4.15.1                                  python                      
 apt                                                                           3.0.3                                   deb                         
 apt-transport-https                                                           3.0.3                                   deb                         
 apt-utils                                                                     3.0.3                                   deb                         
@@ -50,7 +50,7 @@ cmake                                                                         3.
 cmake-data                                                                    3.31.6-2                                deb                         
 code.cloudfoundry.org/clock                                                   v1.60.0                                 go-module                   
 console-data                                                                  2:1.12-9                                deb                         
-containerd.io                                                                 2.3.4-2~debian.13~trixie                deb                         
+containerd.io                                                                 2.3.5-1~debian.13~trixie                deb                         
 coreutils                                                                     9.7-3                                   deb                         
 cpp                                                                           4:14.2.0-1                              deb                         
 cpp-14                                                                        14.2.0-19                               deb                         
@@ -79,7 +79,7 @@ dirmngr                                                                       2.
 distro                                                                        1.9.0                                   python                      
 dmsetup                                                                       2:1.02.205-2                            deb                         
 dnspython                                                                     2.8.0                                   python                      
-docker-buildx-plugin                                                          0.37.0-1~debian.13~trixie               deb                         
+docker-buildx-plugin                                                          0.37.1-1~debian.13~trixie               deb                         
 docker-ce                                                                     5:29.8.0-1~debian.13~trixie             deb                         
 docker-ce-cli                                                                 5:29.8.0-1~debian.13~trixie             deb                         
 docker-compose-plugin                                                         5.5.1-1~debian.13~trixie                deb                         
@@ -183,7 +183,8 @@ github.com/containerd/btrfs/v2                                                v2
 github.com/containerd/cgroups/v3                                              v3.1.3                                  go-module  (+3 duplicates)  
 github.com/containerd/console                                                 v1.0.5                                  go-module  (+6 duplicates)  
 github.com/containerd/containerd/api                                          v1.11.1                                 go-module  (+5 duplicates)  
-github.com/containerd/containerd/v2                                           v2.3.4                                  go-module  (+5 duplicates)  
+github.com/containerd/containerd/v2                                           v2.3.4                                  go-module  (+2 duplicates)  
+github.com/containerd/containerd/v2                                           v2.3.5                                  go-module  (+2 duplicates)  
 github.com/containerd/continuity                                              v0.5.0                                  go-module  (+5 duplicates)  
 github.com/containerd/errdefs                                                 v1.0.0                                  go-module  (+5 duplicates)  
 github.com/containerd/errdefs/pkg                                             v0.3.0                                  go-module  (+5 duplicates)  
@@ -197,8 +198,7 @@ github.com/containerd/log                                                     v0
 github.com/containerd/nri                                                     v0.12.0                                 go-module                   
 github.com/containerd/nri                                                     v0.12.2                                 go-module                   
 github.com/containerd/otelttrpc                                               v0.1.0                                  go-module  (+1 duplicate)   
-github.com/containerd/platforms                                               v1.0.0-rc.4                             go-module  (+1 duplicate)   
-github.com/containerd/platforms                                               v1.0.0-rc.5                             go-module  (+2 duplicates)  
+github.com/containerd/platforms                                               v1.0.0-rc.5                             go-module  (+4 duplicates)  
 github.com/containerd/plugin                                                  v1.1.0                                  go-module  (+3 duplicates)  
 github.com/containerd/stargz-snapshotter/estargz                              v0.18.2                                 go-module                   
 github.com/containerd/ttrpc                                                   v1.2.8                                  go-module  (+2 duplicates)  
@@ -220,7 +220,7 @@ github.com/digitorus/pkcs7                                                    v0
 github.com/digitorus/timestamp                                                v0.0.0-20231217203849-220c5c2851b7      go-module  (+1 duplicate)   
 github.com/dimchansky/utfbom                                                  v1.1.1                                  go-module                   
 github.com/distribution/reference                                             v0.6.0                                  go-module  (+4 duplicates)  
-github.com/docker/buildx                                                      v0.37.0                                 go-module                   
+github.com/docker/buildx                                                      v0.37.1                                 go-module                   
 github.com/docker/cli                                                         v29.7.2+incompatible                    go-module  (+1 duplicate)   
 github.com/docker/cli-docs-tool                                               v0.11.0                                 go-module  (+1 duplicate)   
 github.com/docker/cli/cmd/docker                                              UNKNOWN                                 go-module                   
@@ -703,7 +703,7 @@ libdav1d7                                                                     1.
 libdb5.3t64                                                                   5.3.28+dfsg2-9                          deb                         
 libdbus-1-3                                                                   1.16.2-2                                deb                         
 libdconf1                                                                     0.40.0-5                                deb                         
-libde265-0                                                                    1.0.15-1+deb13u1                        deb                         
+libde265-0                                                                    1.0.15-1+deb13u2                        deb                         
 libdebconfclient0                                                             0.280                                   deb                         
 libdecor-0-0                                                                  0.2.2-2                                 deb                         
 libdeflate0                                                                   1.23-2                                  deb                         
@@ -724,7 +724,7 @@ libepoxy0                                                                     1.
 liberror-perl                                                                 0.17030-1                               deb                         
 libev4t64                                                                     1:4.33-2.1+b1                           deb                         
 libevdev2                                                                     1.13.4+dfsg-1                           deb                         
-libevent-2.1-7t64                                                             2.1.12-stable-10+b1                     deb                         
+libevent-2.1-7t64                                                             2.1.13-stable-1~deb13u1                 deb                         
 libexpat1                                                                     2.8.3-1~deb13u1                         deb                         
 libfcft4t64                                                                   3.3.1-1                                 deb                         
 libffi8                                                                       3.4.8-2                                 deb                         
@@ -771,7 +771,7 @@ libgs10                                                                       10
 libgs10-common                                                                10.05.1~dfsg-1+deb13u1                  deb                         
 libgsm1                                                                       1.0.22-1+b2                             deb                         
 libgssapi-krb5-2                                                              1.21.3-5+deb13u1                        deb                         
-libgstreamer-plugins-base1.0-0                                                1.26.2-1+deb13u1                        deb                         
+libgstreamer-plugins-base1.0-0                                                1.26.2-1+deb13u2                        deb                         
 libgstreamer1.0-0                                                             1.26.2-2                                deb                         
 libgtk-3-0t64                                                                 3.24.49-3                               deb                         
 libgtk-3-common                                                               3.24.49-3                               deb                         
@@ -800,7 +800,7 @@ libitm1                                                                       14
 libjack-jackd2-0                                                              1.9.22~dfsg-4                           deb                         
 libjansson4                                                                   2.14-2+b3                               deb                         
 libjbig0                                                                      2.1-6.1+b2                              deb                         
-libjbig2dec0                                                                  0.20-1+b3                               deb                         
+libjbig2dec0                                                                  0.20-1+deb13u1                          deb                         
 libjpeg62-turbo                                                               1:2.1.5-4                               deb                         
 libjq1                                                                        1.7.1-6+deb13u3                         deb                         
 libjson-c5                                                                    0.18+ds-1                               deb                         
@@ -1066,7 +1066,7 @@ mesa-vulkan-drivers                                                           25
 more-itertools                                                                10.8.0                                  python                      
 mount                                                                         2.41.5-0+deb13u1                        deb                         
 msgpack                                                                       1.2.2                                   python                      
-multidict                                                                     6.7.1                                   python                      
+multidict                                                                     6.8.0                                   python                      
 ncurses-base                                                                  6.5+20250216-2                          deb                         
 ncurses-bin                                                                   6.5+20250216-2                          deb                         
 ncurses-term                                                                  6.5+20250216-2                          deb                         
@@ -1142,9 +1142,8 @@ six                                                                           1.
 sqv                                                                           1.3.0-3+b2                              deb                         
 ssl-cert                                                                      1.1.3                                   deb                         
 starlette                                                                     1.6.0                                   python                      
-stdlib                                                                        go1.26.5                                go-module  (+3 duplicates)  
 stdlib                                                                        go1.26.6                                go-module                   
-stdlib                                                                        go1.26.8                                go-module  (+3 duplicates)  
+stdlib                                                                        go1.26.8                                go-module  (+7 duplicates)  
 stterm                                                                        0.9.2-1                                 deb                         
 sudo                                                                          1.9.16p2-3+deb13u2                      deb                         
 sway                                                                          1.10.1-2                                deb                         
