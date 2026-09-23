@@ -8,7 +8,7 @@ if ! pgrep chromium > /dev/null;then
 fi
 
 # Wayland check
-if pgrep sway > /dev/null 2>&1; then
+if [ "${PIXELFLUX_WAYLAND,,}" == "true" ]; then
   WAYLAND="--ozone-platform=wayland"
 fi
 
