@@ -7,9 +7,14 @@ if ! pgrep chromium > /dev/null;then
   rm -f $HOME/.config/chromium/Singleton*
 fi
 
+# Wayland check
+if [ "${PIXELFLUX_WAYLAND,,}" == "true" ]; then
+  WAYLAND="--ozone-platform=wayland"
+fi
+
 # Run normally on privved containers or modified un non priv
 if grep -q 'Seccomp:.0' /proc/1/status; then
-  ${BIN} --no-first-run --password-store=basic "$@"
+  ${BIN} --no-first-run --password-store=basic ${WAYLAND} "$@"
 else
-  ${BIN} --no-first-run --password-store=basic --no-sandbox --test-type "$@"
+  ${BIN} --no-first-run --password-store=basic ${WAYLAND} --no-sandbox --test-type "$@"
 fi
