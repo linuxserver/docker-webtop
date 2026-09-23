@@ -8,8 +8,7 @@ LABEL maintainer="thelamer"
 
 # title
 ENV TITLE="Fedora KDE" \
-    PIXELFLUX_WAYLAND=true \
-    NO_GAMEPAD=true
+    PIXELFLUX_WAYLAND=true
 
 RUN \
   echo "**** add icon ****" && \
@@ -67,7 +66,8 @@ RUN \
 
 # add local files
 COPY /root /
+COPY --from=ghcr.io/linuxserver/selkies-layers:arm64v8-fedora44-kwin / /
 
 # ports and volumes
-EXPOSE 3000
+EXPOSE 3001
 VOLUME /config

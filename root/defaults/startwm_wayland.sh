@@ -95,6 +95,7 @@ unset DISPLAY
 export DISPLAY=:0
 export SHELL=/bin/bash
 export MOZ_ENABLE_WAYLAND=0
+export KWIN_WAYLAND_NO_PERMISSION_CHECKS=1
 sudo mkdir -p /tmp/.X11-unix
 sudo chmod 1777 /tmp/.X11-unix
 
