@@ -7,8 +7,7 @@ LABEL build_version="Linuxserver.io version:- ${VERSION} Build-date:- ${BUILD_DA
 LABEL maintainer="thelamer"
 
 # title
-ENV TITLE="Arch MATE" \
-    SELKIES_WAYLAND_SOCKET_INDEX=2
+ENV TITLE="Arch MATE"
 
 RUN \
   echo "**** add icon ****" && \
@@ -22,8 +21,7 @@ RUN \
     mate-media \
     mate-terminal \
     network-manager-applet \
-    pluma \
-    wayfire && \
+    pluma && \
   echo "**** application tweaks ****" && \
   sed -i \
     's#^Exec=.*#Exec=/usr/local/bin/wrapped-chromium#g' \

@@ -7,16 +7,8 @@ if ! pgrep chromium > /dev/null;then
   rm -f $HOME/.config/chromium/Singleton*
 fi
 
-# Wayland check
-if ls -l /dev/dri/* > /dev/null 2>&1; then
-  if pgrep wayfire > /dev/null 2>&1; then
-    WAYLAND="--ozone-platform=wayland"
-  fi
-fi
-
 ${BIN} \
   --password-store=basic \
   --no-sandbox \
   --test-type \
-  ${WAYLAND} \
   "$@" > /dev/null 2>&1
