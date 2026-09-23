@@ -1,4 +1,4 @@
-FROM ghcr.io/linuxserver/baseimage-selkies:dev
+FROM ghcr.io/linuxserver/baseimage-selkies:ubunturesolute
 
 # set version label
 ARG BUILD_DATE

@@ -7,9 +7,9 @@ if ! pgrep chromium > /dev/null;then
   rm -f $HOME/.config/chromium/Singleton*
 fi
 
-# Wayland mode
-if [ -e "${HOME}/.XDG/wayland-0" ]; then
-  WAYLAND="--enable-features=UseOzonePlatform --ozone-platform=wayland"
+# Wayland check
+if [ "${PIXELFLUX_WAYLAND,,}" == "true" ]; then
+  WAYLAND="--ozone-platform=wayland"
 fi
 
 ${BIN} --password-store=basic --no-sandbox ${WAYLAND} --test-type "$@"
