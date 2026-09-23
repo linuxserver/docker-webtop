@@ -32,7 +32,8 @@ development_versions_items:
   - {tag: "fedora-mate", desc: "MATE Fedora"}
   - {tag: "fedora-xfce", desc: "XFCE Fedora"}
   - {tag: "ubuntu-i3", desc: "i3 Ubuntu *Wayland Support"}
-  - {tag: "ubuntu-kde", desc: "KDE Ubuntu *Wayland Only"}
+  - {tag: "ubuntu-kde", desc: "KDE Ubuntu *Wayland Support"}
+  - {tag: "ubuntu-lxqt", desc: "KDE LXQt *Wayland Support"}
   - {tag: "ubuntu-mate", desc: "MATE Ubuntu"}
   - {tag: "ubuntu-xfce", desc: "XFCE Ubuntu *Wayland Support"}
   - {tag: "dev", desc: "KDE Ubuntu *Current Selkies Development Head"}
@@ -125,6 +126,7 @@ init_diagram: |
   "webtop:latest" <- Base Images
 # changelog
 changelogs:
+  - {date: "21.09.26:", desc: "Updates for Selkies v2, add x11 init for ubuntu-kde, show ubuntu-lxqt branch."}
   - {date: "10.06.26:", desc: "Rebase Alpine images to 3.24."}
   - {date: "07.05.26:", desc: "Deprecate Enterprise Linux tags."}
   - {date: "07.04.26:", desc: "Rebase Ubuntu images to Resolute."}
