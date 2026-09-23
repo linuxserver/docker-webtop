@@ -40,6 +40,7 @@ RUN \
     kwrite \
     plasma-desktop \
     plasma-discover \
+    plasma-session-x11 \
     plasma-workspace \
     qml-module-qt-labs-platform \
     systemsettings && \
@@ -68,6 +69,7 @@ RUN \
 
 # add local files
 COPY /root /
+COPY --from=ghcr.io/linuxserver/selkies-layers:amd64-ubunturesolute-kwin / /
 
 # ports and volumes
 EXPOSE 3001

@@ -79,6 +79,7 @@ export XDG_SESSION_TYPE=wayland
 export KDE_SESSION_VERSION=6
 export DISPLAY=:1
 export MOZ_ENABLE_WAYLAND=0
+export KWIN_WAYLAND_NO_PERMISSION_CHECKS=1
 sudo mkdir -p /tmp/.X11-unix
 sudo chmod 1777 /tmp/.X11-unix
 
