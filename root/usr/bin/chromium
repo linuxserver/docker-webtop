@@ -11,10 +11,8 @@ if ! pgrep chromium > /dev/null;then
 fi
 
 # Wayland check
-if ls -l /dev/dri/* > /dev/null 2>&1; then
-  if pgrep kwin_wayland > /dev/null 2>&1; then
-    WAYLAND="--ozone-platform=wayland"
-  fi
+if [ "${PIXELFLUX_WAYLAND,,}" == "true" ]; then
+  WAYLAND="--ozone-platform=wayland"
 fi
 
 # Pelorus accessibility

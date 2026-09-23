@@ -9,6 +9,10 @@ if [ ! -f $HOME/.config/kscreenlockerrc ]; then
   kwriteconfig6 --file $HOME/.config/kscreenlockerrc --group Daemon --key Autolock false
 fi
 
+# Power related
+setterm blank 0
+setterm powerdown 0
+
 # Setup permissive clipboard rules
 KWIN_RULES_FILE="$HOME/.config/kwinrulesrc"
 RULE_DESC="wl-clipboard support"
@@ -40,10 +44,6 @@ if ! grep -q "$RULE_DESC" "$KWIN_RULES_FILE" 2>/dev/null; then
   kwriteconfig6 --file "$KWIN_RULES_FILE" --group "$RULE_ID" --key noborder --type bool "true"
   kwriteconfig6 --file "$KWIN_RULES_FILE" --group "$RULE_ID" --key noborderrule 2
 fi
-
-# Power related
-setterm blank 0
-setterm powerdown 0
 
 # Directories
 sudo rm -f /usr/share/dbus-1/system-services/org.freedesktop.UDisks2.service
@@ -79,6 +79,7 @@ export XDG_SESSION_TYPE=wayland
 export KDE_SESSION_VERSION=6
 export DISPLAY=:1
 export MOZ_ENABLE_WAYLAND=0
+export KWIN_WAYLAND_NO_PERMISSION_CHECKS=1
 sudo mkdir -p /tmp/.X11-unix
 sudo chmod 1777 /tmp/.X11-unix
 
