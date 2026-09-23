@@ -8,8 +8,7 @@ LABEL maintainer="thelamer"
 
 # title
 ENV TITLE="Arch KDE" \
-    PIXELFLUX_WAYLAND=true \
-    NO_GAMEPAD=true
+    PIXELFLUX_WAYLAND=true
 
 RUN \
   echo "**** add icon ****" && \
@@ -49,8 +48,9 @@ RUN \
 
 # add local files
 COPY /root /
+COPY --from=ghcr.io/linuxserver/selkies-layers:arm64v8-arch-kwin / /
 
 # ports and volumes
-EXPOSE 3000
+EXPOSE 3001
 
 VOLUME /config
