@@ -78,7 +78,7 @@ This image provides various versions that are available via tags. Please read th
 | fedora-xfce | ✅ | XFCE Fedora |
 | ubuntu-i3 | ✅ | i3 Ubuntu *Wayland Support |
 | ubuntu-kde | ✅ | KDE Ubuntu *Wayland Support |
-| ubuntu-lxqt | ✅ | KDE LXQt *Wayland Support |
+| ubuntu-lxqt | ✅ | LXQt Ubuntu *Wayland Support |
 | ubuntu-mate | ✅ | MATE Ubuntu |
 | ubuntu-xfce | ✅ | XFCE Ubuntu *Wayland Support |
 | dev | ✅ | KDE Ubuntu *Current Selkies Development Head |
