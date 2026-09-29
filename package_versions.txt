@@ -32,9 +32,9 @@ ca-certificates                                                               20
 catatonit                                                                     0.2.1-2+b14                             deb                         
 certifi                                                                       2026.7.22                               python                      
 cffi                                                                          2.1.1                                   python                      
-chromium                                                                      153.0.8010.52-1~deb13u1                 deb                         
-chromium-common                                                               153.0.8010.52-1~deb13u1                 deb                         
-chromium-l10n                                                                 153.0.8010.52-1~deb13u1                 deb                         
+chromium                                                                      154.0.8037.57-1~deb13u1                 deb                         
+chromium-common                                                               154.0.8037.57-1~deb13u1                 deb                         
+chromium-l10n                                                                 154.0.8037.57-1~deb13u1                 deb                         
 cli                                                                           UNKNOWN                                 binary                      
 cli-32                                                                        UNKNOWN                                 binary                      
 cli-64                                                                        UNKNOWN                                 binary                      
@@ -49,7 +49,7 @@ cmake                                                                         3.
 cmake-data                                                                    3.31.6-2                                deb                         
 code.cloudfoundry.org/clock                                                   v1.60.0                                 go-module                   
 console-data                                                                  2:1.12-9                                deb                         
-containerd.io                                                                 2.3.5-1~debian.13~trixie                deb                         
+containerd.io                                                                 2.3.6-1~debian.13~trixie                deb                         
 coreutils                                                                     9.7-3                                   deb                         
 cpp                                                                           4:14.2.0-1                              deb                         
 cpp-14                                                                        14.2.0-19                               deb                         
@@ -124,7 +124,7 @@ gcc-14                                                                        14
 gcc-14-base                                                                   14.2.0-19                               deb                         
 gcc-14-x86-64-linux-gnu                                                       14.2.0-19                               deb                         
 gcc-x86-64-linux-gnu                                                          4:14.2.0-1                              deb                         
-ghostscript                                                                   10.05.1~dfsg-1+deb13u1                  deb                         
+ghostscript                                                                   10.05.1~dfsg-1+deb13u2                  deb                         
 gir1.2-atk-1.0                                                                2.56.2-1+deb13u2                        deb                         
 gir1.2-atspi-2.0                                                              2.56.2-1+deb13u2                        deb                         
 gir1.2-freedesktop                                                            1.84.0-1                                deb                         
@@ -197,7 +197,8 @@ github.com/containerd/cgroups/v3                                              v3
 github.com/containerd/console                                                 v1.0.5                                  go-module  (+6 duplicates)  
 github.com/containerd/containerd/api                                          v1.11.1                                 go-module  (+5 duplicates)  
 github.com/containerd/containerd/v2                                           v2.3.4                                  go-module  (+1 duplicate)   
-github.com/containerd/containerd/v2                                           v2.3.5                                  go-module  (+3 duplicates)  
+github.com/containerd/containerd/v2                                           v2.3.5                                  go-module                   
+github.com/containerd/containerd/v2                                           v2.3.6                                  go-module  (+2 duplicates)  
 github.com/containerd/continuity                                              v0.5.0                                  go-module  (+5 duplicates)  
 github.com/containerd/errdefs                                                 v1.0.0                                  go-module  (+5 duplicates)  
 github.com/containerd/errdefs/pkg                                             v0.3.0                                  go-module  (+5 duplicates)  
@@ -598,7 +599,7 @@ golang.org/x/text                                                             v0
 golang.org/x/text                                                             v0.42.0                                 go-module                   
 golang.org/x/time                                                             v0.15.0                                 go-module  (+2 duplicates)  
 golang.org/x/time                                                             v0.16.0                                 go-module                   
-google-crc32c                                                                 1.8.0                                   python                      
+google-crc32c                                                                 1.9.0                                   python                      
 google.golang.org/api                                                         v0.287.1                                go-module                   
 google.golang.org/genproto                                                    v0.0.0-20260825221802-da73d73af1c5      go-module                   
 google.golang.org/genproto/googleapis/api                                     v0.0.0-20260401024825-9d38bb4040a9      go-module                   
@@ -650,7 +651,7 @@ iso-codes                                                                     4.
 jaraco-context                                                                6.1.0                                   python                      
 jaraco-functools                                                              4.4.0                                   python                      
 jaraco-text                                                                   4.0.0                                   python                      
-jq                                                                            1.7.1-6+deb13u3                         deb                         
+jq                                                                            1.7.1-6+deb13u4                         deb                         
 jq                                                                            1.8.2                                   binary                      
 k8s.io/api                                                                    v0.36.3                                 go-module                   
 k8s.io/apimachinery                                                           v0.36.3                                 go-module  (+3 duplicates)  
@@ -801,9 +802,9 @@ libgpgmepp6t64                                                                1.
 libgpm2                                                                       1.20.7-11+b2                            deb                         
 libgprofng0                                                                   2.44-3                                  deb                         
 libgraphite2-3                                                                1.3.14-2+deb13u1                        deb                         
-libgs-common                                                                  10.05.1~dfsg-1+deb13u1                  deb                         
-libgs10                                                                       10.05.1~dfsg-1+deb13u1                  deb                         
-libgs10-common                                                                10.05.1~dfsg-1+deb13u1                  deb                         
+libgs-common                                                                  10.05.1~dfsg-1+deb13u2                  deb                         
+libgs10                                                                       10.05.1~dfsg-1+deb13u2                  deb                         
+libgs10-common                                                                10.05.1~dfsg-1+deb13u2                  deb                         
 libgsm1                                                                       1.0.22-1+b2                             deb                         
 libgspell-1-3                                                                 1.14.0-2+b1                             deb                         
 libgspell-1-common                                                            1.14.0-2                                deb                         
@@ -823,9 +824,9 @@ libgudev-1.0-0                                                                23
 libharfbuzz-gobject0                                                          10.2.0-1+deb13u1                        deb                         
 libharfbuzz-subset0                                                           10.2.0-1+deb13u1                        deb                         
 libharfbuzz0b                                                                 10.2.0-1+deb13u1                        deb                         
-libheif-plugin-dav1d                                                          1.19.8-1+deb13u1                        deb                         
-libheif-plugin-libde265                                                       1.19.8-1+deb13u1                        deb                         
-libheif1                                                                      1.19.8-1+deb13u1                        deb                         
+libheif-plugin-dav1d                                                          1.23.4-1~deb13u1                        deb                         
+libheif-plugin-libde265                                                       1.23.4-1~deb13u1                        deb                         
+libheif1                                                                      1.23.4-1~deb13u1                        deb                         
 libhogweed6t64                                                                3.10.1-1                                deb                         
 libhunspell-1.7-0                                                             1.7.2+really1.7.2-10+b4                 deb                         
 libhwasan0                                                                    14.2.0-19                               deb                         
@@ -849,7 +850,7 @@ libjansson4                                                                   2.
 libjbig0                                                                      2.1-6.1+b2                              deb                         
 libjbig2dec0                                                                  0.20-1+deb13u1                          deb                         
 libjpeg62-turbo                                                               1:2.1.5-4                               deb                         
-libjq1                                                                        1.7.1-6+deb13u3                         deb                         
+libjq1                                                                        1.7.1-6+deb13u4                         deb                         
 libjson-c5                                                                    0.18+ds-1                               deb                         
 libjsoncpp26                                                                  1.9.6-3                                 deb                         
 libjxl0.11                                                                    0.11.2-0.1~deb13u2                      deb                         
@@ -999,7 +1000,7 @@ libtwolame0                                                                   0.
 libubsan1                                                                     14.2.0-19                               deb                         
 libuchardet0                                                                  0.0.8-1+b2                              deb                         
 libudev1                                                                      257.13-1~deb13u1                        deb                         
-libunbound8                                                                   1.22.0-2+deb13u3                        deb                         
+libunbound8                                                                   1.26.1-0+deb13u1                        deb                         
 libunistring5                                                                 1.3-2                                   deb                         
 libunwind8                                                                    1.8.1-0.1                               deb                         
 libutempter0                                                                  1.2.1-4                                 deb                         
@@ -1138,7 +1139,7 @@ netcat-traditional                                                            1.
 nftables                                                                      1.1.3-1                                 deb                         
 nginx                                                                         1.26.3-3+deb13u9                        deb                         
 nginx-common                                                                  1.26.3-3+deb13u9                        deb                         
-nvidia-ml-py                                                                  13.610.43                               python                      
+nvidia-ml-py                                                                  13.615.71                               python                      
 ocl-icd-libopencl1                                                            2.3.3-1                                 deb                         
 openbox                                                                       3.6.1-12+b2                             deb                         
 openssh-client                                                                1:10.0p1-7+deb13u4                      deb                         
@@ -1206,7 +1207,8 @@ sqv                                                                           1.
 ssl-cert                                                                      1.1.3                                   deb                         
 starlette                                                                     1.7.0                                   python                      
 stdlib                                                                        go1.26.6                                go-module                   
-stdlib                                                                        go1.26.8                                go-module  (+7 duplicates)  
+stdlib                                                                        go1.26.8                                go-module  (+3 duplicates)  
+stdlib                                                                        go1.27.1                                go-module  (+3 duplicates)  
 stterm                                                                        0.9.2-1                                 deb                         
 sudo                                                                          1.9.16p2-3+deb13u2                      deb                         
 systemd                                                                       257.13-1~deb13u1                        deb                         
@@ -1227,7 +1229,7 @@ tzdata                                                                        20
 udev                                                                          257.13-1~deb13u1                        deb                         
 urllib3                                                                       2.3.0                                   python                      
 util-linux                                                                    2.41.5-0+deb13u1                        deb                         
-uvicorn                                                                       0.53.0                                  python                      
+uvicorn                                                                       0.54.0                                  python                      
 uvloop                                                                        0.22.1                                  python                      
 vulkan-tools                                                                  1.4.304.0+dfsg1-1                       deb                         
 watchdog                                                                      6.0.0                                   python                      
