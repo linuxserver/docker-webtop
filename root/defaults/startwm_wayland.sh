@@ -95,6 +95,10 @@ for ENV_SCRIPT in /etc/xdg/plasma-workspace/env/*.sh "${HOME}"/.config/plasma-wo
   fi
 done
 
+# Global theme defaults layer
+mkdir -p "${HOME}/.config/kdedefaults"
+export XDG_CONFIG_DIRS="${HOME}/.config/kdedefaults:${XDG_CONFIG_DIRS:-/etc/xdg}"
+
 # Setup application DB
 kbuildsycoca6
 
