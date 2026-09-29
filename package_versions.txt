@@ -34,8 +34,8 @@ ca-certificates                                                               20
 catatonit                                                                     0.2.1-2build1                            deb                         
 certifi                                                                       2026.7.22                                python                      
 cffi                                                                          2.1.1                                    python                      
-chromium                                                                      153.0.8010.52-1xtradeb1.2604.1           deb                         
-chromium-common                                                               153.0.8010.52-1xtradeb1.2604.1           deb                         
+chromium                                                                      154.0.8037.57-1xtradeb1.2604.1           deb                         
+chromium-common                                                               154.0.8037.57-1xtradeb1.2604.1           deb                         
 click                                                                         8.5.0                                    python                      
 cloud.google.com/go/auth                                                      v0.20.0                                  go-module                   
 cloud.google.com/go/auth/oauth2adapt                                          v0.2.8                                   go-module                   
@@ -48,7 +48,7 @@ code.cloudfoundry.org/clock                                                   v1
 console-data                                                                  2:1.12-10                                deb                         
 console-setup                                                                 1.237ubuntu3.1                           deb                         
 console-setup-linux                                                           1.237ubuntu3.1                           deb                         
-containerd.io                                                                 2.3.5-1~ubuntu.26.04~resolute            deb                         
+containerd.io                                                                 2.3.6-1~ubuntu.26.04~resolute            deb                         
 coreutils                                                                     9.5-1ubuntu2+0.0.0~ubuntu25              deb                         
 coreutils-from-uutils                                                         0.0.0~ubuntu25                           deb                         
 cpp                                                                           4:15.2.0-5ubuntu1                        deb                         
@@ -65,7 +65,7 @@ cups-daemon                                                                   2.
 cups-filters                                                                  2.0.1-0ubuntu4.1                         deb                         
 cups-filters-core-drivers                                                     2.0.1-0ubuntu4.1                         deb                         
 cups-ipp-utils                                                                2.4.16-1ubuntu1.3                        deb                         
-curl                                                                          8.18.0-1ubuntu2.5                        deb                         
+curl                                                                          8.18.0-1ubuntu2.7                        deb                         
 dario.cat/mergo                                                               v1.0.2                                   go-module  (+1 duplicate)   
 dash                                                                          0.5.12-12ubuntu3                         deb                         
 dbus                                                                          1.16.2-2ubuntu4                          deb                         
@@ -202,7 +202,8 @@ github.com/containerd/cgroups/v3                                              v3
 github.com/containerd/console                                                 v1.0.5                                   go-module  (+6 duplicates)  
 github.com/containerd/containerd/api                                          v1.11.1                                  go-module  (+5 duplicates)  
 github.com/containerd/containerd/v2                                           v2.3.4                                   go-module  (+1 duplicate)   
-github.com/containerd/containerd/v2                                           v2.3.5                                   go-module  (+3 duplicates)  
+github.com/containerd/containerd/v2                                           v2.3.5                                   go-module                   
+github.com/containerd/containerd/v2                                           v2.3.6                                   go-module  (+2 duplicates)  
 github.com/containerd/continuity                                              v0.5.0                                   go-module  (+5 duplicates)  
 github.com/containerd/errdefs                                                 v1.0.0                                   go-module  (+5 duplicates)  
 github.com/containerd/errdefs/pkg                                             v0.3.0                                   go-module  (+5 duplicates)  
@@ -611,7 +612,7 @@ golang.org/x/text                                                             v0
 golang.org/x/text                                                             v0.42.0                                  go-module                   
 golang.org/x/time                                                             v0.15.0                                  go-module  (+2 duplicates)  
 golang.org/x/time                                                             v0.16.0                                  go-module                   
-google-crc32c                                                                 1.8.0                                    python                      
+google-crc32c                                                                 1.9.0                                    python                      
 google.golang.org/api                                                         v0.287.1                                 go-module                   
 google.golang.org/genproto                                                    v0.0.0-20260825221802-da73d73af1c5       go-module                   
 google.golang.org/genproto/googleapis/api                                     v0.0.0-20260401024825-9d38bb4040a9       go-module                   
@@ -741,8 +742,8 @@ libctf0                                                                       2.
 libcups2t64                                                                   2.4.16-1ubuntu1.3                        deb                         
 libcupsfilters2-common                                                        2.1.1-0ubuntu5                           deb                         
 libcupsfilters2t64                                                            2.1.1-0ubuntu5                           deb                         
-libcurl3t64-gnutls                                                            8.18.0-1ubuntu2.5                        deb                         
-libcurl4t64                                                                   8.18.0-1ubuntu2.5                        deb                         
+libcurl3t64-gnutls                                                            8.18.0-1ubuntu2.7                        deb                         
+libcurl4t64                                                                   8.18.0-1ubuntu2.7                        deb                         
 libdatrie1                                                                    0.2.14-1                                 deb                         
 libdav1d7                                                                     1.5.3-1                                  deb                         
 libdb5.3t64                                                                   5.3.28+dfsg2-10ubuntu1                   deb                         
@@ -775,7 +776,7 @@ libevdev2                                                                     1.
 libexif12                                                                     0.6.25-2ubuntu0.1                        deb                         
 libexo-2-0                                                                    4.20.0-1build1                           deb                         
 libexo-common                                                                 4.20.0-1build1                           deb                         
-libexpat1                                                                     2.7.4-1ubuntu0.1                         deb                         
+libexpat1                                                                     2.7.4-1ubuntu0.2                         deb                         
 libext2fs2t64                                                                 1.47.2-3ubuntu4                          deb                         
 libfcft4t64                                                                   3.3.2-1                                  deb                         
 libffi8                                                                       3.5.2-4                                  deb                         
@@ -1174,7 +1175,7 @@ nftables                                                                      1.
 nginx                                                                         1.28.3-2ubuntu1.11                       deb                         
 nginx-common                                                                  1.28.3-2ubuntu1.11                       deb                         
 numix-gtk-theme                                                               2.6.7-8ubuntu1                           deb                         
-nvidia-ml-py                                                                  13.610.43                                python                      
+nvidia-ml-py                                                                  13.615.71                                python                      
 oauthlib                                                                      3.3.1                                    python                      
 ocl-icd-libopencl1                                                            2.3.4-1                                  deb                         
 openbox                                                                       3.6.1-12ubuntu3                          deb                         
@@ -1284,7 +1285,8 @@ ssl-cert                                                                      1.
 starlette                                                                     1.7.0                                    python                      
 stdlib                                                                        go1.26.6                                 go-module                   
 stdlib                                                                        go1.26.7                                 go-module                   
-stdlib                                                                        go1.26.8                                 go-module  (+7 duplicates)  
+stdlib                                                                        go1.26.8                                 go-module  (+3 duplicates)  
+stdlib                                                                        go1.27.1                                 go-module  (+3 duplicates)  
 stterm                                                                        0.9.3-1                                  deb                         
 sudo                                                                          1.9.17p2-1ubuntu3.1                      deb                         
 sudo-common                                                                   1.2ubuntu                                deb                         
@@ -1311,7 +1313,7 @@ udev                                                                          25
 urllib3                                                                       2.6.3                                    python                      
 user-session-migration                                                        0.5.1                                    deb                         
 util-linux                                                                    2.41.3-3ubuntu2.2                        deb                         
-uvicorn                                                                       0.53.0                                   python                      
+uvicorn                                                                       0.54.0                                   python                      
 uvloop                                                                        0.22.1                                   python                      
 vulkan-tools                                                                  1.4.341.0+dfsg1-1                        deb                         
 wadllib                                                                       2.0.0                                    python                      
@@ -1351,8 +1353,8 @@ xfwm4                                                                         4.
 xkb-data                                                                      2.46-2                                   deb                         
 xml-core                                                                      0.19build1                               deb                         
 xsel                                                                          1.2.1-1build1                            deb                         
-xserver-common                                                                2:21.1.22-1ubuntu1                       deb                         
-xserver-xorg-core                                                             2:21.1.22-1ubuntu1                       deb                         
+xserver-common                                                                2:21.1.22-1ubuntu1.2                     deb                         
+xserver-xorg-core                                                             2:21.1.22-1ubuntu1.2                     deb                         
 xserver-xorg-video-amdgpu                                                     25.0.0-1                                 deb                         
 xserver-xorg-video-ati                                                        1:22.0.0-1build2                         deb                         
 xserver-xorg-video-intel                                                      2:2.99.917+git20210115-1build2           deb                         
@@ -1366,7 +1368,7 @@ xubuntu-default-settings                                                      26
 xubuntu-icon-theme                                                            26.04.1                                  deb                         
 xubuntu-wallpapers                                                            26.04.1                                  deb                         
 xutils                                                                        1:7.7+26ubuntu1                          deb                         
-xvfb                                                                          2:21.1.22-1ubuntu1                       deb                         
+xvfb                                                                          2:21.1.22-1ubuntu1.2                     deb                         
 xwayland                                                                      2:24.1.10-1                              deb                         
 yarl                                                                          1.25.1                                   python                      
 zipp                                                                          3.19.2                                   python                      
