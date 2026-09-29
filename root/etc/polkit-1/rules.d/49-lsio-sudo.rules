@@ -1,0 +1,12 @@
+// Members of the sudo group already have passwordless sudo in this image.
+// Grant them polkit actions too so PackageKit, Discover and pkexec work.
+polkit.addRule(function(action, subject) {
+    if (subject.isInGroup("sudo")) {
+        try {
+            polkit.spawn(["/usr/bin/test", "-x", "/usr/bin/sudo"]);
+            return polkit.Result.YES;
+        } catch (error) {
+            return polkit.Result.NOT_HANDLED;
+        }
+    }
+});
