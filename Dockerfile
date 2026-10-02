@@ -16,12 +16,28 @@ RUN \
     https://raw.githubusercontent.com/linuxserver/docker-templates/master/linuxserver.io/img/webtop-logo.png && \
   echo "**** install packages ****" && \
   pacman -Sy --noconfirm --needed --overwrite '*' \
+    7zip \
+    atril \
+    caja-open-terminal \
+    caja-sendto \
+    caja-wallpaper \
     chromium \
+    engrampa \
+    eom \
     mate \
+    mate-applets \
+    mate-calc \
     mate-media \
+    mate-system-monitor \
     mate-terminal \
+    mate-utils \
+    mozo \
     network-manager-applet \
-    pluma && \
+    pluma \
+    ttf-liberation \
+    unzip \
+    xdg-user-dirs \
+    zip && \
   echo "**** application tweaks ****" && \
   sed -i \
     's#^Exec=.*#Exec=/usr/local/bin/wrapped-chromium#g' \
@@ -33,7 +49,9 @@ RUN \
     glib-compile-schemas /usr/share/glib-2.0/schemas/ && \
   rm -f \
     /etc/xdg/autostart/mate-power-manager.desktop \
-    /etc/xdg/autostart/mate-screensaver.desktop && \
+    /etc/xdg/autostart/mate-screensaver.desktop \
+    /usr/share/dbus-1/services/org.knopwob.dunst.service \
+    /usr/share/dbus-1/services/org.mate.ScreenSaver.service && \
   echo "**** cleanup ****" && \
   rm -rf \
     /config/.cache \
