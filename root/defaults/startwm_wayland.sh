@@ -116,7 +116,13 @@ start_session() {
   export WAYLAND_DISPLAY=wayland-0
   dbus-update-activation-environment --all
   pipewire &
-  wireplumber &
+  for _ in $(seq 1 100); do
+    if [ -S "${XDG_RUNTIME_DIR}/pipewire-0" ]; then
+      break
+    fi
+    sleep 0.1
+  done
+  LD_PRELOAD= wireplumber &
   kcminit_startup
   kded6 &
   if [ "${PELORUS,,}" == "true" ]; then
