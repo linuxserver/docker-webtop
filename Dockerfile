@@ -17,9 +17,17 @@ RUN \
     https://raw.githubusercontent.com/linuxserver/docker-templates/master/linuxserver.io/img/webtop-logo.png && \
   echo "**** install packages ****" && \
   apk add --no-cache \
+    7zip \
+    atril \
     chromium \
+    engrampa \
+    eom \
+    font-liberation \
     mate-desktop-environment \
-    util-linux-misc && \
+    unzip \
+    util-linux-misc \
+    xdg-user-dirs \
+    zip && \
   echo "**** mate tweaks ****" && \
   sed -i \
     '/compositing-manager/{n;s/.*/      <default>false<\/default>/}' \
@@ -27,7 +35,9 @@ RUN \
     glib-compile-schemas /usr/share/glib-2.0/schemas/ && \
   rm -f \
     /etc/xdg/autostart/mate-power-manager.desktop \
-    /etc/xdg/autostart/mate-screensaver.desktop && \
+    /etc/xdg/autostart/mate-screensaver.desktop \
+    /usr/share/dbus-1/services/org.knopwob.dunst.service \
+    /usr/share/dbus-1/services/org.mate.ScreenSaver.service && \
   sed -i \
     's:/usr/bin/chromium-browser:/usr/bin/chromium:g' \
     /usr/share/applications/chromium.desktop && \
