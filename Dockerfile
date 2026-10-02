@@ -19,11 +19,23 @@ RUN \
   apt-get update && \
   DEBIAN_FRONTEND=noninteractive \
   apt-get install --no-install-recommends -y \
+    7zip \
+    atril \
     ayatana-indicator-application \
+    caja-open-terminal \
+    caja-rename \
+    caja-sendto \
+    caja-wallpaper \
     chromium \
+    engrampa \
+    eom \
+    fonts-liberation \
     mate-applets \
     mate-applet-brisk-menu \
+    mate-calc \
+    mate-system-monitor \
     mate-terminal \
+    mozo \
     pluma \
     ubuntu-mate-artwork \
     ubuntu-mate-default-settings \
@@ -36,7 +48,9 @@ RUN \
   rm -f \
     /etc/xdg/autostart/mate-power-manager.desktop \
     /etc/xdg/autostart/mate-screensaver.desktop \
-    /usr/bin/mate-screensaver && \
+    /usr/bin/mate-screensaver \
+    /usr/share/dbus-1/services/org.knopwob.dunst.service \
+    /usr/share/dbus-1/services/org.mate.ScreenSaver.service && \
   echo "**** cleanup ****" && \
   apt-get autoclean && \
   rm -rf \
