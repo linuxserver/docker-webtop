@@ -17,6 +17,7 @@ RUN \
     https://raw.githubusercontent.com/linuxserver/docker-templates/master/linuxserver.io/img/webtop-logo.png && \
   echo "**** install packages ****" && \
   dnf install -y --setopt=install_weak_deps=False --best \
+    aurorae \
     breeze-icon-theme \
     cargo \
     chromium \
@@ -28,13 +29,22 @@ RUN \
     kfind \
     kmenuedit \
     konsole5 \
+    kvantum \
     kwrite \
+    papirus-icon-theme \
+    pipewire \
     plasma-breeze \
     plasma-desktop \
     plasma-discover \
+    plasma-discover-packagekit \
     plasma-systemmonitor \
     plasma-workspace-xorg \
-    qt5-qtscript && \
+    qt5-qtscript \
+    wireplumber \
+    xdg-desktop-portal \
+    xdg-desktop-portal-kde \
+    xdg-user-dirs \
+    xhost && \
   cargo install \
     wl-clipboard-rs-tools && \
   echo "**** replace wl-clipboard with rust ****" && \
