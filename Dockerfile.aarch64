@@ -17,10 +17,23 @@ RUN \
     https://raw.githubusercontent.com/linuxserver/docker-templates/master/linuxserver.io/img/webtop-logo.png && \
   echo "**** install packages ****" && \
   pacman -Sy --noconfirm --needed \
+    7zip \
+    atril \
     chromium \
+    gvfs \
     mousepad \
+    pavucontrol \
+    ristretto \
+    thunar-archive-plugin \
+    unzip \
+    xarchiver \
+    xdg-user-dirs \
     xfce4 \
-    xfce4-pulseaudio-plugin && \
+    xfce4-notifyd \
+    xfce4-pulseaudio-plugin \
+    xfce4-screenshooter \
+    xfce4-taskmanager \
+    zip && \
   echo "**** xfce tweaks ****" && \
   sed -i \
     's#^Exec=.*#Exec=/usr/local/bin/wrapped-chromium#g' \
@@ -29,9 +42,10 @@ RUN \
     /usr/bin/exo-open \
     /usr/bin/exo-open-real && \
   rm -f \
-    /etc/xdg/autostart/xfce4-power-manager.desktop \
     /etc/xdg/autostart/xfce-polkit.desktop \
+    /etc/xdg/autostart/xfce4-power-manager.desktop \
     /etc/xdg/autostart/xscreensaver.desktop \
+    /usr/share/dbus-1/services/org.knopwob.dunst.service \
     /usr/share/xfce4/panel/plugins/power-manager-plugin.desktop && \
   echo "**** cleanup ****" && \
   rm -rf \
