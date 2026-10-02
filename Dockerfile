@@ -18,11 +18,29 @@ RUN \
   apt-get update && \
   DEBIAN_FRONTEND=noninteractive \
   apt-get install -y --no-install-recommends \
+    7zip \
+    atril \
+    caja-open-terminal \
+    caja-rename \
+    caja-sendto \
+    caja-wallpaper \
     chromium \
     chromium-l10n \
+    engrampa \
     eom \
+    fonts-liberation \
+    mate-applets \
+    mate-calc \
     mate-desktop-environment-core \
-    pluma && \
+    mate-media \
+    mate-notification-daemon \
+    mate-system-monitor \
+    mate-utils \
+    mozo \
+    pluma \
+    unzip \
+    xdg-user-dirs \
+    zip && \
   echo "**** application tweaks ****" && \
   sed -i \
     's#^Exec=.*#Exec=/usr/local/bin/wrapped-chromium#g' \
@@ -30,7 +48,9 @@ RUN \
   echo "**** mate tweaks ****" && \
   rm -f \
     /etc/xdg/autostart/mate-power-manager.desktop \
-    /etc/xdg/autostart/mate-screensaver.desktop && \
+    /etc/xdg/autostart/mate-screensaver.desktop \
+    /usr/share/dbus-1/services/org.knopwob.dunst.service \
+    /usr/share/dbus-1/services/org.mate.ScreenSaver.service && \
   echo "**** cleanup ****" && \
   apt-get autoclean && \
   rm -rf \
