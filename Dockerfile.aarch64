@@ -36,14 +36,22 @@ RUN \
     kubuntu-settings-desktop \
     kubuntu-wallpapers \
     kwin-addons \
+    kwin-style-aurorae \
     kwin-x11 \
     kwrite \
+    papirus-icon-theme \
+    pipewire \
     plasma-desktop \
     plasma-discover \
     plasma-session-x11 \
     plasma-workspace \
     qml-module-qt-labs-platform \
-    systemsettings && \
+    qt6-style-kvantum \
+    synaptic \
+    systemsettings \
+    wireplumber \
+    xdg-desktop-portal \
+    xdg-desktop-portal-kde && \
   cargo install \
     wl-clipboard-rs-tools && \
   echo "**** replace wl-clipboard with rust ****" && \
