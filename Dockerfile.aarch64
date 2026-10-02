@@ -16,26 +16,40 @@ RUN \
     https://raw.githubusercontent.com/linuxserver/docker-templates/master/linuxserver.io/img/webtop-logo.png && \
   echo "**** install packages ****" && \
   dnf install -y --setopt=install_weak_deps=False --best \
+    7zip \
+    atril \
     chromium \
     desktop-backgrounds-compat \
     dex-autostart \
     greybird-dark-theme \
     greybird-xfwm4-theme \
     gtk-xfce-engine \
+    gvfs \
     mousepad \
+    pavucontrol \
+    ristretto \
     Thunar \
+    thunar-archive-plugin \
+    tumbler \
+    unzip \
+    xarchiver \
+    xdg-user-dirs \
     xfce4-appfinder \
     xfce4-datetime-plugin \
+    xfce4-notifyd \
     xfce4-panel \
     xfce4-places-plugin \
     xfce4-pulseaudio-plugin \
+    xfce4-screenshooter \
     xfce4-session \
     xfce4-settings \
+    xfce4-taskmanager \
     xfce4-terminal \
     xfconf \
     xfdesktop \
     xfwm4 \
-    xfwm4-themes && \
+    xfwm4-themes \
+    zip && \
   echo "**** xfce tweaks ****" && \
   sed -i \
     's#^Exec=.*#Exec=/usr/local/bin/wrapped-chromium#g' \
@@ -44,7 +58,8 @@ RUN \
     /usr/bin/exo-open \
     /usr/bin/exo-open-real && \
   rm -f \
-    /etc/xdg/autostart/xscreensaver.desktop && \
+    /etc/xdg/autostart/xscreensaver.desktop \
+    /usr/share/dbus-1/services/org.knopwob.dunst.service && \
   echo "**** cleanup ****" && \
   dnf autoremove -y && \
   dnf clean all && \
