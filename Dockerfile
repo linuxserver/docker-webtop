@@ -19,12 +19,26 @@ RUN \
   apt-get update && \
   DEBIAN_FRONTEND=noninteractive \
   apt-get install --no-install-recommends -y \
+    7zip \
+    atril \
     chromium \
+    gvfs \
     mousepad \
-    xfce4-terminal \
+    pavucontrol \
+    ristretto \
+    thunar-archive-plugin \
+    tumbler \
+    unzip \
+    xarchiver \
+    xdg-user-dirs \
     xfce4 \
+    xfce4-notifyd \
+    xfce4-screenshooter \
+    xfce4-taskmanager \
+    xfce4-terminal \
     xubuntu-default-settings \
-    xubuntu-icon-theme && \
+    xubuntu-icon-theme \
+    zip && \
   echo "**** xfce tweaks ****" && \
   sed -i \
     's#^Exec=.*#Exec=/usr/local/bin/wrapped-chromium#g' \
@@ -39,7 +53,8 @@ RUN \
     /usr/bin/chromium \
     /usr/bin/chromium-browser && \
   rm -f \
-    /etc/xdg/autostart/xscreensaver.desktop && \
+    /etc/xdg/autostart/xscreensaver.desktop \
+    /usr/share/dbus-1/services/org.knopwob.dunst.service && \
   echo "**** cleanup ****" && \
   apt-get autoclean && \
   rm -rf \
