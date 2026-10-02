@@ -25,13 +25,25 @@ RUN \
     rust && \
   echo "**** install packages ****" && \
   apk add --no-cache \
+    aurorae \
     breeze \
     chromium \
     discover \
     firefox \
     kde-applications-base \
+    kquickcharts \
+    kvantum \
+    papirus-icon-theme \
+    pipewire \
     plasma-desktop \
-    systemsettings && \
+    plasma-pa \
+    polkit \
+    systemsettings \
+    wireplumber \
+    xdg-desktop-portal \
+    xdg-desktop-portal-kde \
+    xdg-user-dirs \
+    xhost && \
   cargo install \
     wl-clipboard-rs-tools && \
   echo "**** replace wl-clipboard with rust ****" && \

@@ -1,0 +1,13 @@
+// The abc user already has passwordless sudo in this image.
+// Grant it polkit actions too so PackageKit, Discover and pkexec work.
+// Follows DISABLE_SUDO, which strips the execute bits from the sudo binary.
+polkit.addRule(function(action, subject) {
+    if (subject.user == "abc") {
+        try {
+            polkit.spawn(["/usr/bin/test", "-x", "/usr/bin/sudo"]);
+            return polkit.Result.YES;
+        } catch (error) {
+            return polkit.Result.NOT_HANDLED;
+        }
+    }
+});
