@@ -17,15 +17,25 @@ RUN \
     https://raw.githubusercontent.com/linuxserver/docker-templates/master/linuxserver.io/img/webtop-logo.png && \
   echo "**** install packages ****" && \
   pacman -Sy --noconfirm --needed \
+    aurorae \
     cargo \
     chromium \
     discover \
     dolphin \
     kate \
     konsole \
+    kvantum \
     kwin-x11 \
+    packagekit \
+    papirus-icon-theme \
+    pipewire \
     plasma-desktop \
-    plasma-x11-session && \
+    plasma-x11-session \
+    wireplumber \
+    xdg-desktop-portal \
+    xdg-desktop-portal-kde \
+    xdg-user-dirs \
+    xorg-xhost && \
   cargo install \
     wl-clipboard-rs-tools && \
   echo "**** replace wl-clipboard with rust ****" && \
