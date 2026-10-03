@@ -19,15 +19,27 @@ RUN \
     https://raw.githubusercontent.com/linuxserver/docker-templates/master/linuxserver.io/img/webtop-logo.png && \
   echo "**** install packages ****" && \
   apk add --no-cache \
+    7zip \
     adw-gtk3 \
     adwaita-xfce-icon-theme \
+    atril \
     chromium \
+    gvfs \
     mousepad \
+    pavucontrol \
     ristretto \
     thunar \
+    thunar-archive-plugin \
+    unzip \
     util-linux-misc \
+    xarchiver \
+    xdg-user-dirs \
     xfce4 \
-    xfce4-terminal && \
+    xfce4-notifyd \
+    xfce4-screenshooter \
+    xfce4-taskmanager \
+    xfce4-terminal \
+    zip && \
   echo "**** xfce-tweaks ****" && \
   mv \
     /usr/bin/thunar \
@@ -36,6 +48,7 @@ RUN \
   rm -f \
     /etc/xdg/autostart/xfce4-power-manager.desktop \
     /etc/xdg/autostart/xscreensaver.desktop \
+    /usr/share/dbus-1/services/org.knopwob.dunst.service \
     /usr/share/xfce4/panel/plugins/power-manager-plugin.desktop && \
   rm -rf \
     /config/.cache \

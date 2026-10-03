@@ -386,6 +386,7 @@ Once registered you can define the dockerfile to use with `-f Dockerfile.aarch64
 
 ## Versions
 
+* **02.10.26:** - Quality of life upgrades for KDE, MATE, and Xfce. Install base packages for flavors initialize KDE sessions properly.
 * **21.09.26:** - Updates for Selkies v2, add x11 init for ubuntu-kde, show ubuntu-lxqt branch.
 * **10.06.26:** - Rebase Alpine images to 3.24.
 * **07.05.26:** - Deprecate Enterprise Linux tags.
