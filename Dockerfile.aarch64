@@ -66,6 +66,10 @@ RUN \
     /etc/xdg/autostart/gmenudbusmenuproxy.desktop \
     /etc/xdg/autostart/polkit-kde-authentication-agent-1.desktop \
     /etc/xdg/autostart/powerdevil.desktop && \
+  sed -i \
+    -e '/^InputMethod/d' \
+    -e '/^VirtualKeyboardEnabled/d' \
+    /usr/share/kde-settings/kde-profile/default/xdg/kwinrc && \
   echo "**** cleanup ****" && \
   dnf autoremove -y && \
   dnf clean all && \
