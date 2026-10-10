@@ -3,7 +3,6 @@
 [linuxserverurl]: https://linuxserver.io
 [![linuxserver.io](https://raw.githubusercontent.com/linuxserver/docker-templates/master/linuxserver.io/img/linuxserver_medium.png)][linuxserverurl]
 
-
 <!--- Before submitting a pull request please check the following -->
 
 <!---  If this is a fix for a typo (in code, documentation, or the README) please file an issue and let us sort it out. We do not need a PR  -->
@@ -11,7 +10,6 @@
 <!---  That if the PR is addressing an existing issue include, closes #<issue number> , in the body of the PR commit message   -->
 <!---  You have included links to any files / patches etc your PR may be using in the body of the PR commit message -->
 <!--- We maintain a changelog of major revisions to the container at the end of readme-vars.yml in the root of this repository, please add your changes there if appropriate -->
-
 
 <!--- Coding guidelines: -->
 <!--- 1. Installed packages in the Dockerfiles should be in alphabetical order -->
@@ -21,11 +19,16 @@
 
 ------------------------------
 
- - [ ] I have read the [contributing](https://github.com/linuxserver/docker-webtop/blob/arch-xfce/.github/CONTRIBUTING.md) guideline and understand that I have made the correct modifications
+- [ ] I have read the [contributing](https://github.com/linuxserver/docker-webtop/blob/arch-xfce/.github/CONTRIBUTING.md) guideline and understand that I have made the correct modifications
+
+<!--- LLM disclosure: -->
+
+- [ ] An LLM assisted me in writing the code or text for this PR
+- [ ] An LLM agent wrote the code or text for this PR
 
 ------------------------------
 
-<!--- We welcome all PR’s though this doesn’t guarantee it will be accepted. -->
+<!--- We welcome all PRs though this doesn’t guarantee it will be accepted. -->
 
 ## Description:
 <!--- Describe your changes in detail -->
@@ -37,7 +40,6 @@
 <!--- Please describe in detail how you tested your changes. -->
 <!--- Include details of your testing environment, and the tests you ran to -->
 <!--- see how your change affects other areas of the code, etc. -->
-
 
 ## Source / References:
 <!--- Please include any forum posts/github links relevant to the PR -->
