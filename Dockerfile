@@ -58,6 +58,7 @@ RUN \
     /usr/bin/exo-open \
     /usr/bin/exo-open-real && \
   rm -f \
+    /etc/xdg/autostart/xfce-polkit.desktop \
     /etc/xdg/autostart/xscreensaver.desktop \
     /usr/share/dbus-1/services/org.knopwob.dunst.service && \
   echo "**** cleanup ****" && \
