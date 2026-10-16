@@ -66,6 +66,8 @@ RUN \
   echo "**** kde tweaks ****" && \
   setcap -r \
     /usr/bin/kwin_wayland && \
+  rm -f \
+    /usr/share/dbus-1/system-services/org.freedesktop.UDisks2.service && \
   echo "**** cleanup ****" && \
   apt-get autoclean && \
   rm -rf \
