@@ -25,12 +25,10 @@ RUN \
     kate \
     konsole \
     kvantum \
-    kwin-x11 \
     packagekit \
     papirus-icon-theme \
     pipewire \
     plasma-desktop \
-    plasma-x11-session \
     wireplumber \
     xdg-desktop-portal \
     xdg-desktop-portal-kde \
