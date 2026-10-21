@@ -54,6 +54,8 @@ RUN \
   if getcap /usr/bin/kwin_wayland | grep -q cap; then \
     setcap -r /usr/bin/kwin_wayland; \
   fi && \
+  rm -f \
+    /usr/share/dbus-1/system-services/org.freedesktop.UDisks2.service && \
   echo "**** cleanup ****" && \
   apk del --purge \
     build-dependencies && \
