@@ -46,12 +46,13 @@ if ! grep -q "$RULE_DESC" "$KWIN_RULES_FILE" 2>/dev/null; then
 fi
 
 # Directories
-sudo rm -f /usr/share/dbus-1/system-services/org.freedesktop.UDisks2.service
 mkdir -p "${HOME}/.config/autostart" "${HOME}/.XDG" "${HOME}/.local/share/"
 chmod 700 "${HOME}/.XDG"
 touch "${HOME}/.local/share/user-places.xbel"
-sudo mkdir -p /tmp/.X11-unix
-sudo chmod 1777 /tmp/.X11-unix
+if ! mkdir -p /tmp/.X11-unix 2>/dev/null || ! chmod 1777 /tmp/.X11-unix 2>/dev/null; then
+  sudo mkdir -p /tmp/.X11-unix
+  sudo chmod 1777 /tmp/.X11-unix
+fi
 
 # Create startup script if it does not exist (keep in sync with openbox)
 STARTUP_FILE="${HOME}/.config/autostart/autostart.desktop"
