@@ -1,3 +1,4 @@
+# syntax=docker/dockerfile:1
 FROM ghcr.io/linuxserver/baseimage-selkies:arm64v8-fedora44
 
 # set version label
@@ -65,7 +66,8 @@ RUN \
     /etc/xdg/autostart/at-spi-dbus-bus.desktop \
     /etc/xdg/autostart/gmenudbusmenuproxy.desktop \
     /etc/xdg/autostart/polkit-kde-authentication-agent-1.desktop \
-    /etc/xdg/autostart/powerdevil.desktop && \
+    /etc/xdg/autostart/powerdevil.desktop \
+    /usr/share/dbus-1/system-services/org.freedesktop.UDisks2.service && \
   sed -i \
     -e '/^InputMethod/d' \
     -e '/^VirtualKeyboardEnabled/d' \
