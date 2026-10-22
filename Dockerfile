@@ -1,3 +1,4 @@
+# syntax=docker/dockerfile:1
 FROM ghcr.io/linuxserver/baseimage-selkies:arch
 
 # set version label
@@ -46,6 +47,8 @@ RUN \
     /usr/share/applications/chromium.desktop && \
   setcap -r \
     /usr/sbin/kwin_wayland && \
+  rm -f \
+    /usr/share/dbus-1/system-services/org.freedesktop.UDisks2.service && \
   echo "**** cleanup ****" && \
   rm -rf \
     /config/.cache \
