@@ -65,7 +65,7 @@ This image provides various versions that are available via tags. Please read th
 | alpine-kde | ✅ | KDE Alpine *Wayland Only |
 | alpine-mate | ✅ | MATE Alpine |
 | arch-i3 | ✅ | i3 Arch *Wayland Support |
-| arch-kde | ✅ | KDE Arch *Wayland Support |
+| arch-kde | ✅ | KDE Arch *Wayland Only |
 | arch-mate | ✅ | MATE Arch |
 | arch-xfce | ✅ | XFCE Arch *Wayland Support |
 | debian-i3 | ✅ | i3 Debian *Wayland Support |
