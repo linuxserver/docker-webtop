@@ -82,6 +82,10 @@ export KWIN_WAYLAND_NO_PERMISSION_CHECKS=1
 XCURSOR_THEME=$(kreadconfig6 --file kcminputrc --group Mouse --key cursorTheme --default breeze_cursors)
 XCURSOR_SIZE=$(kreadconfig6 --file kcminputrc --group Mouse --key cursorSize --default 24)
 export XCURSOR_THEME XCURSOR_SIZE
+# llvmpipe shader fix aarch64
+if [ "$(uname -m)" == "aarch64" ] && ! ls /dev/dri/renderD* >/dev/null 2>&1; then
+  export QSG_RENDER_LOOP=basic
+fi
 if [ "${PELORUS,,}" == "true" ]; then
   export QT_ACCESSIBILITY=1
   export QT_LINUX_ACCESSIBILITY_ALWAYS_ON=1
