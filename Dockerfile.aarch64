@@ -39,7 +39,6 @@ RUN \
     plasma-discover \
     plasma-discover-packagekit \
     plasma-systemmonitor \
-    plasma-workspace-xorg \
     qt5-qtscript \
     wireplumber \
     xdg-desktop-portal \
