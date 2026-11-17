@@ -15,10 +15,11 @@ available_architectures:
 # development version
 development_versions: true
 development_versions_items:
-  - {tag: "latest", desc: "XFCE Alpine *Wayland Support"}
+  - {tag: "latest", desc: "Transition to alpine-xfce please!"}
   - {tag: "alpine-i3", desc: "i3 Alpine *Wayland Support"}
   - {tag: "alpine-kde", desc: "KDE Alpine *Wayland Only"}
   - {tag: "alpine-mate", desc: "MATE Alpine"}
+  - {tag: "alpine-xfce", desc: "XFCE Alpine *Wayland Support"}
   - {tag: "arch-i3", desc: "i3 Arch *Wayland Support"}
   - {tag: "arch-kde", desc: "KDE Arch *Wayland Only"}
   - {tag: "arch-mate", desc: "MATE Arch"}
@@ -54,6 +55,9 @@ show_nvidia: true
 # application setup block
 app_setup_block_enabled: true
 app_setup_block: |
+
+  # The latest tag will be transitioning to Ubuntu and Selkies Desktop, please migrate to the alpine-xfce tag.
+
   The application can be accessed at:
 
   * https://yourhost:3001/
@@ -130,6 +134,7 @@ init_diagram: |
   "webtop:latest" <- Base Images
 # changelog
 changelogs:
+  - {date: "16.11.26:", desc: "Announce transition of latest tag to alpine-xfce."}
   - {date: "02.10.26:", desc: "Quality of life upgrades for KDE, MATE, and Xfce. Install base packages for flavors initialize KDE sessions properly."}
   - {date: "21.09.26:", desc: "Updates for Selkies v2, add x11 init for ubuntu-kde, show ubuntu-lxqt branch."}
   - {date: "10.06.26:", desc: "Rebase Alpine images to 3.24."}
