@@ -21,7 +21,7 @@ alpine-keys                                                                   2.
 alpine-release                                                                3.24.4-r0                               apk                          
 alsa-lib                                                                      1.2.15.3-r0                             apk                          
 alsa-plugins-pulse                                                            1.2.12-r2                               apk                          
-annotated-doc                                                                 0.0.5                                   python                       
+annotated-doc                                                                 0.0.6                                   python                       
 annotated-types                                                               0.8.0                                   python                       
 anstream                                                                      0.6.19                                  rust-crate                   
 anstyle                                                                       1.0.11                                  rust-crate                   
@@ -132,11 +132,11 @@ directfb                                                                      1.
 djvulibre-libs                                                                3.5.30-r0                               apk                          
 dmesg                                                                         2.42.3-r1                               apk                          
 dnspython                                                                     2.9.2                                   python                       
-docker                                                                        29.9.3-r0                               apk                          
-docker-cli                                                                    29.9.3-r0                               apk                          
+docker                                                                        29.9.3-r1                               apk                          
+docker-cli                                                                    29.9.3-r1                               apk                          
 docker-cli-buildx                                                             0.38.1-r0                               apk                          
 docker-cli-compose                                                            5.6.1-r0                                apk                          
-docker-engine                                                                 29.9.3-r0                               apk                          
+docker-engine                                                                 29.9.3-r1                               apk                          
 double-conversion                                                             3.4.0-r0                                apk                          
 duktape-libs                                                                  2.7.0-r3                                apk                          
 dunst                                                                         1.13.0-r0                               apk                          
@@ -153,7 +153,7 @@ errno                                                                         0.
 eudev-libs                                                                    3.2.14-r6                               apk                          
 faac                                                                          1.31.1-r0                               apk                          
 faad2-libs                                                                    2.11.2-r0                               apk                          
-fastapi                                                                       0.162.2                                 python                       
+fastapi                                                                       0.163.1                                 python                       
 fcft                                                                          3.3.3-r0                                apk                          
 fdk-aac                                                                       2.0.2-r4                                apk                          
 fern                                                                          0.7.1                                   rust-crate                   
@@ -201,9 +201,9 @@ gdk-pixbuf-lang                                                               2.
 getrandom                                                                     0.3.3                                   rust-crate                   
 ghostscript                                                                   10.08.0-r0                              apk                          
 giflib                                                                        5.2.2-r2                                apk                          
-git                                                                           2.54.0-r0                               apk                          
-git-init-template                                                             2.54.0-r0                               apk                          
-git-perl                                                                      2.54.0-r0                               apk                          
+git                                                                           2.54.1-r0                               apk                          
+git-init-template                                                             2.54.1-r0                               apk                          
+git-perl                                                                      2.54.1-r0                               apk                          
 github.com/Azure/azure-sdk-for-go/sdk/azcore                                  v1.21.1                                 go-module                    
 github.com/Azure/azure-sdk-for-go/sdk/internal                                v1.12.0                                 go-module                    
 github.com/Azure/azure-sdk-for-go/sdk/storage/azblob                          v1.5.0                                  go-module                    
@@ -297,8 +297,7 @@ github.com/coreos/go-semver                                                   v0
 github.com/coreos/go-systemd/v22                                              v22.7.0                                 go-module   (+3 duplicates)  
 github.com/cyberphone/json-canonicalization                                   v0.0.0-20241213102144-19d51d7fe467      go-module   (+1 duplicate)   
 github.com/cyphar/filepath-securejoin                                         v0.6.0                                  go-module                    
-github.com/cyphar/filepath-securejoin                                         v0.6.1                                  go-module                    
-github.com/cyphar/filepath-securejoin                                         v0.7.0                                  go-module                    
+github.com/cyphar/filepath-securejoin                                         v0.7.0                                  go-module   (+1 duplicate)   
 github.com/davecgh/go-spew                                                    v1.1.2-0.20180830191138-d8f796af33cc    go-module   (+1 duplicate)   
 github.com/digitorus/pkcs7                                                    v0.0.0-20230818184609-3a137a874352      go-module   (+1 duplicate)   
 github.com/digitorus/timestamp                                                v0.0.0-20231217203849-220c5c2851b7      go-module   (+1 duplicate)   
@@ -458,7 +457,8 @@ github.com/moby/pubsub                                                        v1
 github.com/moby/spdystream                                                    v0.5.1                                  go-module   (+1 duplicate)   
 github.com/moby/swarmkit/v2                                                   v2.1.3                                  go-module                    
 github.com/moby/sys/atomicwriter                                              v0.1.0                                  go-module   (+2 duplicates)  
-github.com/moby/sys/capability                                                v0.4.0                                  go-module   (+2 duplicates)  
+github.com/moby/sys/capability                                                v0.4.0                                  go-module   (+1 duplicate)   
+github.com/moby/sys/capability                                                v0.5.0                                  go-module                    
 github.com/moby/sys/mount                                                     v0.3.5                                  go-module                    
 github.com/moby/sys/mountinfo                                                 v0.7.2                                  go-module   (+4 duplicates)  
 github.com/moby/sys/reexec                                                    v0.1.0                                  go-module                    
@@ -477,8 +477,7 @@ github.com/mrunalp/fileutils                                                  v0
 github.com/munnerz/goautoneg                                                  v0.0.0-20191010083416-a7dc8b61c822      go-module   (+2 duplicates)  
 github.com/oklog/ulid/v2                                                      v2.1.1                                  go-module   (+1 duplicate)   
 github.com/open-policy-agent/opa                                              v1.19.0                                 go-module                    
-github.com/opencontainers/cgroups                                             v0.0.6                                  go-module                    
-github.com/opencontainers/cgroups                                             v0.1.0                                  go-module                    
+github.com/opencontainers/cgroups                                             v0.1.0                                  go-module   (+1 duplicate)   
 github.com/opencontainers/go-digest                                           v1.0.0                                  go-module   (+4 duplicates)  
 github.com/opencontainers/image-spec                                          v1.1.1                                  go-module   (+4 duplicates)  
 github.com/opencontainers/runc                                                UNKNOWN                                 go-module                    
@@ -639,7 +638,7 @@ golang.org/x/sync                                                             v0
 golang.org/x/sys                                                              v0.38.0                                 go-module                    
 golang.org/x/sys                                                              v0.47.0                                 go-module   (+1 duplicate)   
 golang.org/x/sys                                                              v0.48.0                                 go-module   (+1 duplicate)   
-golang.org/x/sys                                                              v0.49.0                                 go-module   (+1 duplicate)   
+golang.org/x/sys                                                              v0.49.1-0.20261022125458-f5cb0306ac0e   go-module   (+1 duplicate)   
 golang.org/x/term                                                             v0.45.0                                 go-module                    
 golang.org/x/term                                                             v0.46.0                                 go-module                    
 golang.org/x/term                                                             v0.47.0                                 go-module                    
@@ -934,7 +933,7 @@ libxrender                                                                    0.
 libxres                                                                       1.2.3-r0                                apk                          
 libxscrnsaver                                                                 1.2.5-r0                                apk                          
 libxshmfence                                                                  1.3.3-r0                                apk                          
-libxslt                                                                       1.1.43-r3                               apk                          
+libxslt                                                                       1.1.43-r4                               apk                          
 libxt                                                                         1.3.1-r0                                apk                          
 libxtables                                                                    1.8.13-r0                               apk                          
 libxtst                                                                       1.2.6-r0                                apk                          
@@ -1001,7 +1000,7 @@ mate-user-guide-lang                                                          1.
 mate-utils                                                                    1.28.0-r1                               apk                          
 mate-utils-lang                                                               1.28.0-r1                               apk                          
 maybe-rayon                                                                   0.1.1                                   rust-crate                   
-mbedtls3                                                                      3.6.7-r0                                apk                          
+mbedtls3                                                                      3.6.8-r0                                apk                          
 mcookie                                                                       2.42.3-r1                               apk                          
 memchr                                                                        2.7.5                                   rust-crate                   
 mesa                                                                          26.1.6-r0                               apk                          
@@ -1046,7 +1045,7 @@ nom                                                                           7.
 nom                                                                           8.0.0                                   rust-crate                   
 noop_proc_macro                                                               0.3.0                                   rust-crate                   
 nspr                                                                          4.38.2-r0                               apk                          
-nss                                                                           3.124-r0                                apk                          
+nss                                                                           3.133-r0                                apk                          
 num-bigint                                                                    0.4.6                                   rust-crate                   
 num-derive                                                                    0.4.2                                   rust-crate                   
 num-integer                                                                   0.1.46                                  rust-crate                   
@@ -1094,7 +1093,7 @@ perl-file-homedir                                                             1.
 perl-file-listing                                                             6.16-r0                                 apk                          
 perl-file-sharedir                                                            1.118-r1                                apk                          
 perl-file-which                                                               1.27-r1                                 apk                          
-perl-git                                                                      2.54.0-r0                               apk                          
+perl-git                                                                      2.54.1-r0                               apk                          
 perl-html-parser                                                              3.85-r0                                 apk                          
 perl-html-tagset                                                              3.24-r0                                 apk                          
 perl-http-cookies                                                             6.11-r0                                 apk                          
@@ -1153,7 +1152,7 @@ pycairo                                                                       1.
 pycparser                                                                     3.12                                    python                       
 pydantic                                                                      2.14.3                                  python                       
 pydantic-core                                                                 2.50.4                                  python                       
-pyee                                                                          16.0.1                                  python                       
+pyee                                                                          16.1.0                                  python                       
 pygobject                                                                     3.56.3                                  python                       
 pygobject                                                                     3.58.1                                  python                       
 pylibsrtp                                                                     1.0.0                                   python                       
@@ -1176,7 +1175,7 @@ readline                                                                      8.
 resenje.org/singleflight                                                      v0.4.3                                  go-module                    
 rhash-libs                                                                    1.4.6-r0                                apk                          
 roc-toolkit-libs                                                              0.4.0-r1                                apk                          
-runc                                                                          1.4.3-r2                                apk                          
+runc                                                                          1.4.4-r0                                apk                          
 runuser                                                                       2.42.3-r1                               apk                          
 rustix                                                                        1.0.7                                   rust-crate                   
 sbc                                                                           2.1-r0                                  apk                          
@@ -1212,8 +1211,8 @@ st                                                                            0.
 stable_deref_trait                                                            1.2.0                                   rust-crate                   
 starlette                                                                     1.10.0                                  python                       
 startup-notification                                                          0.12-r8                                 apk                          
-stdlib                                                                        go1.26.10                               go-module   (+2 duplicates)  
-stdlib                                                                        go1.26.9                                go-module   (+4 duplicates)  
+stdlib                                                                        go1.26.10                               go-module   (+3 duplicates)  
+stdlib                                                                        go1.26.9                                go-module   (+3 duplicates)  
 sudo                                                                          1.9.17_p2-r2                            apk                          
 syn                                                                           2.0.102                                 rust-crate                   
 tags.cncf.io/container-device-interface                                       v1.1.0                                  go-module                    
@@ -1301,8 +1300,8 @@ xfconf-lang                                                                   4.
 xkbcomp                                                                       1.5.0-r0                                apk                          
 xkeyboard-config                                                              2.47-r0                                 apk                          
 xkeyboard-config-lang                                                         2.47-r0                                 apk                          
-xorg-server                                                                   21.1.25-r0                              apk                          
-xorg-server-common                                                            21.1.25-r0                              apk                          
+xorg-server                                                                   21.1.26-r0                              apk                          
+xorg-server-common                                                            21.1.26-r0                              apk                          
 xprop                                                                         1.2.8-r0                                apk                          
 xrandr                                                                        1.5.4-r0                                apk                          
 xrdb                                                                          1.2.2-r0                                apk                          
@@ -1310,9 +1309,9 @@ xsel                                                                          1.
 xset                                                                          1.2.5-r1                                apk                          
 xsettingsd                                                                    1.0.2-r3                                apk                          
 xterm                                                                         410-r0                                  apk                          
-xvfb                                                                          21.1.25-r0                              apk                          
+xvfb                                                                          21.1.26-r0                              apk                          
 xvidcore                                                                      1.3.7-r2                                apk                          
-xwayland                                                                      24.1.14-r0                              apk                          
+xwayland                                                                      24.1.15-r0                              apk                          
 xz-libs                                                                       5.8.4-r0                                apk                          
 y4m                                                                           0.8.0                                   rust-crate                   
 yaml                                                                          0.2.5-r2                                apk                          
