@@ -38,6 +38,7 @@ RUN \
   apt-get update && \
   apt-get install --no-install-recommends -y \
     7zip \
+    amberol \
     breeze-gtk-theme \
     file-roller \
     gnome-calculator \
