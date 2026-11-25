@@ -88,6 +88,18 @@ if [ "${PELORUS,,}" == "true" ]; then
   export GTK_MODULES=gail:atk-bridge
 fi
 
+# Apply KDE's saved language for this session unless the container sets LC_ALL.
+if [[ -z "${LC_ALL:-}" ]]; then
+  KDE_LANG=$(kreadconfig6 --file plasma-localerc --group Formats --key LANG)
+  KDE_LANGUAGE=$(kreadconfig6 --file plasma-localerc --group Translations --key LANGUAGE)
+  if [[ -n "${KDE_LANG}" ]]; then
+    export LANG="${KDE_LANG}"
+  fi
+  if [[ -n "${KDE_LANGUAGE}" ]]; then
+    export LANGUAGE="${KDE_LANGUAGE}"
+  fi
+fi
+
 # Plasma environment scripts
 for ENV_SCRIPT in /etc/xdg/plasma-workspace/env/*.sh "${HOME}"/.config/plasma-workspace/env/*.sh; do
   if [ -r "${ENV_SCRIPT}" ]; then
